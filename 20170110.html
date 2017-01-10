@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0 auto;
+            line-height: 2em;
+        }
+        .box{
+            width: 1000px;
+            height: 100%;
+        }
+        .header{
+            width: 980px;
+            height:80px;
+            background-color:RGB(96,56,17);
+            opacity: 0.8;
+            border-top:3px solid black;
+            padding: 10px;
+            margin-top: 20px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            font-style: italic;
+        }
+        .header>span{
+            display: block;
+            float: left;
+        }
+        .main{
+            width: 980px;
+            border:2px solid RGB(96,56,17);
+            border-radius: 20px;
+            position: absolute;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        h2{
+            text-indent: 2em;
+        }
+        ul>li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .main span{
+            display: block;
+            width: 800px;
+            background-color: palegoldenrod;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="header">
+        <span>Class</span><span style="margin-left: 550px;">About</span><span style="margin-left: 20px;">Message</span>
+    </div>
+    <div class="main">
+        <h2>20170110总结-JS要点归纳</h2>
+        <p>1，JS的发展历史及目前现状</p>
+             <p style="text-indent: 2em;">JavaScript诞生于1995年。起初它的主要目的是处理以前由服务器端负责的一些表单验证。在那个绝大多数用户都在使用
+                调制解调器上网的时代，用户填写完一个表单点击提交，需要等待几十秒，完了服务器反馈给你说某个地方填错了......在
+                当时如果能在客户端完成一些基本的验证绝对是令人兴奋的。当时走在技术革新最前沿的Netscape（网景）公司，决定着
+                手开发一种客户端语言，用来处理这种装简单的验证。当时就职于Netscape公司的布兰登·艾奇开始着手计划将1995年2月
+               发布的LiveScript同时在浏览器和服务器中使用。为了赶在发布日期前完成LiveScript的开发，Netscape与Sun公司成 立了一
+               个开发联盟。而此时，Netscape为了搭上媒体热炒Java的顺风车，临时把LiveScript改名为JavaScript，所以从本质上来说
+               JavaScript和Java没什么关系。</p>
+             <p style="text-indent: 2em;">JavaScript 1.0获得了巨大的成功，Netscape随后在Netscape Navigator 3（网景浏览器）中发布了JavaScript 1.1。之
+               后作为竞争对手的微软在自家的IE3中加入了名为JScript（名称不同是为了避免侵权）的JavaScript实现。而此时市面上意味
+              着有3个不同的JavaScript版本，IE的JScript、网景的JavaScript和ScriptEase中的CEnvi。当时还没有标准规定JavaScript的
+              语法和特性。随着版本不同暴露的问题日益加剧，JavaScript的规范化最终被提上日程。</p>
+             <p style="text-indent: 2em;">1997年，以JavaScript1.1为蓝本的建议被提交给了欧洲计算机制造商协会（ECMA，European Computer Manufactures Association）
+              该协会指定39号技术委员会负责将其进行标准化，TC39来此各大公司以及其他关注脚本语言发展的公司的程序员组成，经过数月的
+              努力完成了ECMA-262——定义了一种名为ECMAScript的新脚本语言的标准。第二年，ISO/IEC（国标标准化组织和国际电工委员会）
+             也采用了ECMAScript作为标准（即ISO/IEC-16262）。</p>
+              <a href="http://www.cnblogs.com/ghost-xyx/p/4035615.html">了解更多请点击这里</a>
+        <p>2，JS的值类型及简单介绍
+        <ul>
+           <li>●Number
+              <span><code>
+                  var num='1'+1;<br/>
+                  console.log(num); //11 <br/>
+                  var num1=+'1';<br/>
+                  console.log(num1); //1 <br/>
+                  var num2=+[];<br/>
+                  console.log(num2);//0 <br/>
+              </code></span>
+           </li>
+           <li>●String
+           </li>
+           <li>●Boolean</li>
+           <li>●Null
+               <span><code>
+                   var num=null;  <br/>
+                   console.log(typeof num); //object
+               </code></span>
+           </li>
+           <li>●Undefined</li>
+        </ul>
+        </p>
+        <p>3，函数
+        <ul>
+           <li>●函数声明方式：
+               <ul>
+               <li>函数声明式声明（function fun(){}）,</li>
+               <li>表达式申明（var fun=function(){}）,</li>
+               <li>匿名申明（立执行函数）,</li>
+               <li>动态申明（new  function（））。</li>
+               </ul>
+           </li>
+           <li>●闭包:能读取函数内部变量的函数形式。</li>
+           <li>●作用域
+               <span>变量的作用域：
+               <pre>
+                   console.log(num);
+                   var num=1;  //undefined。变量定义会提前，但未赋值。
+               </pre></span>
+                <span>函数的作用域:函数是JS的一等公民，函数式声明会被提前，表达式申明不会被提前。
+               <pre>
+                   function fun(){console.log(1); }
+                   function fun(){console.log(2); }
+                   fun();   //2。第一个声明被覆盖</pre>
+                    <pre>
+                    var fun=function(){console.log(1); }
+                   Function fun(){console.log(2); }
+                   fun(); //1
+               </pre></span>
+           </li>
+           <li>●this的指向
+               <span><pre>
+                   var name='the window';
+                   var  obj= {
+                   name: 'the obj',
+                   fun: function () {
+                       return function () {
+                         console.log(this.name);
+                      }
+                   }
+                  }
+                  obj.fun()();   //the window
+               </pre></span>
+           </li>
+        </ul>
+        </p>
+    </div>
+</div>
+</body>
+</html>
+<script>
+   var name='the window';
+   var  obj= {
+       name: 'the obj',
+       fun: function () {
+           return function () {
+               console.log(this.name);
+           }
+       }
+   }
+    obj.fun()();
+</script>
