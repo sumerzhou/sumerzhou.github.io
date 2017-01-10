@@ -1,34 +1,78 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title></title>
-		<style>
-			*{
-				padding: 0;
-				margin: 0 auto;
-			}
-			.box{
-				width: 1000px;
-				height: 100%;
-			}
-            .box>div{
-                width: 1000px;
-                height:100px;
-                background-color:dodgerblue;
-		opacity: 0.8;    
-            }
-            h2{
-                text-indent: 2em;
-            }
-		</style>
-	</head>
-	<body>
-	 <div class='box'>
-	         <div></div>
-		<h2>周银琼的总结</h2>
-		<h3>目录</h3>		
-                <p><a href="20170109.html">20170109总结</a></p>
-	</div>		 
-	</body>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        *{
+            padding: 0;
+            margin:auto;
+        }
+        .box{
+            width: 1000px;
+            height: 100%;
+        }
+        .header{
+            width: 980px;
+            height:80px;
+            background-color:RGB(96,56,17);
+            opacity: 0.8;
+            border-top:3px solid black;
+            padding: 10px;
+            margin-top: 20px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            font-style: italic;
+        }
+        .header>span{
+            display: block;
+            float: left;
+        }
+        .main{
+            width: 980px;
+            padding:10px;
+            position: relative;
+        }
+        h2{
+            text-indent: 2em;
+        }
+       .subject{
+           border:2px solid RGB(96,56,17);
+           width: 550px;
+           height: 200px;
+           border-radius: 20px;
+           position: absolute;
+           padding: 10px;
+       }
+       .right{
+           width: 350px;
+           height: 600px;
+           border:2px solid RGB(96,56,17);
+           position: absolute;
+           right: 0;
+       }
+       .right>img{
+           width: 350px;
+           height: 600px;
+       }
+    </style>
+</head>
+<body>
+<div class='box'>
+    <div class="header">
+        <span>Class</span><span style="margin-left: 550px;">About</span><span style="margin-left: 20px;">Message</span>
+    </div>
+    <div class="main">
+      <div>
+         <h2>周银琼的总结</h2>
+         <div class="subject"><h3>目录</h3>
+         <p style="margin-top: 10px;"><a href="20170109.html">20170109总结</a></p></div>
+      </div>
+      <div class="right">
+          <img src="https://a-ssl.duitang.com/uploads/item/201506/04/20150604095250_PNYH3.jpeg">
+      </div>  
+</div>
+</div>
+</body>
 </html>
