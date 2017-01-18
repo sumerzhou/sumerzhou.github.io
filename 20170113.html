@@ -61,7 +61,7 @@
         <span>Class</span><span style="margin-left: 550px;">About</span><span style="margin-left: 20px;">Message</span>
     </div>
     <div class="main">
-        <h2>20170113-canvas画布</h2>
+        <h2>20170113~0116-canvas画布</h2>
         <p>1，canvas画布简介</p>
              画布canvas标记是一个矩形区域，包含width和height两个可选属性，表示矩形
         区域的高宽，可以通过CSS定义，默认值为300和150。
@@ -167,11 +167,78 @@
                       <img src="imgs/画布5.png"></pre>
               </li>
               <li>●反转颜色：
-
+                 <pre>
+                       var ctx=canv.getContext('2d');
+                       var img=new Image();
+                       img.src='糖宝.jpg';
+                       img.onload=function(){
+                           ctx.drawImage(img,0,0,100,100);   //绘制图像，并设置图像尺寸
+                           var imgData=ctx.getImageData(0,0, canv.width,canv.height);
+                       //getImageData方法返回 ImageData 对象，该对象拷贝了画布指定矩形的像素数据。
+               //反转颜色
+                           for(var i=0;i< imgData .data.length;i+=4){
+                               imgData.data[i]=255-imgData.data[i];
+                               imgData.data[i+1]=255-imgData.data[i+1];
+                               imgData.data[i+2]=255-imgData.data[i+2];
+                               imgData.data[i+3]=255;
+                        //对于 ImageData 对象中的每个像素，都存在着四方面的信息，即 RGBA 值：
+                        //  R - 红色 (0-255)
+                        //  G - 绿色 (0-255)
+                        //  B - 蓝色 (0-255)
+                        //  A - alpha 通道 (0-255; 0 是透明的，255 是完全可见的)
+                        //color/alpha 以数组形式存在，并存储于 ImageData 对象的 data 属性中。
+                           }
+                           ctx.putImageData(imgData,110,0);
+                       //putImageData方法将图像数据（从指定的 ImageData 对象）放回画布上。
+                       }
+                       <img src="imgs/画布8.png"></pre>  
               </li>
-              <li>●图形叠加：</li>
+              <li>●图形叠加：globalCompositeOperation 属性设置或返回如何将一个源（新的）图像绘制到目标（已有）
+                  的图像上。
+                  <pre>
+                     ctx.fillStyle="red";
+	                 ctx.fillRect(20,20,75,50);
+	                 ctx.globalCompositeOperation="source-over";
+	                 ctx.fillStyle="blue";
+	                 ctx.fillRect(50,50,75,50); </pre>
+                  <pre style="background-color: white;">
+	        source-over:默认。在目标图像上显示源图像。
+                     <img src="imgs/画布9.png">
+                     destination-over:在源图像上方显示目标图像。
+                     <img src="imgs/画布10.png">
+                     source-atop:在目标图像顶部显示源图像。源图像位于目标图像之外的部分是不可见的。
+                     <img src="imgs/画布11.png">
+                     source-in:在目标图像中显示源图像。只有目标图像内的源图像部分会显示，目标图像是透明的。
+                     <img src="imgs/画布12.png">
+                     source-out:在目标图像之外显示源图像。只会显示目标图像之外源图像部分，目标图像是透明的。
+                     <img src="imgs/画布13.png">
+                     destination-atop:在源图像顶部显示目标图像。源图像之外的目标图像部分不会被显示。
+                     <img src="imgs/画布14.png">
+                     destination-in:在源图像中显示目标图像。只有源图像内的目标图像部分会被显示，源图像是透明的。
+                     <img src="imgs/画布15.png">
+                     destination-out:在源图像外显示目标图像。只有源图像外的目标图像部分会被显示，源图像是透明的。
+                     <img src="imgs/画布16.png">
+                     lighter:显示源图像 + 目标图像。
+                     <img src="imgs/画布17.png">
+                     copy:显示源图像。忽略目标图像。
+                     <img src="imgs/画布18.png">
+                     xor:
+                     <img src="imgs/画布19.png"></pre>
+              </li>
               <li>●图形的保存与恢复：
-
+                  <pre>
+                  ctx.save();   //保存当前环境的状态
+                  ctx.fillRect(0,0,100,50);
+                  ctx.translate(50,50);
+                  ctx.restore();   //返回之前保存过的路径状态和属性
+                  ctx.save();
+                  ctx.fillStyle='blue';
+                  ctx.fillRect(0,0,50,100);
+                  ctx.restore();
+                  ctx.save();
+                  ctx.fillStyle='orange';
+                  ctx.fillRect(10,10,60,60);
+                  <img src="imgs/画布7.png"></pre>
               </li>
               <li>●图形的平移：translate() 方法重新映射画布上的 (0,0) 位置。
                   <pre>
@@ -182,12 +249,14 @@
                       ctx.strokeRect(10,10,100,50);
                       <img src="imgs/画布6.png"></pre>
               </li>
-              <li>●保存图像文件：</li>
+              <li>●保存图像文件：有时候要对绘制的图形保存，可以将当前的画布元素（非2d环境）
+                 的当前状态导出到数据URL。利用toDataURL方法即可，可以调用不同的图片格式.大多数浏览器支持
+                  读取base64编码内容,但有些只支持png格式,如firefox和欧朋,safari支持GIF,PNG,JPG格式.
+              </li>
               </ul>
           </ul>
     </div>
 </div>
-<canvas id="canv"></canvas>
 </body>
 </html>
 <script>
