@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0 auto;
+            line-height: 2em;
+        }
+        .box{
+            width: 1000px;
+            height: 100%;
+        }
+        .header{
+            width: 980px;
+            height:80px;
+            background-color:RGB(96,56,17);
+            opacity: 0.8;
+            border-top:3px solid black;
+            padding: 10px;
+            margin-top: 20px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            font-style: italic;
+        }
+        .header>span{
+            display: block;
+            float: left;
+        }
+        .main{
+            width: 980px;
+            border:2px solid RGB(96,56,17);
+            border-radius: 20px;
+            position: absolute;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        h2{
+            text-indent: 2em;
+        }
+        ul>li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .main pre{
+            display: block;
+            width: 850px;
+            background-color: palegoldenrod;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="header">
+        <span>Class</span><span style="margin-left: 550px;">About</span><span style="margin-left: 20px;">Message</span>
+    </div>
+    <div class="main">
+        <h2>20170117-音视频</h2>
+        <p>HTML5 视频和音频简介:</p>
+           <p style="text-indent: 2em;">HTML5 DOM 为audio和video元素提供了方法、属性和事件。&ltvideo&gt标签定义视频，比如电
+               影片段或其他视频流;&ltaudio&gt 标签定义声音，比如音乐或其他音频流。audio和video具有
+               的方法和属性基本类似,下文以audio为实例重点介绍.
+           </p>
+        <p>1，播放暂停模块</p>
+          <p style="text-indent: 2em;">play()开始播放音频/视频,pause()暂停当前播放的音频/视频.body部分结构如下图:</p>
+          <img src="imgs/audioplayer1.png">
+          <pre>
+              var plist=['播放.png','暂停.png'];
+              var n=0;   //用于判断播放状态
+              play.src=plist[0];
+              play.addEventListener('click',function(){
+                  if(n==0){
+                     aud.play();
+                     play.src=plist[1];
+                      n=1;
+                      palyprocess();  //调用进度条函数
+                  }else{
+                      aud.pause();
+                      play.src=plist[0];
+                      n=0;
+                  }
+              },false);</pre>
+        <p>2，上/下一曲模块</p>
+           <p style="text-indent: 2em;">此处用到autoplay 属性。autoplay 属性设置或返回音视频是否在加载后即开始播放,它的
+               属性值为布尔值true/false。当切换到上/下一曲时,开始自动播放.</p>
+           <pre>
+        上一曲:last.addEventListener('click',function (){
+                   play.src=plist[1];
+                   n=1;
+                   if(m!=-1){      //m变量用来判断当前的播放模式.在播放模式模块有定义.
+                       index-=1;
+                       if(index<0){
+                           index=4;
+                       }
+                       aud.src=songs[index]; //建立一个存放歌曲的数组songs
+                   }else{
+                       index=parseInt(Math.random()*songs.length);
+                       aud.src=songs[index];
+                   }
+                       aud.autoplay=true;
+                   palyprocess();
+               },false);
+       下一曲:next.addEventListener('click',function(){
+                   play.src=plist[1];
+                   n=1;
+                   if(m!=-1){
+                       index+=1;
+                       if(index>4){
+                           index=0;
+                       }
+                      aud.src=songs[index];
+                   }else{
+                       index=parseInt(Math.random()*songs.length);
+                       aud.src=songs[index];
+                   }
+                   aud.autoplay=true;
+                   palyprocess();
+               },false);</pre>
+        <p>3，播放模式切换模块</p>
+           <pre>
+               var mlist=['循环播放.png','单曲循环.png','随机播放.png'];
+               var m=0;  //定义用来判断当前播放模式的标记变量
+               mode.addEventListener('click',function(){
+                   m+=1;
+                  if(m==0){
+                      mode.src=mlist[0];
+                  }else if(m==1){
+                      aud.loop=true;  //loop 属性设置或返回音频/视频是否应该在结束时再次播放,值为布尔值。
+                      mode.src=mlist[1];
+                  }else{
+                      aud.loop=false;
+                      mode.src=mlist[2];
+                      m=-1;
+                  }
+               },false);</pre>
+           <p style="text-indent: 2em;">在循环播放和随机播放模式下,一首歌曲结束会自动进入下一首,
+           这里会使用到ended属性或ended事件。ended属性返回音频/视频是否已结束,返回值为布尔值;ended
+           事件来判断当目前的播放列表已结束时。代码如下:</p>
+           <pre>
+               //判断歌曲是否结束
+              aud.addEventListener('ended',function (){
+                  if(n==1&&m==0){
+                      index+=1;
+                      if(index>4){
+                          index=0;
+                      }
+                      aud.src=songs[index];
+                      aud.autoplay=true;
+                      palyprocess();
+                  }else if(n==1&&m==-1){
+                      index=parseInt(Math.random()*songs.length);
+                      aud.src=songs[index];
+                      aud.autoplay=true;
+                      palyprocess();
+                  }
+              },false);
+           </pre>
+        <p>4，播放进度模块:a,音乐播放进度模块;b,音乐缓存进度模块;c,进度拖放模块</p>
+           <p style="text-indent: 2em;">此处用到currentTime,duration和buffered属性。currentTime
+               属性设置或返回音频/视频播放的当前位置（以秒计）,当设置该属性时，播放会跳跃到指定的位置。
+               duration 属性返回当前音频/视频的长度，以秒计,如果未设置音频/视频，则返回 NaN (Not-a-Number)。
+               buffered 属性返回 TimeRanges 对象,TimeRanges 对象表示用户的音视频缓冲范围,缓冲范围指的是已
+               缓冲音视频的时间范围。如果用户在音视频中跳跃播放，会得到多个缓冲范围;TimeRanges 对象的属性有length
+               获得音视频中已缓冲范围的数量,start(index)获得某个已缓冲范围的开始位置,end(index)属性获得某个已缓
+               冲范围的结束位置,首个缓冲范围的下表是 0。</p>
+           <pre>
+              //a,音乐播放进度模块
+               var time;
+               function palyprocess(){
+                   clearInterval(time);
+                   time=setInterval(barprocess,100);
+                   return time;
+               }
+               function barprocess(){
+                   playtimes[0].innerHTML=detection(parseInt(aud.currentTime/60))+':'+   //显示当前播放进度时间
+                                          detection(parseInt(aud.currentTime%60));
+                   playtimes[1].innerHTML=detection(parseInt(aud.duration/60))+':'+      //显示当前歌曲总时间
+                                          detection(parseInt(aud.duration%60));
+                   bar.style.width=aud.currentTime/aud.duration*480+'px';
+               //b,音乐缓存进度模块
+                   var timerange=aud.buffered;
+                   bufbar.style.width=(timerange.end(timerange.length-1))/aud.duration*480+'px';
+               }
+               function detection(num){
+                   if(num<10){
+                       return '0'+num;
+                   }else{
+                       return num;
+                   }
+               }
+
+               //c,进度拖放模块
+               container.addEventListener('click',barmove,false);  //点击事件
+               function barmove(e){
+                e=e||window.event;
+                bar.style.width= e.clientX-400+'px';
+                aud.currentTime=(e.clientX-400)/480*aud.duration;
+                }
+               container.onmousedown=function(e){    //拖放进度事件
+                   var e=e||window.event;
+                   clearInterval(time);       //在拖动过程中先停止进度条定时器
+                   bar.style.width= e.clientX-400+'px';
+                   container.onmousemove=function(e){
+                       clearInterval(time);
+                       bar.style.width= e.clientX-400+'px';
+                   }
+                   window.onmouseup=function(e){
+                       bar.style.width= e.clientX-400+'px';
+                       if((e.clientX-400)/480*aud.duration<(aud.buffered.end(aud.buffered.length-1))){
+                       aud.currentTime=(e.clientX-400)/480*aud.duration;
+                       }else{
+                           bar.style.width=(aud.buffered.end(aud.buffered.length-1))/aud.duration*480+'px';
+                           aud.currentTime=aud.buffered.end(aud.buffered.length-1);
+                       }
+                       container.onmousemove=null;
+                       window.onmouseup=null;
+                       palyprocess();      //鼠标离开的时候重新开启进度条
+                   }
+               }</pre>
+        <p>5，音量调节模块</p>
+           <p style="text-indent: 2em;">音量调节用到volume属性,volume属性设置或返回音频/视频的当前音量,值是
+               介于 0.0 与 1.0 之间的数字,0.0 是静音,默认值1.0为最高音量。</p>
+           <pre>
+               volume.addEventListener('click',volumebarmove,false);
+               function volumebarmove(e){
+                   e=e||window.event;
+                   volumebar.style.height= adbar.offsetTop-e.clientY-10+'px';
+                   aud.volume=parseInt(volumebar.style.height)/100;
+               }
+
+               volume.onmousedown=function(e){
+                   e=e||window.event;
+                   volumebar.style.height= adbar.offsetTop-e.clientY-10+'px';
+                   volume.onmousemove=function(e){
+                       volumebar.style.height= adbar.offsetTop-e.clientY-10+'px';
+                       aud.volume=parseInt(volumebar.style.height)/100;
+                   }
+                   window.onmouseup=function(e){
+                       volumebar.style.height= adbar.offsetTop-e.clientY-10+'px';
+                       volume.onmousemove=null;
+                       window.onmouseup=null;
+                   }
+               }</pre>
+        <p>6，歌词模块</p>
+
+        <p>7，(流程插入)列表选择模块</p>
+
+            </span>
+    </div>
+</div>
+</body>
+</html>
+<script>
+
+</script>
