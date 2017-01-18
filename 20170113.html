@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0 auto;
+            line-height: 2em;
+        }
+        .box{
+            width: 1000px;
+            height: 100%;
+        }
+        .header{
+            width: 980px;
+            height:80px;
+            background-color:RGB(96,56,17);
+            opacity: 0.8;
+            border-top:3px solid black;
+            padding: 10px;
+            margin-top: 20px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            font-style: italic;
+        }
+        .header>span{
+            display: block;
+            float: left;
+        }
+        .main{
+            width: 980px;
+            border:2px solid RGB(96,56,17);
+            border-radius: 20px;
+            position: absolute;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        h2{
+            text-indent: 2em;
+        }
+        ul>li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .main pre{
+            display: block;
+            width: 850px;
+            background-color: palegoldenrod;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="header">
+        <span>Class</span><span style="margin-left: 550px;">About</span><span style="margin-left: 20px;">Message</span>
+    </div>
+    <div class="main">
+        <h2>20170113-canvas画布</h2>
+        <p>1，canvas画布简介</p>
+             画布canvas标记是一个矩形区域，包含width和height两个可选属性，表示矩形
+        区域的高宽，可以通过CSS定义，默认值为300和150。
+         <img src="imgs/画布1.png"><br/>
+                注：部分浏览器不支持canvas。此处定义的高宽直接用数字即可。
+        <p>2，canvas画布操作</p>
+          <ul>
+              <li>(1)创建context对象：
+                 <pre>
+                  var canv=document.getElementById('canv');
+                  var ctx=canv.getContext('2d');
+                 </pre>
+                  getContext方法返回一个指定context id的上下文对象，如果指定的id
+                  不被支持，返回null，当前唯一被强制必须支持的是‘2d’将来可能会有
+                  的‘3d’，注意指定的id大小写敏感。创建好cxt后就拥有绘制路径、矩
+                  形、圆形、文字以及添加图像的方法了。
+              </li>
+              <li>（2）绘制图形：</li>
+              <ul>
+              <li>●绘制矩形：
+                   <pre>
+                       ctx.fillStyle='orange'; //fillStyle方法用于染色；
+                       ctx.fillRect(100,100,20,20); //fillRect用于绘制‘被填充’的矩形
+
+                        ctx.rect(100,100,50,50);//创建一个矩形区域
+                        ctx.stroke();  //stroke绘制已定义的路径
+                    （或者用ctx.strokeRect绘制一个无填充的矩形，效果一样）
+
+                       ctx.clearRect(0,0,300,150);  //在给定的矩形内清除指定的像素
+                   </pre>
+              </li>
+              <li>●绘制圆形：先通过beginPath方法绘制路径，再调用arc方法绘制曲线，接着
+                  用fill和stroke方法完成填充和边框设置，最后通过closePath方法结束路径绘制。
+                 <pre>
+                     ctx.beginPath();   //开始一条路径，或重置当前路径
+                     ctx.arc(50,50,20,0.5*Math.PI,1.5*Math.PI);  //创建弧/曲线（用于创建圆形或部分圆）
+                     //arc(x,y,r,sAngle,eAngle,counterclockwise),各参数分别为x 坐标、y 坐标、半径、
+                     起始角、结束角、顺/逆时针（可选）
+                     ctx.fillStyle='orange';
+                     ctx.fill();       //填充当前的绘图（路径）
+                     ctx.closePath();  //创建从当前点回到起始的路径
+                     ctx.stroke();
+                 </pre>
+              </li>
+              <li>●绘制直线：用moveTo方法定义一个坐标位置，然后以此坐标为起点，绘制直线，接着
+                  用lineWidth设置直线宽度，用strokeStyle设置笔触的颜色，最后用lineTo设置结束位置。
+                   <pre>
+                     ctx.beginPath();
+                     ctx.lineWidth=10;   //设置直线宽度
+                     ctx.moveTo(10,10);  //把路径移动到画布中指定点，不创建线条
+                     ctx.lineTo(50,10);  //添加一个新点，然后在画布中创建从该点到最后指定点的线条
+                     ctx.lineTo(50,60);
+                     ctx.lineTo(10,60);
+                     ctx.lineTo(10,10);
+                     ctx.strokeStyle='blue';  //设置笔触颜色
+                     ctx.stroke();
+                   </pre>
+              </li>
+              <li>●渐变色：createLinearGradient() 方法创建线性的渐变对象。
+                  createLinearGradient() 方法创建放射状/圆形渐变对象。
+                 <pre>线性渐变：
+                     var gradient=ctx.createLinearGradient(5,5,100,100);
+                     //四个坐标各自是渐变开始点的 x、y 坐标和渐变结束点的 x、y 坐标
+                     gradient.addColorStop(0,'orange');//addColorStop方法规定gradient对象中的颜色和位置。
+                     gradient.addColorStop(1,'green');//首个参数介于 0.0 与 1.0 之间，表示渐变中开始与
+                     ctx.fillStyle=gradient;            结束之间的位置。
+                     ctx.fillRect(0,0,100,100);
+                      <img src="imgs/画布2.png">
+    圆形渐变：
+                       var gradient=ctx.createRadialGradient(50,50,10,50,50,30);//六个坐标各自是渐变开始点
+                       gradient.addColorStop(0,'orange');            的x、y 坐标、开始圆的半径、渐变结束
+                       gradient.addColorStop(0.5,'pink');          点的 x、y 坐标和结束圆的半径
+                       gradient.addColorStop(0.8,'white');
+                       gradient.addColorStop(1,'green');
+                       ctx.fillStyle=gradient;
+                       ctx.fillRect(0,0,100,100);
+                     <img src="imgs/画布3.png"></pre>
+              </li>
+              <li>●二、三次贝塞尔曲线：quadraticCurveTo() 方法通过使用表示二次贝塞尔曲线的指定控制点，
+                  向当前路径添加一个点。bezierCurveTo() 方法通过使用表示三次贝塞尔曲线的指定控制点，向当前路径添加一个点。
+                  <pre>二次贝塞尔曲线：
+                      ctx.moveTo(40,340);
+                      ctx.lineTo(260,80);
+                      ctx.lineTo(360,300);
+                      ctx.stroke();
+                      ctx.beginPath();
+                      ctx.moveTo(40,340);
+                      ctx.quadraticCurveTo(260,80,360,300);
+                      ctx.strokeStyle = "#f40";
+                      ctx.stroke();
+                      <img src="imgs/画布4.png">
+        三次贝塞尔曲线：
+                      ctx.moveTo(50, 350);
+                      ctx.lineTo(120, 160);
+                      ctx.lineTo(300, 60);
+                      ctx.lineTo(340, 300);
+                      ctx.stroke();
+                      ctx.beginPath();
+                      ctx.moveTo(50, 350);
+                      ctx.bezierCurveTo(120, 160, 300, 60, 340, 300);
+                      ctx.strokeStyle = "#f40";
+                      ctx.stroke();
+                      <img src="imgs/画布5.png"></pre>
+              </li>
+              <li>●反转颜色：
+
+              </li>
+              <li>●图形叠加：</li>
+              <li>●图形的保存与恢复：
+
+              </li>
+              <li>●图形的平移：translate() 方法重新映射画布上的 (0,0) 位置。
+                  <pre>
+                      ctx.strokeRect(10,10,100,50);
+                      ctx.translate(30,30);   //平移距离
+                      ctx.strokeRect(10,10,100,50);
+                      ctx.translate(30,30);
+                      ctx.strokeRect(10,10,100,50);
+                      <img src="imgs/画布6.png"></pre>
+              </li>
+              <li>●保存图像文件：</li>
+              </ul>
+          </ul>
+    </div>
+</div>
+<canvas id="canv"></canvas>
+</body>
+</html>
+<script>
+
+</script>
