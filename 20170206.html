@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0 auto;
+            line-height: 2em;
+        }
+        .box{
+            width: 1000px;
+            height: 100%;
+        }
+        .header{
+            width: 980px;
+            height:80px;
+            background-color:RGB(96,56,17);
+            opacity: 0.8;
+            border-top:3px solid black;
+            padding: 10px;
+            margin-top: 20px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            font-style: italic;
+        }
+        .header>span{
+            display: block;
+            float: left;
+        }
+        .main{
+            width: 980px;
+            border:2px solid RGB(96,56,17);
+            border-radius: 20px;
+            position: absolute;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        h2{
+            text-indent: 2em;
+        }
+        ul>li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .main pre{
+            display: block;
+            width: 850px;
+            background-color: palegoldenrod;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="header">
+        <span>Class</span><span style="margin-left: 550px;">About</span><span style="margin-left: 20px;">Message</span>
+    </div>
+    <div class="main">
+        <h2>20170206-设计模式及Ajax</h2>
+        <p>1，设计模式</p>
+           <ul>
+               <li>●概念：设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对
+                   象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般
+                   问题的解决方案。每一个模式描述了一个不断重复发生的问题，以及该问题解决方
+                   案的核心设计。这些解决方案是众多软件开发人员经过相当长的一段时间的试验
+                   和错误总结出来的。</li>
+               <li>●工厂模式。工厂模式是我们最常用的实例化对象模式了，是用工厂方法代替new操作的一种模式。
+                   <pre>例：
+                         function factory(name,age,sex){
+                             var obj={};
+                             obj.name=name;
+                             obj.age=age;
+                             obj.sex=sex;
+                             obj.fun=function(){
+                                 console.log('工厂方法');
+                             }
+                             return obj;
+                         }
+                         var student=factory('张三',20,'男');
+                   </pre>
+               </li>
+               <li>●MVC设计模式，一般指MVC框架，是一个框架模式，是模型(model)－视图(view)－控制器(controller)
+                   的缩写。随着时间推移，MVC模式也暴露出大量缺点，因为MVC模式本质上是一个结构型模式，结构模式相
+                   比行为模式而言，实际就是静止的，相对固定的，而随着B/S和互联网应用不断普及，Web 2.0和社会化媒
+                   体 以及游戏等大量频繁交互应用普及，相对静止的MVC模式已经不适合高度交互注重行为的应用了。</li>
+               <li>●<a href="http://www.cnblogs.com/maowang1991/archive/2013/04/15/3023236.html">更多设计模式</a></li>
+           </ul>
+        <p>2，Ajax</p>
+           <ul>
+               <li>●AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）。是一种在无需重新加载整个网
+                   页的情况下，能够更新部分网页的技术。</li>
+               <li>●AJAX - 创建 XMLHttpRequest 对象。XMLHttpRequest 是 AJAX 的基础。
+                   <pre>创建 XMLHttpRequest 对象的语法：
+                        variable=new XMLHttpRequest();
+                       老版本的 Internet Explorer （IE5 和 IE6）使用 ActiveX 对象：
+                       variable=new ActiveXObject("Microsoft.XMLHTTP");
+                   </pre>
+               </li>
+               <li>●AJAX - 向服务器发送请求。如需将请求发送到服务器，我们使用 XMLHttpRequest 对象的 open() 和 send() 方法：
+                   <pre>例：
+                       xmlhttp.open("GET","test1.txt",true);
+                       xmlhttp.send();
+                   </pre>
+                   open(method,url,async)方法中，method为请求的类型（GET 或 POST），
+                   url为文件在服务器上的位置，async为true（异步）。url文件可以是任何类型的
+                   文件，比如 .txt 和 .xml，或者服务器脚本文件，比如 .asp 和 .php （在传回响应之前，能够在服务器上执行任务）。
+                   <pre>可使用 setRequestHeader() 来添加 HTTP 头。然后在 send() 方法中规定您希望发送的数据：
+                       xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                   </pre>
+               </li>
+               <li>●AJAX - 服务器响应。使用 XMLHttpRequest 对象的response属性获得来自服务器的响应。</li>
+               <li>●AJAX - onreadystatechange 事件。当请求被发送到服务器时，我们需要执行一些基于响应的任务。
+                   readyState 属性存有 XMLHttpRequest 的状态信息，从 0 到 4 发生变化（0: 请求未初始化；1: 服
+                   务器连接已建立；2: 请求已接收；3: 请求处理中；4: 请求已完成，且响应已就绪）。每当 readyState
+                   改变时，就会触发 onreadystatechange 事件。XMLHttpRequest 对象的status属性，值“200”表示 "OK"，
+                   “404”表示“ 未找到页面”。
+                   <pre>在 onreadystatechange 事件中，我们规定当服务器响应已做好被处理的准备时所执行的任务。
+                       当 readyState 等于 4 且状态为 200 时，表示响应已就绪：
+                         xmlhttp.onreadystatechange = function () {
+                            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                txt.innerHTML = xmlhttp.response;
+                            }
+                        }
+                    }
+                   </pre>
+               </li>
+           </ul>
+    </div>
+</div>
+</body>
+</html>
+<script>
+
+
+
+
+</script>
