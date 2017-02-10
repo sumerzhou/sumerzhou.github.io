@@ -243,8 +243,8 @@
                            <pre>语法:$(selector).hasClass(class)。
                               $("button").click(function(){
                                 alert($("p:first").hasClass("intro"));
-                              });
-                           </pre>检查第一个 &ltp&gt 元素是否包含 "intro" 类,有则返回true，没有返回false。
+                              });</pre>
+                           检查第一个 &ltp&gt 元素是否包含 "intro" 类,有则返回true，没有返回false。
                        </li>
                        <li>□toggleClass()对设置或移除被选元素的一个或多个类进行切换。
                            该方法检查每个元素中指定的类。如果不存在则添加类，如果已设置则删除之。这就是所谓的切换效果。
@@ -255,20 +255,128 @@
                              });</pre>
                        </li>
                        <li>□removeClass()方法从被选元素移除一个或多个类。
-                       
+                           <pre>语法:$(selector).removeClass(class)。
+                             $("button").click(function(){
+                               $("p:first").removeClass("intro");
+                             });</pre>
                        </li>
-                       <li>□css()</li>
-                       <li>□offset()</li>
-                       <li>□offsetParent()</li>
-                       <li>□position()</li>
-                       <li>□scrollLeft()</li>
-                       <li>□scrollTop()</li>
-                       <li>□width()</li>
-                       <li>□height()</li>
+                       <li>□css()方法返回或设置匹配的元素的一个或多个样式属性。
+                           当用于返回一个值时，不支持简写的 CSS 属性（比如 "background" 和 "border"）。
+                           <pre>返回 CSS 属性值语法：$(selector).css(name)。
+        设置 CSS 属性:$(selector).css(name,value)。
+        可使用函数来设置 CSS 属性：$(selector).css(name,function(index,value))。
+                             $(".btn1").click(function(){
+                               $("p").css("color","red");
+                             });
+         设置多个 CSS 属性/值对，把“名/值对”对象设置为所有匹配元素的样式属性。
+                              $("p").css({
+                                "color":"white",
+                                "background-color":"#98bf21",
+                                "font-family":"Arial",
+                                "font-size":"20px",
+                                "padding":"5px"
+                               });</pre>
+                       </li>
+                       <li>□offset() 方法返回或设置匹配元素相对于文档的偏移（位置）。
+                           <pre>返回偏移坐标语法:$(selector).offset()。该方法返回的对象包含两个整型属性：top 和 left，以像素计。
+    设置偏移坐标:$(selector).offset(value)。value规定以像素计的 top 和 left 坐标,比如 {top:100,left:0}。
+                               $(".btn1").click(function(){
+                                  x=$("p").offset();
+                                  $("#span1").text(x.left);
+                                  $("#span2").text(x.top);
+                                });</pre>
+                       </li>
+                       <li>□offsetParent()方法返回最近的祖先定位元素。
+                           定位元素指的是元素的 CSS position 属性被设置为 relative、absolute 或 fixed 的元素。</li>
+                           <pre>语法:$(selector).offsetParent()。
+                             $("button").click(function(){
+                               $("p").offsetParent().css("background-color","red");
+                             });</pre>
+                       <li>□position()方法返回匹配元素相对于父元素的位置（偏移）。
+                           该方法返回的对象包含两个整型属性：top 和 left，以像素计。</li>
+                           <pre>语法:$(selector).position()。
+                             $(".btn1").click(function(){
+                               x=$("p").position();
+                               $("#span1").text(x.left);
+                               $("#span2").text(x.top);
+                             });</pre>
+                       <li>□scrollLeft()方法返回或设置匹配元素的滚动条的水平位置。
+                           <pre>语法:$(selector).scrollLeft()。
+                             $(".btn1").click(function(){
+                               $("div").scrollLeft(100);
+                             });</pre>
+                       </li>
+                       <li>□scrollTop()方法返回或设置匹配元素的滚动条的垂直位置。
+                           当用于获取值时，该方法只返回第一个匹配元素的 scroll top offset。
+                           当用于设置值时，该方法设置所有匹配元素的 scroll top offset。
+                           <pre>语法:$(selector).scrollTop(offset)。
+                             $(".btn1").click(function(){
+                               $("div").scrollLeft(100);
+                             });</pre>
+                       </li>
+                       <li>□width()方法返回或设置匹配元素的宽度。返回第一个匹配元素的宽度。
+                           <pre>语法:$(selector).width()。
+                             $(".btn1").click(function(){
+                               $("p").width(200);
+                             });</pre>
+                       </li>
+                       <li>□height()方法返回或设置匹配元素的高度。返回第一个匹配元素的高度。
+                           <pre>语法:$(selector).height()。
+                             $(".btn1").click(function(){
+                               $("p").height(50);
+                             });</pre>
+                       </li>
                    </ul>
                </li>
            </ul>
         <p>4,jQuery事件</p>
+           <p>jQuery 是为事件处理特别设计的。jQuery 事件处理方法是 jQuery 中的核心函数。</p>
+            <p>事件分类：</p>
+               <ul>
+                  <li>●与浏览器相关事件：
+                      <pre>
+       (1)  ready() 函数,规定当 ready 事件发生时执行的代码。允许使用以下三种语法：
+                          $(document).ready(function)
+                          $().ready(function)
+                          $(function)
+        (2) resize() 当调整浏览器窗口的大小时，发生 resize 事件。语法：
+                            $(selector).resize(function)
+                            对浏览器窗口调整大小进行计数：
+                            $(window).resize(function() {
+                              $('span').text(x+=1);
+                            });
+        （3）当用户滚动指定的元素时，会发生 scroll 事件。
+             scroll 事件适用于所有可滚动的元素和 window 对象（浏览器窗口）。语法：
+                          $(selector).scroll(function)</pre>
+                  </li>
+                  <li>●鼠标相关事件：click(),dblclick(),hover(),blur(),focus(),mousedown(),mousemove(),mouseout(),mouseup()
+                  事件等。</li>
+                  <li>●与键盘相关事件：keydown(),keypress(),keyup()</li>
+               </ul>
+            <p>绑定、移除事件：</p>
+               <ul>
+                   <li>●bind()方法为被选元素添加一个或多个事件处理程序，并规定事件发生时运行的函数。
+                       <pre>语法:$(selector).bind(event,data,function)。
+       替代语法:$(selector).bind({event:function, event:function, ...})。
+                         当点击鼠标时，隐藏或显示 p 元素：
+                         $("button").bind("click",function(){
+                           $("p").slideToggle();
+                         });</pre>
+                   </li>
+                   <li>●unbind() 方法移除被选元素的事件处理程序。
+                       该方法能够移除所有的或被选的事件处理程序，或者当事件发生时终止指定函数的运行。</li>
+                       <pre>语法:$(selector).unbind(event,function)。如果没有规定参数，unbind() 方法会删除指定元素的所有事件处理程序。
+                         $("button").click(function(){
+                           $("p").unbind();
+                         });</pre>
+                   <li>●one() 方法为被选元素附加一个或多个事件处理程序，并规定当事件发生时运行的函数。
+                       当使用 one() 方法时，每个元素只能运行一次事件处理器函数。
+                       <pre>语法:$(selector).one(event,data,function)。
+                         $("p").one("click",function(){
+                           $(this).animate({fontSize:"+=6px"});
+                         });</pre>
+                   </li>
+               </ul>
         <p>5,jQuery动画</p>
            <ul>
                <li>●hide()方法和show()方法隐藏/显示HTML 元素。
@@ -288,9 +396,33 @@
                          $("p").toggle();
                        });</pre>
                </li>
-               <li>●</li>
-               <li>●</li>
-               <li>●</li>
+               <li>●fadeIn() 用于淡入已隐藏的元素。fadeOut() 方法用于淡出可见元素。
+                   fadeToggle() 方法可以在 fadeIn() 与 fadeOut() 方法之间进行切换。
+                   fadeTo() 方法允许渐变为给定的不透明度（值介于 0 与 1 之间）。
+                   <pre>
+                     $("button").click(function(){
+                         $("#div1").fadeIn();
+                         $("#div2").fadeOut("slow");
+                         $("#div3").fadeToggle(3000);
+                       });</pre>
+               </li>
+               <li>●slideDown() 方法用于向下滑动元素。slideUp() 方法用于向上滑动元素。
+                   slideToggle() 方法可以在 slideDown() 与 slideUp() 方法之间进行切换。
+                   <pre>
+                     $("#flip").click(function(){
+                         $("#panel").slideUp();
+                       });</pre>
+               </li>
+               <li>●animate() 方法允许您创建自定义的动画。
+                    <pre>语法：$(selector).animate({params},speed,callback);
+        必需的 params 参数定义形成动画的 CSS 属性。
+        可选的 speed 参数规定效果的时长。它可以取以下值："slow"、"fast" 或毫秒。
+        可选的 callback 参数是动画完成后所执行的函数名称。
+        下面的例子演示animate()方法的简单应用；它把&ltdiv&gt元素移动到左边，直到left属性等于250像素为止：
+                        $("button").click(function(){
+                          $("div").animate({left:'250px'});
+                        });</pre>
+               </li>
            </ul>
     </div>
 </div>
