@@ -97,11 +97,11 @@
                </li>
            </ul>
         <p>2,jQuery 选择器</p>
-           <p>选择器允许您对元素组或单个元素进行操作。</p>
+           <p style="text-indent: 2em;">选择器允许您对元素组或单个元素进行操作。</p>
            <ul>
                <li>●jQuery 元素选择器， 使用 CSS 选择器来选取 HTML 元素。
                    <ul style="margin-left: 10px;">
-                       <li>$("p") 选取 &ltp&gt 元素。</li>
+                       <li>$("p") 选取&ltp&gt 元素。</li>
                        <li>$("p.intro") 选取所有 class="intro" 的 &ltp&gt 元素。</li>
                        <li>$("p#demo") 选取所有 id="demo" 的 &ltp&gt 元素。</li>
                    </ul>
@@ -119,6 +119,178 @@
                          $("p").css("background-color","red");
                     </pre>
                </li>
+           </ul>
+        <p>3,jQuery的DOM操作</p>
+           <ul>
+               <li>●简介：jQuery 中非常重要的部分，就是操作 DOM 的能力。DOM 定义访问 HTML 和 XML 文档的标准：
+                   “W3C 文档对象模型独立于平台和语言的界面，允许程序和脚本动态访问和更新文档的内容、结构以及样式。”</li>
+               <li>●jQuery文档操作。jQuery 文档操作方法对于 XML 文档和 HTML 文档均是适用的，除了html()。部分方法如下：
+                    <ul style="margin-left: 15px;">
+                        <li>□after() 方法在被选元素后插入指定的内容。
+                            <pre>语法:$(selector).after(content)。
+        规定要插入的内容（可包含 HTML 标签）。
+        也可使用函数在被选元素之后插入指定的内容：$(selector).after(function(index))
+                                $("button").click(function(){
+                                  $("p").after("&ltp&gtHello world!&lt/p&gt");
+                                });</pre>
+                        </li>
+                        <li>□before()方法在被选元素前插入指定的内容。用法与after()类似。</li>
+                        <li>□insertAfter()方法在被选元素之后插入 HTML 标记或已有的元素。
+                            如果该方法用于已有元素，这些元素会被从当前位置移走，然后被添加到被选元素之后。
+                            <pre>语法:$(content).insertAfter(selector)
+                               $("button").click(function(){
+                                 $("&ltspan&gtHello world!&lt/span&gt").insertAfter("p");
+                               });</pre>
+                        </li>
+                        <li>□insertBefore()方法在被选元素之前插入 HTML 标记或已有的元素。用法与insertAfter()类似。</li>
+                        <li>□append() 方法在被选元素的结尾（仍然在内部）插入指定内容。
+                            <pre>语法：$(selector).append(content)。
+        规定要插入的内容（可包含 HTML 标签）。
+        也可使用函数在被选元素之后插入指定的内容：$(selector).append(function(index,html))
+                               $("button").click(function(){
+                                 $("p").append(" &ltb&gtHello world!&lt/b&gt");
+                               });</pre>
+                            append() 和 appendTo() 方法执行的任务相同。不同之处在于：内容和选择器的位置，以及 append()
+                            能够使用函数来附加内容。appendTo()语法：$(content).appendTo(selector)</li>
+                        <li>□prepend()方法在被选元素的开头（仍位于内部）插入指定内容。
+                            <pre>语法:$(selector).prepend(content)。
+        规定要插入的内容（可包含 HTML 标签）。
+        也可使用函数在被选元素之后插入指定的内容：$(selector).prepend(function(index,html))
+                               $(".btn1").click(function(){
+                                 $("p").prepend("&ltb&gtHello world!&lt/b&gt");
+                               });</pre>
+                            prepend() 和 prependTo() 方法作用相同。差异在于语法：内容和选择器的位置，以及 prependTo()
+                            无法使用函数来插入内容。prependTo()语法:$(content).prependTo(selector)
+                        </li>
+                        <li>□empty()方法从被选元素移除所有内容，包括所有文本和子节点。
+                            <pre>语法:$(selector).empty()。
+                                $(".btn1").click(function(){
+                                  $("p").empty();
+                                });</pre>
+                        </li>
+                        <li>□remove()方法移除被选元素，包括所有文本和子节点。于empty()方法不同的是，empty()不移除被选元素本身。
+                            但该方法不会把匹配的元素从 jQuery 对象中删除，因而可以在将来再使用这些匹配的元素。
+                            但除了这个元素本身得以保留之外，remove() 不会保留元素的 jQuery 数据。其他的比如绑定的事件、附加的数据等都会被移除。</li>
+                        <li>□html()方法返回或设置被选元素的内容 (inner HTML)。当使用该方法返回一个值时，它会返回第一个匹配元素的内容。
+                            当使用该方法设置一个值时，它会覆盖所有匹配元素的内容。
+                            <pre>语法:$(selector).html(content)
+                              $(".btn1").click(function(){
+                                $("p").html("Hello &ltb&gtworld&lt/b&gt!");
+                              });</pre>
+                        </li>
+                        <li>□text()方法设置或返回被选元素的文本内容。当该方法用于返回一个值时，
+                            它会返回所有匹配元素的组合的文本内容（会删除 HTML 标记）。
+                            当该方法用于设置值时，它会覆盖被选元素的所有内容。
+                            <pre>语法:$(selector).text()
+                               $(".btn1").click(function(){
+                                 $("p").text("Hello &ltb&gtworld&lt/b&gt!");
+                               });</pre>
+                        </li>
+                        <li>□wrap()方法把每个被选元素放置在指定的 HTML 内容或元素中。
+                            <pre>语法:$(selector).wrap(wrapper)。
+         亦可使用函数来规定在每个被选元素周围包裹的内容。语法：$(selector).wrap(function())
+                                $(".btn1").click(function(){
+                                   $("p").wrap("&ltdiv&gt&lt/div&gt");
+                                });</pre>
+                            unwrap() 方法删除被选元素的父元素。wrapAll() 在指定的 HTML 内容或元素中放置所有被选的元素。
+                            wrapInner() 方法使用指定的 HTML 内容或元素，来包裹每个被选元素中的所有内容 (inner HTML)。
+                        </li>
+                        <li>□clone()方法生成被选元素的副本，包含子节点、文本和属性。
+                            <pre>语法:$(selector).clone(includeEvents)
+         includeEvents参数可选。布尔值。规定是否复制元素的所有事件处理。默认地，副本中不包含事件处理器。
+                                 $("button").click(function(){
+                                   $("body").append($("p").clone());
+                                 });
+                            </pre>
+                        </li>
+                    </ul>
+               </li>
+               <li>●jQuery属性操作
+                   <ul style="margin-left: 15px;">
+                       <li>□attr()方法设置或返回被选元素属性的属性值。
+                           <pre>语法：$(selector).attr(attribute,value)。
+         也可使用函数来设置属性/值：$(selector).attr({attribute:value, attribute:value ...})
+                             $("button").click(function(){
+                               $("img").attr("width","180");
+                             });</pre>
+                       </li>
+                       <li>□removerAttr()方法从被选元素中移除属性。
+                           <pre>语法:$(selector).removeAttr(attribute)
+                            $("button").click(function(){
+                              $("p").removeAttr("id");
+                            });</pre>
+                       </li>
+                       <li>□val()方法返回或设置被选元素的值。元素的值是通过 value 属性设置的。该方法大多用于 input 元素。
+                           <pre>语法:$(selector).val(value)。
+         如果该方法未设置参数，则返回被选元素的当前值。
+         亦可使用函数设置 Value 属性的值：$(selector).val(function(index,oldvalue))
+                             $("button").click(function(){
+                               $(":text").val("Hello World");
+                             });</pre>
+                       </li>
+                   </ul>
+               </li>
+               <li>●jQuery CSS 操作
+                   <ul style="margin-left: 15px;">
+                       <li>□addClass()方法向被选元素添加一个或多个类该,方法不会移除已存在的 class 属性。
+                           <pre>语法:$(selector).addClass(class)。
+         亦可使用函数向被选元素添加类:$(selector).addClass(function(index,oldclass))。
+                             $("button").click(function(){
+                               $("p:first").addClass("intro");
+                             });</pre>
+                       </li>
+                       <li>□hasClass()方法检查被选元素是否包含指定的 class。
+                           <pre>语法:$(selector).hasClass(class)。
+                              $("button").click(function(){
+                                alert($("p:first").hasClass("intro"));
+                              });
+                           </pre>检查第一个 &ltp&gt 元素是否包含 "intro" 类,有则返回true，没有返回false。
+                       </li>
+                       <li>□toggleClass()对设置或移除被选元素的一个或多个类进行切换。
+                           该方法检查每个元素中指定的类。如果不存在则添加类，如果已设置则删除之。这就是所谓的切换效果。
+                           不过，通过使用 "switch" 参数，您能够规定只删除或只添加类。
+                           <pre>语法:$(selector).toggleClass(class,switch)。亦可使用函数来切换类。
+                             $("button").click(function(){
+                               $("p").toggleClass("main");
+                             });</pre>
+                       </li>
+                       <li>□removeClass()方法从被选元素移除一个或多个类。
+                       
+                       </li>
+                       <li>□css()</li>
+                       <li>□offset()</li>
+                       <li>□offsetParent()</li>
+                       <li>□position()</li>
+                       <li>□scrollLeft()</li>
+                       <li>□scrollTop()</li>
+                       <li>□width()</li>
+                       <li>□height()</li>
+                   </ul>
+               </li>
+           </ul>
+        <p>4,jQuery事件</p>
+        <p>5,jQuery动画</p>
+           <ul>
+               <li>●hide()方法和show()方法隐藏/显示HTML 元素。
+                   <pre>语法：$(selector).hide(speed,callback);$(selector).show(speed,callback);
+        可选的 speed 参数规定隐藏/显示的速度，可以取以下值："slow"、"fast" 或毫秒。
+                       $("#hide").click(function(){
+                         $("p").hide();
+                       });
+
+                       $("#show").click(function(){
+                         $("p").show();
+                       });</pre>
+               </li>
+               <li>● toggle() 方法来切换 hide() 和 show() 方法。
+                   <pre>语法：$(selector).toggle(speed,callback)
+                       $("button").click(function(){
+                         $("p").toggle();
+                       });</pre>
+               </li>
+               <li>●</li>
+               <li>●</li>
+               <li>●</li>
            </ul>
     </div>
 </div>
