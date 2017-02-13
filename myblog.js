@@ -123,7 +123,23 @@ window.onload=function(){
     },80);
 
 
-
+//Web主题切换
+    var weblis=newsbox.getElementsByTagName('li');
+    var websubBoxes=document.getElementsByClassName('websub');
+    var webindex=0;
+    weblis[0].style.color='dodgerblue';
+    for(var k=0;k<5;k++){
+        weblis[k].n=k;
+        weblis[k].onmouseenter=function(){
+            if(webindex!=this.n){
+                weblis[webindex].style.color='black';
+                websubBoxes[webindex].style.display='none';
+                this.style.color='dodgerblue';
+                websubBoxes[this.n].style.display='block';
+                webindex=this.n;
+            }
+        }
+    }
 
 
 
