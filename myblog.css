@@ -1,0 +1,460 @@
+*{
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+.headerbox{
+    height: 100px;
+    width: 100%;
+    position: fixed;
+    z-index: 5;
+    border-bottom:1px solid grey ;
+    background-color: rgba(255,255,255,0.8);
+}
+.headertop{
+    height: 30px;
+    background-color: black;
+}
+.headertop>div{
+    width: 980px;
+    position: relative;
+}
+.hdtopbut>a{
+    float: left;
+    background-image: url('imgs/sns_line.gif');
+    background-position-y: 10px;
+    background-position-x:30px ;
+    background-repeat: no-repeat;
+    padding: 5px 7px 0 0;
+    margin-right: 5px;
+}
+.hdtopbut>a>img{
+    height: 20px;
+}
+.hdtopbutR{
+    position: absolute;
+    right: 0;
+    color: rgb(157,157,157);
+    line-height: 30px;
+}
+.hdtopbutR>a{
+    background-image: url('imgs/sns_line.gif');
+    background-position-y: 5px;
+    background-position-x:75px ;
+    background-repeat: no-repeat;
+    margin-right: 10px;
+    padding-right: 10px;
+    color: rgb(157,157,157);
+}
+.hdtopbutR>a:hover{
+    color: white;
+}
+.hdtopbutR>span:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+#lag{
+    position: absolute;
+    top:35px;
+    right: 0;
+    width: 80px;
+    height: 65px;
+    color: #555555;
+    font-size: 12px;
+    border-left:1px solid grey ;
+    border-right:1px solid grey ;
+    border-bottom:1px solid grey ;
+    background-color: white;
+    display: none;
+    z-index: 2;
+}
+#lag>li{
+    float: left;
+    width:70px;
+    height: 20px;
+    padding-left: 10px;
+    margin-bottom: 1px;
+    line-height: 20px;
+}
+#lag>li:hover{
+    cursor: pointer;
+    background-color:dodgerblue;
+    color: white;
+}
+.headerbotm{
+    height: 70px;
+    width: 980px;
+    position: relative;
+}
+.logohome{
+   position: absolute;
+   left: 0;
+    width: 100px;
+    height: 70px;
+}
+.logohome>img{
+    height: 100%;
+}
+#hdbotmUl{
+   margin-left: 145px;
+}
+#hdbotmUl>li{
+    float: left;
+    padding: 25px 7px 30px;
+    position: relative;
+}
+#hdbotmUl>li>a{
+    font-size: 15px;
+    color: black;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+#hdbotmUl>li:hover>a{
+    color: dodgerblue;
+    border-bottom: 3px solid dodgerblue;
+}
+#hdbotmUl>li:hover>.ultext1{
+    display: block;
+}
+#hdbotmUl a{
+    font-size: 14px;
+}
+.ultext1{
+    position: absolute;
+    top: 70px;
+    border-left:1px solid grey ;
+    border-right:1px solid grey ;
+    border-bottom:1px solid grey ;
+    background-color: white;
+    display: none;
+    z-index: 2;
+}
+.ultext1>li{
+    background-image: url("imgs/gnb_arrow.png");
+    background-repeat: no-repeat;
+    background-position-x:153px ;
+    background-position-y:8px ;
+    width: 160px;
+    position: relative;
+    padding: 7px 0 7px 15px;
+}
+.ultext1>li>a{
+    color: #555555;
+}
+.ultext2{
+    position: absolute;
+    left: 175px;
+    top:0;
+    width: 155px;
+    border:1px solid grey;
+    background-color: white;
+    display: none;
+}
+.ultext2>ul>li{
+    padding: 7px 0 7px 15px;
+}
+.ultext2>ul>li>a{
+    color: #555555;
+}
+.ultext2>ul>li:hover{
+    background-color: dodgerblue;
+    cursor: pointer;
+}
+.ultext2>ul>li:hover>a{
+    color: white;
+}
+.ultext1>li:hover>div{
+    display: block;
+}
+.ultext1>li:hover{
+    background-color: dodgerblue;
+    background-image: url("imgs/gnb_arrow_on.png");
+    cursor: pointer;
+}
+.ultext1>li:hover>a{
+    color: white;
+}
+.imgbtn{
+    position: absolute;
+    border: 1px solid rgb(227,227,227);
+    top:14px;
+    width: 38px;
+    right: 42px;
+}
+.imgbtn:hover{
+    cursor: pointer;
+}
+.imgbtn2{
+    position: absolute;
+    border: 1px solid rgb(227,227,227);
+    top:14px;
+    width: 38px;
+    right: 0px;
+}
+.imgbtn2:hover{
+    cursor: pointer;
+}
+.hdmenu{
+    background-color: white;
+    border-left: 1px solid rgb(187,187,187);
+    border-right: 1px solid rgb(187,187,187);
+    position: absolute;
+    top:70px;
+    width: 978px;
+    height: 600px;
+    font-size: 14px;
+    display: none;
+}
+.hdmenu>a{
+    background-image: url('imgs/icon_allMenu_view.gif');
+    background-repeat: no-repeat;
+    background-position-x:100px ;
+    background-position-y:3px ;
+    padding-right: 8px;
+    margin:8px 0 10px 850px;
+    color: rgb(36,117,208);
+    display: block;
+}
+.menutxt1{
+    padding: 0 8px 28px 18px;
+}
+.menutxt1>li{
+    float: left;
+    padding-right:38px;
+    width: 205px;
+    height: 200px;
+}
+.menutxt1>li>a{
+    padding: 6px 0;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 1px solid rgb(221,221,221);
+    border-top: 1px solid rgb(221,221,221);
+    display: block;
+    color: black;
+}
+.menutxt1>li>ul{
+    margin-top: 5px;
+}
+.menutxt1>li>ul>li{
+    padding-top: 3px;
+}
+.menutxt1>li>ul>li>a{
+    padding: 4px 0;
+    font-weight: bold;
+    display: block;
+    color: black;
+}
+.hdmenu a:hover{
+    color: rgb(36,117,208);
+    text-decoration: underline;
+}
+.search-area{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+    background-color:rgba(0,0,0,0.5);
+    display: none;
+}
+.searchBox{
+   /* top:100px;
+    left: 50%;*/
+    /*margin-left: -490px;*/
+    margin-top: 100px;
+    width: 980px;
+    height: 120px;
+    background-color: white;
+    text-align: center;
+    position: relative;
+}
+.searchBar{
+    width: 80%;
+    border: 2px solid rgb(153,153,153);
+    height: 60px;
+    margin-left: 60px;
+    position: relative;
+    top:30px;
+}
+.searchtxt{
+    border: 0px solid white;
+    margin: 0 3%;
+    width: 92%;
+    height: 56px;
+    line-height: 56px;
+}
+.searchbtn{
+    width: 60px;
+    position: absolute;
+    top:30px;
+    right: 65px;
+}
+.searchbtn:hover{
+    cursor: pointer;
+}
+.searchClose{
+    width: 32px;
+    position: absolute;
+    top:1px;
+    right: 1px;
+}
+.searchClose:hover{
+    cursor: pointer;
+}
+#rightBtn{
+    background-image: url('imgs/menu_bg.png');
+    position: fixed;
+    z-index: 50;
+    right: 0;
+    top:50%;
+    margin-top: -74px;
+    width: 40px;
+    height: 135px;
+    padding-top: 14px;
+}
+#rightBtn>li{
+    width:14px;
+    margin-bottom: 5px;
+}
+#rightBtn>li:hover{
+    cursor: pointer;
+}
+#rightBtn>li>img{
+    width: 14px;
+    display: block;
+}
+.mouse{
+    position: absolute;
+    background-image: url('imgs/mouse.png');
+    width: 30px;
+    height: 66px;
+    right: 4px;
+    top:160px;
+}
+#bannerbox{
+    width: 100%;
+    position: relative;
+}
+#bannerimg{
+    overflow: hidden;
+    position: relative;
+    top:101px;
+}
+#bannerimg>img{
+    width: 100%;
+}
+.bannertext{
+    position: absolute;
+    width: 660px;
+    height: 320px;
+    top:250px;
+    left: 50%;
+    margin-left: -330px;
+    color: white;
+}
+.bannertext>p{
+    font-size: 80px;
+    text-align: center;
+    font-weight: bold;
+}
+.bannertext>img{
+    display: block;
+    width: 100px;
+}
+#newsbox{
+    width: 100%;
+    background-image: url('imgs/macBc1.jpg');
+    background-repeat: no-repeat;
+    background-size:cover;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
+            src='imgs/macBc1.jpg',
+            sizingMethod='scale');
+    margin-top: 101px;
+    position: relative;
+}
+.webTech{
+    width: 980px;
+    position: relative;
+    top:101px;
+    padding-top:20px ;
+    color: white;
+}
+.webTech>h2{
+    font-size: 40px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 1.4;
+}
+.webTech>p{
+    font-size: 16px;
+    text-align: center;
+    background:url('imgs/h2-line1.gif') no-repeat bottom;
+    padding-bottom: 20px;
+    margin-bottom: 22px;
+}
+.webTech>ul{
+    margin-left: 100px;
+}
+.webTech>ul>li{
+    float: left;
+    height:25px;
+    width: 90px;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    margin-left: 5px;
+    background-color: rgba(255,255,255,.7);
+}
+.webTech>ul>li:hover{
+    cursor: pointer;
+}
+.webtxtarea{
+    width: 800px;
+    height: 300px;
+    clear: both;
+    position:relative;
+    top:20px;
+    padding-top: 10px;
+    background-color: rgba(255,255,255,.7);
+    box-shadow: 5px 5px 3px black;
+}
+.websub{
+    width: 760px;
+    height: 290px;
+    display: none;
+}
+.websub-active{
+    display: block;
+}
+.websub>p>a{
+    color: black;
+}
+.websub>p>a:hover{
+    color: dodgerblue;
+}
+
+
+
+
+
+
+#introbox{
+    width: 100%;
+    background-image: url('imgs/macBc3.jpg');
+    background-size:cover;
+    background-repeat: no-repeat;
+    position: relative;
+
+}
+
+
+
+
+#casebox{
+    width: 100%;
+    background-image: url('imgs/macBc5.jpg');
+    background-size:cover;
+    background-repeat: no-repeat;
+    position: relative;
+}
