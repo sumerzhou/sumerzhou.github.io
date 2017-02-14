@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <title>jQuery-ajax|sumerzhou's blog</title>
     <link href="myblog.css" rel="stylesheet" type="text/css">
     <script src="myblog.js" type="text/javascript"></script>
@@ -67,7 +67,7 @@
         </div>
     </div>
     <div class="headerbotm">
-        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
+        <a class="logohome" href="index.html"><img src="imgs/blog.png"></a>
         <ul id="hdbotmUl">
             <li>
                 <a href="company.html">WEB前端</a>
@@ -422,15 +422,103 @@
         HTTP Get 和 HTTP Post 从远程服务器上请求文本、HTML、XML 或 JSON - 同时您能够把这些
         外部数据直接载入网页的被选元素中。</p>
     <h3>2,jQuery - AJAX load() 方法</h3>
-    <p></p>
+    <p>jQuery load() 方法是简单但强大的 AJAX 方法。load() 方法从服务器加载数据，并把返回的数据放入被选元素中。</p>
+       <pre>语法：$(selector).load(URL,data,callback);
+这是示例文件（"demo_test.txt"）的内容：
+&lth2&gtjQuery and AJAX is FUN!!!&lt/h2&gt
+&ltp id="p1"&gtThis is some text in a paragraph.&lt/p&gt
+下面的例子把 "demo_test.txt" 文件中 id="p1" 的元素的内容，加载到指定的 &ltdiv&gt 元素中：
+               $("#div1").load("demo_test.txt #p1");
+可选的 callback 参数规定当 load() 方法完成后所要允许的回调函数。回调函数可以设置不同的参数：
+responseTxt - 包含调用成功时的结果内容,statusTXT - 包含调用的状态,xhr - 包含 XMLHttpRequest 对象。
+实例:
+              $("button").click(function(){
+                $("#div1").load("demo_test.txt",function(responseTxt,statusTxt,xhr){
+                  if(statusTxt=="success")
+                    alert("外部内容加载成功！");
+                  if(statusTxt=="error")
+                    alert("Error: "+xhr.status+": "+xhr.statusText);
+                });
+              });</pre>
+    <h3>3,jQuery - AJAX get() 和 post() 方法</h3>
+    <p>jQuery get() 和 post() 方法用于通过 HTTP GET 或 POST 请求从服务器请求数据。两种在客户端和服务器端进行请求-响应的常用方法是：GET 和 POST。GET 基本上用于从服务器获得（取回）数据(GET 方法可能返回缓存数据)。
+        POST 也可用于从服务器获取数据。不过，POST 方法不会缓存数据，并且常用于连同请求一起发送数据。</p>
+        <pre>$.get() 方法通过 HTTP GET 请求从服务器上请求数据。
+语法：$.get(URL,callback)。
+           例： $("button").click(function(){
+                $.get("demo_test.asp",function(data,status){
+                  alert("Data: " + data + "\nStatus: " + status);
+                });
+              });
+$.post() 方法通过 HTTP POST 请求从服务器上请求数据。
+语法：$.post(URL,data,callback)。可选的 data 参数规定连同请求发送的数据。
+          例： $("button").click(function(){
+                   $.post("demo_test_post.asp",{
+                     name:"Donald Duck",
+                     city:"Duckburg"
+                   },
+                   function(data,status){
+                     alert("Data: " + data + "\nStatus: " + status);
+                   });
+                 });
+这个 ASP 文件 ("demo_test_post.asp") 类似这样：
+                 <%
+                 dim fname,city
+                 fname=Request.Form("name")
+                 city=Request.Form("city")
+                 Response.Write("Dear " & fname & ". ")
+                 Response.Write("Hope you live well in " & city & ".")
+                 %></pre>
+    <h3>4,jQuery Ajax - ajax() 方法</h3>
+    <p>ajax() 方法通过 HTTP 请求加载远程数据。该方法是 jQuery 底层 AJAX 实现。简单易用的高层实现
+        见 $.get, $.post 等。$.ajax() 返回其创建的 XMLHttpRequest 对象。大多数情况下你无需直接操作该函数，除非你需要操作不常用的选项，以获得更多的灵活性。</p>
+       <pre>语法:jQuery.ajax([settings])。settings可选,用于配置 Ajax 请求的键值对集合。
+                 $(document).ready(function(){
+                   $("#b01").click(function(){
+                   htmlobj=$.ajax({url:"/jquery/test1.txt",async:false});
+                   $("#myDiv").html(htmlobj.responseText);
+                   });
+                 });</pre>
+       <ul>
+           <li>●回调函数
+               <ul>
+                   <li>beforeSend 在发送请求之前调用，并且传入一个XMLHttpRequest作为参数。
+                   </li>
+                   <li>error 在请求出错时调用。传入XMLHttpRequest对象，描述错误类型的字符串以及一个异常对象（如果有的话）</li>
+                   <li>dataFilter 在请求成功之后调用。传入返回的数据以及"dataType"参数的值。并且必须返回新的数据（可能是处理过的）传递给success回调函数。</li>
+                   <li>success 当请求之后调用。传入返回后的数据，以及包含成功代码的字符串。</li>
+                   <li>complete 当请求完成之后调用这个函数，无论成功或失败。传入XMLHttpRequest对象，以及一个包含成功或错误代码的字符串。</li>
+               </ul>
+                  <pre>            $('.btn').click(function(){
+                  $.ajax({
+                     url:url,
+                     type:'GET',
+                     dataType:'json',
+                     data:'',
+                     success:function(msg){
+                         console.log("服务器返回成功:");
+                         console.log(msg);
+                      },
+                     error:function(error){
+                         console.log('服务器返回失败:'+error);
+                     }
+                   });
+                });</pre>
+           </li>
+           <li>●数据类型
+               <p>$.ajax()函数依赖服务器提供的信息来处理返回的数据。如果服务器报告说返回的数据是XML，那么返回的结果就可以用普通的XML方法或者jQuery的选择器来遍历。如果见得到其他类型，比如HTML，则数据就以文本形式来对待。</p>
+               <p>通过dataType选项还可以指定其他不同数据处理方式。除了单纯的XML，还可以指定 html、json、jsonp、script或者text。
+                   其中，text和xml类型返回的数据不会经过处理。数据仅仅简单的将XMLHttpRequest的responseText或responseHTML属性传递给success回调函数。</p>
 
+           </li>
+           <li>●发送数据到服务器
 
+           </li>
+           <li>●参数</li>
+           <li>●</li>
+       </ul>
 </div>
 </body>
 </html>
 <script>
-
-
-
-
-</script>
+</script>    
