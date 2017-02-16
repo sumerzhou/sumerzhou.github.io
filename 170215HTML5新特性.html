@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>HTML5新特性|sumerzhou's blog</title>
+    <link href="myblog.css" rel="stylesheet" type="text/css">
+    <script src="myblog.js" type="text/javascript"></script>
+    <style>
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
+            line-height: 2em;
+        }
+        .textBox h2{
+            margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
+        }
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox p{
+            text-indent: 2em;
+        }
+        .textBox li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .textBox pre{
+            display: block;
+            width: 850px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 2px 2px 1px black;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+            font-family: '仿宋';
+        }
+    </style>
+</head>
+<body>
+<!--header-->
+<div class="headerbox">
+    <div class="headertop">
+        <div class="hdtopbut">
+            <a href="http://blog.hungking.cc/" target="_blank"><img src="imgs/sns_blog_off.png"></a>
+            <a href="https://www.facebook.com/HoungkingHsi" target="_blank"><img src="imgs/sns_facebook_off.png"></a>
+            <a href="http://globalblog.hungking.cc/" target="_blank"><img src="imgs/sns_gBlog_off.png"></a>
+            <a href="http://www.linkedin.com/imisslovelove" target="_blank"><img src="imgs/sns_in_off.png"></a>
+            <a href="http://www.youtube.com/imisslovelove" target="_blank"><img src="imgs/sns_youTube_off.png"></a>
+            <a href="http://www.instagram.com/imisslovelove" target="_blank"><img src="imgs/sns_instagram_off.png"></a>
+            <a href="http://story.kakao.com/ch/imisslovelove" target="_blank" style="background: transparent none;"><img src="imgs/sns_kakao_off.png"></a>
+            <div class="hdtopbutR">
+                <a href="construction.html" style="background-position-x:85px ;">Contact Me</a>
+                <a href="construction.html">AboutSite</a>
+                <span onclick="ifshow(0)">Language<img src="imgs/btn_globalSite_open.gif"></span>
+                <ul id="lag">
+                    <li>KOREAN</li><li>CHINESE</li><li>JAPANESE</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="headerbotm">
+        <a class="logohome" href="index.html"><img src="imgs/blog.png"></a>
+        <ul id="hdbotmUl">
+            <li>
+                <a href="company.html">WEB前端</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">HTML</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Corporate Overview</a></li>
+                                <li><a href="">Vision of houngking</a></li>
+                                <li><a href="">History of houngking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">CSS/CSS3</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Brand Story</a></li>
+                                <li><a>CI</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">JavaScript</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Greetings</a></li>
+                                <li><a>CEO's Message</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Ajax</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>hougking Affiliates</a></li>
+                                <li><a>Steel</a></li>
+                                <li><a>E&C</a></li>
+                                <li><a>Trade</a></li>
+                                <li><a>ICT</a></li>
+                                <li><a>Energy</a></li>
+                                <li><a>Material-Chemistry</a></li>
+                                <li><a>Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">jQuery</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Global</a></li>
+                                <li><a>Asia</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Business Ethics</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Major Activities</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Products/Technology</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Products of hounking</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Hot Rolled Steel</a></li>
+                                <li><a href="">Steel Plate</a></li>
+                                <li><a href="">Winter Day</a></li>
+                                <li><a href="">Gold Rolled Steel</a></li>
+                                <li><a href="">Galvanized Steel</a></li>
+                                <li><a href="">Electrical Galvanized</a></li>
+                                <li><a href="">Electrical Steel</a></li>
+                                <li><a href="">Automotive materials</a></li>
+                                <li><a href="">Stainless Steel</a></li>
+                                <li><a href="">Titanium Product</a></li>
+                                <li><a href="">Magnesium Product</a></li>
+                                <li><a href="">Aluminum-plated products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">houngking Technology</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">FINEX Technology</a></li>
+                                <li><a href="">Strip Casting</a></li>
+                                <li><a href="">Endless Hot Rolling Technology</a></li>
+                                <li><a href="">Operation Technology</a></li>
+                                <li><a href="">CEM Technology</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Production Process</a>
+                    </li>
+                    <li>
+                        <a href="">Sales information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">e-Sales</a></li>
+                                <li><a href="">e-Procurement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Investor Relations</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">IR Activeties</a>
+                    </li>
+                    <li>
+                        <a href="">Stock Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Stock Price</a></li>
+                                <li><a href="">Price Comparision</a></li>
+                                <li><a href="">ADR</a></li>
+                                <li><a href="">houngking Stock Exchange</a></li>
+                                <li><a href="">Economic Trend</a></li>
+                                <li><a href="">Shareholders Demographics</a></li>
+                                <li><a href="">Dividend</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Financial Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Income Statement</a></li>
+                                <li><a href="">Credit Rating</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">IR Archive</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Audit Report</a></li>
+                                <li><a href="">Form 20-F</a></li>
+                                <li><a href="">Annual Report</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Sustainability</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Sustainability Management System</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Management System</a></li>
+                                <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
+                                <li><a href="">Risk Management</a></li>
+                                <li><a href="">Stakeholder</a></li>
+                                <li><a href="">Relevant Institutes Activities</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Social Responsibility </a>
+                    </li>
+                    <li>
+                        <a href="">Environmental Management </a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Family's Environmental Management</a></li>
+                                <li><a href="">Environmental Management</a></li>
+                                <li><a href="">Climate change /Energy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Customer</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Marketing strategy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Employee</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Employee Health / Safety</a></li>
+                                <li><a href="">Organizational Culture</a></li>
+                                <li><a href="">HR system</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Report</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Report</a></li>
+                                <li><a href="">Carbon Report</a></li>
+                                <li><a href="">Conflict Minerals Disclosure</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">PR Room</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">News room</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">News letter</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">houngking SNS</a>
+                    </li>
+                    <li>
+                        <a href="">PR Archives</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
+                                <li><a href="">PR Movies</a></li>
+                                <li><a href="">Printed Advertisement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Download</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
+        <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
+        <div class="hdmenu" id="hdmenu">
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--text-->
+<div class="textBox">
+    <h2>20170215-HTML5新特性</h2>
+    <h3>1,HTML5简介</h3>
+    <p>万维网的核心语言、标准通用标记语言下的一个应用超文本标记语言（HTML）的第五次重大修改。HTML5 是 W3C 与 WHATWG 合作的结果。2014年10月29日，万维网联盟宣布，经过接近8年的艰苦努力，该标准规范终于制定完成。</p>
+    <p>新增特性：</p>
+    <ul>
+        <li>●语义化：能够让你更恰当地描述你的内容是什么</li>
+        <li>●连通性：能够让你和服务器之间通过创新的新技术方法进行通信</li>
+        <li>●离线存储：能够让网页在客户端本地存储数据以及更高效地离线运行</li>
+        <li>●多媒体：使 video 和 audio 播放音视频</li>
+        <li>●绘图/动画效果：提供了一个更加分化范围的呈现选择</li>
+        <li>●性能集成：提供了非常显著的性能优化和更有效的计算机硬件使用</li>
+        <li>●设备访问 ：能够处理各种输入和输出设备</li>
+        <li>●兼容性：百度CND：http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js</li>
+    </ul>
+    <h3>2,浏览器渲染模式</h3>
+    <p>浏览器渲染html页面一般有三种模式。 诡异模式（Quirks mode，也有翻译为兼容模式、怪异模式的）、标准模式（Standards mode）和几乎标准模式（Almost standards mode）三种。</p>
+    <p>更多信息：<a href="http://blog.csdn.net/onlyaisha/article/details/36867779">关于浏览器渲染html页面采用的三种文本模式 </a>,<a href="http://www.cnblogs.com/lhb25/archive/2010/09/18/1829849.html">浏览器兼容性问题与浏览器的内核及渲染模式</a></p>
+    <h3>3,章节结构</h3>
+    <ul>
+        <li>&ltsection&gt 标签定义文档中的节（section、区段）。比如章节、页眉、页脚或文档中的其他部分。</li>
+        <li>&ltnav&gt标签定义导航链接的部分。</li>
+        <li>&ltarticle&gt标签规定独立的自包含内容。</li>
+        <li>&ltaside&gt标签定义其所处内容之外的内容。aside 的内容应该与附近的内容相关,可用作文章的侧栏。</li>
+        <li>&ltheader&gt标签定义文档的页眉（介绍信息）。</li>
+        <li>&ltfooter&gt标签定义文档或节的页脚。页脚通常包含文档的作者、版权信息、使用条款链接、联系信息等等。您可以在一个文档中使用多个&ltfooter&gt元素。</li>
+        <li>&ltmain&gt 标签规定文档的主要内容,一个文档中不能出现一个以上的。&ltmain&gt 元素中的内容对于文档来说应当是唯一的。它不应包含在文档中重复出现的内容，比如侧栏、导航栏、版权信息、站点标志或搜索表单。</li>
+        <li>&ltfigure&gt标签规定独立的流内容（图像、图表、照片、代码等等）。figure元素的内容应该与主内容相关，但如果被删除，则不应对文档流产生影响。</li>
+        <li>&ltfigcaption&gt标签定义 figure 元素的标题（caption）。"figcaption" 元素应该被置于 "figure" 元素的第一个或最后一个子元素的位置。</li>
+        <li>&lthgroup&gt用于对网页或section的标题进行组合。</li>
+    </ul>
+    <h3>4,章节格式</h3>
+    <ul>
+        <li>&ltdata&gt</li>
+        <li>&lttime&gt标签定义公历的时间（24 小时制）或日期，时间和时区偏移是可选的。该元素能够以机器可读的方式对日期和时间进行编码。
+            <pre>例：
+                &ltp&gt我们在每天早上&lttime&gt9:00&lt/time&gt开始营业。&lt/p&gt
+                &ltp&gt我在 &lttime datetime="2008-02-14"&gt情人节&lt/time&gt 有个约会。&lt/p&gt</pre>
+        </li>
+        <li>&ltmark&gt标签定义带有记号的文本。</li>
+        <li>&ltruby&gt标签定义 ruby 注释（中文注音或字符）。ruby 元素由一个或多个字符（需要一个解释/发音）和一个提供该信息的 rt 元素组成，还包括可选的 rp 元素，定义当浏览器不支持 "ruby" 元素时显示的内容。支持 "ruby" 元素的浏览器不会显示 "rp" 元素的内容。
+           <pre>例：
+                &ltruby&gt
+                    漢 &ltrt&gt&ltrp&gt(&lt/rp&gtㄏㄢˋ&ltrp&gt)&lt/rp&gt&lt/rt&gt
+                &lt/ruby&gt</pre>
+        </li>
+        <li>&ltrt&gt标签定义字符（中文注音或字符）的解释或发音。</li>
+        <li>&ltrp&gt标签在 ruby 注释中使用，以定义不支持 ruby 元素的浏览器所显示的内容。</li>
+        <li>&ltbdi&gt标签允许您设置一段文本，使其脱离其父元素的文本方向设置。在发布用户评论或其他您无法完全控制的内容时，该标签很有用。</li>
+        <li>&ltwbr&gtWord Break Opportunity规定在文本中的何处适合添加换行符。如果单词太长，或者您担心浏览器会在错误的位置换行，那么您可以使用&ltwbr&gt 元素来添加 Word Break Opportunity（单词换行时机）。</li>
+    </ul>
+    <h3>5,媒介标记</h3>
+    <ul>
+        <li>&ltvideo&gt标签定义视频，比如电影片段或其他视频流。可以在开始标签和结束标签之间放置文本内容，这样老的浏览器就可以显示出不支持该标签的信息。</li>
+        <li>&ltaudio&gt标签定义声音，比如音乐或其他音频流。可以在开始标签和结束标签之间放置文本内容，这样老的浏览器就可以显示出不支持该标签的信息。</li>
+        <li>&ltsource&gt标签为媒介元素（比如 &ltvideo&gt 和 &ltaudio&gt）定义媒介资源, 标签允许您规定可替换的视频/音频文件供浏览器根据它对媒体类型或者编解码器的支持进行选择。</li>
+        <li>&lttrack&gt标签为诸如 video 元素之类的媒介规定外部文本轨道,用于规定字幕文件或其他包含文本的文件，当媒介播放时，这些文件是可见的。
+            <pre>播放带有字幕的视频：
+                &ltvideo width="320" height="240" controls="controls"&gt
+                    &ltsource src="forrest_gump.mp4" type="video/mp4" /&gt
+                    &ltsource src="forrest_gump.ogg" type="video/ogg" /&gt
+                    &lttrack kind="subtitles" src="subs_chi.srt" srclang="zh" label="Chinese"&gt
+                    &lttrack kind="subtitles" src="subs_eng.srt" srclang="en" label="English"&gt
+                &lt/video&gt</pre>
+        </li>
+        <li>&ltembed&gt标签定义嵌入的内容，比如插件。</li>
+        <li>&ltcanvas&gt标签定义图形，比如图表和其他图像。标签只是图形容器，您必须使用脚本来绘制图形。</li>
+        <li>&ltsvg&gt定义嵌入式矢量图。SVG 指可伸缩矢量图形 (Scalable Vector Graphics)，使用 XML 格式定义图形， 图像在放大或改变尺寸的情况下其图形质量不会有损失，是万维网联盟的标准。
+            与其他图像格式相比（比如 JPEG 和 GIF），使用 SVG 的优势在于：SVG 图像可通过文本编辑器来创建和修改；SVG 图像可被搜索、索引、脚本化或压缩；SVG 是可伸缩的；SVG 图像可在任何的分辨率下被高质量地打印；SVG 可在图像质量不下降的情况下被放大。
+            <pre>在 HTML5 中，能够将 SVG 元素直接嵌入 HTML 页面中：
+                 &ltbody&gt
+                 &ltsvg xmlns="http://www.w3.org/2000/svg" version="1.1" height="190"&gt
+                     &ltpolygon points="100,10 40,180 190,60 10,60 160,180"
+                              style="fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;" /&gt
+                 &lt/svg&gt
+                 &lt/body&gt
+            </pre>
+        </li>
+        <li>&ltmath&gt定义一般数学公式。
+            <p>HTML5 可以在文档中使用 MathML 元素，对应的标签是 &ltmath&gt...&lt/math&gt 。MathML 是数学标记语言，是一种基于XML（标准通用标记语言的子集）的标准，用来在互联网上书写数学符号和公式的置标语言。</p>
+            <p>更多信息可参考：<a href="http://www.cnblogs.com/this-xiaoming/p/5538373.html"></a>HTML5math标签</p>
+        </li>
+    </ul>
+    <h3>6,表单域</h3>
+    <ul>
+        <li>&ltdatalist&gt标签定义选项列表。请与 input 元素配合使用该元素，来定义 input 可能的值。datalist 及其选项不会被显示出来，它仅仅是合法的输入值列表。请使用 input 元素的 list 属性来绑定 datalist。
+           <pre>例：
+               &ltinput id="myCar" list="cars" /&gt
+                &ltdatalist id="cars"&gt
+                    &ltoption value="BMW"&gt
+                    &ltoption value="Ford"&gt
+                    &ltoption value="Volvo"&gt
+               &lt/datalist&gt</pre>
+        </li>
+        <li>&ltkeygen&gt标签规定用于表单的密钥对生成器字段。当提交表单时，私钥存储在本地，公钥发送到服务器。</li>
+        <li>&ltoutput&gt标签定义不同类型的输出，比如脚本的输出。</li>
+        <li>&ltmeter&gt标签定义已知范围或分数值内的标量测量。也被称为 gauge（尺度）。如磁盘用量、查询结果的相关性，等等。meter标签不应用于指示进度（在进度条中）。如果标记进度条，请使用 progress标签。
+            <pre>使用 meter 元素来度量给定范围（gauge）内的数据：
+                &ltmeter value="3" min="0" max="10"&gt十分之三&lt/meter&gt
+                &ltmeter value="0.6"&gt60%&lt/meter&gt</pre>
+        </li>
+        <li>&ltprogress&gt标签标示任务的进度（进程）。
+             <pre>正在进行的下载：
+                 &ltprogress value="22" max="100"&gt&lt/progress&gt</pre>
+        </li>
+    </ul>
+    <h3>7,交互标记</h3>
+    <ul>
+        <li>&ltdetails&gt标签用于描述文档或文档某个部分的细节。
+           <pre>与 summary 标签 配合使用可以为 details 定义标题。标题是可见的，用户点击标题时，会显示出 details。
+                &ltdetails&gt
+                    &ltsummary&gtCopyright 2011.&lt/summary&gt
+               &ltp&gtAll pages and graphics on this web site are the property of W3School.&lt/p&gt
+               &lt/details&gt</pre>
+        </li>
+        <li>&ltsummary&gt标签包含 details 元素的标题，"details" 元素用于描述有关文档或文档片段的详细信息。"summary" 元素应该是 "details" 元素的第一个子元素。</li>
+        <li>&ltmenuitem&gt标签定义用户可以从弹出菜单调用的命令/菜单项目。</li>
+        <li>&ltmenu&gt标签定义命令的列表或菜单。标签用于上下文菜单、工具栏以及用于列出表单控件和命令。</li>
+    </ul>
+    <h3>8,其他</h3>
+    <ul>
+        <li>&ltcommand&gt标签可以定义命令按钮，比如单选按钮、复选框或按钮。只有当 command 元素位于 menu 元素内时，该元素才是可见的。否则不会显示这个元素，但是可以用它规定键盘快捷键。</li>
+        <li>ARIA:
+            <p>WAI-ARIA指无障碍网页应用。主要针对的是视觉缺陷，失聪，行动不便的残疾人以及假装残疾的测试人员。尤其像盲人，眼睛看不到，其浏览网页则需要借助辅助设备，如屏幕阅读器，屏幕阅读机可以大声朗读或者输出盲文。而ARIA就是可以让屏幕阅读器准确识别网页中的内容，变化，状态的技术规范，可以让盲人这类用户也能无障碍阅读！</p>
+            <p>更多信息：<a href="http://www.zhangxinxu.com/wordpress/2012/03/wai-aria-%E6%97%A0%E9%9A%9C%E7%A2%8D%E9%98%85%E8%AF%BB/">WAI-ARIA无障碍网页应用属性完全展示</a></p>
+        </li>
+    </ul>
+    <h3>9，自定义元素-微数据</h3>
+    <p>在如 span、div 的标签内添加属性，让机器（如搜索引擎）识别其意义，一些特定类型的信息，例如评论、人物信息或事件都有相应的属性，用来描述其意义。</p>
+    <p>可以将“HTML5中所有元素的集合”看做一个词汇表，这个词汇表包括了可以代表章节或者文章的元素，但是不包括可以代表一个人或者活动的元素，如果要想表示一个“人”，那么就需要定义自己的词汇表，使用微数据就可以定义这样的词汇表。</p>
+       <pre>传统写法：
+            &ltdiv&gt
+                &ltspan&gtHungking&lt/span&gt
+                &ltspan&gt2015年12月19日10:40&lt/span&gt
+                &ltspan&gt评论内容&lt/span&gt
+            &lt/div&gt</pre>
+    <p>在一项微数据的最外层 div ，需要用 itemscop 标识，并用 itemtype 指定微数据类型， itemtype 的值是一个 url ，用于引入一个微数据词汇表（即各种微数据的类型定义）。作用：让机器识别网页内容。</p>
+       <pre>新写法：
+            &ltdiv  itemscope itemtype="http://data-vocabulary.org/Review"&gt
+                &ltspan  itemprop="reviewer"&gtHungking&lt/span&gt
+                &ltspan  itemprop="dtreviewed" datatime="2015-12-19T10:40:30.10+08:00"&gt2015年12月19日10:40&lt/span&gt
+                &ltspan  itemprop="description"&gt评论内容&lt/span&gt
+            &lt/div&gt</pre>
+    <p>详见：<a href="http://blog.csdn.net/jackyrongvip/article/details/9218459">MicroDate</a></p>
+</div>
+</body>
+</html>
+<script>
+
+
+
+
+</script>
