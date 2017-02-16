@@ -11,10 +11,7 @@ window.onload=function(){
     var casebox=document.getElementById('casebox');
     var boxs=document.getElementsByClassName('box');
     /*console.log(boxs.length);*/
-    var rightBtn=document.getElementById('rightBtn');
-    var lis=rightBtn.getElementsByTagName('li');
-
-
+   
 
 //导航栏悬浮
     var hdstr=["imgs/sns_blog_on.png","imgs/sns_facebook_on.png","imgs/sns_gBlog_on.png","imgs/sns_in_on.png","imgs/sns_youTube_on.png","imgs/sns_instagram_on.png","imgs/sns_kakao_on.png"];
@@ -29,6 +26,8 @@ window.onload=function(){
         }
     }
 
+    var rightBtn=document.getElementById('rightBtn');
+    var lis=rightBtn.getElementsByTagName('li');  
 //背景图片大小
     var innerH=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight;
     bannerimg.style.height=innerH-101+'px';
