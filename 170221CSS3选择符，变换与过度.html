@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CSS3选择符，变换与过度|sumerzhou's blog</title>
+    <link href="myblog.css" rel="stylesheet" type="text/css">
+    <script src="myblog.js" type="text/javascript"></script>
+    <style>
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
+            line-height: 2em;
+        }
+        .textBox h2{
+            margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
+        }
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox p{
+            text-indent: 2em;
+        }
+        .textBox li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .textBox pre{
+            display: block;
+            width: 850px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 2px 2px 1px black;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+            font-family: '仿宋';
+        }
+    </style>
+</head>
+<body>
+<!--header-->
+<div class="headerbox">
+    <div class="headertop">
+        <div class="hdtopbut">
+            <a href="http://blog.hungking.cc/" target="_blank"><img src="imgs/sns_blog_off.png"></a>
+            <a href="https://www.facebook.com/HoungkingHsi" target="_blank"><img src="imgs/sns_facebook_off.png"></a>
+            <a href="http://globalblog.hungking.cc/" target="_blank"><img src="imgs/sns_gBlog_off.png"></a>
+            <a href="http://www.linkedin.com/imisslovelove" target="_blank"><img src="imgs/sns_in_off.png"></a>
+            <a href="http://www.youtube.com/imisslovelove" target="_blank"><img src="imgs/sns_youTube_off.png"></a>
+            <a href="http://www.instagram.com/imisslovelove" target="_blank"><img src="imgs/sns_instagram_off.png"></a>
+            <a href="http://story.kakao.com/ch/imisslovelove" target="_blank" style="background: transparent none;"><img src="imgs/sns_kakao_off.png"></a>
+            <div class="hdtopbutR">
+                <a href="construction.html" style="background-position-x:85px ;">Contact Me</a>
+                <a href="construction.html">AboutSite</a>
+                <span onclick="ifshow(0)">Language<img src="imgs/btn_globalSite_open.gif"></span>
+                <ul id="lag">
+                    <li>KOREAN</li><li>CHINESE</li><li>JAPANESE</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="headerbotm">
+        <a class="logohome" href="index.html"><img src="imgs/blog.png"></a>
+        <ul id="hdbotmUl">
+            <li>
+                <a href="company.html">WEB前端</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">HTML</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Corporate Overview</a></li>
+                                <li><a href="">Vision of houngking</a></li>
+                                <li><a href="">History of houngking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">CSS/CSS3</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Brand Story</a></li>
+                                <li><a>CI</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">JavaScript</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Greetings</a></li>
+                                <li><a>CEO's Message</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Ajax</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>hougking Affiliates</a></li>
+                                <li><a>Steel</a></li>
+                                <li><a>E&C</a></li>
+                                <li><a>Trade</a></li>
+                                <li><a>ICT</a></li>
+                                <li><a>Energy</a></li>
+                                <li><a>Material-Chemistry</a></li>
+                                <li><a>Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">jQuery</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Global</a></li>
+                                <li><a>Asia</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Business Ethics</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Major Activities</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Products/Technology</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Products of hounking</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Hot Rolled Steel</a></li>
+                                <li><a href="">Steel Plate</a></li>
+                                <li><a href="">Winter Day</a></li>
+                                <li><a href="">Gold Rolled Steel</a></li>
+                                <li><a href="">Galvanized Steel</a></li>
+                                <li><a href="">Electrical Galvanized</a></li>
+                                <li><a href="">Electrical Steel</a></li>
+                                <li><a href="">Automotive materials</a></li>
+                                <li><a href="">Stainless Steel</a></li>
+                                <li><a href="">Titanium Product</a></li>
+                                <li><a href="">Magnesium Product</a></li>
+                                <li><a href="">Aluminum-plated products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">houngking Technology</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">FINEX Technology</a></li>
+                                <li><a href="">Strip Casting</a></li>
+                                <li><a href="">Endless Hot Rolling Technology</a></li>
+                                <li><a href="">Operation Technology</a></li>
+                                <li><a href="">CEM Technology</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Production Process</a>
+                    </li>
+                    <li>
+                        <a href="">Sales information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">e-Sales</a></li>
+                                <li><a href="">e-Procurement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Investor Relations</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">IR Activeties</a>
+                    </li>
+                    <li>
+                        <a href="">Stock Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Stock Price</a></li>
+                                <li><a href="">Price Comparision</a></li>
+                                <li><a href="">ADR</a></li>
+                                <li><a href="">houngking Stock Exchange</a></li>
+                                <li><a href="">Economic Trend</a></li>
+                                <li><a href="">Shareholders Demographics</a></li>
+                                <li><a href="">Dividend</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Financial Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Income Statement</a></li>
+                                <li><a href="">Credit Rating</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">IR Archive</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Audit Report</a></li>
+                                <li><a href="">Form 20-F</a></li>
+                                <li><a href="">Annual Report</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Sustainability</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Sustainability Management System</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Management System</a></li>
+                                <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
+                                <li><a href="">Risk Management</a></li>
+                                <li><a href="">Stakeholder</a></li>
+                                <li><a href="">Relevant Institutes Activities</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Social Responsibility </a>
+                    </li>
+                    <li>
+                        <a href="">Environmental Management </a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Family's Environmental Management</a></li>
+                                <li><a href="">Environmental Management</a></li>
+                                <li><a href="">Climate change /Energy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Customer</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Marketing strategy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Employee</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Employee Health / Safety</a></li>
+                                <li><a href="">Organizational Culture</a></li>
+                                <li><a href="">HR system</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Report</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Report</a></li>
+                                <li><a href="">Carbon Report</a></li>
+                                <li><a href="">Conflict Minerals Disclosure</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">PR Room</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">News room</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">News letter</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">houngking SNS</a>
+                    </li>
+                    <li>
+                        <a href="">PR Archives</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
+                                <li><a href="">PR Movies</a></li>
+                                <li><a href="">Printed Advertisement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Download</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
+        <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
+        <div class="hdmenu" id="hdmenu">
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--text-->
+<div class="textBox">
+    <h2>20170221-CSS3选择符，变换与过度</h2>
+    <h3>1,CSS3选择符</h3>
+    <h4>元素选择符 Element Selectors</h4>
+    <ul>
+    	<li>●*{ sRules },通配选择符(Universal Selector),选定所有对象。通常不建议使用通配选择符，
+    		因为它会遍历并命中文档中所有的元素，出于性能考虑，需酌情使用</li>
+    	<li>●E { sRules },类型选择符(Type Selector),以文档语言对象类型作为选择符。</li>
+    	<li>●E#myid { sRules },ID选择符(ID Selector),以唯一标识符id属性等于myid的E对象作为选择符。</li>
+    	<li>●E.myclass { sRules },类选择符(Class Selector),以class属性包含myclass的E对象作为选择符。</li>
+    </ul>
+    <h4>关系选择符 Relationship Selectors</h4>
+    <ul>
+    	<li>●E F { sRules },包含选择符,选择所有被E元素包含的F元素。包含选择符将会命中所有符合条件的后代，包括儿子，孙子，孙子的孙子...</li>
+    	<li>●E>F { sRules },子选择符,选择所有作为E元素的子元素F。子选择符只能命中子元素，而不能命中孙辈。</li>
+    	<li>●E+F { sRules },相邻选择符,选择紧贴在E元素之后F元素。相邻选择符只会命中符合条件的相邻的兄弟元素。</li>
+    	<li>●E~F { sRules },兄弟选择符,选择E元素后面的所有兄弟元素F。</li>
+    </ul>
+    <h4>属性选择符 Attribute Selectors</h4>
+    <ul>
+    	<li>●E[att] { sRules },选择具有att属性的E元素。</li>
+    	<li>●E[att="val"] { sRules },选择具有att属性且属性值等于val的E元素。</li>
+    	<li>●E[att~="val"] { sRules },选择具有att属性且属性值为一用空格分隔的字词列表，其中一个等于val的E元素（包含只有一个值且该值等于val的情况）。</li>
+    	<li>●E[att^="val"] { sRules },选择具有att属性且属性值为以val开头的字符串的E元素。</li>
+    	<li>●E[att$="val"] { sRules },选择具有att属性且属性值为以val结尾的字符串的E元素。</li>
+    	<li>●E[att*="val"] { sRules },选择具有att属性且属性值为包含val的字符串的E元素。</li>
+    	<li>●E[att|="val"] { sRules },选择具有att属性且属性值为以val开头并用连接符"-"分隔的字符串的E元素，如果属性值仅为val，也将被选择。</li>
+    </ul>
+    <h4>伪类选择符 Pseudo-Classes Selectors</h4>
+    <ul>
+    	<li>●E:link { sRules },设置超链接a在未被访问前的样式。
+    	   <pre>给超链接定义：访问前，鼠标悬停，当前被点击，已访问这4种伪类效果，而又没有按照一致的书写顺序，
+    不同的浏览器可能会有不同的表现。
+    超链接的4种状态，需要有特定的书写顺序才能生效。超链接状态顺序：
+    	               a:link {}
+			a:visited {}
+			a:hover {}
+			a:active {}
+   注意，a:hover 必须位于 a:link 和 a:visited 之后，a:active 必须位于 a:hover 之后		</pre>
+    	</li>
+    	<li>●E:visited { sRules },设置超链接a在其链接地址已被访问过时的样式。</li>
+    	<li>●E:hover { sRules },设置元素在其鼠标悬停时的样式。</li>
+    	<li>●E:active { sRules },设置元素在被用户激活（在鼠标点击与释放之间发生的事件）时的样式。</li>
+    	<li>●E:focus { sRules },设置对象在成为输入焦点（该对象的onfocus事件发生）时的样式。webkit内核浏览器会默认给:focus状态的元素加上outline的样式。</li>
+    	<li>●E:lang(fr) { sRules },匹配使用特殊语言的E元素。
+    	  <pre>
+			//style
+			p:lang(en) {
+				color: #090;
+			}			
+			//body
+			&ltp lang="en"&gtenglish&lt/p&gt </pre>
+    	</li>
+    	<li>●E:not(s) { sRules },匹配不含有s选择符的元素E。
+    	    <pre>可以很好的处理类似这样的场景：有个列表，每个列表项都有一条底边线，但是最后一项不需要底边线.
+    	.demo li:not(:last-child) {
+					border-bottom: 1px solid #ddd;
+				}</pre>
+    	</li>
+    	<li>●E:root { sRules },匹配E元素在文档的根元素。在HTML中，根元素永远是HTML。
+    	    <pre>设置 HTML 文档的背景色：
+    	    	:root{ 
+			background:#ff0000;
+			}</pre>
+    	</li>
+    	<li>●E:first-child { sRules },匹配父元素的第一个子元素E。要使该属性生效，E元素必须是某个元素的子元素，
+    		E的父元素最高是body，即E可以是body的子元素。E必须是它的兄弟元素中的第一个元素，换言之，E必须是父元素
+    		的第一个子元素。与之类似的伪类还有E:last-child，只不过情况正好相反，需要它是最后一个子元素。</li>
+    	<li>●E:last-child { sRules }，匹配父元素的最后一个子元素E。
+    	    <pre>有效的代码：
+    	    	p:last-child{color:#f00;}
+				&ltdiv&gt
+					&lth2&gt我是一个标题&lt/h2&gt
+					&ltp&gt我是一个p&lt/p&gt
+				&lt/div&gt
+	无效的代码：		
+		p:last-child{color:#f00;}
+				&ltdiv&gt
+				    &ltp&gt我是一个p&lt/p&gt
+					&lth2&gt我是一个标题&lt/h2&gt		
+				&lt/div&gt</pre>
+    	</li>
+    	<li>●E:only-child { sRules },匹配父元素仅有的一个子元素E。要使该属性生效，E元素必须是某个元素的子元素，E的父元素最高是body，即E可以是body的子元素</li>
+    	<li>●E:nth-child(n) { sRules },匹配父元素的第n个子元素E，假设该子元素不是E，则选择符无效。
+    	该选择符允许使用一个乘法因子(n)来作为换算方式，比如我们想选中所有的偶数子元素E，那么选择符可以写成：E:nth-child(2n)。
+    	该选择符允许使用一些关键字，比如：odd(奇数), even(偶数)。</li>
+    	<li>●E:nth-last-child(n) { sRules }，匹配父元素的倒数第n个子元素E，假设该子元素不是E，则选择符无效。
+    	基于选择符从右到左解析，首先要找到第n个子元素，然后再去检查该子元素是否为E，如果不是E，则n递增，继续查找。</li>
+    	<li>●E:first-of-type { sRules },匹配同类型中的第一个同级兄弟元素E。要使该属性生效，E元素必须是某个元素的子元素，E的父元素最高是html，即E可以是html的子元素，也就是说E可以是body。该选择符总是能命中父元素的第1个为E的子元素，不论第1个子元素是否为E。</li>
+    	<li>●E:last-of-type { sRules }，匹配同类型中的最后一个同级兄弟元素E。要使该属性生效，E元素必须是某个元素的子元素，E的父元素最高是html，即E可以是html的子元素，也就是说E可以是body。该选择符总是能命中父元素的倒数第1个为E的子元素，不论倒数第1个子元素是否为E。</li>
+    	<li>●E:only-of-type { sRules }，匹配同类型中的唯一的一个同级兄弟元素E。该选择符总是能命中父元素的唯一同类型子元素E，不论该元素的位置。</li>
+    	<li>●E:nth-of-type(n) { sRules }，匹配同类型中的第n个同级兄弟元素E。   </li>
+    	<li>●E:nth-last-of-type(n) { sRules }，配同类型中的倒数第n个同级兄弟元素E。</li>
+    	<li>●E:empty { sRules }，匹配没有任何子元素（包括text节点）的元素E。</li>
+    	<li>●E:checked { sRules }，匹配用户界面上处于选中状态的元素E。(用于input type为radio与checkbox时)。</li>
+    	<li>●E:enabled { sRules }，匹配用户界面上处于可用状态的元素E。</li>
+    	<li>●E:disabled { sRules }，匹配用户界面上处于禁用状态的元素E。</li>
+    	<li>●E:target { sRules }，匹配相关URL指向的E元素。</li>
+    	<li>●@page :first { sRules }，设置在打印时页面容器第一页使用的样式。仅用于@page规则。该伪类选择符只允许定义margin, orphans, widows 和 page breaks相关属性。</li>
+    	<li>●@page :left { sRules }，设置页面容器位于装订线左边的所有页面使用的样式。仅用于@page规则。该伪类选择符只允许定义margin, padding, border 和 background属性。</li>
+    	<li>●@page :right { sRules }，设置页面容器位于装订线右边的所有页面使用的样式。仅用于@page规则。</li>
+    </ul>
+    <h4>伪对象选择符 Pseudo-Element Selectors</h4>
+    <p>CSS3将伪对象选择符(Pseudo-Element Selectors)前面的单个冒号(:)修改为双冒号(::)用以区别伪类选择符(Pseudo-Classes Selectors)，但以前的写法仍然有效。</p>
+    <ul>
+    	<li>●E:first-letter/E::first-letter { sRules },设置对象内的第一个字符的样式。此伪对象仅作用于块对象。内联对象要使用该伪对象，必须先将其设置为块级对象。该伪类常被用来配合font-size属性和float属性制作首字下沉效果。</li>
+    	<li>●E:first-line/E::first-line { sRules },设置对象内的第一行的样式。此伪对象仅作用于块对象。内联对象要使用该伪对象，必须先将其设置为块级对象。</li>
+    	<li>●E:before/E::before { sRules },设置在对象前（依据对象树的逻辑结构）发生的内容。用来和content属性一起使用，并且必须定义content属性。</li>
+    	<li>●E:after/E::after { sRules },设置在对象后（依据对象树的逻辑结构）发生的内容。用来和content属性一起使用，并且必须定义content属性。</li>
+    	<li>●E::placeholder { sRules },设置对象文字占位符的样式。::placeholder 伪元素用于控制表单输入框占位符的外观，它允许开发者/设计师改变文字占位符的样式，默认的文字占位符为浅灰色。当表单背景色为类似的颜色时它可能效果并不是很明显，那么就可以使用这个伪元素来改变文字占位符的颜色。需要注意的是，除了Firefox是 ::[prefix]placeholder，其他浏览器都是使用 ::[prefix]input-placeholder。</li>
+    	<li>●E::selection { sRules },设置对象被选择时的样式。需要注意的是，::selection只能定义被选择时的background-color，color及text-shadow(IE11尚不支持定义该属性)。</li>
+    </ul>
+    <h3>2,变换（transform）属性</h3>
+    <ul>
+    	<li>●transform, 属性向元素应用 2D 或 3D 转换。该属性允许我们对元素进行旋转、缩放、移动或倾斜。默认值：none,适用于所有块级元素及某些内联元素。</li>
+    	<li>●transform-origin ，属性设置或检索对象以某个原点进行转换。该属性提供2个参数值。如果提供两个，第一个用于横坐标，第二个用于纵坐标。如果只提供一个，该值将用于横坐标；纵坐标将默认为50%。</li>
+    	<li>●transform-style ，属性规定如何在 3D 空间中呈现被嵌套的元素。取值：flat指定子元素位于此元素所在平面内，preserve-3d指定子元素定位在三维空间内。决定一个变换元素看起来是处在三维空间还是平面内，需要该元素的父元素上定义 ' transform-style ' 属性。</li>
+    	<li>●perspective 属性定义 3D 元素距视图的距离，以像素计。该属性允许您改变 3D 元素查看 3D 元素的视图。当为元素定义 perspective 属性时，其子元素会获得透视效果，而不是元素本身。</li>
+    	<li>●perspective-origin 属性定义 3D 元素所基于的 X 轴和 Y 轴。该属性允许您改变 3D 元素的底部位置。当为元素定义 perspective-origin 属性时，其子元素会获得透视效果，而不是元素本身。</li>
+    	<li>●backface-visibility 属性定义当元素不面向屏幕时是否可见。默认值：visible。hidden：指定元素背面不可见。</li>
+    </ul>
+    <h3>3,过渡（transition）属性</h3>
+    <ul>
+    	<li>●transition 属性是一个简写属性，用于设置四个过渡属性：transition-property、transition-duration、transition-timing-function、transition-delay。
+    	    <pre>可以为同一元素的多个属性定义过渡效果:
+    	    	transition:
+				border-color .5s ease-in .1s,
+				background-color .5s ease-in .1s,
+				color .5s ease-in .1s;</pre>
+    	</li>
+    	<li>●transition-property 属性规定应用过渡效果的 CSS 属性的名称。（当指定的 CSS 属性改变时，过渡效果将开始）。默认值为：all。默认为所有可以进行过渡的css属性。
+    	    <pre>如果提供多个属性值，以逗号进行分隔。
+    	    	transition-property: border-color, background-color, color;
+			transition-duration: .5s, .5s, .5s;
+			transition-timing-function: ease-in, ease-in, ease-in;
+			transition-delay: .1s, .1s, .1s; </pre>
+    	</li>
+    	<li>●transition-duration 属性规定完成过渡效果需要花费的时间（以秒或毫秒计）。</li>
+    	<li>●transition-timing-function 属性规定过渡效果的速度曲线。默认值：ease。</li>
+    	<li>●transition-delay 属性规定过渡效果何时开始。</li>
+    </ul>
+    <h4>CSS3动态效果分享：<a href="http://gnipbao.github.io/css3-test/menu.html" target="_blank">gnipbao.github.io</a></h4>
+    <h3>4,动画 (Animation)属性</h3>
+    <ul>
+    	<li>●通过 @keyframes 规则，您能够创建动画。以百分比来规定改变发生的时间，或者通过关键词 "from" 和 "to"，等价于 0% 和 100%。0% 是动画的开始时间，100% 动画的结束时间。为了获得最佳的浏览器支持，您应该始终定义 0% 和 100% 选择器。
+    	    <pre>语法:@keyframes animationname {keyframes-selector {css-styles;}}。
+    带有多个 CSS 样式的多个 keyframe 选择器：
+    	    	@keyframes mymove{
+				0%   {top:0px; left:0px; background:red;}
+				25%  {top:0px; left:100px; background:blue;}
+				50%  {top:100px; left:100px; background:yellow;}
+				75%  {top:100px; left:0px; background:green;}
+				100% {top:0px; left:0px; background:red;}
+				}</pre>
+				部分浏览器不支持伪元素动画，或者支持得不够好。Firefox 支持替代的 @-moz-keyframes 规则,Opera 支持替代的 @-o-keyframes 规则,Safari 和 Chrome 支持替代的 @-webkit-keyframes 规则。
+    	</li>
+    	<li>●animation 属性是一个简写属性，用于设置六个动画属性：animation-name、animation-duration、animation-timing-function、animation-delay、animation-iteration-count、animation-direction。如果提供多组属性值，以逗号进行分隔。
+    	    <pre>使用简写属性，将动画与 div 元素绑定：
+    	    	div{
+			animation:mymove 5s infinite;
+			-webkit-animation:mymove 5s infinite; /* Safari 和 Chrome */
+		}</pre>
+    	</li>
+    	<li>●animation-name 属性为 @keyframes 动画规定名称。必须与规则@keyframes配合使用，因为动画名称由@keyframes定义。</li>
+    	<li>●animation-duration 属性定义动画完成一个周期所需要的时间，以秒或毫秒计。</li>
+    	<li>●animation-timing-function 规定动画的速度曲线。默认值：ease。</li>
+    	<li>●animation-delay 属性定义动画何时开始。</li>
+    	<li>●animation-iteration-count 属性定义动画的播放次数。infinite：无限循环。语法:animation-iteration-count: n|infinite。</li>
+    	<li>●animation-direction 属性定义是否应该轮流反向播放动画。如果提供多个属性值，以逗号进行分隔。normal：正常方向;reverse：反方向运行;alternate：动画先正常运行再反方向运行，并持续交替运行;alternate-reverse：动画先反运行再正方向运行，并持续交替运行。</li>
+    	<li>●animation-play-state 属性规定动画正在运行还是暂停。可以在 JavaScript 中使用该属性，这样就能在播放过程中暂停动画。
+    	    <pre>语法:animation-play-state: paused|running;
+    	    	div:hover{
+			    -moz-animation-play-state:paused;
+			    -webkit-animation-play-state:paused;
+			    animation-play-state:paused;
+			} </pre>
+    	</li>
+    	<li>●animation-fill-mode 属性规定动画在播放之前或之后，其动画效果是否可见。none:不改变默认行为;forwards当动画完成后，保持最后一个属性值（在最后一个关键帧中定义）;backwards 在 animation-delay 所指定的一段时间内，在动画显示之前，应用开始属性值（在第一个关键帧中定义）;both 	向前和向后填充模式都被应用。</li>
+    </ul>
+</div>
+</body>
+</html>
+<script>
+
+
+
+
+</script>
