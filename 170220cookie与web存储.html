@@ -605,8 +605,8 @@
            context.executeSql('INSERT INTO testTable (id, name) VALUES (2, "Frank")');
         });</pre>
     <h4>executeSql:</h4>    
-    <p>executeSql方法用以执行SQL语句，返回结果，方法有四个参数:查询字符串、用以替换查询字符串中问号的参数、执
-    	行成功回调函数（可选）、执行失败回调函数（可选）。</p>
+    <p>executeSql方法用以执行SQL语句，返回结果，方法有四个参数:查询字符串（必选）、用以替换查询字符串中问号的参数（可选）、执
+    	行成功回调函数（可选,返回两个参数：tx和执行的结果）、执行失败回调函数（可选,返回两个参数：tx和失败的错误信息）。</p>
     <pre>在上面的例子中我们使用了插入语句，看个查询的例子:
     	db.transaction(function (context) {
            context.executeSql('SELECT * FROM testTable', [], function (context, results) {
