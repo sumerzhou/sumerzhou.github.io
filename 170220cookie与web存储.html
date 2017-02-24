@@ -617,6 +617,80 @@
               console.log('name: '+results.rows.item(i).name);
             }
          });</pre>
+    <pre>创建数据表:
+    	this.createTable=function() {
+        dataBase.transaction( function(tx) {
+            tx.executeSql(
+                "create table if not exists stu (id REAL UNIQUE, name TEXT)",
+                [],
+                function(tx,result){ alert('创建stu表成功'); },
+                function(tx, error){ alert('创建stu表失败:' + error.message);}
+            });
+        });
+    }</pre>   
+    <pre>添加数据：
+    	this.insert = function () {
+            dataBase.transaction(function (tx) {
+            tx.executeSql(
+                "insert into stu (id, name) values(?, ?)",
+                [id, '徐明祥'],
+                function () { alert('添加数据成功');},
+                function (tx, error) { alert('添加数据失败: ' + error.message);}
+            )
+	        });
+	    };</pre>
+	<pre>查询数据:
+		this.query = function () {
+		        dataBase.transaction(function (tx) {
+		            tx.executeSql(
+		                "select * from stu", [],
+		                function (tx, result) { //执行成功的回调函数
+		                //在这里对result 做你想要做的事情吧...........
+		                },
+		                function (tx, error) {
+		                alert('查询失败: ' + error.message);}
+		             );
+		        });
+		    }</pre>
+	<pre>更新数据:
+		 this.update = function (id, name) {
+	        dataBase.transaction(function (tx) {
+	            tx.executeSql(
+	                "update stu set name = ? where id= ?",
+	                [name, id],
+	                function (tx, result){},
+	                function (tx, error) {alert('更新失败: ' + error.message);}
+	            );
+	        });
+	   }</pre>
+	<pre>删除一个数据:
+	    this.del = function (id) {
+	        dataBase.transaction(function (tx) {
+	            tx.executeSql(
+	                "delete from stu where id= ?",
+	                [id],
+	                function (tx, result) {},
+	                function (tx, error) {alert('删除失败: ' + error.message);}
+	            );
+	        });
+	    }</pre>
+	<pre>删除所有数据:
+	    this.del = function (id) {
+	        dataBase.transaction(function (tx) {
+	            tx.executeSql(
+	                "delete from stu",
+	                [id],
+	                function (tx, result) {},
+	                function (tx, error) {alert('删除失败: ' + error.message);}
+	            );
+	        });
+	    }</pre>
+	<pre>删除数据表:
+	    this.dropTable = function () {
+	        dataBase.transaction(function (tx) {
+	            tx.executeSql('drop table stu');
+	        });
+	    }</pre>     
     <h4>扩展阅读:<a href="http://www.cnblogs.com/dolphinX/p/3405335.html">Web SQL Database</a>、<a href="http://www.cnblogs.com/chuncn/archive/2010/11/22/1884783.html">HTML5 Web SQL</a></h4>     
     <h3>4,HTML5 应用程序缓存</h3>
     <p>HTML5 引入了应用程序缓存，这意味着 web 应用可进行缓存，并可在没有因特网连接时进行访问。应用程序缓存为应用带来三个优势：
