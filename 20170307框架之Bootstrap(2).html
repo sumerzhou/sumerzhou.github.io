@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Bootstrap组件|sumerzhou's blog</title>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link href="myblog.css" rel="stylesheet" type="text/css">
+    <script src="myblog.js" type="text/javascript"></script>
+    <style>
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
+            line-height: 2em;
+        }
+        .textBox h2{
+            margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
+        }
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox h4{
+            text-shadow: 1px 1px 2px #4F68B0;
+        }
+        .textBox p{
+            text-indent: 2em;
+        }
+        .textBox li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .textBox pre{
+            display: block;
+            width: 850px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 2px 2px 1px black;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+            font-family: '仿宋';
+        }
+    </style>
+</head>
+<body>
+<!--header-->
+<div class="headerbox">
+    <div class="headertop">
+        <div class="hdtopbut">
+            <a href="http://blog.hungking.cc/" target="_blank"><img src="imgs/sns_blog_off.png"></a>
+            <a href="https://www.facebook.com/HoungkingHsi" target="_blank"><img src="imgs/sns_facebook_off.png"></a>
+            <a href="http://globalblog.hungking.cc/" target="_blank"><img src="imgs/sns_gBlog_off.png"></a>
+            <a href="http://www.linkedin.com/imisslovelove" target="_blank"><img src="imgs/sns_in_off.png"></a>
+            <a href="http://www.youtube.com/imisslovelove" target="_blank"><img src="imgs/sns_youTube_off.png"></a>
+            <a href="http://www.instagram.com/imisslovelove" target="_blank"><img src="imgs/sns_instagram_off.png"></a>
+            <a href="http://story.kakao.com/ch/imisslovelove" target="_blank" style="background: transparent none;"><img src="imgs/sns_kakao_off.png"></a>
+            <div class="hdtopbutR">
+                <a href="construction.html" style="background-position-x:85px ;">Contact Me</a>
+                <a href="construction.html">AboutSite</a>
+                <span onclick="ifshow(0)">Language<img src="imgs/btn_globalSite_open.gif"></span>
+                <ul id="lag">
+                    <li>KOREAN</li><li>CHINESE</li><li>JAPANESE</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="headerbotm">
+        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
+        <ul id="hdbotmUl">
+            <li>
+                <a href="company.html">WEB前端</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">HTML</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Corporate Overview</a></li>
+                                <li><a href="">Vision of houngking</a></li>
+                                <li><a href="">History of houngking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">CSS/CSS3</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Brand Story</a></li>
+                                <li><a>CI</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">JavaScript</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Greetings</a></li>
+                                <li><a>CEO's Message</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Ajax</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>hougking Affiliates</a></li>
+                                <li><a>Steel</a></li>
+                                <li><a>E&C</a></li>
+                                <li><a>Trade</a></li>
+                                <li><a>ICT</a></li>
+                                <li><a>Energy</a></li>
+                                <li><a>Material-Chemistry</a></li>
+                                <li><a>Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">jQuery</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Global</a></li>
+                                <li><a>Asia</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Business Ethics</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Major Activities</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Products/Technology</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Products of hounking</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Hot Rolled Steel</a></li>
+                                <li><a href="">Steel Plate</a></li>
+                                <li><a href="">Winter Day</a></li>
+                                <li><a href="">Gold Rolled Steel</a></li>
+                                <li><a href="">Galvanized Steel</a></li>
+                                <li><a href="">Electrical Galvanized</a></li>
+                                <li><a href="">Electrical Steel</a></li>
+                                <li><a href="">Automotive materials</a></li>
+                                <li><a href="">Stainless Steel</a></li>
+                                <li><a href="">Titanium Product</a></li>
+                                <li><a href="">Magnesium Product</a></li>
+                                <li><a href="">Aluminum-plated products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">houngking Technology</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">FINEX Technology</a></li>
+                                <li><a href="">Strip Casting</a></li>
+                                <li><a href="">Endless Hot Rolling Technology</a></li>
+                                <li><a href="">Operation Technology</a></li>
+                                <li><a href="">CEM Technology</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Production Process</a>
+                    </li>
+                    <li>
+                        <a href="">Sales information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">e-Sales</a></li>
+                                <li><a href="">e-Procurement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Investor Relations</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">IR Activeties</a>
+                    </li>
+                    <li>
+                        <a href="">Stock Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Stock Price</a></li>
+                                <li><a href="">Price Comparision</a></li>
+                                <li><a href="">ADR</a></li>
+                                <li><a href="">houngking Stock Exchange</a></li>
+                                <li><a href="">Economic Trend</a></li>
+                                <li><a href="">Shareholders Demographics</a></li>
+                                <li><a href="">Dividend</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Financial Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Income Statement</a></li>
+                                <li><a href="">Credit Rating</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">IR Archive</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Audit Report</a></li>
+                                <li><a href="">Form 20-F</a></li>
+                                <li><a href="">Annual Report</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Sustainability</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Sustainability Management System</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Management System</a></li>
+                                <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
+                                <li><a href="">Risk Management</a></li>
+                                <li><a href="">Stakeholder</a></li>
+                                <li><a href="">Relevant Institutes Activities</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Social Responsibility </a>
+                    </li>
+                    <li>
+                        <a href="">Environmental Management </a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Family's Environmental Management</a></li>
+                                <li><a href="">Environmental Management</a></li>
+                                <li><a href="">Climate change /Energy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Customer</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Marketing strategy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Employee</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Employee Health / Safety</a></li>
+                                <li><a href="">Organizational Culture</a></li>
+                                <li><a href="">HR system</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Report</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Report</a></li>
+                                <li><a href="">Carbon Report</a></li>
+                                <li><a href="">Conflict Minerals Disclosure</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">PR Room</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">News room</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">News letter</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">houngking SNS</a>
+                    </li>
+                    <li>
+                        <a href="">PR Archives</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
+                                <li><a href="">PR Movies</a></li>
+                                <li><a href="">Printed Advertisement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Download</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
+        <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
+        <div class="hdmenu" id="hdmenu">
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--text-->
+<div class="textBox">
+    <h2>20170307-框架之Bootstrap（组件）</h2>
+    <h3>1，Glyphicons 字体图标</h3>
+    <p>包括250多个来自 Glyphicon Halflings 的字体图标。Glyphicons Halflings 一般是收费的，但是他们的作者允许 Bootstrap 免费使用。</p>
+    <h4>如何使用</h4>
+    <p>出于性能的考虑，所有图标都需要一个基类和对应每个图标的类。注意，为了设置正确的内补（padding），务必在图标和文本之间添加一个空格。</p>
+    <p>图标类不能和其它组件直接联合使用。它们不能在同一个元素上与其他类共同存在。应该创建一个嵌套的标签，如 span 标签，并将图标类应用到这个 span 标签上。图标类只能应用在不包含任何文本内容或子元素的元素上。</p>
+    <h4>实例:</h4>
+        <button type="button" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Star
+        </button>
+    <pre style="margin-left: 50px;margin-top: 10px;">
+&ltbutton type="button" class="btn btn-default btn-lg"&gt
+  &ltspan class="glyphicon glyphicon-star"&gt&lt/span&gt Star
+&lt/button&gt</pre>
+     <h3>2,下拉菜单</h3>
+     <p>下拉菜单的 JavaScript 插件让它具有了交互性。</p>
+     <ul>
+     	<li>●.dropdown,将下拉菜单触发器和下拉菜单都包裹在 .dropdown 里,然后加入组成菜单的 HTML 代码。</li>
+     	<li>●.dropup,通过为下拉菜单的父元素设置 .dropup 类，可以让菜单向上弹出（默认是向下弹出的）。</li>
+     	<li>●.dropdown-menu ,需要下拉显示的菜单类。</li>
+     	<li>●.dropdown-menu-right，默认情况下，下拉菜单自动沿着父元素的上沿和左侧被定位为 100% 宽度。 为 .dropdown-menu 添加 .dropdown-menu-right 类可以让菜单右对齐。</li>
+     	<li>●.dropdown-header,在任何下拉菜单中均可通过添加标题来标明一组动作。</li>
+     	<li>●.divider,为下拉菜单添加一条分割线，用于将多个链接分组。</li>
+     	<li>●.disabled,为下拉菜单中的 li 元素添加 .disabled 类，从而禁用相应的菜单项。</li>
+     </ul>
+     <h4>实例：</h4>
+        <div class="dropdown" style="margin-bottom: 10px;">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Dropdown
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+        </div>
+     <pre style="margin-left: 50px;">
+&ltdiv class="dropdown"&gt
+  &ltbutton class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"&gt
+    Dropdown
+    &ltspan class="caret"&gt&lt/span&gt
+  &lt/button&gt
+  &ltul class="dropdown-menu" &gt
+    &ltli&gt&lta href="#"&gtAction&lt/a&gt&lt/li&gt
+    &ltli&gt&lta href="#"&gtAnother action&lt/a&gt&lt/li&gt
+    &ltli role="separator" class="divider"&gt&lt/li&gt
+    &ltli&gt&lta href="#"&gtSeparated link&lt/a&gt&lt/li&gt
+  &lt/ul&gt
+&lt/div&gt
+     </pre>
+     <h3>3,按钮组</h3>
+     <p>通过按钮组容器把一组按钮放在同一行里。通过与按钮插件联合使用，可以设置为单选框或多选框的样式和行为。</p>
+     <p>当为 .btn-group 中的元素应用工具提示或弹出框时，必须指定 container: 'body' 选项，这样可以避免不必要的副作用（例如工具提示或弹出框触发时，会让页面元素变宽和/或失去圆角）。</p>
+     <h4>基本实例:</h4>
+        <div class="btn-group" role="group" style="margin-bottom: 10px;">
+            <button type="button" class="btn btn-default">Left</button>
+            <button type="button" class="btn btn-default">Right</button>
+        </div>
+     <pre style="margin-left: 50px;">
+&ltdiv class="btn-group" role="group" aria-label="..."&gt
+  &ltbutton type="button" class="btn btn-default"&gtLeft&lt/button&gt
+  &ltbutton type="button" class="btn btn-default"&gtRight&lt/button&gt
+&lt/div&gt</pre>
+     <ul>
+     	<li>●.btn-group,用来包裹一个个的按钮。</li>
+     	<li>●.btn-toolbar,包裹多组 .btn-group,可以做成更复杂的组件。</li>
+     	<li>●.btn-group-lg/btn-group-sm/btn-group-xs,为按钮组中的每个按钮都赋予尺寸.</li>
+     	<li>●嵌套:想要把下拉菜单混合到一系列按钮中，只须把 .btn-group 放入另一个 .btn-group 中。</li>
+     	<li>●.btn-group-vertical,让一组按钮垂直堆叠排列显示而不是水平排列。</li>
+     	<li>●两端对齐排列的按钮组:
+     	   <p>让一组按钮拉长为相同的尺寸，填满父元素的宽度。对于按钮组中的按钮式下拉菜单也同样适用。</p>
+     	   <p>由于对两端对齐的按钮组使用了特定的 HTML 和 CSS （即 display: table-cell），两个按钮之间的边框叠加在了一起。在普通的按钮组中，margin-left: -1px 用于将边框重叠，而没有删除任何一个按钮的边框。然而，margin 属性不支持 display: table-cell。因此，根据你对 Bootstrap 的定制，你可以删除或重新为按钮的边框设置颜色。</p>
+     	   <p>.btn-group.btn-group-justified,只须将一系列 .btn 元素包裹到 .btn-group.btn-group-justified 中即可。</p>
+     	   <p>为了将 button 元素用于两端对齐的按钮组中，必须将每个按钮包裹进一个按钮组中you must wrap each button in a button group。大部分的浏览器不能将我们的 CSS 应用到对齐的 button 元素上，但是，由于我们支持按钮式下拉菜单，我们可以解决这个问题。</p>
+     	</li>
+     </ul>
+     <h3>4,按钮式下拉菜单</h3>
+     <p>把任意一个按钮放入 .btn-group 中，然后加入适当的菜单标签，就可以让按钮作为菜单的触发器了。</p>
+     <h4>实例：</h4>
+        <div class="btn-group" style="margin-bottom: 10px;">
+            <button type="button" class="btn btn-danger">Action</button>
+            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+        </div>
+     <pre style="margin-left: 50px;">分裂式按钮下拉菜单:
+&ltdiv class="btn-group"&gt
+  &ltbutton type="button" class="btn btn-danger"&gtAction&lt/button&gt
+  &ltbutton class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown"  &gt
+    &ltspan class="caret"&gt&lt/span&gt
+  &lt/button&gt
+  &ltul class="dropdown-menu" &gt
+    &ltli&gt&lta href="#"&gtAction&lt/a&gt&lt/li&gt
+    &ltli&gt&lta href="#"&gtAnother action&lt/a&gt&lt/li&gt
+    &ltli role="separator" class="divider"&gt&lt/li&gt
+    &ltli&gt&lta href="#"&gtSeparated link&lt/a&gt&lt/li&gt
+  &lt/ul&gt
+&lt/div&gt</pre>
+     <ul>
+     	<li>●.btn-lg/btn-sm/btn-xs,按钮式下拉菜单适用所有尺寸的按钮。</li>
+     	<li>●.dropup ,给父元素添加 .dropup 类就能使触发的下拉菜单朝上方打开。</li>
+     </ul>
+     <h3>5,输入框组</h3>
+     <p>通过在文本输入框 input 前面、后面或是两边加上文字或按钮，可以实现对表单控件的扩展。为 .input-group 赋予 .input-group-addon 或 .input-group-btn 类，可以给 .form-control 的前面或后面添加额外的元素。</p>
+     <p>只支持文本输入框 input元素。</p>
+     <h4>基本实例：</h4>
+        <div class="input-group" style="margin-bottom: 10px;">
+            <span class="input-group-addon">$</span>
+            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+            <span class="input-group-addon">.00</span>
+        </div>
+      <pre style="margin-left: 50px;">在输入框的任意一侧添加额外元素或按钮。
+不支持在输入框的单独一侧添加多个额外元素（.input-group-addon 或 .input-group-btn）。
+          &ltdiv class="input-group"&gt
+              &ltspan class="input-group-addon"&gt$&lt/span&gt
+              &ltinput type="text" class="form-control" aria-label="Amount (to the nearest dollar)"&gt
+              &ltspan class="input-group-addon"&gt.00&lt/span&gt
+          &lt/div&gt</pre>
+       <ul>
+           <li>●.input-group-lg/input-group-sm,为 .input-group 添加相应的尺寸类，其内部包含的元素将自动调整自身的尺寸。不需要为输入框组中的每个元素重复地添加控制尺寸的类。</li>
+       </ul>
+     <h4>额外元素的多or单选框:</h4>
+        <div class="input-group" style="margin-bottom: 10px;">
+          <span class="input-group-addon">
+            <input type="checkbox" aria-label="...">
+          </span>
+            <input type="text" class="form-control" aria-label="...">
+        </div>
+    <pre style="margin-left: 50px;">
+    &ltdiv class="input-group"&gt
+       &ltspan class="input-group-addon"&gt
+         &ltinput type="checkbox"&gt
+       &lt/span&gt
+       &ltinput type="text" class="form-control"&gt
+    &lt/div&gt</pre>
+     <h4>额外元素的按钮:</h4>
+     <p>为输入框组添加按钮需要额外添加一层嵌套，不是 .input-group-addon，而是添加 .input-group-btn 来包裹按钮元素。</p>
+        <div class="input-group" style="margin-bottom: 10px;">
+            <input type="text" class="form-control" placeholder="Search for...">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Go!</button>
+          </span>
+        </div>
+    <pre style="margin-left: 50px;">
+    &ltdiv class="input-group"&gt
+        &ltinput type="text" class="form-control" placeholder="Search for..."&gt
+        &ltspan class="input-group-btn"&gt
+          &ltbutton class="btn btn-default" type="button"&gtGo!&lt/button&gt
+        &lt/span&gt
+    &lt/div&gt</pre>
+     <h4>额外元素的按钮式下拉菜单:</h4>
+        <div class="input-group" style="margin-bottom: 10px;">
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
+            </div>
+            <input type="text" class="form-control" aria-label="...">
+        </div>
+     <pre style="margin-left: 50px;">
+&ltdiv class="input-group"&gt
+    &ltdiv class="input-group-btn"&gt
+        &ltbutton type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"&gt
+            Action
+            &ltspan class="caret"&gt&lt/span&gt
+         &lt/button&gt
+        &ltul class="dropdown-menu"&gt
+            &ltli>&lta href="#"&gtAction&lt/a&gt&lt/li&gt
+            &ltli role="separator" class="divider"&gt&lt/li&gt
+            &ltli>&lta href="#"&gtSeparated link&lt/a&gt&lt/li&gt
+         &lt/ul&gt
+    &lt/div&gt
+    &ltinput type="text" class="form-control"&gt
+&lt/div&gt</pre>
+     <h4>额外元素的分裂式按钮下拉菜单or多个按钮：</h4>
+    <pre style="margin-left: 50px;">
+        &ltdiv class="input-group"&gt
+            &ltdiv class="input-group-btn"&gt
+                -- Buttons --
+            &lt/div&gt
+            &ltinput type="text" class="form-control" aria-label="..."&gt
+        &lt/div&gt</pre>
+     <h3>6,导航</h3>
+     <p>导航组件都依赖同一个 .nav 类，状态类也是共用的。在标签页上使用导航需要依赖 JavaScript 标签页插件</p>
+     <h4>标签页:</h4>
+     <p>注意 .nav-tabs 类依赖 .nav 基类。</p>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Messages</a></li>
+    </ul>
+    <pre style="margin-left: 50px;">
+        &ltul class="nav nav-tabs"&gt
+            &ltli class="active"&gt&lta href="#"&gtHome&lt/a&gt&lt/li&gt
+            &ltli&gt&lta href="#"&gtProfile&lt/a&gt&lt/li&gt
+            &ltli&gt&lta href="#"&gtMessages&lt/a&gt&lt/li&gt
+        &lt/ul&gt</pre>
+    <ul>
+        <li>●.nav-tabs,标签页类</li>
+        <li>●.nav-pills,胶囊式标签页</li>
+        <li>●.nav-stacked,使胶囊式标签页垂直方向堆叠排列</li>
+        <li>●.nav-justified，在大于 768px 的屏幕上，通过 .nav-justified 类可以很容易的让标签页或胶囊式标签呈现出同等宽度。在小屏幕上，导航链接呈现堆叠样式。</li>
+        <li>●.disabled,对任何导航组件（标签页、胶囊式标签页），都可以添加 .disabled 类，从而实现链接为灰色且没有鼠标悬停效果。这个类只改变 a 的外观，不改变功能。可以自己写 JavaScript 禁用这里的链接。</li>
+    </ul>
+    <h4>添加下拉菜单:</h4>
+     <pre style="margin-left: 50px;">
+         &ltul class="nav nav-tabs"&gt
+             ...
+             &ltli class="dropdown"&gt
+                 &lta class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"&gt
+                     Dropdown
+                     &ltspan class="caret"&gt&lt/span&gt
+                 &lt/a&gt
+                 &ltul class="dropdown-menu"&gt
+                     ...
+                 &lt/ul&gt
+             &lt/li&gt
+             ...
+         &lt/ul&gt</pre>
+     <h3>7,导航条</h3>
+     <p>导航条是在您的应用或网站中作为导航页头的响应式基础组件。它们在移动设备上可以折叠（并且可开可关），且在视口（viewport）宽度增加时逐渐变为水平展开模式。</p>
+     <p>由于 Bootstrap 并不知道你在导航条内放置的元素需要占据多宽的空间，你可能会遇到导航条中的内容折行的情况（也就是导航条占据两行）。可手动解决。</p>
+     <p>如果 JavaScript 被禁用，并且视口（viewport）足够窄，致使导航条折叠起来，导航条将不能被打开，.navbar-collapse 内所包含的内容也将不可见。</p>
+     <h4>实例：</h4>
+        <nav class="navbar navbar-default" style="margin-bottom: 10px;">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Brand</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Link</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Dropdown <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    <pre style="margin-left: 50px;">
+&ltnav class="navbar navbar-default"&gt
+    &ltdiv class="container-fluid"&gt
+        &ltdiv class="navbar-header"&gt
+            &ltbutton type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1"&gt
+                &ltspan class="icon-bar"&gt&lt/span&gt
+                &ltspan class="icon-bar"&gt&lt/span&gt
+                &ltspan class="icon-bar"&gt&lt/span&gt
+            &lt/button&gt
+            &lta class="navbar-brand" href="#"&gtBrand&lt/a&gt
+        &lt/div&gt
+        &ltdiv class="collapse navbar-collapse" id="bs-navbar-collapse-1"&gt
+            &ltul class="nav navbar-nav"&gt
+                &ltli class="active"&gt&lta href="#">Link &lt/a>&lt/li&gt
+                &ltli&gt&lta href="#"&gtLink&lt/a&gt&lt/li&gt
+            &lt/ul&gt
+            &ltform class="navbar-form navbar-left"&gt
+                &ltdiv class="form-group"&gt
+                    &ltinput type="text" class="form-control" placeholder="Search"&gt
+                &lt/div&gt
+                &ltbutton type="submit" class="btn btn-default"&gtSubmit&lt/button&gt
+            &lt/form&gt
+            &ltul class="nav navbar-nav navbar-right"&gt
+                &ltli&gt&lta href="#"&gtLink&lt/a&gt&lt/li&gt
+                &ltli class="dropdown"&gt
+                    &lta href="#" class="dropdown-toggle" data-toggle="dropdown"&gt
+                        Dropdown &ltspan class="caret"&gt&lt/span&gt
+                    &lt/a&gt
+                    &ltul class="dropdown-menu"&gt
+                        &ltli&gt&lta href="#"&gtAction&lt/a&gt&lt/li&gt
+                        &ltli role="separator" class="divider"&gt&lt/li&gt
+                        &ltli&gt&lta href="#"&gtSeparated link&lt/a&gt&lt/li&gt
+                    &lt/ul&gt
+                &lt/li&gt
+            &lt/ul&gt
+        &lt/div&gt
+    &lt/div&gt
+&lt/nav&gt</pre>
+    <h4>品牌图标:</h4>
+    <p>将导航条内放置品牌标志的地方替换为 img元素即可展示自己的品牌图标。</p>
+    <pre style="margin-left: 50px;">
+        &ltdiv class="navbar-header"&gt
+            &lta class="navbar-brand" href="#"&gt
+                &ltimg alt="Brand" src="..."&gt
+            &lt/a&gt
+        &lt/div&gt</pre>
+    <h4>表单:</h4>
+    <ul>
+        <li>●.navbar-form,将表单form元素放置于 .navbar-form 之内可以呈现很好的垂直对齐，并在较窄的视口中呈现折叠状态。 使用对齐选项可以规定其在导航条上出现的位置。注意，.navbar-form 和 .form-inline 的大部分代码都一样，内部实现使用了 mixin。</li>
+    </ul>
+    <h4>按钮:</h4>
+    <ul>
+        <li>●.navbar-btn,对于不包含在 form 中的 button 元素，加上 .navbar-btn 后，可以让它在导航条里垂直居中。</li>
+    </ul>
+    <p>就像标准的按钮类一样，.navbar-btn 可以被用在 a 和 input 元素上。然而，在 .navbar-nav 内，.navbar-btn 和标准的按钮类都不应该被用在 a 元素上。</p>
+    <h4>文本:</h4>
+    <ul>
+        <li>●.navbar-text,把文本包裹在 .navbar-text中时，为了有正确的行距和颜色，通常使用 p 标签。</li>
+    </ul>
+    <h4>非导航的链接:</h4>
+    <ul>
+        <li>●.navbar-link,在标准的导航组件之外添加标准链接,使用 .navbar-link 类可以让链接有正确的默认颜色和反色设置。</li>
+    </ul>
+    <h4>组件排列:</h4>
+    <ul>
+        <li>●.navbar-left/.navbar-right,让导航链接、表单、按钮或文本对齐。两个类都会通过 CSS 设置特定方向的浮动样式。</li>
+    </ul>
+    <p>导航条目前不支持多个 .navbar-right 类。为了让内容之间有合适的空隙，为最后一个 .navbar-right 元素使用负边距（margin）。如果有多个元素使用这个类，它们的边距（margin）将不能按照预期正常展现。</p>
+    <h4>固定位置：</h4>
+    <ul>
+        <li>●.navbar-fixed-top,让导航条固定在顶部，还可包含一个 .container 或 .container-fluid 容器，从而让导航条居中，并在两侧添加内补（padding）。导航条的默认高度是 50px。</li>
+        <li>●.navbar-fixed-bottom,导航条固定在底部</li>
+        <li>●.navbar-static-top,与页面等宽度的导航条，它会随着页面向下滚动而消失。还可以包含一个 .container 或 .container-fluid 容器，用于将导航条居中对齐并在两侧添加内补（padding）。</li>
+    </ul>
+    <h4>反色的导航条:</h4>
+    <ul>
+        <li>●.navbar-inverse,改变导航条的外观颜色为黑色。</li>
+    </ul>
+     <h3>8,路径导航</h3>
+     <p>在一个带有层次的导航结构中标明当前页面的位置。</p>
+     <pre style="margin-left: 50px;">
+    &ltol class="breadcrumb"&gt
+         &ltli&gt&lta href="#"&gtHome&lt/a&gt&lt/li&gt
+         &ltli class="active"&gtData&lt/li&gt
+    &lt/ol&gt</pre>
+     <h3>9,分页</h3>
+     <p>为您的网站或应用提供带有展示页码的分页组件，或者可以使用简单的翻页组件。</p>
+    <h4>例：</h4>
+    <ul class="pagination" style="margin-bottom: 10px;">
+        <li class="active"><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li>
+            <a href="#" aria-label="Next">
+                <span aria-hidden="true">下页&raquo;</span>
+            </a>
+        </li>
+    </ul>
+     <pre style="margin-left: 50px;">
+         &ltul class="pagination"&gt
+             &ltli class="active"&gt&lta href="#"&gt1&lt/a&gt&lt/li&gt
+             &ltli&gt&lta href="#"&gt2&lt/a&gt&lt/li&gt
+             &ltli&gt
+                 &lta href="#"&gt
+                     &ltspan aria-hidden="true"&gt下页&raquo;&lt/span&gt
+                 &lt/a&gt
+             &lt/li&gt
+         &lt/ul&gt</pre>
+    <ul>
+        <li>●.pagination,使用分页</li>
+        <li>●.disabled/.active,链接在不同情况下可以定制。你可以给不能点击的链接添加 .disabled 类、给当前页添加 .active 类。</li>
+        <li>●.pagination-lg/.pagination-sm,调整尺寸</li>
+    </ul>
+    <h4>翻页:</h4>
+    <ul class="pager">
+        <li class="previous"><a href="#"><span>&larr;</span> Older</a></li>
+        <li class="next"><a href="#">Newer <span>&rarr;</span></a></li>
+    </ul>
+    <pre style="margin-left: 50px;">
+        &ltul class="pager"&gt
+            &ltli class="previous"&gt&lta href="#"&gt&ltspan&gt&larr;&lt/span&gt Older&lt/a&gt&lt/li&gt
+        &ltli class="next"&gt&lta href="#"&gtNewer &ltspan&gt&rarr;&lt/span&gt&lt/a&gt&lt/li&gt
+        &lt/ul&gt
+    </pre>
+    <ul>
+        <li>●.pager,使用翻页。在默认的翻页中，链接居中对齐。</li>
+        <li>●.previous,向左对齐</li>
+        <li>●.next,向右对齐</li>
+        <li>●.disabled,禁用</li>
+    </ul>
+     <h3>10,标签</h3>
+    <h4>例：</h4>
+    <h5>Example heading <span class="label label-default">New</span></h5>
+    <pre style="margin-left: 50px;">
+        &lth5&gtExample heading &ltspan class="label label-default"&gtNew&lt/span&gt&lt/h5&gt
+    </pre>
+    <ul>
+        <li>●label-primary</li>
+        <li>●label-success</li>
+        <li>●label-info</li>
+        <li>●label-warning</li>
+        <li>●label-danger</li>
+    </ul>
+     <h3>11,徽章</h3>
+    <p>给链接、导航等元素嵌套 &ltspan class="badge"&gt 元素，可以很醒目的展示新的或未读的信息条目。</p>
+     <h3>12,巨幕</h3>
+      <p>.jumbotron类,把需要的内容放到用.jumbotron类包裹的容器内，使获得展示效果。</p>
+      <p>如果需要让巨幕组件的宽度与浏览器宽度一致并且没有圆角，请把此组件放在所有 .container 元素的外面，并在组件内部添加一个 .container 元素。</p>
+     <h3>13,页头</h3>
+    <p>.page-header,页头组件能够为 h1 标签增加适当的空间，并且与页面的其他部分形成一定的分隔。它支持 h1 标签内内嵌 small 元素的默认效果，还支持大部分其他组件（需要增加一些额外的样式）。</p>
+     <h3>14,缩略图</h3>
+     <p>通过缩略图组件扩展 Bootstrap 的 栅格系统，可以很容易地展示栅格样式的图像、视频、文本等内容。</p>
+     <h4>默认样式:</h4>  
+     <pre style="margin-left: 50px;">
+    &ltdiv class="row"&gt
+         &ltdiv class="col-xs-6 col-md-3"&gt
+             &lta href="#" class="thumbnail"&gt
+     		 &ltimg src="..." alt="..."&gt
+   			 &lt/a&gt
+ 		 &lt/div&gt
+ 		 ...
+	&lt/div&gt</pre>
+     <h3>15,警告框</h3>
+     <ul>
+     	<li>●.alert 类是必须要设置的，另外我们还提供了有特殊意义的4个类，代表不同的警告信息。</li>
+     	<li>●.alert-success</li>
+     	<li>●.alert-info</li>
+     	<li>●.alert-warning</li>
+     	<li>●.alert-danger</li>
+     </ul>
+     <h4>可关闭的警告框:</h4>
+     <p>为警告框添加一个可选的 .alert-dismissible 类和一个关闭按钮。为确保在所有设备上的正确行为，务必给 button元素添加 data-dismiss="alert" 属性。</p>
+     <pre style="margin-left: 50px;">
+&ltdiv class="alert alert-warning alert-dismissible"&gt
+  &ltbutton type="button" class="close" data-dismiss="alert"&gt
+  	&ltspan&gt&times;&lt/span&gt
+  &lt/button&gt
+  &ltstrong&gtWarning!&lt/strong&gt Better check yourself, you're not looking too good.
+&lt/div&gt</pre>
+     <h4>警告框中的链接:</h4>
+     <p>用 .alert-link 工具类，可以为链接设置与当前警告框相符的颜色。</p>
+     <h3>16,进度条</h3>
+     <h4>默认样式的进度条:</h4>
+     <div class="progress">
+ 		 <div class="progress-bar" style="width: 60%;">
+  			  <span class="sr-only">60% Complete</span>
+ 		 </div>
+	</div>
+     <pre style="margin-left: 50px;">
+     &ltdiv class="progress"&gt
+ 		 &ltdiv class="progress-bar" style="width: 60%;"&gt
+  			  &ltspan class="sr-only"&gt60% Complete&lt/span&gt
+ 		 &lt/div&gt
+	&lt/div&gt</pre>
+	<p>将设置了 .sr-only 类的 span 标签从进度条组件中移除，从而让当前进度显示出来。</p>
+	<p>在展示很低的百分比时，如果需要让文本提示能够清晰可见，可以为进度条设置 min-width 属性。</p>
+	<div class="progress">
+ 		 <div class="progress-bar" style="min-width: 2em;width: 2%;">
+  			2%
+ 		 </div>
+	</div>
+	<h4>根据情境变化效果:</h4>
+	<ul>
+		<li>●.progress-bar-success</li>
+		<li>●.progress-bar-info</li>
+		<li>●.progress-bar-warning</li>
+		<li>●.progress-bar-danger</li>
+		<li>●.progress-bar-striped,过渐变可以为进度条创建条纹效果.</li>
+		<li>●.active,为 .progress-bar-striped 添加 .active 类，使其呈现出由右向左运动的动画效果。</li>
+		<li>●把多个进度条放入同一个 .progress 中，使它们呈现堆叠的效果。</li>
+	</ul>
+     <h3>17,媒体对象</h3>
+     <p>默认样式的媒体对象组件允许在一个内容块的左边或右边展示一个多媒体内容（图像、视频、音频）。</p>
+     <pre style="margin-left: 50px;">
+&ltdiv class="media"&gt
+  &ltdiv class="media-left"&gt
+    &lta href="#"&gt
+      &ltimg class="media-object" src="..." alt="..."&gt
+    &lt/a&gt
+  &lt/div&gt
+  &ltdiv class="media-body"&gt
+    &lth4 class="media-heading"&gtMedia heading&lt/h4&gt
+    ...
+  &lt/div&gt
+&lt/div&gt</pre>
+     <ul>
+     	<li>●.media-left,使媒体文件位于左侧。</li>
+     	<li>●.media-right, 应当放在 .media-body 的后面,使媒体文件位于右侧。</li>
+     	<li>●.media-middle,图片或其他媒体类型中部对齐。默认是顶部对齐。</li>
+     	<li>●.media-list,媒体对象列表,用一点点额外的标记，就能在列表内使用媒体对象组件（对评论或文章列表很有用）。
+     	   <pre style="margin-left: 50px;">
+&ltul class="media-list"&gt
+  &ltli class="media"&gt
+  	……
+  &lt/li&gt
+&lt/ul&gt</pre>
+     	</li>
+     </ul>
+     <h3>18,列表组</h3>
+     <p>列表组中的每个元素都可以是任何 HTML 内容。</p>
+     <ul>
+     	<li>●.list-group</li>
+     	<li>●.list-group-item</li>
+     	<li>●给列表组加入徽章组件.badge，它会自动被放在右边。</li>
+     	<li>●用a标签代替li标签可以组成一个全部是链接的列表组（注意的是，同时需要将ul标签替换为 div标签）。</li>
+     	<li>●列表组中的元素也可以直接就是button（同时意味着父元素必须是div），注意不要使用标准的 .btn 类！</li>
+     	<li>●.disabled/.active ,为 .list-group-item 添加 .disabled/.active  类可以让单个条目显示为灰色，表现出被禁用或激活的效果。 </li>
+     	<li>●.list-group-item-success／list-group-item-info／list-group-item-warning／list-group-item-danger</li>
+     	<li>●.list-group-item-heading</li>
+     	<li>●.list-group-item-text</li>
+     </ul>
+     <pre style="margin-left: 50px;">
+&ltdiv class="list-group"&gt
+  &lta href="#" class="list-group-item active"&gt
+    &lth4 class="list-group-item-heading"&gtList group item heading&lt/h4&gt
+    &ltp class="list-group-item-text"&gt...&lt/p&gt
+  &lt/a&gt
+&lt/div&gt</pre>
+     <h3>19,面版</h3>
+     
+     
+     <h3>20,具有响应式特性的嵌入内容</h3>
+     <p>根据被嵌入内容的外部容器的宽度，自动创建一个固定的比例，从而让浏览器自动确定视频或 slideshow 的尺寸，能够在各种设备上缩放。</p>
+     <p>这些规则被直接应用在 iframe、embed、video 和 object 元素上。如果你希望让最终样式与其他属性相匹配，还可以明确地使用一个派生出来的 .embed-responsive-item 类。</p>
+     <pre style="margin-left: 50px;">-- 16:9 aspect ratio --
+&ltdiv class="embed-responsive embed-responsive-16by9"&gt
+  &ltiframe class="embed-responsive-item" src="..."&gt&lt/iframe&gt
+&lt/div&gt</pre>
+     <h3>21,Well</h3>
+    <p>把 Well 用在元素上，就能有嵌入（inset）的简单效果。</p>
+    <ul>
+        <li>●.well,使用well效果</li>
+        <li>●.well-lg/well-sm，控制此组件的内补（padding）和圆角的设置。</li>
+    </ul>
+</div>
+</body>
+</html>
+<script>
+
+</script>
