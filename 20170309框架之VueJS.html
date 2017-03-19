@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Vue.js框架基础|sumerzhou's blog</title>
+    <link href="myblog.css" rel="stylesheet" type="text/css">
+    <script src="myblog.js" type="text/javascript"></script>
+    <style>
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
+            line-height: 2em;
+        }
+        .textBox h2{
+            margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
+        }
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox h4{
+            text-shadow: 1px 1px 2px #4F68B0;
+        }
+        .textBox p{
+            text-indent: 2em;
+        }
+        .textBox li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .textBox pre{
+            display: block;
+            width: 850px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 2px 2px 1px black;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+            font-family: '仿宋';
+        }
+    </style>
+</head>
+<body>
+<!--header-->
+<div class="headerbox">
+    <div class="headertop">
+        <div class="hdtopbut">
+            <a href="http://blog.hungking.cc/" target="_blank"><img src="imgs/sns_blog_off.png"></a>
+            <a href="https://www.facebook.com/HoungkingHsi" target="_blank"><img src="imgs/sns_facebook_off.png"></a>
+            <a href="http://globalblog.hungking.cc/" target="_blank"><img src="imgs/sns_gBlog_off.png"></a>
+            <a href="http://www.linkedin.com/imisslovelove" target="_blank"><img src="imgs/sns_in_off.png"></a>
+            <a href="http://www.youtube.com/imisslovelove" target="_blank"><img src="imgs/sns_youTube_off.png"></a>
+            <a href="http://www.instagram.com/imisslovelove" target="_blank"><img src="imgs/sns_instagram_off.png"></a>
+            <a href="http://story.kakao.com/ch/imisslovelove" target="_blank" style="background: transparent none;"><img src="imgs/sns_kakao_off.png"></a>
+            <div class="hdtopbutR">
+                <a href="construction.html" style="background-position-x:85px ;">Contact Me</a>
+                <a href="construction.html">AboutSite</a>
+                <span onclick="ifshow(0)">Language<img src="imgs/btn_globalSite_open.gif"></span>
+                <ul id="lag">
+                    <li>KOREAN</li><li>CHINESE</li><li>JAPANESE</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="headerbotm">
+        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
+        <ul id="hdbotmUl">
+            <li>
+                <a href="company.html">WEB前端</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">HTML</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Corporate Overview</a></li>
+                                <li><a href="">Vision of houngking</a></li>
+                                <li><a href="">History of houngking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">CSS/CSS3</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Brand Story</a></li>
+                                <li><a>CI</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">JavaScript</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Greetings</a></li>
+                                <li><a>CEO's Message</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Ajax</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>hougking Affiliates</a></li>
+                                <li><a>Steel</a></li>
+                                <li><a>E&C</a></li>
+                                <li><a>Trade</a></li>
+                                <li><a>ICT</a></li>
+                                <li><a>Energy</a></li>
+                                <li><a>Material-Chemistry</a></li>
+                                <li><a>Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">jQuery</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Global</a></li>
+                                <li><a>Asia</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Business Ethics</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Major Activities</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Products/Technology</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Products of hounking</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Hot Rolled Steel</a></li>
+                                <li><a href="">Steel Plate</a></li>
+                                <li><a href="">Winter Day</a></li>
+                                <li><a href="">Gold Rolled Steel</a></li>
+                                <li><a href="">Galvanized Steel</a></li>
+                                <li><a href="">Electrical Galvanized</a></li>
+                                <li><a href="">Electrical Steel</a></li>
+                                <li><a href="">Automotive materials</a></li>
+                                <li><a href="">Stainless Steel</a></li>
+                                <li><a href="">Titanium Product</a></li>
+                                <li><a href="">Magnesium Product</a></li>
+                                <li><a href="">Aluminum-plated products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">houngking Technology</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">FINEX Technology</a></li>
+                                <li><a href="">Strip Casting</a></li>
+                                <li><a href="">Endless Hot Rolling Technology</a></li>
+                                <li><a href="">Operation Technology</a></li>
+                                <li><a href="">CEM Technology</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Production Process</a>
+                    </li>
+                    <li>
+                        <a href="">Sales information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">e-Sales</a></li>
+                                <li><a href="">e-Procurement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Investor Relations</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">IR Activeties</a>
+                    </li>
+                    <li>
+                        <a href="">Stock Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Stock Price</a></li>
+                                <li><a href="">Price Comparision</a></li>
+                                <li><a href="">ADR</a></li>
+                                <li><a href="">houngking Stock Exchange</a></li>
+                                <li><a href="">Economic Trend</a></li>
+                                <li><a href="">Shareholders Demographics</a></li>
+                                <li><a href="">Dividend</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Financial Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Income Statement</a></li>
+                                <li><a href="">Credit Rating</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">IR Archive</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Audit Report</a></li>
+                                <li><a href="">Form 20-F</a></li>
+                                <li><a href="">Annual Report</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Sustainability</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Sustainability Management System</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Management System</a></li>
+                                <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
+                                <li><a href="">Risk Management</a></li>
+                                <li><a href="">Stakeholder</a></li>
+                                <li><a href="">Relevant Institutes Activities</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Social Responsibility </a>
+                    </li>
+                    <li>
+                        <a href="">Environmental Management </a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Family's Environmental Management</a></li>
+                                <li><a href="">Environmental Management</a></li>
+                                <li><a href="">Climate change /Energy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Customer</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Marketing strategy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Employee</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Employee Health / Safety</a></li>
+                                <li><a href="">Organizational Culture</a></li>
+                                <li><a href="">HR system</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Report</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Report</a></li>
+                                <li><a href="">Carbon Report</a></li>
+                                <li><a href="">Conflict Minerals Disclosure</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">PR Room</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">News room</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">News letter</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">houngking SNS</a>
+                    </li>
+                    <li>
+                        <a href="">PR Archives</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
+                                <li><a href="">PR Movies</a></li>
+                                <li><a href="">Printed Advertisement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Download</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
+        <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
+        <div class="hdmenu" id="hdmenu">
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--text-->
+<div class="textBox">
+    <h2>20170309-框架之Vue.js基础</h2>
+    <h3>1，Vue.js简介</h3>
+    	<p>Vue.js是当下很火的一个JavaScript <a href="http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html" target="_blank">MVVM</a>(Model-View-ViewModel)库，它是以数据驱动和组件化的思想构建的。相比于Angular.js，Vue.js提供了更加简洁、更易于理解的API，使得我们能够快速地上手并使用Vue.js。</p>
+    <p>Vue.js是数据驱动的，你无需手动操作DOM。它通过一些特殊的HTML语法，将DOM和数据绑定起来。一旦你创建了绑定，DOM将和数据保持同步，每当变更了数据，DOM也会相应地更新。</p>
+    <p><a href="http://cn.vuejs.org" target="_blank">Vue.js官网</a></p>
+    <p><a href="http://www.cnblogs.com/shikyoh/p/5841105.html" target="_blank">Vue.JS 对比其他框架</a></p>
+    <h3>2,Vue.js用法－－指令</h3>
+    <h4>Class与Style绑定v-bind:</h4>
+    <p>●对象语法：</p>
+    <p>我们可以传给 v-bind:class 一个对象，以动态地切换 class 。</p>
+    <pre>
+        &ltdiv v-bind:class="{ active: isActive }"&gt&lt/div&gt</pre>
+    <p>上面的语法表示 active 的更新将取决于数据属性 isActive 是否为真值 。</p>
+    <p>也可以在对象中传入更多属性用来动态切换多个 class 。此外， v-bind:class 指令可以与普通的 class 属性共存。如下模板:</p>
+    <pre>
+        &ltdiv class="static"
+             v-bind:class="{ active: isActive, 'text-danger': hasError }"&gt
+        &lt/div&gt</pre>
+    <p>也可以直接绑定数据里的一个对象：</p>
+    <pre>
+        &ltdiv v-bind:class="classObject"&gt&lt/div&gt</pre>
+    <pre>
+		data: {
+		  classObject: {
+		    active: true,
+		    'text-danger': false
+		  }
+		}</pre>
+    <p>也可以在这里绑定返回对象的计算属性。这是一个常用且强大的模式：</p>
+    <pre>
+		data: {
+		  isActive: true,
+		  error: null
+		},
+		computed: {
+		  classObject: function () {
+		    return {
+		      active: this.isActive && !this.error,
+		      'text-danger': this.error && this.error.type === 'fatal',
+		    }
+		  }
+		}</pre>
+    <p>●数组语法：</p>
+    <p>以把一个数组传给 v-bind:class ，以应用一个 class 列表：</p>
+    <pre>
+        &ltdiv v-bind:class="[activeClass, errorClass]"&gt</pre>
+    <pre>
+		data: {
+		  activeClass: 'active',
+		  errorClass: 'text-danger'
+		}</pre>
+    <p>如果想根据条件切换列表中的 class ，可以用三元表达式：</p>
+    <pre>
+        &ltdiv v-bind:class="[isActive ? activeClass : '', errorClass]"&gt</pre>
+    <p>●用在组件上：</p>
+    <p>在一个定制的组件上用到 class 属性的时候，这些类将被添加到根元素上面，这个元素上已经存在的类不会被覆盖。</p>
+    <pre>例如，如果你声明了这个组件:
+		Vue.component('my-component', {
+		  template: '&ltp class="foo bar"&gtHi&lt/p&gt'
+		})
+		   然后在使用它的时候添加一些 class：
+		&ltmy-component class="baz boo"&gt&lt/my-component&gt
+		  HTML 最终将被渲染成为:
+		&ltp class="foo bar baz boo"&gtHi&lt/p&gt</pre>
+    <p>●绑定内联style:</p>
+    <p>对象语法：</p>
+    <pre>
+        &ltdiv v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"&gt&lt/div&gt</pre>
+    <pre>
+		 data: {
+		  activeColor: 'red',
+		  fontSize: 30
+		}</pre>
+    <p>直接绑定到一个样式对象:</p>
+    <pre>
+        &ltdiv v-bind:style="styleObject"&gt&lt/div&gt</pre>
+    <pre>
+		data: {
+		  styleObject: {
+		    color: 'red',
+		    fontSize: '13px'
+		  }
+		}</pre>
+    <h4>表单控件绑定v-model:</h4>
+    <p>本质：在表单控件或组件上创建双向绑定，收集输入、将输入传给变量、输入变量值。</p>
+    <pre>例：复选框
+		&ltinput type="checkbox" id="checkbox" v-model="checked"&gt
+		&ltlabel for="checkbox"&gt{{ checked }}&lt/label&gt</pre>
+    <h4>v-text:</h4>
+    <h4>v-html:</h4>
+    <h4>列表渲染v-for:</h4>
+    <p>v-for 指令需要以 item in items 形式的特殊语法， items 是源数据数组并且 item 是数组元素迭代的别名。</p>
+    <p>在 v-for 块中，有对父作用域属性的完全访问权限。 v-for 还支持一个可选的第二个参数为当前项的索引。</p>
+    <pre>
+        &ltul id="example-2"&gt
+            &ltli v-for="(item, index) in items"&gt
+                {{ parentMessage }} - {{ index }} - {{ item.message }}
+            &lt/li&gt
+        &lt/ul&gt</pre>
+    <pre>
+		var example2 = new Vue({
+		  el: '#example-2',
+		  data: {
+		    parentMessage: 'Parent',
+		    items: [
+		      { message: 'Foo' },
+		      { message: 'Bar' }
+		    ]
+		  }
+		})</pre>
+    <p>也可以用 of 替代 in 作为分隔符，因为它是最接近 JavaScript 迭代器的语法：</p>
+    <p>●显示过滤/排序结果：</p>
+    <p>有时，想要显示一个数组的过滤或排序副本，而不实际改变或重置原始数据。在这种情况下，可以创建返回过滤或排序数组的计算属性。</p>
+    <pre>例：
+		&ltli v-for="n in evenNumbers"&gt{{ n }}&lt/li&gt</pre>
+    <pre>
+		data: {
+		  numbers: [ 1, 2, 3, 4, 5 ]
+		},
+		computed: {
+		  evenNumbers: function () {
+		    return this.numbers.filter(function (number) {
+		      return number % 2 === 0
+		    })
+		  }
+		}</pre>
+    <p>或者，也可以在计算属性不适用的情况下 (例如，在嵌套 v-for 循环中) 使用 method 方法：</p>
+    <pre>
+        &ltli v-for="n in even(numbers)"&gt{{ n }}&lt/li&gt</pre>
+    <pre>
+		data: {
+		  numbers: [ 1, 2, 3, 4, 5 ]
+		},
+		methods: {
+		  even: function (numbers) {
+		    return numbers.filter(function (number) {
+		      return number % 2 === 0
+		    })
+		  }
+		}</pre>
+    <p>拓展：<a href="http://blog.csdn.net/wngzhem/article/details/53258130" target="_blank">vue 数据遍历筛选 过滤 排序的应用 </a></p>
+    <h4>条件渲染v-if、v-else、v-show、v-else-if:</h4>
+    <pre>
+		&ltdiv v-if="Math.random() > 0.5"&gt
+		    Now you see me
+		&lt/div&gt
+		&ltdiv v-else&gt
+		    Now you don't
+		&lt/div&gt</pre>
+    <p>v-else 元素必须紧跟在 v-if 或者 v-else-if 元素的后面——否则它将不会被识别。</p>
+    <p>另一个用于根据条件展示元素的选项是 v-show 指令。用法大致一样：</p>
+    <pre>
+        &lth1 v-show="ok"&gtHello!&lt/h1&gt</pre>
+    <p>不同的是带有 v-show 的元素始终会被渲染并保留在 DOM 中。v-show 是根据表达式的真假值，简单地切换元素的 CSS 属性 display 。</p>
+    <p>v-if VS v-show:</p>
+    <p>v-if 是“真正的”条件渲染，因为它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和重建。v-if 也是惰性的：如果在初始渲染时条件为假，则什么也不做——直到条件第一次变为真时，才会开始渲染条件块。相比之下， v-show 就简单得多——不管初始条件是什么，元素总是会被渲染，并且只是简单地基于 CSS 进行切换。一般来说， v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件不太可能改变，则使用 v-if 较好。</p>
+    <h4>事件处理器v-on:</h4>
+    <p>内联处理器方法：</p>
+    <p>有时也需要在内联语句处理器中访问原生 DOM 事件。可以用特殊变量 $event 把它传入方法：</p>
+    <pre>
+    	&ltbutton v-on:click="warn('Form cannot be submitted yet.', $event)"&gtSubmit&lt/button&gt</pre>
+    	<pre>
+	// ...
+	methods: {
+	  warn: function (message, event) {
+	    // 现在我们可以访问原生事件对象
+	    if (event) event.preventDefault()
+	    alert(message)
+	  }
+	}</pre>
+    <p>事件修饰符：</p>
+    <p>在事件处理程序中调用 event.preventDefault() 或 event.stopPropagation() 是非常常见的需求。尽管可以在 methods 中轻松实现这点，但更好的方式是：methods 只有纯粹的数据逻辑，而不是去处理 DOM 事件细节。为了解决这个问题， Vue.js 为 v-on 提供了 事件修饰符。通过由点(.)表示的指令后缀来调用修饰符。</p>
+    <h3>3,Vue实例</h3>
+    <h4>构造器:</h4>
+    <p>每个 Vue.js 应用都是通过构造函数 Vue 创建一个 Vue 的根实例 启动的：</p>
+    <pre>
+		var vm = new Vue({
+		  // 选项
+		})</pre>
+    <p>在实例化 Vue 时，需要传入一个选项对象，它可以包含数据、模板、挂载元素、方法、生命周期钩子等选项。全部的选项可以在 API 文档中查看。</p>
+    <p>可以扩展 Vue 构造器，从而用预定义选项创建可复用的组件构造器：</p>
+    <pre>
+		var MyComponent = Vue.extend({
+		  // 扩展选项
+		})
+		// 所有的 `MyComponent` 实例都将以预定义的扩展选项被创建
+		var myComponentInstance = new MyComponent()</pre>
+    <p>尽管可以命令式地创建扩展实例，不过在多数情况下建议将组件构造器注册为一个自定义元素，然后声明式地用在模板中。所有的 Vue.js 组件其实都是被扩展的 Vue 实例。</p>
+    <h4>属性与方法：</h4>
+    <p>每个 Vue 实例都会代理其 data 对象里所有的属性：</p>
+    <pre>
+		var data = { a: 1 }
+		var vm = new Vue({
+		  data: data
+		})
+		vm.a === data.a // -> true
+		// 设置属性也会影响到原始数据
+		vm.a = 2
+		data.a // -> 2
+		// ... 反之亦然
+		data.a = 3
+		vm.a // -> 3</pre>
+    <p>注意只有这些被代理的属性是响应的。</p>
+    <p>除了 data 属性， Vue 实例还有一些有用的实例属性与方法。这些属性与方法都有前缀 $，以便与代理的 data 属性区分。例如：</p>
+    <pre>
+		var data = { a: 1 }
+		var vm = new Vue({
+		  el: '#example',
+		  data: data
+		})
+		vm.$data === data // -> true
+		vm.$el === document.getElementById('example') // -> true
+		// $watch 是一个实例方法
+		vm.$watch('a', function (newVal, oldVal) {
+		  // 这个回调将在 `vm.a`  改变后调用
+		})</pre>
+    <p>注意，不要在实例属性或者回调函数中（如 vm.$watch('a', newVal => this.myMethod())）使用箭头函数。因为箭头函数绑定父上下文，所以 this 不会像预想的一样是 Vue 实例，而是 this.myMethod 未被定义。</p>
+    <h4>实例生命周期：</h4>
+    <p>每个 Vue 实例在被创建之前都要经过一系列的初始化过程。例如，实例需要配置数据观测(data observer)、编译模版、挂载实例到 DOM ，然后在数据变化时更新 DOM 。在这个过程中，实例也会调用一些 生命周期钩子 ，这就给我们提供了执行自定义逻辑的机会。例如，created 这个钩子在实例被创建之后被调用：</p>
+    <pre>
+		var vm = new Vue({
+		  data: {
+		    a: 1
+		  },
+		  created: function () {
+		    // `this` 指向 vm 实例
+		    console.log('a is: ' + this.a)
+		  }
+		})    // -> "a is: 1"</pre>
+    <p>也有一些其它的钩子，在实例生命周期的不同阶段调用，如 mounted、 updated 、destroyed 。钩子的 this 指向调用它的 Vue 实例。</p>
+    <h3>4,模板语法</h3>
+    <p>Vue.js 使用了基于 HTML 的模版语法，允许开发者声明式地将 DOM 绑定至底层 Vue 实例的数据。在底层的实现上， Vue 将模板编译成虚拟 DOM 渲染函数。</p>
+    <h4>插值：</h4>
+    <ul>
+        <li>●文本：数据绑定最常见的形式就是使用小胡子“Mustache” 语法（双大括号）的文本插值：
+           <pre>
+               &ltspan&gtMessage: {{ msg }}&lt/span&gt</pre>
+            Mustache 标签将会被替代为对应数据对象上 msg 属性的值。无论何时，绑定的数据对象上 msg 属性发生了改变，插值处的内容都会更新。通过使用 v-once 指令，你也能执行一次性地插值，当数据改变时，插值处的内容不会更新。
+        </li>
+        <li>●纯HTML:双大括号会将数据解释为纯文本，而非 HTML 。为了输出真正的 HTML ，你需要使用 v-html 指令。被插入的内容都会被当做 HTML 。站点上动态渲染的任意 HTML 可能会非常危险，因为它很容易导致 XSS 攻击。</li>
+        <li>●属性：Mustache 不能在 HTML 属性中使用，应使用 v-bind 指令。这对布尔值的属性也有效 —— 如果条件被求值为 false 的话该属性会被移除。</li>
+        <li>●使用JavaScript 表达式：
+            <pre>
+                {{ message.split('').reverse().join('') }}</pre>
+            这些表达式会在所属 Vue 实例的数据作用域下作为 JavaScript 被解析。有个限制就是，每个绑定都只能包含单个表达式。
+        </li>
+    </ul>
+    <h4>指令：</h4>
+    <p>指令（Directives）是带有 v- 前缀的特殊属性。指令的职责就是当其表达式的值改变时相应地将某些行为应用到 DOM 上。</p>
+    <ul>
+        <li>●参数:一些指令能接受一个“参数”，在指令后以冒号指明。</li>
+        <li>●修饰符:修饰符（Modifiers）是以半角句号 . 指明的特殊后缀，用于指出一个指令应该以特殊方式绑定。例如，.prevent 修饰符告诉 v-on 指令对于触发的事件调用 event.preventDefault()。</li>
+    </ul>
+    <h4>过滤器：</h4>
+    <p>过滤器可以用在两个地方：mustache 插值和 v-bind 表达式。过滤器设计目的就是用于文本转换。为了在其他指令中实现更复杂的数据变换，应该使用计算属性。</p>
+    <h4>缩写：</h4>
+    <p>Vue.js 为两个最为常用的指令提供了特别的缩写：</p>
+    <pre>v-bind缩写：
+	-- 完整语法 --
+	&lta v-bind:href="url"&gt&lt/a&gt
+	-- 缩写 --
+	&lta :href="url"&gt&lt/a&gt</pre>
+    <pre>v-on缩写：
+	-- 完整语法 --
+	&lta v-on:click="doSomething"&gt&lt/a&gt
+	-- 缩写 --
+	&lta @click="doSomething"&gt&lt/a&gt</pre>
+    <h3>5,组件</h3>
+    <p>组件系统是 Vue 的另一个重要概念，因为它是一种抽象，允许我们使用小型、自包含和通常可复用的组件构建大型应用。</p>
+    <p>在 Vue 里，一个组件本质上是一个拥有预定义选项的一个 Vue 实例，在 Vue 中注册组件很简单：</p>
+    <pre>// 定义名为 todo-item 的新组件
+		Vue.component('todo-item', {
+		  template: '&ltli&gt这是个待办项&lt/li&gt'
+		})</pre>
+    <p>用它构建另一个组件模板：</p>
+    <pre>
+	    &ltol&gt
+	        //创建一个 todo-item 组件的实例
+	        &lttodo-item&gt&lt/todo-item&gt
+	    &lt/ol&gt</pre>
+    <p>但是这样会为每个待办项渲染同样的文本。我们应该能将数据从父作用域传到子组件。修改一下组件的定义，使之能够接受一个属性：</p>
+    <pre>
+		Vue.component('todo-item', {
+		  // todo-item 组件现在接受一个
+		  // "prop"，类似于一个自定义属性
+		  // 这个属性名为 todo。
+		  props: ['todo'],
+		  template: '&ltli&gt{{ todo.text }}&lt/li&gt'
+		})</pre>
+    <p>可以使用 v-bind 指令将待办项传到每一个重复的组件中：</p>
+    <pre>
+	    &ltdiv id="app-7"&gt
+	        &ltol&gt
+	            // 现在我们为每个todo-item提供待办项对象
+	            // 待办项对象是变量，即其内容可以是动态的
+	            &lttodo-item v-for="item in groceryList" v-bind:todo="item"&gt&lt/todo-item&gt
+	        &lt/ol&gt
+	    &lt/div&gt</pre>
+    <pre>
+		Vue.component('todo-item', {
+		  props: ['todo'],
+		  template: '&ltli&gt{{ todo.text }}&lt/li&gt'
+		})
+		var app7 = new Vue({
+		  el: '#app-7',
+		  data: {
+		    groceryList: [
+		      { text: '蔬菜' },
+		      { text: '奶酪' },
+		      { text: '随便其他什么人吃的东西' }
+		    ]
+		  }
+		})</pre>
+    <p>以上例子，设法将应用分割成了两个更小的单元，子单元通过 props 接口实现了与父单元很好的解耦。现在可以进一步为我们的 todo-item 组件实现更复杂的模板和逻辑的改进，而不会影响到父单元。</p>
+    <h4>用prop传递数据：</h4>
+    <pre>
+	   &ltdiv id="app"&gt
+	      &ltcontainer heading="书单1"&gt&lt/container&gt
+	      &ltcontainer heading="书单2"&gt&lt/container&gt
+	    &lt/div&gt
+    
+        &lttemplate id="mytemp"&gt
+		    &ltdiv&gt
+		        &lth1&gthello {{name}}&lt/h1&gt
+		        &ltdiv&gt{{heading}}&lt/div&gt
+		        &ltbutton @click="count += 1"&gt{{count}}&lt/button&gt
+		    &lt/div&gt
+        &lt/template&gt</pre>
+	 <pre>
+	 	Vue.component('container',{
+		     template:'#mytemp',
+		     props:['heading'],
+		     data:function(){
+		         return {name:'tom',count:0}
+		     }
+		 });
+		
+		new Vue({
+		    el:'#app'
+		});</pre>   
+    <h4>局部组件：</h4>
+    <pre>
+    	    var Child = {
+    	    	    template:'#my-template'
+    	    };
+    	    var Child1 = {
+    	    	     template:'#mycom'
+    	    };
+    	    new Vue({
+    	    	    el:'#app',
+    	    	    components:{
+    	    	    	   'my-component':Child,
+    	    	    	   'mycom':Child1
+    	    	    }
+    	    });</pre>
+    <h3>6,计算属性</h3>
+    <h4>计算属性：</h4>
+    <p>对于任何复杂逻辑，都应当使用计算属性。</p>
+    <pre>
+		&ltdiv id="example"&gt
+		    &ltp&gtOriginal message: "{{ message }}"&lt/p&gt
+		    &ltp&gtComputed reversed message: "{{ reversedMessage }}"&lt/p&gt
+		&lt/div&gt</pre>
+    <pre>
+		var vm = new Vue({
+		  el: '#example',
+		  data: {
+		    message: 'Hello'
+		  },
+		  computed: {
+		    // a computed getter
+		    reversedMessage: function () {
+		      // `this` points to the vm instance
+		      return this.message.split('').reverse().join('')
+		    }
+		  }
+		})</pre>
+    <p>这里声明了一个计算属性 reversedMessage 。提供的函数将用作属性 vm.reversedMessage 的 getter 。vm.reversedMessage 的值始终取决于 vm.message 的值。你可以像绑定普通属性一样在模板中绑定计算属性。 Vue 知道 vm.reversedMessage 依赖于 vm.message ，因此当 vm.message 发生改变时，所有依赖于 vm.reversedMessage 的绑定也会更新。</p>
+    <p>●计算缓存VS Methods：</p>
+    <p>以将同一函数定义为一个 method 而不是一个计算属性。对于最终的结果，两种方式确实是相同的。然而，不同的是计算属性是基于它们的依赖进行缓存的。计算属性只有在它的相关依赖发生改变时才会重新求值。这就意味着只要 message 还没有发生改变，多次访问 reversedMessage 计算属性会立即返回之前的计算结果，而不必再次执行函数。相比而言，只要发生重新渲染，method 调用总会执行该函数。</p>
+    <p>为什么需要缓存？假设我们有一个性能开销比较大的的计算属性 A ，它需要遍历一个极大的数组和做大量的计算。然后我们可能有其他的计算属性依赖于 A 。如果没有缓存，我们将不可避免的多次执行 A 的 getter！如果你不希望有缓存，请用 method 替代。</p>
+    <p>●Computed属性VS Watched属性：</p>
+    <p>Vue 提供了一种更通用的方式来观察和响应 Vue 实例上的数据变动：watch 属性。当你有一些数据需要随着其它数据变动而变动时，你很容易滥用 watch。然而，通常更好的想法是使用 computed 属性而不是命令式的 watch 回调。</p>
+    <pre>
+        &ltdiv id="demo"&gt{{ fullName }}&lt/div&gt</pre>
+    <pre>
+		var vm = new Vue({
+		  el: '#demo',
+		  data: {
+		    firstName: 'Foo',
+		    lastName: 'Bar',
+		    fullName: 'Foo Bar'
+		  },
+		  watch: {
+		    firstName: function (val) {
+		      this.fullName = val + ' ' + this.lastName
+		    },
+		    lastName: function (val) {
+		      this.fullName = this.firstName + ' ' + val
+		    }
+		  }
+		})</pre>
+    <p>上面代码是命令式的和重复的。将它与 computed 属性的版本进行比较：</p>
+    <pre>
+		var vm = new Vue({
+		  el: '#demo',
+		  data: {
+		    firstName: 'Foo',
+		    lastName: 'Bar'
+		  },
+		  computed: {
+		    fullName: function () {
+		      return this.firstName + ' ' + this.lastName
+		    }
+		  }
+		})</pre>
+    <p>●计算setter:</p>
+    <p>计算属性默认只有 getter ，不过在需要时你也可以提供一个 setter ：</p>
+     <pre>
+		computed: {
+		  fullName: {
+		    // getter
+		    get: function () {
+		      return this.firstName + ' ' + this.lastName
+		    },
+		    // setter
+		    set: function (newValue) {
+		      var names = newValue.split(' ')
+		      this.firstName = names[0]
+		      this.lastName = names[names.length - 1]
+		    }
+		  }
+		}</pre>
+    <p>在运行 vm.fullName = 'John Doe' 时， setter 会被调用， vm.firstName 和 vm.lastName 也相应地会被更新。</p>
+    <h4>观察Watchers：</h4>
+    <p>虽然计算属性在大多数情况下更合适，但有时也需要一个自定义的 watcher 。这是为什么 Vue 提供一个更通用的方法通过 watch 选项，来响应数据的变化。当你想要在数据变化响应时，执行异步操作或开销较大的操作，这是很有用的。</p>
+</div>
+</body>
+</html>
+<script>
+
+</script>
