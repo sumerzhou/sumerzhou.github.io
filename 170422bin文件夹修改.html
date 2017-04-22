@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>adobeAir for mac命令行安装|sumerzhou's blog</title>
+    <title>MAC中BIN文件夹权限问题|sumerzhou's blog</title>
     <link href="myblog.css" rel="stylesheet" type="text/css">
     <script src="myblog.js" type="text/javascript"></script>
     <style>
@@ -419,17 +419,16 @@
 </div>
 <!--text-->
 <div class="textBox">
-    <h2>adobe Air for mac命令行安装</h2>
-    <h3>问题描述:官网下载Mac版adobe air后,双击安装每次都只到出现安装图标就没有下文了。</h3>
-    <p>网上搜索了下,有朋友推测是因为adobe air在对mac os x新系统支持方面没有开启具体的权限，
-        从而需要从终端直接操作，这也是为什么一直停留在Dock的原因。
-    <p>尝试了终端操作,最终成功安装。步骤如下:</p>
-    <p>1,需要当前正在使用mac os x系统的用户密码 </p>
-    <p>2,<a href="https://get.adobe.com/tw/air/" target="_blank">get.adobe.com/cn/air/</a>下载最新的adobe air</p>
-    <p>3,双击打开adobe air，桌面出现adobe air的类似U盘图标 </p>
-    <p>4,打开mac“终端”程序 ,输入:  sudo /Volumes/Adobe\ AIR\/Adobe\ AIR\ Installer.app/Contents/MacOS/Adobe\ AIR\ Installer -silent -eulaAccepted</p>
-    <p>5,按回车确认,此时终端会跳出警告信息,需要用户输入password密码再次确认。需要注意，输入密码它是不会提示字符的，只是一直在那闪烁，无需在意，正确输入密码即可，然后按回车 </p>
-    <P>6,弹出done adobe air success （版本号16.xx.xx.xx）这里弹出的具体内容我也不记得了，反正有个done，说明成功了。</P>
+    <h2>mac中bin文件夹无权限操作</h2>
+    <p>今天在网上下载了个 <a href="http://www.sdifenzhou.com/webstorm20162.html" target="_blank">webstorm破解版</a>安装,其中有个操作需要复制文件到bin文件夹,却发现root
+        用户也没有权限修改/usr/bin目录。</p>
+    <p>网上了解发现,新系统启用了SIP（System Integerity Protection）导致root用户也没有修改
+        权限，所以我们需要屏蔽掉这个功能。具体做法如下:</p>
+    <p>1,重启电脑</p>
+    <p>2,按住command+R(注意,重启过程要一直按住,直到进入recover模式界面),进入recovery模式。</p>
+    <p>3,出现 OS X Utilities 界面后，在 Utilities 菜单中选择 Terminal终端 </p>
+    <p>4,运行 “csrutil disable"关闭SIP,再运行 "reboot”电脑自动重启。</p>
+    <p>5,如果需要重新开启SIP,进入recover模式输入“csrutil enanbel；reboot”即可。</p>
 
 
 
