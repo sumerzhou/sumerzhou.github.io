@@ -426,6 +426,8 @@
     <p>javascript是一种基于对象和事件驱动的编程语言，本身提供了非常丰富的内部对象供设计和开发人员使用。</p>
     <p>java是完全的面向对象的语言，支持除多重继承以外的所有面向对象的编程特征。</p>
     <p>基于对象：有对象直接用。面向对象：没有对象创建对象，有继承和多肽。</p>
+    <p>面向对象的语言有三大特征：封装，继承，多肽。</p>
+    <p>基于对象的语言的特征：灵活，封装。但不严谨。</p>
     <p>b,强类型和弱类型：</p>
     <p>javascript是弱类型的语言，而java是强类型的语言。弱类型和强类型的差别表明了两种语言用途上的不同。</p>
     <p>java的目标是开发安全可靠的语言，必须用强类型来达到这种目标。将对象操作限制在显式定义的对象上，这是java安全性的基础。在java中所有变量在编译之前必须作声明，强类型语言不能自动进行数据类型转换，它会把不适当的类型转化称为error。</p>
@@ -434,6 +436,7 @@
     <p>没有ES4版本。一般说的ES5指的是2011年6月发布的ECMAscript5.1版。</p>
     <p>2015年6月，ECMAscript6正式发布，并更名为“ECMAscript2015”。</p>
     <h3>2,ES6简介</h3>
+    <p>ES6特点:严谨,好用,易维护,扯淡。(使用 <a href="http://www.cnblogs.com/yufann/p/ES6-note1.html" target="_blank">转码器</a>把ES6编译成ES5)</p>
     <h4>let:</h4>
     <ul>
     	<li>a,声明变量不存在变量提升</li>
@@ -453,6 +456,59 @@
     <h4>数组和对象的解构赋值：</h4>
     <p>Let {age,name}={name:’dina’,age:18};</p>
     <p>Let [a,b]=[1,2,3];</p>
+    <h4>ES6类的基本结构：</h4>
+    <pre>
+        class Test{
+            constructor (x,y){
+                this.x = x;
+                this.y = y;
+            }
+            add(){
+                return this.x + this.y ;
+            }
+        }</pre>
+    <p>例:类构造函数</p>
+    <pre>
+        class People{
+            constructor (name,age,sex,country){
+               this.name=name;
+                this.age=age;
+                this.sex=sex;
+                this.country=country;
+            }
+           eat(){
+                console.log('i like eat!');
+            }
+            sport(){
+                console.log('life loves sport!');
+            }
+        }
+
+        class Lowyer extends People{
+            job(){
+                console.log(this.name+'is a lowyer!');
+            }
+            equipment(){
+                console.log('i have  lawyer qualification certificate!');
+            }
+            cando(){
+                 console.log('i am good at defending!')
+            }
+        }
+
+        class Cook extends People{
+             look(dress){
+               console.log('my uniform is '+dress);
+            }
+            job(){
+                console.log(this.name+'is a cook!')
+            }
+        }
+
+        var lowyer=new Lowyer('鸿先生','33','man','China');
+        console.log(lowyer.job()+lowyer.cando());
+        var cook=new Cook('章女士','27','womon','China') ;
+        console.log(cook.job()+cook.look('white'));</pre>
     <p>更多内容请参考官网：<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/arrow_functions" target="_blank">MDN</a> </p>
     
 </div>

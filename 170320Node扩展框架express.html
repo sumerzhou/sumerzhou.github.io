@@ -425,11 +425,84 @@
     <p>它不对node.js已有的特性进行二次抽象，只在它之上扩展web应用所需的基本功能。</p>
     <p><a href="http://www.expressjs.com.cn/4x/api.html" target="_blank">中文官网</a></p>
     <h3>2,安装</h3>
+    <h4>初始化仓库(npm init):</h4>
+    <p>创建文件夹 -> 在文件夹下打开命令窗口 -> 输入命令npm init 初始化仓库 ->配置项目文件:</p>
+    <ul>
+        <li>生成一个package.json文件</li>
+        <li>name:项目名称</li>
+        <li>version:版本号</li>
+        <li>description:项目描述</li>
+        <li>entry point:(index.js):当前应用的入口文件</li>
+        <li>author:作者</li>
+        <li>其他可以默认:回车</li>
+    </ul>
+    <h4>安装express:</h4>
+    <p>接着在命令窗口输入 npm install express进行安装。</p>
+    <p>安装依赖:npm install express --save 。指定--save 参数,此模块将被添加到package.json文件中dependencies依赖列表中。若无法安装,使用淘宝镜像。</p>
     <h3>3,使用</h3>
+    <pre>
+        var express = require('express');
+        var app = express();
+        app.get('/',function(req,res){
+            res.send('Hello Express!');
+        });
+        //post方法:
+        app.post('/',function(req,res){
+            console.log('post...);
+            res.setHeader('Content-Type','text/html');
+            res.send('&lth1&gtHello Express post!&lt/h1&gt');
+        });
+        var server = app.listen(3000,function(){
+            var host = server.address().address;
+            var port = server.address().port;
+            console.log('Listening at http://%s:%s',host,port);
+        });
+    </pre>
+    <h4>加载文件:</h4>
+    <p>使用sendFile,需要把html文件放到映射文件夹内(如放到pubilc内)。但此方法加载出的文件是静态文件。</p>
+    <pre>
+        app.get('/index.html',function(req,res){
+            res.sendFile('index.html');
+        });
+    </pre>
+    <p>或,使用fs读取文件:</p>
+    <pre>
+        var fs = require('fs');
+        app.get('/index.html',function(req,res){
+            fs.readFile('index.html',function(err,data){
+                if(err){
+                    fs.readFile('404.html',function(err,data){
+                        if(err) throw err;
+                        res.setHeader('Content-Type','text/html');
+                        res.end(data);
+                    });
+                }else{
+                    res.setHeader('Content-Type','text/html');
+                    res.end(data);
+                }
+            });
+        });
+    </pre>
+    <p>post提交的数据处理,可去官网查看方法。有一个"中间件"处理的方法(body-parser req.body)。</p>
+    <h4>body-parser</h4>
+    <p>安装: npm install body-parser</p>
+    <p><a href="https://www.npmjs.com/package/body-parser" target="_blank">www.npmjs.com</a></p>
+    <p><a href="http://www.expressjs.com.cn/4x/api.html#req.body" target="_blank">expressjs.com.cn</a></p>
+    <p><a href="http://blog.csdn.net/yanyang1116/article/details/54847560" target="_blank">body-parser Node.js(Express) HTTP请求体解析中间件</a></p>
+    <p><a href="https://segmentfault.com/a/1190000003061925" target="_blank">如何在nodejs express项目中使用body-parser的同时获取JSON化的body和raw body</a></p>
     <h3>4,文件访问</h3>
     <p>服务器的本地文件属于网络资源，想要访问需要映射到网络上，express提供了中间件可以直接操作。</p>
-    <h3>5,web前端模板引擎</h3>
-
+    <p>app.use(express.static('puclic'));访问public下的文件</p>
+    <h3>5,应用生成器:</h3>
+    <p>通过应用生成器工具,express可以快速创建一个应用的骨架。</p>
+    <h3>6,web前端模板引擎</h3>
+    <p>模板引擎 起到 数据和视图分离的作用， 模板对应视图， 关注如何展示数据， 在模板外头准备的数据， 关注那些数据可以被展示。
+        <a href="http://www.cnblogs.com/lightsong/p/5690110.html" target="_blank">前端模板引擎入门</a>。
+        <a href="http://blog.csdn.net/x6582026/article/details/53737451" target="_blank"> 浅谈 Web 中前后端模板引擎的使用</a>。
+    </p>
+    <p>EJS :官网下载并引入到文件中。使用方法可搜npm ejs 。</p>
+    <p><a href="https://pugjs.org/api/reference.html" target="_blank">PUG</a> :推荐使用。使用方法可搜 npm pug 。</p>
+    <p>swig 。</p>
 </div>
 </body>
 </html>
