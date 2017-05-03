@@ -462,12 +462,13 @@
     <h3>HTML+CSS</h3>
     <h4>1,对WEB标准以及W3C的理解与认识</h4>
     <p>标签闭合、标签小写、不乱嵌套、提高搜索机器人搜索几率、使用外 链css和js脚本、结构行为表现的分离、文件下载与页面速度更快、内容能被更多的用户所访问、内容能被更广泛的设备所访问、更少的代码和组件，容易维 护、改版方便，不需要变动页面内容、提供打印版本而不需要复制内容、提高网站易用性；</p>
-    <h4>2,xhtml和html有什么区别</h4>
+    <h4>2,xhtml和html有什么区别?XML是什么？</h4>
     <p>HTML是一种基本的WEB网页设计语言，XHTML是一个基于XML的置标语言.最主要的不同：
         <br/>XHTML 元素必须被正确地嵌套。
         <br/>XHTML 元素必须被关闭。
         <br/>标签名必须用小写字母。
         <br/>XHTML 文档必须拥有根元素。</p>
+    <p>可扩展标记语言XML（EXtensible Markup Language） 被设计用来传输和存储数据。HTML 被设计用来显示数据。</p>
     <h4>3,行内元素有哪些?块级元素有哪些?CSS的盒模型? </h4>
     <p>块级元素：div p h1 h2 h3 h4 form ul</p>
     <p>行内元素: a b br i span input select</p>
@@ -478,7 +479,7 @@
     <h4>5,CSS选择符有哪些?哪些属性可以继承?优先级算法如何计算?内联和important哪个优先级高?</h4>
     <p>标签选择符 类选择符 id选择符.</p>
     <p>继承不如指定 Id>class>标签选择.</p>
-    <p>后者优先级高.</p>
+    <p>后者优先级高。!important >  id > class > tag</p>
     <h4>6,前端页面有哪三层构成，分别是什么?作用是什么?</h4>
     <p>结构层 Html 表示层 CSS 行为层 js</p>
     <h4>7,css的基本语句构成是?</h4>
@@ -505,8 +506,35 @@
     <p>b,使用overflow:auto（空标签元素清除浮动而不得不增加无意代码的弊端,,使用zoom:1用于兼容IE）。</p>
     <p>c,是用afert伪元素清除浮动(用于非IE浏览器)</p>
     <a href="http://www.cnblogs.com/wangrongxiang/p/5213603.html" target="_blank">清除浮动的几种方法</a>、<a href="http://www.cnblogs.com/qiye2016/p/5868217.html" target="_blank">清除浮动的三种方法</a>
-    <h4>17,盒模型有几种模式</h4>
-    <p>content...</p>
+    <h4>17,盒模型有几种模式?介绍一下标准的CSS的盒子模型？低版本IE的盒子模型有什么不同的？</h4>
+    <p>（1）有两种， IE 盒子模型、W3C 盒子模型。</p>
+    <p>（2）盒模型： 内容(content)、填充(padding)、边界(margin)、 边框(border)。</p>
+    <p>（3）区  别： IE的content部分把 border 和 padding计算了进去。</p>
+    <p>PS:CSS3中有个box-sizing属性，默认值是content-box，这是由 CSS2.1 规定的宽度高度行为，宽度和高度分别应用到元素的内容框，在宽度和高度之外绘制元素的内边距和边框。另一属性值border-box，为元素指定的任何内边距和边框都将在已设定的宽度和高度内进行绘制。</p>
+    <h4>18,cookie,sessionStorage，localStorage的区别？</h4>
+    <p>cookie是网站为了标示用户身份而储存在用户本地终端（Client Side）上的数据（通常经过加密）。cookie数据始终在同源的http请求中携带（即使不需要），记会在浏览器和服务器间来回传递。</p>
+    <p>sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存。</p>
+    <p>存储大小：cookie数据大小不能超过4k。sessionStorage和localStorage 虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大。</p>
+    <p>有效时间：localStorage存储持久数据，浏览器关闭后数据不丢失除非主动删除数据；sessionStorage  数据在当前浏览器窗口关闭后自动删除。cookie设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭.</p>
+    <h4>19,iframe有哪些缺点？</h4>
+    <p>iframe会阻塞主页面的Onload事件；</p>
+    <p>搜索引擎的检索程序无法解读这种页面，不利于SEO;</p>
+    <p>iframe和主页面共享连接池，而浏览器对相同域的连接有限制，所以会影响页面的并行加载。</p>
+    <p>使用iframe之前需要考虑这两个缺点。如果需要使用iframe，最好是通过javascript动态给iframe添加src属性值，这样可以绕开以上两个问题。</p>
+    <a href="http://blog.csdn.net/lipinganq/article/details/51079810" target="_blank">使用iframe的优缺点，为什么少用iframe以及iframe和frame的区别。 </a>
+    <h4>20,如何实现浏览器内多个标签页之间的通信?</h4>
+    <p>WebSocket、SharedWorker,也可以调用localstorge、cookies等本地存储方式。</p>
+    <p>localstorge另一个浏览上下文里被添加、修改或删除时，它都会触发一个事件，我们通过监听事件，控制它的值来进行页面信息通信。</p>
+    <p>注意quirks：Safari 在无痕模式下设置localstorge值时会抛出QuotaExceededError 的异常。 </p>
+    <h4>21,如何在页面上实现一个圆形的可点击区域？</h4>
+    <p>（1）map+area或者svg</p>
+    <p>（2）border-radius</p>
+    <p>（3）纯js实现 需要求一个点在不在圆上简单算法、获取鼠标坐标等等</p>
+    <h4>22,display:none和visibility:hidden的区别？</h4>
+    <p>display:none  隐藏对应的元素，在文档布局中不再给它分配空间，它各边的元素会合拢，就当他从来不存在。</p>
+    <p>visibility:hidden  隐藏对应的元素，但是在文档布局中仍保留原来的空间。</p>
+    <h4>23,position的absolute与fixed区别</h4>
+    <p>absolute浮动定位是相对于父级中设置position为relative或者absolute最近的父级元素。fixed浮动定位是相对于浏览器视窗的。</p>
     <h3>Javascript</h3>
     <h4>1,javascript的typeof返回哪些数据类型</h4>
     <p>Object /number /function/ boolean /underfind</p>
@@ -526,11 +554,13 @@
     <p>Var ev = ev || window.event</p>
     <p>document.documentElement.clientWidth || document.body.clientWidth</p>
     <p>Var target = ev.srcElement||ev.target</p>
-    <h4>8,ajax请求的时候get 和post方式的区别</h4>
-    <p>一个在url后面 一个放在虚拟载体里面</p>
-    <p>有大小限制.get传送的数据量较小，不能大于2KB。post传送的数据量较大，一般被默认为不受限制。但理论上，IIS4中最大量为80KB，IIS5中为100KB。</p>
-    <p>安全问题</p>
-    <p>应用不同 一个是论坛等只需要请求的，一个是类似修改密码的</p>
+    <h4>8,ajax请求的时候get 和post方式的区别?何时使用POST？</h4>
+    <p>GET：一般用于信息获取，使用URL传递参数，对所发送信息的数量也有限制，一般在2000个字符。</p>
+    <p>POST：一般用于修改服务器上的资源，对所发送的信息没有限制。</p>
+    <p>大小限制:get传送的数据量较小，不能大于2KB。post传送的数据量较大，一般被默认为不受限制。但理论上，IIS4中最大量为80KB，IIS5中为100KB。</p>
+    <p>安全问题。</p>
+    <p>GET方式需要使用Request.QueryString来取得变量的值，而POST方式通过Request.Form来获取变量的值，也就是说Get是通过地址栏来传值，而Post是通过提交表单来传值。</p>
+    <p>在以下情况中，请使用 POST 请求：无法使用缓存文件（更新服务器上的文件或数据库）;向服务器发送大量数据（POST 没有数据量限制）;发送包含未知字符的用户输入时，POST 比 GET 更稳定也更可靠。</p>
     <h4>9,call和apply的区别</h4>
     <a href="http://www.cnblogs.com/huyong/p/4139875.html" target="_blank">Javascript中的apply与call详解</a>
     <h4>10,ajax请求时，如何解释json数据</h4>
@@ -578,20 +608,48 @@
     <h4>20,javascript的同源策略</h4>
     <p>一段脚本只能读取来自于同一来源的窗口和文档的属性，这里的同一来源指的是主机名、协议和端口号的组合</p>
     <h4>21,编写一个数组去重的方法</h4>
+    <pre>方法一：
+    var n = [];
+    for (var i = 0; i < this.length; i++){
+        if (n.indexOf(this[i]) == -1) n.push(this[i]);
+    }
+    return n;
+方法二：
+    var n = [this[0]]; //结果数组
+    //从第二项开始遍历
+    for(var i = 1; i < this.length; i++){
+    //如果当前数组的第i项在当前数组中第一次出现的位置不是i，
+    //那么表示第i项是重复的，忽略掉。否则存入结果数组
+        if (this.indexOf(this[i]) == i) n.push(this[i]);
+    }
+    return n;</pre>
     <h4>22,this</h4>
     <h4>23,null与undefind区别</h4>
     <p>null指没有这个对象，undefind声明了没有定义</p>
     <h4>24,json是什么？jsonp?</h4>
-    <h4>25,三次握手</h4>
+    <h4>25,三次握手和四次挥手</h4>
+    <a href="http://www.cnblogs.com/wuyuan2011woaini/p/4876588.html" target="_blank">TCP/IP协议三次握手与四次握手流程解析</a>
     <h4>26,js分几部分？</h4>
     <p>ECMAScript、DOM、BOM</p>
     <h4>27,继承</h4>
-    <h4>28,cookie,sessionStorage，localStorage的区别？</h4>
-    <h4>29,Ajax核心，原理</h4>
-    <h4>30,http和https</h4>
-
-
-
+    <h4>28,Ajax核心，原理</h4>
+    <h4>29,http和https</h4>
+    <h4>30,ajax 有那些优缺点?如何解决跨域问题?</h4>
+    <p>优点：（1）通过异步模式，提升了用户体验;（2）优化了浏览器和服务器之间的传输，减少不必要的数据往返，减少了带宽占用;（3）Ajax在客户端运行，承担了一部分本来由服务器承担的工作，减少了大用户量下的服务器负载;（4）Ajax可以实现动态不刷新（局部刷新）。</p>
+    <p>缺点：（1）安全问题 AJAX暴露了与服务器交互的细节;（2）对搜索引擎的支持比较弱;（3）不容易调试。</p>
+    <p>解决跨域：jsonp、 iframe、window.name、window.postMessage、服务器上设置代理页面。</p>
+    <h4>31,JavaScript原型，原型链 ? 有什么特点？</h4>
+    <p>原型对象也是普通的对象，是对象一个自带隐式的 __proto__ 属性，原型也有可能有自己的原型，如果一个原型对象的原型不为null的话，我们就称之为原型链。</p>
+    <p>原型链是由一些用来继承和共享属性的对象组成的（有限的）对象链。</p>
+    <h4>32,解释一下 JavaScript 的同源策略</h4>
+    <p>概念:同源策略是客户端脚本（尤其是Javascript）的重要的安全度量标准。它最早出自Netscape Navigator2.0，其目的是防止某个文档或脚本从多个不同源装载。</p>
+    <p>同源策略指的是：协议，域名，端口相同，同源策略是一种安全协议。指一段脚本只能读取来自同一来源的窗口和文档的属性。</p>
+    <p>为什么要有同源限制？我们举例说明：比如一个黑客程序，他利用Iframe把真正的银行登录页面嵌到他的页面上，当你使用真实的用户名，密码登录时，他的页面就可以通过Javascript读取到你的表单中input中的内容，这样用户名，密码就轻松到手了。</p>
+    <h4>33,Flash、Ajax各自的优缺点，在使用中如何取舍？</h4>
+    <p>Flash适合处理多媒体、矢量图形、访问机器；对CSS、处理文本上不足，不容易被搜索。</p>
+    <p>Ajax对CSS、文本支持很好，支持搜索；多媒体、矢量图形、机器访问不足。</p>
+    <p>共同点：与服务器的无刷新传递消息、用户离线和在线状态、操作DOM.</p>
+    <h4>34,</h4>
 </div>
 <!--leftfixedbox-->
 <div class="leftfixedbox">
