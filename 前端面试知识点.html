@@ -473,6 +473,8 @@
     <p>块级元素：div p h1 h2 h3 h4 form ul</p>
     <p>行内元素: a b br i span input select</p>
     <p>Css盒模型:内容，border ,margin，padding</p>
+    <p>行内元素特点:换行有间隙,可同排排列,除了有些元素不能设高宽,其余样式可设。</p>
+    <p>块级元素特点:独占一行</p>
     <h4>4,CSS引入的方式有哪些? link和@import的区别是?</h4>
     <p>内联 内嵌 外链 导入。</p>
     <p>区别 ：同时加载,前者无兼容性，后者CSS2.1以下浏览器不支持;Link 支持使用javascript改变样式，后者不可</p>
@@ -512,10 +514,12 @@
     <p>（3）区  别： IE的content部分把 border 和 padding计算了进去。</p>
     <p>PS:CSS3中有个box-sizing属性，默认值是content-box，这是由 CSS2.1 规定的宽度高度行为，宽度和高度分别应用到元素的内容框，在宽度和高度之外绘制元素的内边距和边框。另一属性值border-box，为元素指定的任何内边距和边框都将在已设定的宽度和高度内进行绘制。</p>
     <h4>18,cookie,sessionStorage，localStorage的区别？</h4>
-    <p>cookie是网站为了标示用户身份而储存在用户本地终端（Client Side）上的数据（通常经过加密）。cookie数据始终在同源的http请求中携带（即使不需要），记会在浏览器和服务器间来回传递。</p>
-    <p>sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存。</p>
+    <p>cookie是网站为了标示用户身份而储存在用户本地终端（Client Side）上的数据（通常经过加密）。cookie数据始终在同源的http请求中携带（即使不需要），记会在浏览器和服务器间来回传递。因为它们由每个对服务器的请求来传递，这使得 cookie 速度很慢而且效率也不高,且增加头部负担。</p>
+    <p>sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存。安全性比cookie方式高,兼容性不如cookie 。</p>
     <p>存储大小：cookie数据大小不能超过4k。sessionStorage和localStorage 虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大。</p>
     <p>有效时间：localStorage存储持久数据，浏览器关闭后数据不丢失除非主动删除数据；sessionStorage  数据在当前浏览器窗口关闭后自动删除。cookie设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭.</p>
+    <p>cookie写入方式(例):document.cookie="name = hongking ;age = 18"; consola.log(document.cookie);</p>
+    <p>sessionStorage写入(例):sessionStorage.setItem("name","hongking"); sessionStorage.setItem("age","18"); consola.log(sessionStorage.getItem("name")+sessionStorage.getItem("age"));</p>
     <h4>19,iframe有哪些缺点？</h4>
     <p>iframe会阻塞主页面的Onload事件；</p>
     <p>搜索引擎的检索程序无法解读这种页面，不利于SEO;</p>
@@ -601,6 +605,7 @@
     <h4>18,document load 和document ready的区别</h4>
     <p>Document.onload 是在结构和样式加载完才执行js</p>
     <p>Document.ready原生种没有这个方法，jquery中有 $().ready(function)</p>
+    <p>两者执行时间不同,编写个数不同,有无简写。</p>
     <a href="http://www.jb51.net/article/50185.htm" target="_blank">一张表格告诉你windows.onload()与$(document).ready()的区别</a><br/>
     <a href="http://www.cnblogs.com/cuncunjun/p/6531960.html" target="_blank">js/jQuery中load()、onload()、ready()的区别</a>
     <h4>19,”==”和“===”的不同</h4>
@@ -633,10 +638,11 @@
     <p>ECMAScript、DOM、BOM</p>
     <h4>27,继承</h4>
     <h4>28,Ajax核心，原理</h4>
+    <p>ajax的核心是XMLHttpRequest对象。</p>
     <h4>29,http和https</h4>
     <h4>30,ajax 有那些优缺点?如何解决跨域问题?</h4>
     <p>优点：（1）通过异步模式，提升了用户体验;（2）优化了浏览器和服务器之间的传输，减少不必要的数据往返，减少了带宽占用;（3）Ajax在客户端运行，承担了一部分本来由服务器承担的工作，减少了大用户量下的服务器负载;（4）Ajax可以实现动态不刷新（局部刷新）。</p>
-    <p>缺点：（1）安全问题 AJAX暴露了与服务器交互的细节;（2）对搜索引擎的支持比较弱;（3）不容易调试。</p>
+    <p>缺点：（1）安全问题 AJAX暴露了与服务器交互的细节;（2）对搜索引擎的支持比较弱;（3）不容易调试;(4)不能跨域。</p>
     <p>解决跨域：jsonp、 iframe、window.name、window.postMessage、服务器上设置代理页面。</p>
     <h4>31,JavaScript原型，原型链 ? 有什么特点？</h4>
     <p>原型对象也是普通的对象，是对象一个自带隐式的 __proto__ 属性，原型也有可能有自己的原型，如果一个原型对象的原型不为null的话，我们就称之为原型链。</p>
@@ -649,7 +655,89 @@
     <p>Flash适合处理多媒体、矢量图形、访问机器；对CSS、处理文本上不足，不容易被搜索。</p>
     <p>Ajax对CSS、文本支持很好，支持搜索；多媒体、矢量图形、机器访问不足。</p>
     <p>共同点：与服务器的无刷新传递消息、用户离线和在线状态、操作DOM.</p>
-    <h4>34,</h4>
+    <h4>34,浏览器对象模型BOM里常用的对象?window对象的常用方法?BOM的核心对象是?</h4>
+    <p>BOM核心对象是window 。</p>
+    <h4>35,创建对象的方法有哪些?</h4>
+    <p>1),obj = new Object();</p>
+    <p>2),function Obj(){ this.a = a; this.b = b;}</p>
+    <p>3),var obj = {a:1 , b:2};</p>
+    <h4>36,写一个方法来实现字符串中出现次数最多的字符,并统计次数。var str="aaaabbbaaaccccddfgh";</h4>
+    <h4>37,写一个function,清除字符串前后的空格(兼容所有浏览器)。</h4>
+    <p>(有至少5种方法)</p>
+    <h4>38,使用正则表达式验证邮箱格式。</h4>
+    <h4>39,请编写一个javascript函数 parseQueryString,它的用途是把URL参数解析为一个对象,如:var url = "http://witmax.cn/index.php?key0=0&key1=1&key2=2"</h4>
+    <h4>40,javascript中怎么获取浏览器窗口可视区域的宽和高?(兼容所有浏览器)</h4>
+    <h4>41,jQuery的符号$有什么作用?举例说明。</h4>
+    <p>$定义 jQuery。在jQuery中美元符号"$"其实就等同于"jQuery"，从jQuery的源码中可以看出为了编写代码的方便，通常都采用"$"来代替"jQuery"。如:$.trim(sString);以上代码相当于：jQuery.trim(sString)</p>
+    <h4>42,javascript的this与jquery的$(this)一样吗?为什么?</h4>
+    <p>this表示当前的上下文对象是个html DOM对象,可以调用html对象所拥有的属性和方法。$(this)代表的上下文对象是一个jQuery上下文对象,可以调用jQuery的方法和属性值。</p>
+    <h3>函数</h3>
+    <h4>1,看代码运行结果</h4>
+    <pre>
+        var foo = function bar(){};
+        var a = [];
+        var b = null;
+        alert(typeof a);
+        alert(typeof bar);
+        alert(typeof b);
+        答案:1) object ; 2) undefined ; 3) object </pre>
+    <pre>
+        function test (xxx){
+            alert(xxx);          //输出在前时,此处alert:function xxx(){}
+            var xxx=123;         //xxx重新声明,但不赋值,初始化
+            function xxx(){      //函数声明会优先调用
+            }
+            alert(xxx);           //alert:123
+        }
+        test(444);
+        若:
+        function test(xxx){
+            var xxx=123;
+            alert(xxx);             //123
+            function xxx(){};
+            alert(xxx);             //123
+        }
+        test(444);</pre>
+    <pre>
+        var a=2;
+        var func = (function(){
+            var a = 3;
+            return function(){
+                ++a;            //调用这个函数时,这个a会一层层往外找,
+                alert(a);       //优先访问的是内部定义的a=3
+            }
+        })();
+        func();         //4
+        func();         //5 </pre>
+    <pre>
+        function Foo(){
+            var i = 0;
+            return function(){
+                document.write(i++);   //++在后先使用再运算
+            }
+        }
+        var f1=Foo(),f2=Foo();  //两次声明访问的是不同的i
+        f1();       //0
+        f1();       //1  ,同一f1函数运行两次,调用的是f1的同一个i
+        f2();       //0 </pre>
+    <pre>
+        null == undefined;  //true
+        //NaN不是数,是属number下的</pre>
+    <pre>
+        var obj = {};
+        obj.name = "first";
+        var peo = obj ;
+        peo.name = "second";
+        consola.log(obj.name);    //second </pre>
+    <pre>
+        var x=3;
+        (function(){
+            x=6;
+            y=6;
+            var z=3;
+        })();
+        consola.log(x==y);      //true
+        consola.log(z);         //undefined 。 z不是全局变量</pre>
 </div>
 <!--leftfixedbox-->
 <div class="leftfixedbox">
