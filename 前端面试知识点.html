@@ -747,6 +747,34 @@
         })();
         consola.log(x==y);      //true
         consola.log(z);         //undefined 。 z不是全局变量</pre>
+    <pre>
+        var num =0;
+        function dome(){
+          alert(num);      //指向函数内部的num
+          var num=10;
+        }
+        dome(); //显示undifined.优先调用内部变量</pre>
+    <pre>函数执行,this指的是什么?
+        var dome = {
+            dome1:function(){
+                alert(this);
+            }
+        }
+        dome.dome1();       //object object </pre>
+    <pre>
+        var myObject = {
+            foo:"bar",
+            func: function(){
+                var self = this;            //this指向调用时候的对象
+                console.log(this.foo);      //bar
+                console.log(self.foo);      //bar
+                (function(){
+                    console.log(this.foo);      //undefined 。foo声明未赋值
+                    console.log(self.foo);      //bar
+                })();
+            }
+        }
+        myObject.func();</pre>
 </div>
 <!--leftfixedbox-->
 <div class="leftfixedbox">

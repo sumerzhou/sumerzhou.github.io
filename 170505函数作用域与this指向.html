@@ -1,12 +1,48 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8" name="description" content="sumerzhou's blog">
-    <title>sumerzhou's blog|GitHub</title>
+    <meta charset="utf-8" />
+    <title>函数作用域与this指向|sumerzhou's blog</title>
     <link href="myblog.css" rel="stylesheet" type="text/css">
     <script src="myblog.js" type="text/javascript"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.0.min.js"></script>
-    <script src="BrowserDetect.js"></script>
+    <style>
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
+            line-height: 2em;
+        }
+        .textBox h2{
+            margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
+        }
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox p{
+            text-indent: 2em;
+        }
+        .textBox li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .textBox pre{
+            display: block;
+            width: 850px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 2px 2px 1px black;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+            font-family: '仿宋';
+        }
+    </style>
 </head>
 <body>
 <!--header-->
@@ -31,7 +67,7 @@
         </div>
     </div>
     <div class="headerbotm">
-        <a class="logohome" href="index.html"><img src="imgs/blog.png"></a>
+        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
         <ul id="hdbotmUl">
             <li>
                 <a href="company.html">WEB前端</a>
@@ -80,46 +116,46 @@
                         </div>
                     </li>
                     <li>
-                        <a href="">Others</a>
+                        <a href="">jQuery</a>
                         <div class="ultext2">
                             <ul>
                                 <li><a>Global</a></li>
                                 <li><a>Asia</a></li>
-                                <li><a href="前端开发常见问题.html" target="_blank">前端开发常见问题</a></li>
-                                <li><a href="前端面试知识点.html" target="_blank">前端面试知识点</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
                             </ul>
                         </div>
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="company.html">WEB Backend</a>
+                <a href="company.html">Business Ethics</a>
                 <ul class="ultext1">
                     <li>
-                       <a href="">Code of Ethics</a>
-                       <div class="ultext2">
-                          <ul>
-                              <li><a href="">CEO Message</a></li>
-                              <li><a href="">Ethics Charter</a></li>
-                              <li><a href="">Practice Guidelines</a></li>
-                          </ul>
-                       </div>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
                     </li>
                     <li>
                         <a href="">Major Activities</a>
                         <div class="ultext2">
-                          <ul>
-                              <li><a href="">Operation of the Ethical Management System</a></li>
-                              <li><a href="">Education on Corporate Ethics</a></li>
-                              <li><a href="">Unethical Act Prevention System</a></li>
-                              <li><a href="">External Activities and Results</a></li>
-                          </ul>
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
                         </div>
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="company.html">Network Security</a>
+                <a href="company.html">Products/Technology</a>
                 <ul class="ultext1">
                     <li>
                         <a href="">Products of hounking</a>
@@ -167,7 +203,7 @@
                 </ul>
             </li>
             <li>
-                <a href="company.html">Intellectual tech</a>
+                <a href="company.html">Investor Relations</a>
                 <ul class="ultext1">
                     <li style="background-image: none;">
                         <a href="">IR Activeties</a>
@@ -208,13 +244,13 @@
                 </ul>
             </li>
             <li>
-                <a href="company.html">Common tech</a>
+                <a href="company.html">Sustainability</a>
                 <ul class="ultext1">
                     <li>
-                        <a href="">软件安装or破解</a>
+                        <a href="">Sustainability Management System</a>
                         <div class="ultext2">
                             <ul>
-                                <li><a href="macsolution.html">Mac System</a></li>
+                                <li><a href="">Sustainability Management System</a></li>
                                 <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
                                 <li><a href="">Risk Management</a></li>
                                 <li><a href="">Stakeholder</a></li>
@@ -266,10 +302,10 @@
                 </ul>
             </li>
             <li>
-                <a href="company.html">Links</a>
+                <a href="company.html">PR Room</a>
                 <ul class="ultext1">
                     <li style="background-image: none;">
-                        <a href="https://developer.mozilla.org/zh-CN/">Mozilla</a>
+                        <a href="">News room</a>
                     </li>
                     <li style="background-image: none;">
                         <a href="">News letter</a>
@@ -278,208 +314,149 @@
                         <a href="">houngking SNS</a>
                     </li>
                     <li>
-                        <a href="">Study Site</a>
+                        <a href="">PR Archives</a>
                         <div class="ultext2">
                             <ul>
-                                <li><a href="http://www.liaoxuefeng.com/">liaoxuefeng</a></li>
-                                <li><a href="http://paperjs.org/about/">Paper.js</a></li>
-                                <li><a href="www.aseoe.com">Aseoe</a></li>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
                                 <li><a href="">PR Movies</a></li>
                                 <li><a href="">Printed Advertisement</a></li>
                             </ul>
                         </div>
                     </li>
                     <li>
-                        <a href="">Tools</a>
+                        <a href="">Download</a>
                         <div class="ultext2">
                             <ul>
-                                <li><a href="https://regexper.com/">Regexper</a></li>
-                                <li><a href="http://tool.chinaz.com/tools/unicode.aspx">站长工具</a></li>
-                                <li><a href="http://git.oschina.net/">码云</a></li>
-                                <li><a href="http://www.easyicon.net/covert/">Easyicon</a></li>
-                                <li><a href="http://cn.codecombat.com/play">Game</a></li>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
                             </ul>
                         </div>
                     </li>
-                </ul>    
+                </ul>
             </li>
         </ul>
         <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
         <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
         <div class="hdmenu" id="hdmenu">
-          <a href="">Open submenu</a>
-          <ul class="menutxt1">
-              <li>
-                  <a href="">Company</a>
-                  <ul>
-                      <li><a href="">Corporate Overview</a></li>
-                      <li><a href="">Brand</a></li>
-                      <li><a href="">CEO</a></li>
-                      <li><a href="">hounking Affiliates</a></li>
-                      <li><a href="">hounking Overseas</a></li>
-                  </ul>
-              </li>
-              <li>
-                  <a href="">Business Ethics</a>
-                  <ul>
-                      <li><a href="">Code of Ethics</a></li>
-                      <li><a href="">Major Activities</a></li>
-                  </ul>
-              </li>
-              <li>
-                  <a href="">Products/Technology</a>
-                  <ul>
-                      <li><a href="">Products of houngking</a></li>
-                      <li><a href="">hounking Technology</a></li>
-                      <li><a href="">Production Process</a></li>
-                      <li><a href="">Sales informtion</a></li>
-                  </ul>
-              </li>
-              <li style="padding: 0px;">
-                  <a href="">Investor Relations</a>
-                  <ul>
-                      <li><a href="">IR Activities</a></li>
-                      <li><a href="">Stock Information</a></li>
-                      <li><a href="">Financial Information</a></li>
-                      <li><a href="">IR Archive</a></li>
-                  </ul>
-              </li>
-              <li>
-                  <a href="">Sustainability</a>
-                  <ul>
-                      <li><a href="">Suatainability Management System</a></li>
-                      <li><a href="">Social Redponsibility</a></li>
-                      <li><a href="">Environmental Management</a></li>
-                      <li><a href="">Customer</a></li>
-                      <li><a href="">Employee</a></li>
-                      <li><a href="">Report</a></li>
-                  </ul>
-              </li>
-              <li>
-                  <a href="">PR Room</a>
-                  <ul>
-                      <li><a href="">Newsroom</a></li>
-                      <li><a href="">Newsletter</a></li>
-                      <li><a href="">houngking SNS</a></li>
-                      <li><a href="">PR Archives</a></li>
-                      <li><a href="">Download</a></li>
-                  </ul>
-              </li>
-              <li>
-                  <a href="">Contact Us</a>
-                  <ul>
-                      <li><a href="">Q&A</a></li>
-                      <li><a href="">Search</a></li>
-                      <li><a href="">Location</a></li>
-                      <li><a href="">Sitemap</a></li>
-                  </ul>
-              </li>
-          </ul>
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
-<div class="search-area" id="searcharea">
-   <div class="searchBox">
-       <div class="searchBar">
-           <input class="searchtxt" type="text">
-       </div>
-       <img src="imgs/btn_search.png" class="searchbtn">
-       <img src="imgs/btn_search_close.png" class="searchClose" onclick="ifshow(3)">
-   </div>
-</div>
-<ul id="rightBtn">
-    <li><img src="imgs/menu_on.png"></li>
-    <li><img src="imgs/menu_off.png"></li>
-    <li><img src="imgs/menu_off.png"></li>
-    <li><img src="imgs/menu_off.png"></li>
-    <div class="mouse"></div>
-</ul>
-<!--banner-->
-<div class="box" id="bannerbox">
-    <div id="bannerimg">
-        <img src="imgs/macBc2.jpg">
-    </div>
-    <div class="bannertext">
-        <p>Let's open the door!</p>
-       <img src="imgs/箭头.png">
-    </div>
-</div>
+<!--text-->
+<div class="textBox">
+    <h2>20170505-函数作用域与this指向</h2>
+    <h3>1，作用域</h3>
+    <h4>变量间关系</h4>
+    <pre>
+    var num=10;
+    var num1=new Number(10);
+    var num2=new Number(10);
+    var num3=num2;
+    num.k=8;
+    num1.kkk=8;
+    alert(num==num1);//true
+    alert(num1==num2);//false,两个对象比较
+    alert(num2==num3);//true,比较两个地址
+    alert(num.constructor);//function Number(){[native code]},num隐式转换成number对象，但num本身还是数字
+    alert(num.k);//undefined,本身还是数字，不能创建属性k
+    alert(num1.kkk);//num1是number对象，创建属性kkk</pre>
+    <h3>2,this的指向</h3>
+    <h4>call函数和apply方法</h4>
+    <p>call函数和apply方法的第一个参数都是要传入给当前对象的对象，即函数内部的this。后面的参数都是传递给当前对象的参数。</p>
+    <pre>
+    var func=new function(){this.a="func"}
+    var myfunc=function(x){
+       var a="myfunc";
+       alert(this.a);       //func
+       alert(x);            //var
+    }
+    myfunc.call(func,"var");
+先调用func函数，用this.a=”func”替换myfunc中的this.a ; 然后将”var”传递给方法myfunc的参数x。</pre>
+    <pre>
+    function Obj(){this.value="对象！";}
+    var value="global 变量";
+    function Fun1(){alert(this.value);}
+    window.Fun1();   //global 变量
+    Fun1.call(window);  //global 变量
+    Fun1.call(document.getElementById('myText'));  //input text
+    Fun1.call(new Obj());   //对象！
+    window.Fun1(); //global 变量</pre>
 
-<!--news-->
-<div class="box" id="newsbox">
-    <div class="webTech">
-        <h2>Web 前端</h2>
-        <p>---web课程笔记及知识归总</p>
-        <ul>
-            <li>JavaScript</li>
-            <li>HTML</li>
-            <li>CSS/CSS3</li>
-            <li>ES6</li>
-            <li>jQuery</li>
-            <li>框架</li>
-        </ul>
-        <div class="webtxtarea">
-            <div class="websub websub-active">
-                <p style="margin-top: 10px;"><a href="170206设计模式及Ajax.html" target="_blank">设计模式及Ajax</a></p>
-                <p style="margin-top: 10px;"><a href="20170117.html" target="_blank">音视频</a></p>
-                <p style="margin-top: 10px;"><a href="20170113.html" target="_blank">canvas画布</a></p>
-                <p style="margin-top: 10px;"><a href="170505函数作用域与this指向.html" target="_blank">函数作用域与this指向</a></p>
-                <p style="margin-top: 10px;"><a href="20170112.html" target="_blank">JS要点归纳（BOM、Array、Error、排序、垃圾回收机制、event事件（重点移动端事件））</a></p>
-                <p style="margin-top: 10px;"><a href="20170111.html" target="_blank">JS原型与原型链</a></p>
-                <p style="margin-top: 10px;"><a href="170505正则.html" target="_blank">RegExp对象与正则表达式</a></p>
-                <p style="margin-top: 10px;"><a href="20170110.html" target="_blank">JS要点归纳（历史、数值类型、函数）</a></p>
-                <p style="margin-top: 10px;"><a href="20170109.html" target="_blank">Hbuilder、SVN、github使用</a></p>
-            </div>
-            <div class="websub">
-                <p style="margin-top: 10px;"><a href="170220cookie与web存储.html" target="_blank">cookies与HTML5 Web存储</a></p>
-                <p style="margin-top: 10px;"><a href="170217HTML5地理定位.html" target="_blank">HTML5地理定位</a></p>
-                <p style="margin-top: 10px;"><a href="170215HTML5新特性.html" target="_blank">HTML5新特性</a></p>
-            </div>
-            <div class="websub">
-                <p style="margin-top: 10px;"><a href="170224-CSS3弹性盒模型.html" target="_blank">CSS3弹性盒模型</a></p>
-                <p style="margin-top: 10px;"><a href="170223网页布局.html" target="_blank">CSS3网页布局</a></p>
-                <p style="margin-top: 10px;"><a href="170221CSS3选择符，变换与过度.html" target="_blank">CSS3选择符，变换与过度</a></p>
-            </div>
-            <div class="websub">
-                <p style="margin-top: 10px;"><a href="170308ES6基础.html" target="_blank">ES6基础简介</a></p>
-            </div>
-            <div class="websub">
-                <p style="margin-top: 10px;"><a href="170214jQuery-Ajax拓展及综合.html" target="_blank">jQuery-Ajax拓展及综合</a></p>
-                <p style="margin-top: 10px;"><a href="170213jQuery-ajax.html" target="_blank">jQuery-Ajax</a></p>
-                <p style="margin-top: 10px;"><a href="170209-10jQuery事件及动画.html" target="_blank">jQuery事件及动画</a></p>
-                <p style="margin-top: 10px;"><a href="170208jQuery的DOM操作.html" target="_blank">jQuery的DOM操作</a></p>
-                <p style="margin-top: 10px;"><a href="170207jQuery简介及选择器.html" target="_blank">jQuery简介及选择器</a></p>
-            </div>
-            <div class="websub">
-                <p style="margin-top: 10px;"><a href="170320Node扩展框架express.html" target="_blank">NodeJS扩展框架之express</a></p>
-                <p style="margin-top: 10px;"><a href="170317NodeJS之mySQL.html" target="_blank">NodeJS数据库之mySQL</a></p>
-                <p style="margin-top: 10px;"><a href="170316NodeJS之mongoDB.html" target="_blank">NodeJS数据库之mongoDB</a></p>
-                <p style="margin-top: 10px;"><a href="170315NodeJS服务器请求.html" target="_blank">NodeJS服务器请求</a></p>
-                <p style="margin-top: 10px;"><a href="20170314VueJS之CLI版.html" target="_blank">VueJS-CLI基础</a></p>
-                <p style="margin-top: 10px;"><a href="20170309框架之VueJS.html" target="_blank">VueJS框架基础</a></p>
-                <p style="margin-top: 10px;"><a href="20170307框架之Bootstrap(2).html" target="_blank">框架之Bootstrap（组件）</a></p>
-                <p style="margin-top: 10px;"><a href="20170306框架之Bootstrap(1).html" target="_blank">框架之Bootstrap（全局CSS样式）</a></p>
-            </div>
-        </div>
-    </div>
-</div>
-<!--introduction-->
-<div class="box" id="introbox">
-    <div></div>
-</div>
-<!--case-->
-<div class="box" id="casebox">
-    <div></div>
 </div>
 </body>
 </html>
 <script>
-/*$(function(){
-    $('.webTech li').eq(0).css('color','dodgerblue');
-    $('.webTech li').mouseenter(function(){
-        var index=$(this).index();
-        $('.websub').eq(index).show().siblings().hide();
-        $(this).css('color','dodgerblue').siblings().css('color','black');
-    });
-});*/
+
 </script>
