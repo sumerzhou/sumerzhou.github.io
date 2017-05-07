@@ -24,6 +24,9 @@
             border-bottom:1px solid lightblue;
             box-shadow: 2px 2px 1px black;
         }
+        .textBox h4{
+            text-shadow: 1px 1px 2px #4F68B0;
+        }
         .textBox p{
             text-indent: 2em;
         }
@@ -417,9 +420,139 @@
 <!--text-->
 <div class="textBox">
     <h2>20170505-RegExp对象与正则表达式</h2>
-    <h3>1，</h3>
-
-
+    <h3>1，基础简介</h3>
+    <p>正则表达式（regular expression/regex/regexp/RE），是一种文本模式，包括普通字符（例如，a 到 z 之间的字母）和特殊字符（称为“元字符”）。它使用单个字符串来描述、匹配一系列符合某个句法规则的字符串。</p>
+    <p>两种方式实例化regex对象:</p>
+    <p>字面量: var reg = /\bis\b/g;</p>
+    <p>构造函数: var reg = new RegExp('\\bis\\b','g');</p>
+    <h4>修饰符:</h4>
+    <p>g:global全文搜索,若不添加则搜索到第一个匹配停止</p>
+    <p>i:ignore case忽略大小写,默认大小写敏感</p>
+    <p>m:multiple lines多行搜索。默认值fasle。</p>
+    <h4>元字符:</h4>
+    <p>正则表达式由两种基本字符类型组成:原义文本字符,元字符。元字符是在正则表达式中有特殊含义的非字母字符: * + ? $ ^ . | \ ( ) { } [ ] 等。</p>
+    <p>\t :水平制表符</p>
+    <p>\v :垂直制表符</p>
+    <p>\n :换行符</p>
+    <p>\r :回车符</p>
+    <p>\0 :空字符</p>
+    <p>\f :换页符</p>
+    <p>\cX :与X对应的控制字符(Ctrl + X)</p>
+    <h4>字符类:</h4>
+    <p>一般情况下正则表达式一个字符对应字符串一个字符。</p>
+    <p>可以使用元字符[]来构建一个简单的类。所谓类是指符合某些特性的对象,一个泛指,而不是特指某个字符。表达式[abc]把字符a或b或c归为一类,表达式可以匹配这类的字符。</p>
+    <p>字符类取反:使用元字符 ^ 创建反向类/负向类。反向类的意思是不属于某类的内容。表达式[^abc]表示不是字符a或b或c的内容。</p>
+    <h4>范围类:</h4>
+    <p>可以使用[a-z]来连接两个字符表示从a到z的任意字符。这是个闭区间,也就是包含a和z本身。在[]组成的类内部是可以连写的[a-zA-Z]。</p>
+    <h4>预定义类:</h4>
+    <p>用预定义类来匹配常见的字符类:</p>
+    <p>. : [^\r\n],除了回车符和换行符之外的所有字符。</p>
+    <p>\d: [0-9],数字字符。</p>
+    <p>\D: [^0-9],非数字字符。</p>
+    <p>\s: [\t\n\x0B\f\r],空白符。</p>
+    <p>\S: [^\t\n\x0B\f\r],非空白符。</p>
+    <p>\w: [a-zA-Z_0-9],单词字符(字母、数字、下划线)。</p>
+    <p>\W: [^a-zA-Z_0-9],非单词字符。</p>
+    <h4>边界:</h4>
+    <p>正则表达式还提供了几个常用的边界匹配字符:</p>
+    <p>^ :以xxx开始</p>
+    <p>$ :以xxx结束</p>
+    <p>\b:单词边界</p>
+    <p>\B:非单词边界</p>
+    <h4>量词:</h4>
+    <p>若希望匹配一个连续出现20次数字的字符串:\d{20}。</p>
+    <p>常用量词:</p>
+    <p>? :出现0次或1次(最多出现一次)。</p>
+    <p>+ :出现1次或多次(至少出现一次)。</p>
+    <p>* :出现0次或多次(任意次)。</p>
+    <p>{n}:出现n次。</p>
+    <p>{n,m}:出现n到m次。</p>
+    <p>{n,}:至少出现n次。</p>
+    <p>默认贪婪模式匹配。让正则表达式尽可能少的匹配,也就是说一旦成功匹配不再继续尝试,就是非贪婪模式。在量词后面加上?即可转为非贪婪模式。</p>
+    <pre>
+    var reg4=/\d{3,5}/g; //默认贪婪模式匹配
+	var reg5=/\d{3,5}?/g;   //后面加？转为非贪婪模式
+	str4='969569268322'.replace(reg4,'#');
+	alert(str4);        //##22
+	str5='969569268322'.replace(reg5,'#');
+	alert(str5);        //####</pre>
+    <h4>分组:</h4>
+    <p>匹配字符串byron连续出现3次的场景:byron{3}。结果是'n'匹配了3次。</p>
+    <p>使用()可以达到分组的功能,使量词作用于分组:(byron){3}。</p>
+    <h4>或:</h4>
+    <p>使用|可以达到'或'的效果。</p>
+    <p>byron | casper :byron或casper 。</p>
+    <p>byr(on | ca)sper :on 或 ca。  </p>
+    <h4>反向引用:</h4>
+    <pre>
+        var da= /(\d{4})-(\d{2})-(\d{2})/g;
+        day='2015-12-25'.replace(da,'$2-$3-$1');
+        alert(day);     //12-25-2015 </pre>
+    <h4>忽略分组:</h4>
+    <p>不希望捕获某些分组,只需要在分组内机上?: 就可以。</p>
+    <h4>前瞻:</h4>
+    <p>正则表达式从文本头部向尾部开始解析,文本尾部方向,称为"前"。前瞻就是在正则表达式匹配到规则的时候,向前检查是否符合断言,与后顾/后瞻方向相反。</p>
+    <p>javascript不支持后顾。</p>
+    <p>正向前瞻: exp(?=assert)</p>
+    <p>负向前瞻: exp(?!assert)</p>
+    <pre>
+        var p=/小黑(?=小红)/g;
+        ps='小何小黑小红小芳小黑小兰小黑小红'.replace(p,'@');
+        alert(ps);		//小何@小红小芳小黑小兰@小红
+        var p1=/小黑(?!小红)/g;
+        ps1='小何小黑小红小芳小黑小兰小黑小红'.replace(p1,'@');
+        alert(ps1);     //小何小黑小红小芳@小兰小黑小红</pre>
+    <h3>2,使用正则表达式</h3>
+    <p>正则表达式有几个对象属性:global , ignore case , multiline , lastIndex(当前表达式匹配内容的最后一个字符的下一个位置) ,source(正则表达式的文本字符串) 。</p>
+    <h4>RegExp.prototype.test(str):</h4>
+    <p>用于测试字符串参数中是否存在匹配正则表达式模式的字符串。</p>
+    <h4>RegExp.prototype.exec(str):</h4>
+    <p>使用正则表达式对字符串执行搜索,并将更新全局RegExp对象的属性以反映匹配结果。</p>
+    <p>如果没有匹配的文本则返回null,否则返回一个结果数组:index声明匹配文本的第一个字符的位置; input存放被检索的字符串string。</p>
+    <p>非全局调用:</p>
+    <p>调用非全局的RegExp对象的exec()时,返回数组。第一个元素是正则表达式相匹配的文本,第二个元素是与RegExpObject的第一个子表达式相匹配的文本(如果有的话),
+    第三个元素是与RegExp对象的第二个子表达式相匹配的文本(如果有的话),以此类推。</p>
+    <pre>
+        var reg=/goods/;
+        var arr=reg.exec('ffffgoodsff');  //调用非全局正则对象的exec()时，返回数组
+        alert(arr.index);					//4
+        alert(arr.input);					//ffffgoodsff
+        alert(arr[0]);						//goods </pre>
+    <pre>全局调用:
+        var str="the rain in spain falls in main in the plain";
+        var reg1=/in/g;
+        var arr1;
+        while((arr1=reg1.exec(str))!=null){
+            console.log(reg1.lastIndex+','+arr1.index+','+arr1.toString());
+        }   //输出入下:
+        //8,6,in
+        //11,9,in
+        //17,15,in
+        //26,24,in
+        //31,29,in
+        //34,32,in
+        //44,42,in</pre>
+    <h4>Stringl.protatype.search(reg):</h4>
+    <p>search()方法用于检索字符串中指定的子字符串,或检索与正则表达式相匹配的子字符串。</p>
+    <p>方法返回第一个匹配结果index,查找不到放回-1 。</p>
+    <p>search()方法不执行全局匹配,它将忽略标志g,并且总是从字符串的开始进行检索。</p>
+    <h4>match()方法:</h4>
+    <h4>String.protatype.split():</h4>
+    <h4>String.protatype.replace():</h4>
+    <h4>function参数含义:</h4>
+    <p>function会在每次匹配替换的时候调用,有4个参数:</p>
+    <pre>
+        var reg3=/(\d)\w(\d)/g;
+        var str3='1a12a23f35h5'.replace(reg3,dome);
+        function dome(m,f1,f2,i,o){
+            console.log(m);   //匹配的字符串
+            console.log(f1);  //第一个分组内容
+            console.log(f2);  //第二个分组内容
+            console.log(i);   //匹配项首个字母的下标
+            console.log(o);   //原字符串
+            return parseInt(f1)+parseInt(f2)+'@';
+        }
+        alert(str3); </pre>
 </div>
 </body>
 </html>

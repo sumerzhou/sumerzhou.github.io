@@ -775,6 +775,25 @@
             }
         }
         myObject.func();</pre>
+    <pre>
+        var num = 10;
+        var obj = {
+            num:10,
+            fn:(function (num) {
+                this.num =  num + 10;       //此处的this指window
+                num += 10;                  //此处输出this.num和num,分别为20和20 。且整个运行只输出一次
+                return function () {
+                    this.num =  num + 10;
+                    num ++;
+                    console.log(num);
+                }
+            })(num)                         //传入的参数num为10
+        };
+        var fn = obj.fn;
+        fn();                       //21 。此时return函数内的this指向window对象
+        obj.fn();                   //22 。此时return函数内的this指向Object对象
+        console.log(num);           //30
+        console.log(obj.num);       //31 </pre>
 </div>
 <!--leftfixedbox-->
 <div class="leftfixedbox">

@@ -453,6 +453,46 @@
     Fun1.call(document.getElementById('myText'));  //input text
     Fun1.call(new Obj());   //对象！
     window.Fun1(); //global 变量</pre>
+    <pre>apply()的参数为空时,默认调用全局对象:
+    var x=0;
+	function test() {
+		alert(this.x);
+	}
+	var o ={};
+	o.x = 1;
+	o.m = test;
+	o.m.apply();		//0  </pre>
+    <h4>函数内this</h4>
+    <pre>
+        function fun1(){
+            console.log(this+"i am fun1");
+            function fun2(){
+                console.log(this+"i am fun2");
+            }
+        }
+        fun1();             //fun1 ,fun2指的都是window对象</pre>
+    <pre>
+        var obj = {};
+        obj.testFun = function(){
+            console.log(this+"我是testFun");
+        }
+        var f = obj.testFun ;
+        f();                    //指的是window对象
+        obj.testFun();          //是obj对象  </pre>
+    <pre>
+        var length = 10;
+        function fn() {
+            console.log(this.length);
+        }
+        var obj ={
+            length:5,
+            method:function (fn) {
+                fn();					//10（由obj.method触发，但在window环境中调用）
+                arguments[0]();			//2
+                fn.call(obj,12);		//5
+            }
+        };
+        obj.method(fn,1); </pre>
 
 </div>
 </body>
