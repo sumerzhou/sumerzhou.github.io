@@ -424,6 +424,7 @@
     width: 760px;
     height: 290px;
     display: none;
+    overflow-y: auto;
 }
 .websub-active{
     display: block;
