@@ -668,7 +668,24 @@
     <p>3),var obj = {a:1 , b:2};</p>
     <h4>36,写一个方法来实现字符串中出现次数最多的字符,并统计次数。var str="aaaabbbaaaccccddfgh";</h4>
     <h4>37,写一个function,清除字符串前后的空格(兼容所有浏览器)。</h4>
-    <p>(有至少5种方法)</p>
+    <pre>method 1 :
+        function trim(str){
+            str = str.replace(/^(\s|\u00A0)+/,'');
+            for(var i=str.length-1; i>=0; i--){
+                if(/\S/.test(str.charAt(i))){
+                    str = str.substring(0, i+1);
+                    break;
+                }
+            }
+            return str;
+        }</pre>
+    <pre>method 2:使用jquery
+        $.trim(str);
+        jquery的内部实现为：
+        function trim(str){
+            return str.replace(/^(\s|\u00A0)+/,'').replace(/(\s|\u00A0)+$/,'');
+        }</pre>
+    <a href="http://blog.csdn.net/u010543271/article/details/50880794" target="_blank">(有至少5种方法)</a>
     <h4>38,使用正则表达式验证邮箱格式。</h4>
     <h4>39,请编写一个javascript函数 parseQueryString,它的用途是把URL参数解析为一个对象,如:var url = "http://witmax.cn/index.php?key0=0&key1=1&key2=2"</h4>
     <h4>40,javascript中怎么获取浏览器窗口可视区域的宽和高?(兼容所有浏览器)</h4>
