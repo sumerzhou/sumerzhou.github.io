@@ -2,232 +2,581 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>canvas画布|sumerzhou's blog</title>
+    <link href="myblog.css" rel="stylesheet" type="text/css">
+    <script src="myblog.js" type="text/javascript"></script>
     <style>
-        *{
-            padding: 0;
-            margin: 0 auto;
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
             line-height: 2em;
         }
-        .box{
-            width: 1000px;
-            height: 100%;
-        }
-        .header{
-            width: 980px;
-            height:80px;
-            background-color:RGB(96,56,17);
-            opacity: 0.8;
-            border-top:3px solid black;
-            padding: 10px;
-            margin-top: 20px;
-            color: white;
-            font-size: 40px;
-            font-weight: bold;
-            font-style: italic;
-        }
-        .header>span{
-            display: block;
-            float: left;
-        }
-        .main{
-            width: 980px;
-            border:2px solid RGB(96,56,17);
-            border-radius: 20px;
-            position: absolute;
-            padding: 10px;
+        .textBox h2{
             margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
         }
-        h2{
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox p{
             text-indent: 2em;
         }
-        ul>li{
+        .textBox li{
             text-indent: 2em;
             list-style: none;
         }
-        .main pre{
+        .textBox pre{
             display: block;
             width: 850px;
-            background-color: palegoldenrod;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 2px 2px 1px black;
             padding-left: 30px;
             position: relative;
             left: -30px;
+            font-family: '仿宋';
         }
     </style>
 </head>
 <body>
-<div class="box">
-    <div class="header">
-        <span>Class</span><span style="margin-left: 550px;">About</span><span style="margin-left: 20px;">Message</span>
+<!--header-->
+<div class="headerbox">
+    <div class="headertop">
+        <div class="hdtopbut">
+            <a href="http://blog.hungking.cc/" target="_blank"><img src="imgs/sns_blog_off.png"></a>
+            <a href="https://www.facebook.com/HoungkingHsi" target="_blank"><img src="imgs/sns_facebook_off.png"></a>
+            <a href="http://globalblog.hungking.cc/" target="_blank"><img src="imgs/sns_gBlog_off.png"></a>
+            <a href="http://www.linkedin.com/imisslovelove" target="_blank"><img src="imgs/sns_in_off.png"></a>
+            <a href="http://www.youtube.com/imisslovelove" target="_blank"><img src="imgs/sns_youTube_off.png"></a>
+            <a href="http://www.instagram.com/imisslovelove" target="_blank"><img src="imgs/sns_instagram_off.png"></a>
+            <a href="http://story.kakao.com/ch/imisslovelove" target="_blank" style="background: transparent none;"><img src="imgs/sns_kakao_off.png"></a>
+            <div class="hdtopbutR">
+                <a href="construction.html" style="background-position-x:85px ;">Contact Me</a>
+                <a href="construction.html">AboutSite</a>
+                <span onclick="ifshow(0)">Language<img src="imgs/btn_globalSite_open.gif"></span>
+                <ul id="lag">
+                    <li>KOREAN</li><li>CHINESE</li><li>JAPANESE</li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <div class="main">
+    <div class="headerbotm">
+        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
+        <ul id="hdbotmUl">
+            <li>
+                <a href="company.html">WEB前端</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">HTML</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Corporate Overview</a></li>
+                                <li><a href="">Vision of houngking</a></li>
+                                <li><a href="">History of houngking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">CSS/CSS3</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Brand Story</a></li>
+                                <li><a>CI</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">JavaScript</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Greetings</a></li>
+                                <li><a>CEO's Message</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Ajax</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>hougking Affiliates</a></li>
+                                <li><a>Steel</a></li>
+                                <li><a>E&C</a></li>
+                                <li><a>Trade</a></li>
+                                <li><a>ICT</a></li>
+                                <li><a>Energy</a></li>
+                                <li><a>Material-Chemistry</a></li>
+                                <li><a>Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">jQuery</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Global</a></li>
+                                <li><a>Asia</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Business Ethics</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Major Activities</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Products/Technology</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Products of hounking</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Hot Rolled Steel</a></li>
+                                <li><a href="">Steel Plate</a></li>
+                                <li><a href="">Winter Day</a></li>
+                                <li><a href="">Gold Rolled Steel</a></li>
+                                <li><a href="">Galvanized Steel</a></li>
+                                <li><a href="">Electrical Galvanized</a></li>
+                                <li><a href="">Electrical Steel</a></li>
+                                <li><a href="">Automotive materials</a></li>
+                                <li><a href="">Stainless Steel</a></li>
+                                <li><a href="">Titanium Product</a></li>
+                                <li><a href="">Magnesium Product</a></li>
+                                <li><a href="">Aluminum-plated products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">houngking Technology</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">FINEX Technology</a></li>
+                                <li><a href="">Strip Casting</a></li>
+                                <li><a href="">Endless Hot Rolling Technology</a></li>
+                                <li><a href="">Operation Technology</a></li>
+                                <li><a href="">CEM Technology</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Production Process</a>
+                    </li>
+                    <li>
+                        <a href="">Sales information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">e-Sales</a></li>
+                                <li><a href="">e-Procurement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Investor Relations</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">IR Activeties</a>
+                    </li>
+                    <li>
+                        <a href="">Stock Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Stock Price</a></li>
+                                <li><a href="">Price Comparision</a></li>
+                                <li><a href="">ADR</a></li>
+                                <li><a href="">houngking Stock Exchange</a></li>
+                                <li><a href="">Economic Trend</a></li>
+                                <li><a href="">Shareholders Demographics</a></li>
+                                <li><a href="">Dividend</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Financial Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Income Statement</a></li>
+                                <li><a href="">Credit Rating</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">IR Archive</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Audit Report</a></li>
+                                <li><a href="">Form 20-F</a></li>
+                                <li><a href="">Annual Report</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Sustainability</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Sustainability Management System</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Management System</a></li>
+                                <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
+                                <li><a href="">Risk Management</a></li>
+                                <li><a href="">Stakeholder</a></li>
+                                <li><a href="">Relevant Institutes Activities</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Social Responsibility </a>
+                    </li>
+                    <li>
+                        <a href="">Environmental Management </a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Family's Environmental Management</a></li>
+                                <li><a href="">Environmental Management</a></li>
+                                <li><a href="">Climate change /Energy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Customer</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Marketing strategy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Employee</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Employee Health / Safety</a></li>
+                                <li><a href="">Organizational Culture</a></li>
+                                <li><a href="">HR system</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Report</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Report</a></li>
+                                <li><a href="">Carbon Report</a></li>
+                                <li><a href="">Conflict Minerals Disclosure</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">PR Room</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">News room</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">News letter</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">houngking SNS</a>
+                    </li>
+                    <li>
+                        <a href="">PR Archives</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
+                                <li><a href="">PR Movies</a></li>
+                                <li><a href="">Printed Advertisement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Download</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
+        <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
+        <div class="hdmenu" id="hdmenu">
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--text-->
+<div class="textBox">
         <h2>20170113~0116-canvas画布</h2>
-        <p>1，canvas画布简介</p>
-             画布canvas标记是一个矩形区域，包含width和height两个可选属性，表示矩形
-        区域的高宽，可以通过CSS定义，默认值为300和150。
+        <h3>1，canvas画布简介</h3>
+        <p>画布canvas标记是一个矩形区域，包含width和height两个可选属性，表示矩形
+        区域的高宽，可以通过CSS定义，默认值为300和150。</p>
          <img src="imgs/画布1.png"><br/>
-                注：部分浏览器不支持canvas。此处定义的高宽直接用数字即可。
-        <p>2，canvas画布操作</p>
+        <p>注：部分浏览器不支持canvas。此处定义的高宽直接用数字即可。</p>
+        <h3>2，canvas画布操作</h3>
+          <p>(1)创建context对象： </p>
+         <pre>
+          var canv=document.getElementById('canv');
+          var ctx=canv.getContext('2d');</pre>
+          <p>getContext方法返回一个指定context id的上下文对象，如果指定的id
+          不被支持，返回null，当前唯一被强制必须支持的是‘2d’将来可能会有
+          的‘3d’，注意指定的id大小写敏感。创建好cxt后就拥有绘制路径、矩
+          形、圆形、文字以及添加图像的方法了。</p>
+          <p>(2）绘制图形：</p>
           <ul>
-              <li>(1)创建context对象：
-                 <pre>
-                  var canv=document.getElementById('canv');
-                  var ctx=canv.getContext('2d');
-                 </pre>
-                  getContext方法返回一个指定context id的上下文对象，如果指定的id
-                  不被支持，返回null，当前唯一被强制必须支持的是‘2d’将来可能会有
-                  的‘3d’，注意指定的id大小写敏感。创建好cxt后就拥有绘制路径、矩
-                  形、圆形、文字以及添加图像的方法了。
-              </li>
-              <li>（2）绘制图形：</li>
-              <ul>
               <li>●绘制矩形：
-                   <pre>
-                       ctx.fillStyle='orange'; //fillStyle方法用于染色；
-                       ctx.fillRect(100,100,20,20); //fillRect用于绘制‘被填充’的矩形
+               <pre>
+                   ctx.fillStyle='orange'; //fillStyle方法用于染色；
+                   ctx.fillRect(100,100,20,20); //fillRect用于绘制‘被填充’的矩形
 
-                        ctx.rect(100,100,50,50);//创建一个矩形区域
-                        ctx.stroke();  //stroke绘制已定义的路径
-                    （或者用ctx.strokeRect绘制一个无填充的矩形，效果一样）
+                    ctx.rect(100,100,50,50);//创建一个矩形区域
+                    ctx.stroke();  //stroke绘制已定义的路径
+                （或者用ctx.strokeRect绘制一个无填充的矩形，效果一样）
 
-                       ctx.clearRect(0,0,300,150);  //在给定的矩形内清除指定的像素
-                   </pre>
+                   ctx.clearRect(0,0,300,150);  //在给定的矩形内清除指定的像素</pre>
               </li>
               <li>●绘制圆形：先通过beginPath方法绘制路径，再调用arc方法绘制曲线，接着
                   用fill和stroke方法完成填充和边框设置，最后通过closePath方法结束路径绘制。
-                 <pre>
-                     ctx.beginPath();   //开始一条路径，或重置当前路径
-                     ctx.arc(50,50,20,0.5*Math.PI,1.5*Math.PI);  //创建弧/曲线（用于创建圆形或部分圆）
-                     //arc(x,y,r,sAngle,eAngle,counterclockwise),各参数分别为x 坐标、y 坐标、半径、
-                     起始角、结束角、顺/逆时针（可选）
-                     ctx.fillStyle='orange';
-                     ctx.fill();       //填充当前的绘图（路径）
-                     ctx.closePath();  //创建从当前点回到起始的路径
-                     ctx.stroke();
-                 </pre>
+             <pre>
+                 ctx.beginPath();   //开始一条路径，或重置当前路径
+                 ctx.arc(50,50,20,0.5*Math.PI,1.5*Math.PI);  //创建弧/曲线（用于创建圆形或部分圆）
+                 //arc(x,y,r,sAngle,eAngle,counterclockwise),各参数分别为x 坐标、y 坐标、半径、
+                 起始角、结束角、顺/逆时针（可选）
+                 ctx.fillStyle='orange';
+                 ctx.fill();       //填充当前的绘图（路径）
+                 ctx.closePath();  //创建从当前点回到起始的路径
+                 ctx.stroke();</pre>
               </li>
               <li>●绘制直线：用moveTo方法定义一个坐标位置，然后以此坐标为起点，绘制直线，接着
                   用lineWidth设置直线宽度，用strokeStyle设置笔触的颜色，最后用lineTo设置结束位置。
-                   <pre>
-                     ctx.beginPath();
-                     ctx.lineWidth=10;   //设置直线宽度
-                     ctx.moveTo(10,10);  //把路径移动到画布中指定点，不创建线条
-                     ctx.lineTo(50,10);  //添加一个新点，然后在画布中创建从该点到最后指定点的线条
-                     ctx.lineTo(50,60);
-                     ctx.lineTo(10,60);
-                     ctx.lineTo(10,10);
-                     ctx.strokeStyle='blue';  //设置笔触颜色
-                     ctx.stroke();
-                   </pre>
+               <pre>
+                 ctx.beginPath();
+                 ctx.lineWidth=10;   //设置直线宽度
+                 ctx.moveTo(10,10);  //把路径移动到画布中指定点，不创建线条
+                 ctx.lineTo(50,10);  //添加一个新点，然后在画布中创建从该点到最后指定点的线条
+                 ctx.lineTo(50,60);
+                 ctx.lineTo(10,60);
+                 ctx.lineTo(10,10);
+                 ctx.strokeStyle='blue';  //设置笔触颜色
+                 ctx.stroke();</pre>
               </li>
               <li>●渐变色：createLinearGradient() 方法创建线性的渐变对象。
                   createLinearGradient() 方法创建放射状/圆形渐变对象。
-                 <pre>线性渐变：
-                     var gradient=ctx.createLinearGradient(5,5,100,100);
-                     //四个坐标各自是渐变开始点的 x、y 坐标和渐变结束点的 x、y 坐标
-                     gradient.addColorStop(0,'orange');//addColorStop方法规定gradient对象中的颜色和位置。
-                     gradient.addColorStop(1,'green');//首个参数介于 0.0 与 1.0 之间，表示渐变中开始与
-                     ctx.fillStyle=gradient;            结束之间的位置。
-                     ctx.fillRect(0,0,100,100);
-                      <img src="imgs/画布2.png">
+             <pre>线性渐变：
+                 var gradient=ctx.createLinearGradient(5,5,100,100);
+                 //四个坐标各自是渐变开始点的 x、y 坐标和渐变结束点的 x、y 坐标
+                 gradient.addColorStop(0,'orange');//addColorStop方法规定gradient对象中的颜色和位置。
+                 gradient.addColorStop(1,'green');//首个参数介于 0.0 与 1.0 之间，表示渐变中开始与
+                 ctx.fillStyle=gradient;            结束之间的位置。
+                 ctx.fillRect(0,0,100,100);
+                  <img src="imgs/画布2.png">
     圆形渐变：
-                       var gradient=ctx.createRadialGradient(50,50,10,50,50,30);//六个坐标各自是渐变开始点
-                       gradient.addColorStop(0,'orange');            的x、y 坐标、开始圆的半径、渐变结束
-                       gradient.addColorStop(0.5,'pink');          点的 x、y 坐标和结束圆的半径
-                       gradient.addColorStop(0.8,'white');
-                       gradient.addColorStop(1,'green');
-                       ctx.fillStyle=gradient;
-                       ctx.fillRect(0,0,100,100);
-                     <img src="imgs/画布3.png"></pre>
+                   var gradient=ctx.createRadialGradient(50,50,10,50,50,30);//六个坐标各自是渐变开始点
+                   gradient.addColorStop(0,'orange');            的x、y 坐标、开始圆的半径、渐变结束
+                   gradient.addColorStop(0.5,'pink');          点的 x、y 坐标和结束圆的半径
+                   gradient.addColorStop(0.8,'white');
+                   gradient.addColorStop(1,'green');
+                   ctx.fillStyle=gradient;
+                   ctx.fillRect(0,0,100,100);
+                 <img src="imgs/画布3.png"></pre>
               </li>
               <li>●二、三次贝塞尔曲线：quadraticCurveTo() 方法通过使用表示二次贝塞尔曲线的指定控制点，
                   向当前路径添加一个点。bezierCurveTo() 方法通过使用表示三次贝塞尔曲线的指定控制点，向当前路径添加一个点。
-                  <pre>二次贝塞尔曲线：
-                      ctx.moveTo(40,340);
-                      ctx.lineTo(260,80);
-                      ctx.lineTo(360,300);
-                      ctx.stroke();
-                      ctx.beginPath();
-                      ctx.moveTo(40,340);
-                      ctx.quadraticCurveTo(260,80,360,300);
-                      ctx.strokeStyle = "#f40";
-                      ctx.stroke();
-                      <img src="imgs/画布4.png">
-        三次贝塞尔曲线：
-                      ctx.moveTo(50, 350);
-                      ctx.lineTo(120, 160);
-                      ctx.lineTo(300, 60);
-                      ctx.lineTo(340, 300);
-                      ctx.stroke();
-                      ctx.beginPath();
-                      ctx.moveTo(50, 350);
-                      ctx.bezierCurveTo(120, 160, 300, 60, 340, 300);
-                      ctx.strokeStyle = "#f40";
-                      ctx.stroke();
-                      <img src="imgs/画布5.png"></pre>
+              <pre>二次贝塞尔曲线：
+                  ctx.moveTo(40,340);
+                  ctx.lineTo(260,80);
+                  ctx.lineTo(360,300);
+                  ctx.stroke();
+                  ctx.beginPath();
+                  ctx.moveTo(40,340);
+                  ctx.quadraticCurveTo(260,80,360,300);
+                  ctx.strokeStyle = "#f40";
+                  ctx.stroke();
+                  <img src="imgs/画布4.png">
+    三次贝塞尔曲线：
+                  ctx.moveTo(50, 350);
+                  ctx.lineTo(120, 160);
+                  ctx.lineTo(300, 60);
+                  ctx.lineTo(340, 300);
+                  ctx.stroke();
+                  ctx.beginPath();
+                  ctx.moveTo(50, 350);
+                  ctx.bezierCurveTo(120, 160, 300, 60, 340, 300);
+                  ctx.strokeStyle = "#f40";
+                  ctx.stroke();
+                  <img src="imgs/画布5.png"></pre>
               </li>
               <li>●反转颜色：
-                 <pre>
-                       var ctx=canv.getContext('2d');
-                       var img=new Image();
-                       img.src='糖宝.jpg';
-                       img.onload=function(){
-                           ctx.drawImage(img,0,0,100,100);   //绘制图像，并设置图像尺寸
-                           var imgData=ctx.getImageData(0,0, canv.width,canv.height);
-                       //getImageData方法返回 ImageData 对象，该对象拷贝了画布指定矩形的像素数据。
-               //反转颜色
-                           for(var i=0;i< imgData .data.length;i+=4){
-                               imgData.data[i]=255-imgData.data[i];
-                               imgData.data[i+1]=255-imgData.data[i+1];
-                               imgData.data[i+2]=255-imgData.data[i+2];
-                               imgData.data[i+3]=255;
-                        //对于 ImageData 对象中的每个像素，都存在着四方面的信息，即 RGBA 值：
-                        //  R - 红色 (0-255)
-                        //  G - 绿色 (0-255)
-                        //  B - 蓝色 (0-255)
-                        //  A - alpha 通道 (0-255; 0 是透明的，255 是完全可见的)
-                        //color/alpha 以数组形式存在，并存储于 ImageData 对象的 data 属性中。
-                           }
-                           ctx.putImageData(imgData,110,0);
-                       //putImageData方法将图像数据（从指定的 ImageData 对象）放回画布上。
+             <pre>
+               var ctx=canv.getContext('2d');
+                   var img=new Image();
+                   img.src='糖宝.jpg';
+                   img.onload=function(){
+                       ctx.drawImage(img,0,0,100,100);   //绘制图像，并设置图像尺寸
+                       var imgData=ctx.getImageData(0,0, canv.width,canv.height);
+                   //getImageData方法返回 ImageData 对象，该对象拷贝了画布指定矩形的像素数据。
+           //反转颜色
+                       for(var i=0;i< imgData .data.length;i+=4){
+                           imgData.data[i]=255-imgData.data[i];
+                           imgData.data[i+1]=255-imgData.data[i+1];
+                           imgData.data[i+2]=255-imgData.data[i+2];
+                           imgData.data[i+3]=255;
+                    //对于 ImageData 对象中的每个像素，都存在着四方面的信息，即 RGBA 值：
+                    //  R - 红色 (0-255)
+                    //  G - 绿色 (0-255)
+                    //  B - 蓝色 (0-255)
+                    //  A - alpha 通道 (0-255; 0 是透明的，255 是完全可见的)
+                    //color/alpha 以数组形式存在，并存储于 ImageData 对象的 data 属性中。
                        }
-                       <img src="imgs/画布8.png"></pre>  
+                       ctx.putImageData(imgData,110,0);
+                   //putImageData方法将图像数据（从指定的 ImageData 对象）放回画布上。
+                   }
+                   <img src="imgs/画布8.png"></pre>
               </li>
               <li>●图形叠加：globalCompositeOperation 属性设置或返回如何将一个源（新的）图像绘制到目标（已有）
                   的图像上。
-                  <pre>
-                     ctx.fillStyle="red";
-	                 ctx.fillRect(20,20,75,50);
-	                 ctx.globalCompositeOperation="source-over";
-	                 ctx.fillStyle="blue";
-	                 ctx.fillRect(50,50,75,50); </pre>
-                  <pre style="background-color: white;">
-	        source-over:默认。在目标图像上显示源图像。
-                     <img src="imgs/画布9.png">
-                     destination-over:在源图像上方显示目标图像。
-                     <img src="imgs/画布10.png">
-                     source-atop:在目标图像顶部显示源图像。源图像位于目标图像之外的部分是不可见的。
-                     <img src="imgs/画布11.png">
-                     source-in:在目标图像中显示源图像。只有目标图像内的源图像部分会显示，目标图像是透明的。
-                     <img src="imgs/画布12.png">
-                     source-out:在目标图像之外显示源图像。只会显示目标图像之外源图像部分，目标图像是透明的。
-                     <img src="imgs/画布13.png">
-                     destination-atop:在源图像顶部显示目标图像。源图像之外的目标图像部分不会被显示。
-                     <img src="imgs/画布14.png">
-                     destination-in:在源图像中显示目标图像。只有源图像内的目标图像部分会被显示，源图像是透明的。
-                     <img src="imgs/画布15.png">
-                     destination-out:在源图像外显示目标图像。只有源图像外的目标图像部分会被显示，源图像是透明的。
-                     <img src="imgs/画布16.png">
-                     lighter:显示源图像 + 目标图像。
-                     <img src="imgs/画布17.png">
-                     copy:显示源图像。忽略目标图像。
-                     <img src="imgs/画布18.png">
-                     xor:
-                     <img src="imgs/画布19.png"></pre>
+          <pre>
+             ctx.fillStyle="red";
+             ctx.fillRect(20,20,75,50);
+             ctx.globalCompositeOperation="source-over";
+             ctx.fillStyle="blue";
+             ctx.fillRect(50,50,75,50); </pre>
+          <pre>
+        source-over:默认。在目标图像上显示源图像。
+             <img src="imgs/画布9.png">
+             destination-over:在源图像上方显示目标图像。
+             <img src="imgs/画布10.png">
+             source-atop:在目标图像顶部显示源图像。源图像位于目标图像之外的部分是不可见的。
+             <img src="imgs/画布11.png">
+             source-in:在目标图像中显示源图像。只有目标图像内的源图像部分会显示，目标图像是透明的。
+             <img src="imgs/画布12.png">
+             source-out:在目标图像之外显示源图像。只会显示目标图像之外源图像部分，目标图像是透明的。
+             <img src="imgs/画布13.png">
+             destination-atop:在源图像顶部显示目标图像。源图像之外的目标图像部分不会被显示。
+             <img src="imgs/画布14.png">
+             destination-in:在源图像中显示目标图像。只有源图像内的目标图像部分会被显示，源图像是透明的。
+             <img src="imgs/画布15.png">
+             destination-out:在源图像外显示目标图像。只有源图像外的目标图像部分会被显示，源图像是透明的。
+             <img src="imgs/画布16.png">
+             lighter:显示源图像 + 目标图像。
+             <img src="imgs/画布17.png">
+             copy:显示源图像。忽略目标图像。
+             <img src="imgs/画布18.png">
+             xor:
+             <img src="imgs/画布19.png"></pre>
               </li>
               <li>●图形的保存与恢复：
                   <pre>
-                  ctx.save();   //保存当前环境的状态
+              ctx.save();   //保存当前环境的状态
                   ctx.fillRect(0,0,100,50);
                   ctx.translate(50,50);
                   ctx.restore();   //返回之前保存过的路径状态和属性
@@ -255,7 +604,6 @@
               </li>
               </ul>
           </ul>
-    </div>
 </div>
 </body>
 </html>
