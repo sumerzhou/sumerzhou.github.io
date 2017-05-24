@@ -519,7 +519,7 @@
     <p>sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存。安全性比cookie方式高,兼容性不如cookie 。</p>
     <p>存储大小：cookie数据大小不能超过4k。sessionStorage和localStorage 虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大。</p>
     <p>有效时间：localStorage存储持久数据，浏览器关闭后数据不丢失除非主动删除数据；sessionStorage  数据在当前浏览器窗口关闭后自动删除。cookie设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭.</p>
-    <p>cookie写入方式(例):document.cookie="name = hongking ;age = 18"; consola.log(document.cookie);</p>
+    <p>cookie写入方式(例):document.cookie="name = hongking ";document.cookie="age =18 "; console.log(document.cookie);</p>
     <p>sessionStorage写入(例):sessionStorage.setItem("name","hongking"); sessionStorage.setItem("age","18"); consola.log(sessionStorage.getItem("name")+sessionStorage.getItem("age"));</p>
     <h4>19,iframe有哪些缺点？</h4>
     <p>iframe会阻塞主页面的Onload事件；</p>
