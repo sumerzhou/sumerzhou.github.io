@@ -487,8 +487,8 @@
         var obj ={
             length:5,
             method:function (fn) {
-                fn();					//10（由obj.method触发，但在window环境中调用）
-                arguments[0]();			//2
+                fn();			//10（由obj.method触发，但在window环境中调用）
+                arguments[0]();		//2
                 fn.call(obj,12);		//5
             }
         };

@@ -460,6 +460,21 @@ function s2(){
     <p>当然,js中的return不一定非得用在函数function中,有时候也可以用来阻止某些动作,比如表单的提交,让表单的提交事件返回false,那表单就不会提交:onsubmit="return false".</p>
     <p>更多参考: <a href="https://stackoverflow.com/questions/1357118/event-preventdefault-vs-return-false" target="_blank">event.preventDefault() vs. return false</a>,
         <a href="http://blog.csdn.net/qq_29305911/article/details/52265836" target="_blank">浅析return false的正确使用</a></p>
+    <h4>4,javascript:void(0) 的用法,void关键字用法</h4>
+    <p>void是js中的26个关键字之一，根据ECMA官方标准，它是一个一元操作符，它的唯一作用就是返回一个undefined，不管这个操作符后面传的操作数是什么。</p>
+    <p>void有如下作用：</p>
+    <p>●通过采用void 0取undefined比采用字面上的undefined更靠谱更安全，应该优先采用void 0这种方式。</p>
+    <p>●填充a的href="javascript:void(0);"确保点击时不会产生页面跳转; 填充img的src，确保不会向服务器发出垃圾请求。</p>
+    <p>href="#",href="",href="javascript:;"与href="javascript:void(0);"的区别:</p>
+    <p># 包含了一个位置信息，默认的锚是#top 也就是网页的上端。在页面很长的时候会使用 # 来定位页面的具体位置，格式为：# + id,但当连续快速点击此链接时会导致浏览器巨慢甚至崩溃。而javascript:void(0), 仅仅表示一个死链接。javascript:;好些，
+        javascript:void(0);据说某些情况下有浏览器兼容bug,在IE中可能会引起一些问题，比如：造成gif动画停止播放等。href="####"也能达到点击链接不做任何事情的效果,使用2个到4个#，见的大多是"####"，也有使用"#all"等其他的。href ="" 默认打开的还是当前页面，会刷新一下重新打开。</p>
+    <p>为防止点击链接后跳转到页首，onclick事件return false即可,如&lt;a href="#" onclick="doSomething();return false;"&gt;什么问题都解决了,包括浏览器不兼容问题。</p>
+    <p>我们可以使用void操作符指定超级链接，如javascript:void(document.form.submit())，这句话会进行一次submit操作。表达式会被计算但是不会在当前文档处装入任何内容。</p>
+    <p>更多参考: <a href="https://segmentfault.com/a/1190000002965297" target="_blank">void关键字有个毛用</a>, <a href="https://segmentfault.com/a/1190000000474941" target="_blank">谈谈Javascript中的void操作符</a>,
+        <a href="http://www.cnblogs.com/sdgjytu/p/3553583.html?utm_source=tuicool&utm_medium=referral" target="_blank">javascript:void到底是个什么？</a>,
+        <a href="http://www.cnblogs.com/WebApp-DotNet/p/6392512.html" target="_blank">JavaScript:void(0)使用介绍</a>, <a
+                href="http://www.cnblogs.com/xuan52rock/p/4338482.html" target="_blank">javascript:;与javascript:void(0)使用介绍</a>,
+        <a href="http://blog.csdn.net/u010297791/article/details/52784879" target="_blank">a标签中href=""的几种用法</a>。</p>
     <h3>VUE.js</h3>
     <h4>1,vue加载延迟暴露{{}}代码解决方法</h4>
     <a href="http://blog.csdn.net/violetjack0808/article/details/51721218" target="_blank">定义[v-cloak]的style</a>
