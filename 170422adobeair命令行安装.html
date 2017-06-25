@@ -419,8 +419,8 @@
 </div>
 <!--text-->
 <div class="textBox">
-    <h2>adobe Air for mac命令行安装</h2>
-    <h3>问题描述:官网下载Mac版adobe air后,双击安装每次都只到出现安装图标就没有下文了。</h3>
+    <h2>mac软件安装常见问题</h2>
+    <h3>官网下载Mac版adobe air后,双击安装每次都只到出现安装图标就没有下文了</h3>
     <p>网上搜索了下,有朋友推测是因为adobe air在对mac os x新系统支持方面没有开启具体的权限，
         从而需要从终端直接操作，这也是为什么一直停留在Dock的原因。
     <p>尝试了终端操作,最终成功安装。步骤如下:</p>
@@ -428,10 +428,27 @@
     <p>2,<a href="https://get.adobe.com/tw/air/" target="_blank">get.adobe.com/cn/air/</a>下载最新的adobe air</p>
     <p>3,双击打开adobe air，桌面出现adobe air的类似U盘图标 </p>
     <p>4,打开mac“终端”程序 ,输入:  sudo /Volumes/Adobe\ AIR\/Adobe\ AIR\ Installer.app/Contents/MacOS/Adobe\ AIR\ Installer -silent -eulaAccepted</p>
-    <p>5,按回车确认,此时终端会跳出警告信息,需要用户输入password密码再次确认。需要注意，输入密码它是不会提示字符的，只是一直在那闪烁，无需在意，正确输入密码即可，然后按回车 </p>
+    <p id="section2">5,按回车确认,此时终端会跳出警告信息,需要用户输入password密码再次确认。需要注意，输入密码它是不会提示字符的，只是一直在那闪烁，无需在意，正确输入密码即可，然后按回车 </p>
     <P>6,弹出done adobe air success （版本号16.xx.xx.xx）这里弹出的具体内容我也不记得了，反正有个done，说明成功了。</P>
-
-
+    <h3>MAC上 XAMPP 软件的MYSQL启动不了</h3>
+    <p>问题描述:首次安装成功后,所有功能都能正常使用。第二次打开发现mysql无法start 。</p>
+    <p>按网上某一方案,在terminal 输入sudo /Applications/XAMPP/bin/mysql.server start ,命令行显示启动成功,但软件重启后mysql仍然无法start 。</p>
+    <p>尝试另一方案:在活动监视器搜索“mysql”,退出正在运行的mysql进程。然后重启软件,mysql启动成功。</p>
+    <p>网上有另一种解决方案,未做尝试:打开/Applications/XAMPP/xamppfiles/xampp文件，发现有这两行代码：</p>
+    <p>unset DYLD_LIBRARY_PATH </p>
+    <p>$XAMPP_ROOT/bin/mysql.server start > /dev/null &</p>
+    <p>直接在$XAMPP_ROOT前加sudo就可以了:sudo $XAMPP_ROOT/bin/mysql.server start > /dev/null &</p>
+    <p>然后保存xampp文件，在manager－osx应用里就可以启动mysql，无需从命令行启动mysql 。</p>
+    <p>1</p>
+    <p>2</p>
+    <p>3</p>
+    <p>4</p>
+    <p>5</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
 
 
 
