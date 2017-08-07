@@ -478,6 +478,28 @@
 	        db.close();
 	    });
      });</pre>
+    <h3>5,Linux平台安装MongoDB</h3>
+    <p>官网下载安装包,并解压安装 tgz（以下演示的是 64 位 Linux上的安装）:</p>
+    <pre>
+curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.0.6.tgz    # 下载
+tar -zxvf mongodb-linux-x86_64-3.0.6.tgz                                   # 解压
+mv  mongodb-linux-x86_64-3.0.6/ /usr/local/mongodb                         # 将解压包拷贝到指定目录</pre>
+    <p>MongoDB的数据存储在data目录的db目录下，但是这个目录在安装过程不会自动创建，所以你需要手动创建data目录，并在data目录中创建db目录.</p>
+    <p>注意：根目录下的/data/db 是 MongoDB 默认的启动的数据库路径(--dbpath)。</p>
+    <p>在mongo安装目录中的bin目录执行mongod命令来启动mongdb服务:</p>
+    <pre>
+$ ./mongod
+注意：如果你的数据库目录不是/data/db，可以通过 --dbpath 来指定。</pre>
+    <h4>命令行:</h4>
+    <p>./mongod --help ,查看启动数据库所有的命令参数</p>
+    <p>./mongo , 打开mongodb装目录的下的bin目录,进入MongoDB后台管理。当你进入mongoDB后台后，它默认会链接到 test 文档（数据库）</p>
+    <h4>MongoDb web 用户界面:</h4>
+    <p>MongoDB 提供了简单的 HTTP 用户界面。 如果你想启用该功能，需要在启动的时候指定参数 --rest 。</p>
+    <pre>
+$ ./mongod --dbpath=/data/db --rest</pre>
+    <p>MongoDB 的 Web 界面访问端口比服务的端口多1000。如果你的MongoDB运行端口使用默认的27017，你可以在端口号为28017访问web用户界面，即地址为：http://localhost:28017</p>
+    <h4>其余参考:</h4>
+    <p><a href="http://www.cnblogs.com/maybo/archive/2016/02/04/5182272.html" target="_blank">MongoDB在linux下的启动</a></p>
 </div>
 </body>
 </html>

@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>mac软件安装常见问题|sumerzhou's blog</title>
+    <title>Linux 命令行|sumerzhou's blog</title>
     <link href="myblog.css" rel="stylesheet" type="text/css">
     <script src="myblog.js" type="text/javascript"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <style>
         .textBox{
             width: 980px;
@@ -419,43 +420,15 @@
 </div>
 <!--text-->
 <div class="textBox">
-    <h2>mac软件安装常见问题</h2>
-    <h3>官网下载Mac版adobe air后,双击安装每次都只到出现安装图标就没有下文了</h3>
-    <p>网上搜索了下,有朋友推测是因为adobe air在对mac os x新系统支持方面没有开启具体的权限，
-        从而需要从终端直接操作，这也是为什么一直停留在Dock的原因。
-    <p>尝试了终端操作,最终成功安装。步骤如下:</p>
-    <p>1,需要当前正在使用mac os x系统的用户密码 </p>
-    <p>2,<a href="https://get.adobe.com/tw/air/" target="_blank">get.adobe.com/cn/air/</a>下载最新的adobe air</p>
-    <p>3,双击打开adobe air，桌面出现adobe air的类似U盘图标 </p>
-    <p>4,打开mac“终端”程序 ,输入:  sudo /Volumes/Adobe\ AIR\/Adobe\ AIR\ Installer.app/Contents/MacOS/Adobe\ AIR\ Installer -silent -eulaAccepted</p>
-    <p id="section2">5,按回车确认,此时终端会跳出警告信息,需要用户输入password密码再次确认。需要注意，输入密码它是不会提示字符的，只是一直在那闪烁，无需在意，正确输入密码即可，然后按回车 </p>
-    <P>6,弹出done adobe air success （版本号16.xx.xx.xx）这里弹出的具体内容我也不记得了，反正有个done，说明成功了。</P>
-    <h3>MAC上 XAMPP 软件的MYSQL启动不了</h3>
-    <p>问题描述:首次安装成功后,所有功能都能正常使用。第二次打开发现mysql无法start 。</p>
-    <p>按网上某一方案,在terminal 输入sudo /Applications/XAMPP/bin/mysql.server start ,命令行显示启动成功,但软件重启后mysql仍然无法start 。</p>
-    <p>尝试另一方案:在活动监视器搜索“mysql”,退出正在运行的mysql进程。然后重启软件,mysql启动成功。</p>
-    <p>网上有另一种解决方案,未做尝试:打开/Applications/XAMPP/xamppfiles/xampp文件，发现有这两行代码：</p>
-    <p>unset DYLD_LIBRARY_PATH </p>
-    <p>$XAMPP_ROOT/bin/mysql.server start > /dev/null &</p>
-    <p>直接在$XAMPP_ROOT前加sudo就可以了:sudo $XAMPP_ROOT/bin/mysql.server start > /dev/null &</p>
-    <p id="section3">然后保存xampp文件，在manager－osx应用里就可以启动mysql，无需从命令行启动mysql 。</p>
-    <h3>在VirtualBox中安装CentOS 7</h3>
-    <p>下载 <a href="https://www.centos.org/download/" target="_blank">centos</a> </p>
-    <p>1. 在虚拟机中创建虚拟电脑</p>
-    <p>在名称哪里填入CentOS-7，类型选择linux，版本选择other或者RedHat。如果cpu是64位的，就选择64位版本，否则就选择32位版本的。内存大小的选择不要超过真实机内存的一半大小。勾选上 现在创建虚拟硬盘，点击创建。</p>
-    <p>文件位置就是你虚拟机创建后存放的位置，linux默认放在用户家目录里，windows默认放在系统盘，如果空间足够，默认就好。不够，点击右边的文件夹图标可以更换位置。文件大小就是分配给虚拟机的硬盘空间的大小，我这里给CentOS-7分配30G的硬盘。虚拟硬盘文件类型选择VDI，存储在物理磁盘上有动态分配和固定大小。区别是，动态分配会根据你硬盘空间的使用情况来动态分配硬盘多少。固定大小则是你分配多少硬盘，就一次性从硬盘上划出多少空间给虚拟机，相应的真实机硬盘就减少多少大小（有网友说固定大小，性能要好一点）。然后点击创建。</p>
-    <p>2,虚拟电脑设置</p>
-    <p>点击设置，选择系统，在启动顺序哪里选中光驱，点击右边的向上箭头，把光驱升到第一位。</p>
-    <p>然后在选中存储，单击没有碟片，点击右边的光盘图标，选择你之前下载好的CentOS-7系统镜像打开。</p>
-    <p>在网络那里，把网络连接选为NAT，确定，现在可以启动了。</p>
-    <p>3,安装系统</p>
-    <p>点击启动，把鼠标点进里面，选择第一个（被选中的时候，字体是白色的），回车安装。这时鼠标被锁定了，如果要移动鼠标，按键盘上的右Ctrl可以释放鼠标。</p>
-    <p>选择语言为中文，继续。点击软件选择，根据自己需要选择安装，如果不熟悉，就不要选择，默认最小安装，不过要安装图形界面的话，还是选择一下GNOME或者KDE。</p>
-    <p>在安装位置哪里选择创建好的虚拟磁盘，分区哪里自动分配分区大小。</p>
-    <p>在网络和主机名里把网络打开，主机名默认就好，要改也得。</p>
-    <p>现在点击开始安装。在这里设置好root用户的密码，和创建一个用户。新手不建议在root账户下使用系统，所以应该建立一个普通用户。</p>
-    <p>安装完成，点击重启。重启出现CentOS-7的初始化信息，输入1回车，再输入2回车，再输入q回车。如果你创建了普通用户，这里会列出用户名，没有的话，点击未列出，输入root用户名和密码登录。</p>
-    <p>参考文档: <a href="http://www.linuxidc.com/Linux/2016-09/135593.htm" target="_blank">在VirtualBox中安装CentOS 7</a></p>
+    <h2>Linux 命令行</h2>
+    <h3>1,软件解压、安装</h3>
+    <h4>Linux下tar.xz结尾的文件的解压方法</h4>
+    <p>$xz -d ***.tar.xz</p>
+    <p>$tar -xvf  ***.tar</p>
+    <p>这个压缩包也是打包后再压缩，外面是xz压缩方式，里层是tar打包方式。</p>
+    <p>补充：目前可以直接使用 tar xvJf  ***.tar.xz来解压</p>
+
+    <h3>2,</h3>
 
 
 
