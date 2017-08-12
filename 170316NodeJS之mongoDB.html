@@ -421,12 +421,13 @@
 <div class="textBox">
     <h2>20170316-NodeJS数据库之mongoDB</h2>
     <h3>1，mongoDB简介</h3>
-    <p><a href="https://www.mongodb.com/download-center?jmp=nav#community" target="_blank">mongoDB</a>是一个基于分布式文件存储的数据库，由C＋＋语言编写，旨在为WEB应用提供可扩展的高性能数据存储解决方案。
+    <p><a href="https://docs.mongodb.com/manual/tutorial/access-mongo-shell-help/" target="_blank">mongoDB</a>是一个基于分布式文件存储的数据库，由C＋＋语言编写，旨在为WEB应用提供可扩展的高性能数据存储解决方案。
     mongoDB将数据存储为一个文档，数据结构由键值对组成，文档类似于JSON对象。</p>
     <p>数据库存储相对于文本存储的优势：1，方便：大量增删改查方便;2,安全；3，性能好。</p>
     <p>相对于OracleDB，mongoDB只能处理相对小的数据，安全相对OracleDB差，4，	相对轻量级，相当于OracleDB的一小部分。</p>
     <p>了解<a href="http://kb.cnblogs.com/page/162080/" target="_blank">SSL</a>。</p>
-    <h3>2,启动MongoDB服务</h3>
+    <p>参考文档: <a href="http://www.tuicool.com/articles/rIbEvaY" target="_blank">MongoDB 基础知识</a></p>
+    <h3>2,window下启动MongoDB服务</h3>
     <p>创建链接数据库：</p>
     <p>a,官网下载并安装mongoDB到本地。</p>
     <p>b,在安装的bin文件夹复制路径在系统设置添加环境变量（如果需要，设置后可在全局任何位置打开操作）。</p>
@@ -435,9 +436,9 @@
     <p>e,输入命令mongod --dbpath “E:\Data” ，成功后即链接到数据库。成功链接到数据库后，在浏览器输入默认端口27017，出现成功页面。</p>
     <h3>3,使用mongoDB</h3>
     <p>a,在bin下再开一个命令窗口（之前的链接数据库的命令窗口不能关闭）。</p>
-    <p>b,首个命令“mongo”,进入mongo数据库模式。</p>
+    <p>b,首个命令“mongo”,进入mongo数据库模式。若是Linux centos下,输入"./mongo"命令,进入数据库模式。</p>
     <p>c,“use dbname”创建数据库文件名称。如果存在则选中，不存在则创建。</p>
-    <p>d,show dbs,查看所有数据库。</p>
+    <p>d,show dbs,查看所有数据库。show tables (或 show collections)查看某数据库下所有文档集合。show users ,显示用户。</p>
     <p>e,db.createCollection("col",{capped:true,size:1024,max:100}),插入文档集合。</p>
     <p>f,db.col.drop(),删除文档集合。</p>
     <p>g,db.col.insert({'name':'indeex','age':36,'sex':'man'}),增加数据。</p>
@@ -445,6 +446,57 @@
     <p>i,db.col.count(),查询条数。</p>
     <p>j,db.col.update({'id':'1'},{'id':'2','name':'tom','age':'21'}),更新数据。</p>
     <p>k,db.col.remove({'col':'列值'})，删除数据。注意，如果数据里有id，mongoDB的数据库某些版本可能无法删除或修改数据。</p>
+    <h4>设置用户:</h4>
+    <p>mongodb存储所有的用户信息在admin 数据库的集合system.users中，保存用户名、密码和数据库信息。默认MongoDB中没有用户，需要我们自己去创建:</p>
+    <pre>
+        use admin</pre>
+    <pre>
+        db.createUser( { "user" : "accountAdmin01",
+                 "pwd": "password",
+                 "roles" : [ { role: "clusterAdmin", db: "admin" },
+                             { role: "readAnyDatabase", db: "admin" },
+                             "readWrite"
+                             ] })</pre>
+    <p>网上很多的资料是addUser,其实在3.X之后，就都换成了createUser,请移步官方 <a href="https://docs.mongodb.com/manual/reference/method/db.createUser/" target="_blank">文档</a></p>
+    <p>进入admin库，来查看一下它都包含哪些东西:</p>
+    <pre>
+        >use admin;
+        switched to db admin
+        >show collections;
+        system.indexes
+        system.users
+        system.version</pre>
+    <p>发现他包含索引，用户和版本号三个集合。分别执行集合的find命令，来查看一下这三个集合里面的数据。</p>
+    <pre>
+        > db.system.users.find();
+        //content
+        > db.system.indexes.find();
+        //content
+        > db.system.version.find();
+        //content</pre>
+    <p>完了之后，启用auth:</p>
+    <pre>
+        db.auth('username', 'password')
+        //0：代表授权失败 1：代表授权成功</pre>
+    <p>之后，就可以连接了，Robomongo这款连接工具不错，并且支持众多平台（win,linux,mac）.</p>
+    <p>参考文档: <a href="http://www.cnblogs.com/baiyunchen/p/5111674.html" target="_blank">CentOS上安装MongoDB</a>,
+        <a href="http://www.2cto.com/database/201507/420854.html" target="_blank">MongoDB初探系列之三：MongoDB用户权限操作</a>,
+        <a href="http://www.cnblogs.com/shiyiwen/p/5552750.html" target="_blank">MongoDB 3.X 用户权限控制</a>,
+        <a href="http://blog.csdn.net/dbabruce/article/details/50963956" target="_blank">MONGODB用户、角色和权限管理</a>,
+        <a href="http://www.cnblogs.com/xusir/archive/2012/12/24/2830957.html" target="_blank">MongoDB基本命令用</a></p>
+    <h4>数据库导入导出:</h4>
+    <p>1, mongoexport / mongoimport :</p>
+    <p><a href="http://blog.csdn.net/ji1515308/article/details/49306611" target="_blank">mongoexport和导入工具mongoimport介绍</a></p>
+    <p>2, mongorestore / mongodump</p>
+    <p>导入文件夹中所有bson数据集文件:</p>
+    <pre>
+        mongorestore -d db_name path/</pre>
+    <p>导入accounts数据库的people数据集:</p>
+    <pre>
+        mongorestore --collection people --db accounts path/</pre>
+    <p>在3.4版本以上,也可以用--nsInclude来具体指明所需导入的数据集</p>
+     <pre>
+        mongorestore --nsInclude accounts.people path/</pre>
     <h3>4,引用数据库模块到项目上</h3>
     <p>在项目所在文件夹下打开命令窗口，在命令窗口输入npm install mongodb,创建mongoDB配置。</p>
     <p>用’node name.js’命令运行数据库。</p>
@@ -484,22 +536,25 @@
 curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.0.6.tgz    # 下载
 tar -zxvf mongodb-linux-x86_64-3.0.6.tgz                                   # 解压
 mv  mongodb-linux-x86_64-3.0.6/ /usr/local/mongodb                         # 将解压包拷贝到指定目录</pre>
+    <p>ps:MongoDB他就是个压缩包，解压完就算安装完了。cd到解压后的bin目录进行相关操作。</p>
     <p>MongoDB的数据存储在data目录的db目录下，但是这个目录在安装过程不会自动创建，所以你需要手动创建data目录，并在data目录中创建db目录.</p>
     <p>注意：根目录下的/data/db 是 MongoDB 默认的启动的数据库路径(--dbpath)。</p>
     <p>在mongo安装目录中的bin目录执行mongod命令来启动mongdb服务:</p>
     <pre>
 $ ./mongod
-注意：如果你的数据库目录不是/data/db，可以通过 --dbpath 来指定。</pre>
+注意：如果你的数据库目录不是/data/db，可以通过 --dbpath 来指定。比如:
+$ ./mongod --dbpath=/Users/Workspace/MongoDB/db</pre>
     <h4>命令行:</h4>
     <p>./mongod --help ,查看启动数据库所有的命令参数</p>
-    <p>./mongo , 打开mongodb装目录的下的bin目录,进入MongoDB后台管理。当你进入mongoDB后台后，它默认会链接到 test 文档（数据库）</p>
+    <p>./mongo , 打开mongodb安装目录的下的bin目录,进入MongoDB后台管理。当你进入mongoDB后台后，它默认会链接到 test 文档（数据库）</p>
     <h4>MongoDb web 用户界面:</h4>
     <p>MongoDB 提供了简单的 HTTP 用户界面。 如果你想启用该功能，需要在启动的时候指定参数 --rest 。</p>
     <pre>
 $ ./mongod --dbpath=/data/db --rest</pre>
     <p>MongoDB 的 Web 界面访问端口比服务的端口多1000。如果你的MongoDB运行端口使用默认的27017，你可以在端口号为28017访问web用户界面，即地址为：http://localhost:28017</p>
     <h4>其余参考:</h4>
-    <p><a href="http://www.cnblogs.com/maybo/archive/2016/02/04/5182272.html" target="_blank">MongoDB在linux下的启动</a></p>
+    <p><a href="http://www.cnblogs.com/maybo/archive/2016/02/04/5182272.html" target="_blank">MongoDB在linux下的启动</a>,
+        <a href="http://blog.csdn.net/huwei2003/article/details/40507611" target="_blank">linux下mongodb的安装及启动</a></p>
 </div>
 </body>
 </html>
