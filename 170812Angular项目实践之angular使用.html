@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Angular项目技术环境|sumerzhou's blog</title>
+    <title>Angular使用|sumerzhou's blog</title>
     <link href="myblog.css" rel="stylesheet" type="text/css">
     <script src="myblog.js" type="text/javascript"></script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -420,52 +420,11 @@
 </div>
 <!--text-->
 <div class="textBox">
-    <h2>20170809-Angular项目实践之项目技术环境</h2>
-    <h3>1,node</h3>
-    <h4></h4>
+    <h2>20170812-Angular项目实践之angular使用</h2>
+    <h3>1,简介</h3>
+    <p><a href="http://docs.ngnice.com/guide" target="_blank">AngularJS</a> 是一个 JavaScript 框架。它是一个以 JavaScript 编写的库。</p>
+    <p><a href=""></a>AngularJS2 发布于2016年9月份，它是基于ES6来开发的。</p>
 
-    <h3>2,npm</h3>
-    <h4>node软件环境安装</h4>
-    <p>在package.json所在的根目录下打开终端,输入:npm install(或npm i),安装在package.json配置中的文件</p>
-    <p>如果需要强制安装某个版本的软件:</p>
-    <p>npm install &lt;name&gt;安装nodejs的依赖包,默认安装的最新版本，也可以通过在后面加版本号的方式安装指定版本，如</p>
-    <pre>npm install mongoose@3.0.6</pre>
-    <h4>项目启动</h4>
-    <p>在项目跟目录下,可以使用npm run命令启动项目相关已经在package.json文件中配置过的脚本文件:</p>
-    <pre>npm run &lt;package.json文件中scripts里对应的脚本命令&gt;
-        //例如:
-        npm run dev</pre>
-    <p>也可以直接在项目跟目录下直接用命令执行.sh文件:</p>
-    <pre>
-        ./start-app.sh
-        //在另一个终端窗口打开以下命令:
-        ./start-gulp.sh vendor-1.x dev</pre>
-    <p>例,项目package.json文件中scripts配置如下:</p>
-    <pre>
-        "main": "src/app.js",
-        "scripts": {
-            "test": "echo \"Error: no test specified\" && exit 1",
-            "start": "./start-app.sh",
-            "start-dev": "./dev-app.sh",
-            "start-remote": "./dev-remote.sh",
-            "build": "./start-gulp.sh vendor-1.x",
-            "dev": "./start-gulp.sh vendor-1.x dev"
-        },</pre>
-    <h3>3,bower</h3>
-    <p>Bower是一个客户端技术的软件包管理器，它可用于搜索、安装和卸载如JavaScript、HTML、CSS之类的网络资源。</p>
-    <p>bower是针对前端模块化共享而提供的解决方案。其特点是对包结构没有强制规范，也因此bower本身并不提供一套构建工具，它充当的基本上是一个静态资源的共享平台。</p>
-    <p>bower在安装流程基本上可以简单认为是将注册的git地址中的特定tag clone一份到你本地的bower_components 目录中。看起来bower本身提供的功能，以及实现都比价简单，但是它确实使用最广的前端模块管理工具。之所以bower能这么流行，得益于它宽松的规范能很好地直接应用在很多已经存在的项目中，所有人都能通过简单地添加一个bower.json以及补充相关信息，不需要修改代码和目录结构，就马上开始使用注册发布自己的模块。</p>
-    <p>安装node环境:node.js</p>
-    <h4>安装bower:</h4>
-    <p>终端，输入： npm install -g bower</p>
-    <h4>使用bower:</h4>
-    <p>为了方便我们还要再加一个bower.json配置文件,可以自己用文本编辑器新增一个，也可以用bower.init初始化。</p>
-    <p>在bower.json所在的目录打开终端，输入：bower install  。他会把bower.json中的dependencies下载安装</p>
-    <h4>参考文档:</h4>
-    <p><a href="http://jingyan.baidu.com/article/03b2f78c6bd7c05ea337ae6e.html" target="_blank">bower使用入门</a>,
-        <a href="https://segmentfault.com/a/1190000002971135" target="_blank">bower简明入门教程</a></p>
-
-    <h3>4,gulp</h3>
 
 
 
