@@ -2,14 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Linux命令行|sumerzhou's blog</title>
+    <title>CSS非常用样式|sumerzhou's blog</title>
     <link href="myblog.css" rel="stylesheet" type="text/css">
     <script src="myblog.js" type="text/javascript"></script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <style>
-        body{
-            background-color: #a5d6e7;
-        }
         .textBox{
             width: 980px;
             border-radius: 20px;
@@ -423,52 +420,27 @@
 </div>
 <!--text-->
 <div class="textBox">
-    <h2>Linux 命令行</h2>
-    <h3>1,软件解压、安装、更新</h3>
-    <h4>Linux下tar.xz结尾的文件的解压方法</h4>
-    <p>$xz -d ***.tar.xz</p>
-    <p>$tar -xvf  ***.tar</p>
-    <p>这个压缩包也是打包后再压缩，外面是xz压缩方式，里层是tar打包方式。</p>
-    <p>补充：目前可以直接使用 tar xvJf  ***.tar.xz来解压</p>
-    <h4>更新软件</h4>
-    <p>取得系统权限,一般情况下使用sudo命令就能应付大部分情况,如果需要编辑用户权限,可用以下命令:</p>
-    <pre>sudo vim /etc/sudoers</pre>
-    <p>更新目标软件:</p>
-    <pre>sudo yum update firefox</pre>
-    <h3>2,vi/vim文本编辑使用</h3>
-    <p>基本上 vi/vim 共分为三种模式，分别是命令模式（Command mode），插入模式（Insert mode）和底线命令模式（Last line mode）。 </p>
-    <p>如果想要使用 vim 来建立一个名为 test.txt 的文件时，可以这样做：</p>
-    <pre>$ vim runoob.txt</pre>
-    <p>直接输入 vim 文件名 就能够进入 vim 的一般模式了。请注意，记得 vim 后面一定要加文件名，不管该文件存在与否！</p>
-    <p>按下 i 进入输入模式(也称为编辑模式)，开始编辑文字。在一般模式之中，只要按下 i, o, a 等字符就可以进入输入模式了！</p>
-    <p>按下 ESC 按钮回到一般模式。</p>
-    <p>在一般模式中按下 :wq 储存后离开vim。</p>
-    <h3>3,linux常用命令</h3>
-    <h4>防火墙:</h4>
-    <p>Redhat Linux 7 发布后，防火墙变了，那么如何使用命令关闭防火墙呢？</p>
-    <p>a,获得root or sudo 控制权限。</p>
-    <p>b,systemctl status firewalld,查看防火墙状态。</p>
-    <p>c,systemctl stop firewalld ,临时关闭防火墙命令。重启电脑后，防火墙自动起来。</p>
-    <p>d,systemctl disable firewalld ,永久关闭防火墙命令。重启后，防火墙不会自动启动。</p>
-    <p>e,systemctl enable firewalld ,打开防火墙命令。</p>
-    <p>其余参考:<a href="http://www.jb51.net/article/101576.htm" target="_blank">centos6和centos7防火墙</a></p>
-    <h4>ping命令:</h4>
-    <p>ping是Windows、Unix和Linux系统下的一个命令。ping也属于一个通信协议，是TCP/IP协议的一部分。利用“ping”命令可以检查网络是否连通，可以很好地帮助我们分析和判定网络故障。应用格式：ping空格IP地址。</p>
-    <p>a,ping+本地ip地址。ping通，则出现连接响应时间，否则可能是TCP/IP出现问题。</p>
-    <p>b,ping+其它计算机的ip。检查局域网内与其它计算机连接是否通畅,如果不通就有可能是子网掩码设置错误或者网卡配置有问题，或者网络电缆有问题等等</p>
-    <p>c,检查外网是否连通，ping+域名</p>
-    <p>d,ping localhost,若ping通，则表示主机没有问题，否则反之。</p>
-    <h3>4,linux中特殊符号用法</h3>
-    <p>~ : 帐户的 home 目录</p>
-    <p>参考文档: <a href="http://www.cnblogs.com/lidabo/p/4323979.html" target="_blank">linux 中特殊符号用法详解</a></p>
-    <h3>5,注意</h3>
-    <h4>sh和. /</h4>
-    <p> cd 到test.sh所在目录,命令行输入./test.sh，而不是test.sh，运行其它二进制的程序也一样，直接写 test.sh，linux 系统会去 PATH 里寻找有没有叫 test.sh 的，而只有 /bin, /sbin, /usr/bin，/usr/sbin 等在 PATH 里，你的当前目录通常不在 PATH 里，所以写成 test.sh 是会找不到命令的，要用 ./test.sh 告诉系统说，就在当前目录找。</p>
-    <p>sh  xxx: 用 sh 这个shell  (sh一般指系统默认shell,比如 bash, ksh, Csh 等都有可能) 来解释和运行 xxx 这个脚本。xxx 文件不必具有可执行属性（chmod +x)</p>
-    <p>./xxx : xxx必须具备可执行属性，如果此时的 xxx 是一个文本文件（脚本），那么按照 xxx 的第一行所指定的命令来解释和执行 xxx， 如果xxx 文件中没有指定，默认按照 /bin/sh 来解释和执行。  xxx 需要在第一行用#!/path/to/mmm的方法来说明要用 mmm 命令来解释和执行自身。比如:</p>
-    <p>如果是 bash 脚本，为  #!/bin/bash</p>
-    <p>perl脚本,  #!/usr/bin/perl</p>
-    <p>python脚本,  #!/usr/bin/python</p>
+    <h2>20170903-CSS非常用样式笔记</h2>
+    <h3>CSS实现单行、多行文本溢出显示省略号（…）</h3>
+    <p>实现单行文本的溢出显示省略号,用text-overflow:ellipsis属性,当然还需要加宽度width属来兼容部分浏览。</p>
+    <pre>实现方法：
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;</pre>
+    <p>多行文本溢出显示省略号，如下:</p>
+    <pre>适用范围：因使用了WebKit的CSS扩展属性，该方法适用于WebKit浏览器及移动端；
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;</pre>
+    <p>-webkit-line-clamp用来限制在一个块元素显示的文本的行数。 为了实现该效果，它需要组合其他的WebKit属性。常见结合属性：</p>
+    <p>display: -webkit-box; 必须结合的属性 ，将对象作为弹性伸缩盒子模型显示 。</p>
+    <p>-webkit-box-orient 必须结合的属性 ，设置或检索伸缩盒对象的子元素的排列方式 。</p>
+    <p>参考文档: <a href="http://www.daqianduan.com/6179.html" target="_blank">css超出部分显示省略号</a></p>
+    <h3>文字强制换行</h3>
+
+
+
 
 
 </div>
