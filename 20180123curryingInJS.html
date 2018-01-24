@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS柯里化|sumerzhou's blog</title>
+    <link href="myblog.css" rel="stylesheet" type="text/css">
+    <script src="myblog.js" type="text/javascript"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
+            line-height: 2em;
+        }
+        .textBox h2{
+            margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
+        }
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox h4{
+            text-shadow: 1px 1px 2px #4F68B0;
+        }
+        .textBox p{
+            text-indent: 2em;
+        }
+        .textBox li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .textBox pre{
+            display: block;
+            width: 850px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 2px 2px 1px black;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+            font-family: '仿宋';
+        }
+    </style>
+</head>
+<body>
+<!--header-->
+<div class="headerbox">
+    <div class="headertop">
+        <div class="hdtopbut">
+            <a href="http://blog.hungking.cc/" target="_blank"><img src="imgs/sns_blog_off.png"></a>
+            <a href="https://www.facebook.com/HoungkingHsi" target="_blank"><img src="imgs/sns_facebook_off.png"></a>
+            <a href="http://globalblog.hungking.cc/" target="_blank"><img src="imgs/sns_gBlog_off.png"></a>
+            <a href="http://www.linkedin.com/imisslovelove" target="_blank"><img src="imgs/sns_in_off.png"></a>
+            <a href="http://www.youtube.com/imisslovelove" target="_blank"><img src="imgs/sns_youTube_off.png"></a>
+            <a href="http://www.instagram.com/imisslovelove" target="_blank"><img src="imgs/sns_instagram_off.png"></a>
+            <a href="http://story.kakao.com/ch/imisslovelove" target="_blank" style="background: transparent none;"><img src="imgs/sns_kakao_off.png"></a>
+            <div class="hdtopbutR">
+                <a href="construction.html" style="background-position-x:85px ;">Contact Me</a>
+                <a href="construction.html">AboutSite</a>
+                <span onclick="ifshow(0)">Language<img src="imgs/btn_globalSite_open.gif"></span>
+                <ul id="lag">
+                    <li>KOREAN</li><li>CHINESE</li><li>JAPANESE</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="headerbotm">
+        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
+        <ul id="hdbotmUl">
+            <li>
+                <a href="company.html">WEB前端</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">HTML</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Corporate Overview</a></li>
+                                <li><a href="">Vision of houngking</a></li>
+                                <li><a href="">History of houngking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">CSS/CSS3</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Brand Story</a></li>
+                                <li><a>CI</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">JavaScript</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Greetings</a></li>
+                                <li><a>CEO's Message</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Ajax</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>hougking Affiliates</a></li>
+                                <li><a>Steel</a></li>
+                                <li><a>E&C</a></li>
+                                <li><a>Trade</a></li>
+                                <li><a>ICT</a></li>
+                                <li><a>Energy</a></li>
+                                <li><a>Material-Chemistry</a></li>
+                                <li><a>Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">jQuery</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Global</a></li>
+                                <li><a>Asia</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Business Ethics</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Major Activities</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Products/Technology</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Products of hounking</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Hot Rolled Steel</a></li>
+                                <li><a href="">Steel Plate</a></li>
+                                <li><a href="">Winter Day</a></li>
+                                <li><a href="">Gold Rolled Steel</a></li>
+                                <li><a href="">Galvanized Steel</a></li>
+                                <li><a href="">Electrical Galvanized</a></li>
+                                <li><a href="">Electrical Steel</a></li>
+                                <li><a href="">Automotive materials</a></li>
+                                <li><a href="">Stainless Steel</a></li>
+                                <li><a href="">Titanium Product</a></li>
+                                <li><a href="">Magnesium Product</a></li>
+                                <li><a href="">Aluminum-plated products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">houngking Technology</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">FINEX Technology</a></li>
+                                <li><a href="">Strip Casting</a></li>
+                                <li><a href="">Endless Hot Rolling Technology</a></li>
+                                <li><a href="">Operation Technology</a></li>
+                                <li><a href="">CEM Technology</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Production Process</a>
+                    </li>
+                    <li>
+                        <a href="">Sales information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">e-Sales</a></li>
+                                <li><a href="">e-Procurement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Investor Relations</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">IR Activeties</a>
+                    </li>
+                    <li>
+                        <a href="">Stock Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Stock Price</a></li>
+                                <li><a href="">Price Comparision</a></li>
+                                <li><a href="">ADR</a></li>
+                                <li><a href="">houngking Stock Exchange</a></li>
+                                <li><a href="">Economic Trend</a></li>
+                                <li><a href="">Shareholders Demographics</a></li>
+                                <li><a href="">Dividend</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Financial Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Income Statement</a></li>
+                                <li><a href="">Credit Rating</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">IR Archive</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Audit Report</a></li>
+                                <li><a href="">Form 20-F</a></li>
+                                <li><a href="">Annual Report</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Sustainability</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Sustainability Management System</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Management System</a></li>
+                                <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
+                                <li><a href="">Risk Management</a></li>
+                                <li><a href="">Stakeholder</a></li>
+                                <li><a href="">Relevant Institutes Activities</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Social Responsibility </a>
+                    </li>
+                    <li>
+                        <a href="">Environmental Management </a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Family's Environmental Management</a></li>
+                                <li><a href="">Environmental Management</a></li>
+                                <li><a href="">Climate change /Energy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Customer</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Marketing strategy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Employee</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Employee Health / Safety</a></li>
+                                <li><a href="">Organizational Culture</a></li>
+                                <li><a href="">HR system</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Report</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Report</a></li>
+                                <li><a href="">Carbon Report</a></li>
+                                <li><a href="">Conflict Minerals Disclosure</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">PR Room</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">News room</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">News letter</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">houngking SNS</a>
+                    </li>
+                    <li>
+                        <a href="">PR Archives</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
+                                <li><a href="">PR Movies</a></li>
+                                <li><a href="">Printed Advertisement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Download</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
+        <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
+        <div class="hdmenu" id="hdmenu">
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--text-->
+<div class="textBox">
+    <h2>JS柯里化</h2>
+    <h3>1,简介</h3>
+    <p>柯里化（Currying），又称部分求值（Partial Evaluation），是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术。</p>
+    <p>百科上的定义是针对众多函数式语言而言的，按照Stoyan Stefanov(《JavaScript Pattern》作者)的说法，所谓“柯里化”就是使函数理解并处理部分应用。借用网上一个例子来理解：</p>
+    <h4>example:</h4>
+    <p>柯南身子虽小，但是里面住的却是大柯南，也就是一个function里面还有个function。不同柯南处理不同情况，例如，小柯南可以和…稍等，他女朋友叫什么的忘了，我查查…哦，毛利兰一起洗澡澡；但是大柯南就不行。小柯南不能当面指正犯人，需借助小五郎；但是，大柯南就可以直接质问指出凶手。就类似于，内外function处理不同的参数。如果代码表示就是(小柯南=smallKenan; 大柯南=bigKenan; 小柯南嗑药会变大柯南)：</p>
+    <pre>
+        var smallKenan = function(action) {
+            var bigKenan = function(doing) {
+                var result = "";
+                if (action === "take drugs") {
+                    if (doing === "bathWithGirlFriend") {
+                        result = "尖叫，新一，你这个色狼，然后一巴掌，脸煮熟了~";
+                    } else if (doing === "pointOutKiller") {
+                        result = "新一，这个案子就交给你的，快点找出谁是凶手吧~";
+                    }
+                } else {
+                    if (doing === "bathWithGirlFriend") {
+                        result = "来吧，柯南，一起洗澡吧~";
+                    } else if (doing === "pointOutKiller") {
+                        result = "小孩子家，滚一边去！";
+                    }
+                }
+                console.log(result);
+                return arguments.callee; // 等同于return bigKenan
+            };
+            return bigKenan;
+        };
+        // 小柯南吃药了，然后和毛利兰洗澡，凶案现场指证犯人；结果是……
+        smallKenan("take drugs")("bathWithGirlFriend")("pointOutKiller");
+    //输出结果：尖叫，新一，你这个色狼，然后一巴掌，脸煮熟了~
+    //输出结果：新一，这个案子就交给你的，快点找出谁是凶手吧~</pre>
+    <p>“吃药”、“洗澡”、“指出凶手”就可以看成三个参数，其中，“吃药”确实是小柯南使用的，而后面的是“洗澡”、“指出凶手”虽然跟在smallKenan()后面，实际上是大柯南使用的。这个就是柯里化，参数部分使用。外部函数处理部分应用，剩下的由外部函数的返回函数处理。</p>
+    <h3>2,柯里化有什么作用？</h3>
+    <p>貌似柯里化有3个常见作用：1. 参数复用；2. 提前返回；3. 延迟计算/运行。</p>
+    <h4>参数复用:</h4>
+    <pre>
+        var currying = function(fn) {
+            // fn 指官员消化老婆的手段
+            var args = [].slice.call(arguments, 1);
+            // args 指的是那个合法老婆
+            return function() {
+                // 已经有的老婆和新搞定的老婆们合成一体，方便控制
+                var newArgs = args.concat([].slice.call(arguments));
+                // 这些老婆们用 fn 这个手段消化利用，完成韦小宝前辈的壮举并返回
+                return fn.apply(null, newArgs);
+            };
+        };
+
+        // 下为官员如何搞定7个老婆的测试
+        // 获得合法老婆
+        var getWife = currying(function() {
+            var allWife = [].slice.call(arguments);
+            // allwife 就是所有的老婆的，包括暗渡陈仓进来的老婆
+            console.log(allWife.join(";"));
+        }, "合法老婆");
+
+        // 获得其他6个老婆
+        getWife("大老婆","小老婆","俏老婆","刁蛮老婆","乖老婆","送上门老婆");
+        //输出:合法老婆;大老婆;小老婆;俏老婆;刁蛮老婆;乖老婆;送上门老婆
+        // 换一批老婆
+        getWife("超越韦小宝的老婆"); //输出结果:合法老婆;超越韦小宝的老婆</pre>
+    <p>官员要弄7个老婆，碍于国策（一夫一妻）以及年老弟衰，表面上就1个老婆，实际上剩下的6个暗地里消化。无论哪个官员，都是需要一个合法老婆；通过柯里化过程，getWife()无需添加这个多余的“合法老婆”参数。</p>
+    <h4>关于提前返回:</h4>
+    <p>很常见的一个例子，兼容现代浏览器以及IE浏览器的事件添加方法。我们正常情况可能会这样写：</p>
+    <pre>
+        var addEvent = function(el, type, fn, capture) {
+            if (window.addEventListener) {
+                el.addEventListener(type, function(e) {
+                    fn.call(el, e);
+                }, capture);
+            } else if (window.attachEvent) {
+                el.attachEvent("on" + type, function(e) {
+                    fn.call(el, e);
+                });
+            }
+        };</pre>
+    <p>很显然，我们每次使用addEvent为元素添加事件的时候，(eg. IE6/IE7)都会走一遍if...else if ...，其实只要一次判定就可以了，怎么做？–柯里化。改为下面这样子的代码：</p>
+    <pre>
+        var addEvent = (function(){
+            if (window.addEventListener) {
+                return function(el, sType, fn, capture) {
+                    el.addEventListener(sType, function(e) {
+                        fn.call(el, e);
+                    }, (capture));
+                };
+            } else if (window.attachEvent) {
+                return function(el, sType, fn, capture) {
+                    el.attachEvent("on" + sType, function(e) {
+                        fn.call(el, e);
+                    });
+                };
+            }
+        })();</pre>
+    <p>初始addEvent的执行其实值实现了部分的应用（只有一次的if...else if...判定），而剩余的参数应用都是其返回函数实现的，典型的柯里化。</p>
+    <h4>关于延迟计算:</h4>
+    <p>一般而言，延迟计算或运行是没有必要的，因为一天花10块钱和月末花300块钱没什么本质区别。举个例子，我每周末都要去钓鱼，我想知道我12月份4个周末总共钓了几斤鱼，把一些所谓的模式、概念抛开，我们可能就会下面这样实现：</p>
+    <pre>
+        var fishWeight = 0;
+        var addWeight = function(weight) {
+            fishWeight += weight;
+        };
+        addWeight(2.3);
+        addWeight(6.5);
+        addWeight(1.2);
+        addWeight(2.5);
+        console.log(fishWeight);   // 12.5</pre>
+    <p>若是有柯里化实现，则会是下面这样：</p>
+    <pre>
+        var curryWeight = function(fn) {
+            var _fishWeight = [];
+            return function() {
+                if (arguments.length === 0) {
+                    return fn.apply(null, _fishWeight);
+                } else {
+                    _fishWeight = _fishWeight.concat([].slice.call(arguments));
+                }
+            }
+        };
+        var fishWeight = 0;
+        var addWeight = curryWeight(function() {
+            var i=0; len = arguments.length;
+            for (i; i < len; i+=1) {
+                fishWeight += arguments[i];
+            }
+        });
+
+        addWeight(2.3);
+        addWeight(6.5);
+        addWeight(1.2);
+        addWeight(2.5);
+        addWeight();    //  这里才计算
+        console.log(fishWeight);    // 12.5</pre>
+    <p>这里的curryWeight方法啰嗦的意义在于柯里化的复用。比方说，我还想知道平均每次钓货的重量，则：</p>
+    <pre>
+        var averageWeight = 0;
+        var addWeight = curryWeight(function() {
+            var i=0; len = arguments.length;
+            for (i; i < len; i+=1) {
+                averageWeight += arguments[i]/len;
+            }
+        });
+        addWeight(2.3);
+        addWeight(6.5);
+        addWeight(1.2);
+        addWeight(2.5);
+        addWeight();    //  这里才计算
+        console.log(averageWeight);    // 3.125</pre>
+    <p>还有的好处就是参数个数随意，比方说：</p>
+    <pre>
+        addWeight(2.3, 6.5);
+        addWeight(1.2, 2.5);</pre>
+    <p>ES5中的bind方法，用来改变Function执行时候的上下文（函数主体本身不执行，与call/apply直接执行并改变不同），本质上就是延迟执行。例如：</p>
+    <pre>
+        var obj = {
+            "name": "currying"
+        },
+        fun = function() {
+            console.log(this.name);
+        }.bind(obj);
+
+        fun(); // currying</pre>
+    <p>从IE6~8的自定义扩展来看，其实现的机制就是柯里化（不考虑执行时的新增参数）：</p>
+    <pre>
+        if (!function() {}.bind) {
+            Function.prototype.bind = function(context) {
+                var self = this
+                    , args = Array.prototype.slice.call(arguments);
+
+                return function() {
+                    return self.apply(context, args.slice(1));
+                }
+            };
+        }</pre>
+    <br/>
+    <h4>参考文档：</h4>
+    <a href="https://www.zhihu.com/question/30097211/answer/46785556" target="_blank">如何理解functional programming里的currying与partial application?</a> ;
+    <a href="http://www.zhangxinxu.com/wordpress/2013/02/js-currying/" target="_blank">JS中的柯里化(currying)</a>
+
+
+
+</div>
+
+</body>
+</html>
