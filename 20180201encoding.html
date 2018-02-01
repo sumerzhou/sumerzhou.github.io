@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算机编码基础简介|sumerzhou's blog</title>
+    <link href="myblog.css" rel="stylesheet" type="text/css">
+    <script src="myblog.js" type="text/javascript"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
+            line-height: 2em;
+        }
+        .textBox h2{
+            margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
+        }
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox h4{
+            text-shadow: 1px 1px 2px #4F68B0;
+        }
+        .textBox p{
+            text-indent: 2em;
+        }
+        .textBox li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .textBox pre{
+            display: block;
+            width: 850px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 2px 2px 1px black;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+            font-family: '仿宋';
+        }
+    </style>
+</head>
+<body>
+<!--header-->
+<div class="headerbox">
+    <div class="headertop">
+        <div class="hdtopbut">
+            <a href="http://blog.hungking.cc/" target="_blank"><img src="imgs/sns_blog_off.png"></a>
+            <a href="https://www.facebook.com/HoungkingHsi" target="_blank"><img src="imgs/sns_facebook_off.png"></a>
+            <a href="http://globalblog.hungking.cc/" target="_blank"><img src="imgs/sns_gBlog_off.png"></a>
+            <a href="http://www.linkedin.com/imisslovelove" target="_blank"><img src="imgs/sns_in_off.png"></a>
+            <a href="http://www.youtube.com/imisslovelove" target="_blank"><img src="imgs/sns_youTube_off.png"></a>
+            <a href="http://www.instagram.com/imisslovelove" target="_blank"><img src="imgs/sns_instagram_off.png"></a>
+            <a href="http://story.kakao.com/ch/imisslovelove" target="_blank" style="background: transparent none;"><img src="imgs/sns_kakao_off.png"></a>
+            <div class="hdtopbutR">
+                <a href="construction.html" style="background-position-x:85px ;">Contact Me</a>
+                <a href="construction.html">AboutSite</a>
+                <span onclick="ifshow(0)">Language<img src="imgs/btn_globalSite_open.gif"></span>
+                <ul id="lag">
+                    <li>KOREAN</li><li>CHINESE</li><li>JAPANESE</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="headerbotm">
+        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
+        <ul id="hdbotmUl">
+            <li>
+                <a href="company.html">WEB前端</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">HTML</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Corporate Overview</a></li>
+                                <li><a href="">Vision of houngking</a></li>
+                                <li><a href="">History of houngking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">CSS/CSS3</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Brand Story</a></li>
+                                <li><a>CI</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">JavaScript</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Greetings</a></li>
+                                <li><a>CEO's Message</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Ajax</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>hougking Affiliates</a></li>
+                                <li><a>Steel</a></li>
+                                <li><a>E&C</a></li>
+                                <li><a>Trade</a></li>
+                                <li><a>ICT</a></li>
+                                <li><a>Energy</a></li>
+                                <li><a>Material-Chemistry</a></li>
+                                <li><a>Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">jQuery</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Global</a></li>
+                                <li><a>Asia</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Business Ethics</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Major Activities</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Products/Technology</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Products of hounking</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Hot Rolled Steel</a></li>
+                                <li><a href="">Steel Plate</a></li>
+                                <li><a href="">Winter Day</a></li>
+                                <li><a href="">Gold Rolled Steel</a></li>
+                                <li><a href="">Galvanized Steel</a></li>
+                                <li><a href="">Electrical Galvanized</a></li>
+                                <li><a href="">Electrical Steel</a></li>
+                                <li><a href="">Automotive materials</a></li>
+                                <li><a href="">Stainless Steel</a></li>
+                                <li><a href="">Titanium Product</a></li>
+                                <li><a href="">Magnesium Product</a></li>
+                                <li><a href="">Aluminum-plated products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">houngking Technology</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">FINEX Technology</a></li>
+                                <li><a href="">Strip Casting</a></li>
+                                <li><a href="">Endless Hot Rolling Technology</a></li>
+                                <li><a href="">Operation Technology</a></li>
+                                <li><a href="">CEM Technology</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Production Process</a>
+                    </li>
+                    <li>
+                        <a href="">Sales information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">e-Sales</a></li>
+                                <li><a href="">e-Procurement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Investor Relations</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">IR Activeties</a>
+                    </li>
+                    <li>
+                        <a href="">Stock Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Stock Price</a></li>
+                                <li><a href="">Price Comparision</a></li>
+                                <li><a href="">ADR</a></li>
+                                <li><a href="">houngking Stock Exchange</a></li>
+                                <li><a href="">Economic Trend</a></li>
+                                <li><a href="">Shareholders Demographics</a></li>
+                                <li><a href="">Dividend</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Financial Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Income Statement</a></li>
+                                <li><a href="">Credit Rating</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">IR Archive</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Audit Report</a></li>
+                                <li><a href="">Form 20-F</a></li>
+                                <li><a href="">Annual Report</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Sustainability</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Sustainability Management System</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Management System</a></li>
+                                <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
+                                <li><a href="">Risk Management</a></li>
+                                <li><a href="">Stakeholder</a></li>
+                                <li><a href="">Relevant Institutes Activities</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Social Responsibility </a>
+                    </li>
+                    <li>
+                        <a href="">Environmental Management </a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Family's Environmental Management</a></li>
+                                <li><a href="">Environmental Management</a></li>
+                                <li><a href="">Climate change /Energy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Customer</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Marketing strategy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Employee</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Employee Health / Safety</a></li>
+                                <li><a href="">Organizational Culture</a></li>
+                                <li><a href="">HR system</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Report</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Report</a></li>
+                                <li><a href="">Carbon Report</a></li>
+                                <li><a href="">Conflict Minerals Disclosure</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">PR Room</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">News room</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">News letter</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">houngking SNS</a>
+                    </li>
+                    <li>
+                        <a href="">PR Archives</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
+                                <li><a href="">PR Movies</a></li>
+                                <li><a href="">Printed Advertisement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Download</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
+        <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
+        <div class="hdmenu" id="hdmenu">
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--text-->
+<div class="textBox">
+    <h2>计算机编码基础简介</h2>
+    <h3> </h3>
+    <p>字符是各种文字和符号的总称，包括各国家文字、标点符号、图形符号、数字等。字符集是多个字符的集合，字符集种类较多，每个字符集包含的字符个数不同，常见字符集名称：ASCII字符集、GB2312字符集、BIG5字符集、 GB 18030字符集、Unicode字符集等。计算机要准确的处理各种字符集文字，需要进行字符编码，以便计算机能够识别和存储各种文字。</p>
+    <h3>1,ASCII</h3>
+    <p>ASCII（American Standard Code for Information Interchange，美国信息互换标准代码）是基于罗马字母表的一套电脑编码系统，它主要用于显示现代英语和其他西欧语言。它是现今最通用的单字节编码系统，并等同于国际标准ISO 646。ASCII是美国标准，所以它不能良好满足其它讲英语国家的需要。</p>
+    <p>包含内容：</p>
+    <p>1,控制字符：回车键、退格、换行键等。</p>
+    <p>2,可显示字符：英文大小写字符、阿拉伯数字和西文符号</p>
+    <p>3,ASCII扩展字符集扩展：表格符号、计算符号、希腊字母和特殊的拉丁符号。</p>
+    <h3>2,Unicode</h3>
+    <p>Unicode字符集编码是（Universal Multiple-Octet Coded Character Set） 通用多八位编码字符集的简称，支持世界上超过650种语言的国际字符集。Unicode允许在同一服务器上混合使用不同语言组的不同语言。它是由一个名为 Unicode 学术学会(Unicode Consortium)的机构制订的字符编码系统，支持现今世界各种不同语言的书面文本的交换、处理及显示。</p>
+    <p>Unicode 是为了解决传统的字符编码方案的局限而产生的，它为每种语言中的每个字符设定了统一并且唯一的二进制编码，以满足跨语言、跨平台进行文本转换、处理的要求。</p>
+    <p>在表示一个Unicode的字符时，通常会用“U+”然后紧接着一组十六进制的数字来表示这一个字符。例如字母“A”的编码为 0X0041 。所以“A”的编码书写为“U+0041”。</p>
+    <h3>3,UTF-8 编码</h3>
+    <p>事实证明，对可以用ASCII表示的字符使用UNICODE并不高效，因为UNICODE比ASCII占用大一倍的空间，而对ASCII来说高字节的0对他毫无用处。为了解决这个问题，就出现了一些中间格式的字符集，他们被称为通用转换格式，即UTF（Unicode Transformation Format）。常见的UTF格式有：UTF-7, UTF-7.5, UTF-8,UTF-16, 以及 UTF-32。</p>
+    <p>UTF-8是Unicode的其中一个使用方式。 UTF是 Unicode Translation Format，即把Unicode转做某种格式的意思。UTF-8（8-bit Unicode Transformation Format）是一种针对Unicode的可变长度字符编码，又称万国码。</p>
+    <p>UTF-8用1到6个字节编码Unicode字符。用在网页上可以统一页面显示中文简体繁体及其它语言（如英文，日文，韩文）。</p>
+    <h3>4,HTML特殊字符编码</h3>
+    <p>往网页中输入特殊字符，需在html代码中加入以&开头的字母组合或以&#开头的数字。</p>
+    <a href="http://www.jb51.net/onlineread/htmlchar.htm" target="_blank">☞点击查看对照表</a> , <a href="https://www.cnblogs.com/web-d/archive/2010/04/16/1713298.html" target="_blank">☞点击查看对照表2</a>
+    <h3>5,转义字符</h3>
+    <p>所有的ASCII码都可以用“\”加数字（一般是8进制数字）来表示。而C中定义了一些字母前加"\"来表示常见的那些不能显示的ASCII字符，如\0,\t,\n等，就称为转义字符，因为后面的字符，都不是它本来的ASCII字符意思了。</p>
+    <p>转义字符串（Escape String），即字符实体（Character Entity）分成三部分：第一部分是一个&符号，英文叫ampersand；第二部分是实体（Entity）名字或者是#加上实体（Entity）编号；第三部分是一个分号。比如，要显示小于号（<），就可以写 & lt; 或者 < 。HTML的& lt; & gt; & amp; & quot; & copy;分别是<，>，&，"，©;的转义字符。</p>
+    <p>用实体（Entity）名字的好处是比较好理解，一看lt，大概就猜出是less than的意思，但是其劣势在于并不是所有的浏览器都支持最新的Entity名字。而实体(Entity)编号，各种浏览器都能处理。</p>
+
+
+
+
+
+
+</div>
+
+</body>
+</html>
