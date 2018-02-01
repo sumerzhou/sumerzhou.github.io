@@ -428,29 +428,27 @@
     <p>name 属性提供了名称/值对中的名称。通常情况下，可以自由使用对自己和源文档的读者来说富有意义的名称。"keywords" 是一个经常被用到的名称。它为文档定义了一组关键字,多关键字之间以半角逗号分隔。某些搜索引擎在遇到这些关键字时，会用这些关键字对文档进行分类。如果没有提供 name 属性，那么名称/值对中的名称会采用 http-equiv 属性的值。</p>
     <p>meta property属性:Meta Property=og标签是什么呢?og是一种新的HTTP头部标记，即Open Graph Protocol ,即这种协议可以让网页成为一个“富媒体对象”。用了Meta Property=og标签，就是你同意了网页内容可以被其他社会化网站引用等，目前这种协议被SNS网站如Fackbook、renren采用。</p>
     <h4>example:</h4>
-    <p>百度禁止转码</p>
+    <p>☟百度禁止转码</p>
     <pre>&lt;meta http-equiv="Cache-Control" content="no-siteapp" /&gt;
      //百度会自动对网页进行转码，这个标签是禁止百度的自动转码</pre>
-    <p>声明页面刷新或跳转:</p>
-    <pre>
-        &lt;meta http-equiv="refresh" content="10" /&gt;
-        &lt;meta http-equiv="refresh" content="10; url=http://www.doyoe.com" /&gt;
+    <p>☟声明页面刷新或跳转:</p>
+    <pre>&lt;meta http-equiv="refresh" content="10" /&gt;
+&lt;meta http-equiv="refresh" content="10; url=http://www.doyoe.com" /&gt;
         该声明用来指定页面自刷新或者跳转到其它页面，其中的时间单位是s。</pre>
-    <p>声明页面过期时间:</p>
-    <pre>
-        &lt;meta http-equiv="expires" content="0" /&gt;
-        &lt;meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT" /&gt;
-        该声明用来指定页面的过期时间，一旦网页过期，从服务器上重新请求，其中时间必须使用GMT格式，或者直接是0（即不缓存）</pre>
-    <p>声明页面是否缓存:</p>
+    <p>☟声明页面过期时间:</p>
+    <pre> &lt;meta http-equiv="expires" content="0" /&gt;
+&lt;meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT" /&gt;
+        该声明用来指定页面的过期时间，一旦网页过期，从服务器上重新请求，其中时间必须使用GMT格式，
+        或者直接是0（即不缓存）</pre>
+    <p>☟声明页面是否缓存:</p>
     <pre>&lt;meta http-equiv="pragma" content="no-cache" / &gt;
-        &lt;meta http-equiv="cache-control" content="no-cache" /&gt;
-        上述语句都可以用来指定文档不被缓存。一些仍然在使用HTTP/1.0的可以使用第1条，第2条由HTTP/1.1提供，常用值还有：public, no-cache, no-store等</pre>
-    <p>声明作者信息:</p>
-    <pre>
-        &lt;meta name="author" content="joy, dooyoe@gmail.com" / &gt;</pre>
-    <p>声明搜索引擎抓取方式:</p>
-    <pre>
-        &lt;meta name="robots" content="index" / &gt;</pre>
+&lt;meta http-equiv="cache-control" content="no-cache" /&gt;
+        上述语句都可以用来指定文档不被缓存。一些仍然在使用HTTP/1.0的可以使用第1条，第2条由HTTP/1.1提供，
+        常用值还有：public, no-cache, no-store等</pre>
+    <p>☟声明作者信息:</p>
+    <pre>&lt;meta name="author" content="joy, dooyoe@gmail.com" / &gt;</pre>
+    <p>☟声明搜索引擎抓取方式:</p>
+    <pre>&lt;meta name="robots" content="index" / &gt;</pre>
     <p>通知搜索引擎文档是否需要被索引。可选值有：</p>
     <ul>
         <li>☞ all（默认值，索引当前页并跟踪链接，相当于：index, follow）</li>
@@ -461,9 +459,8 @@
         <li>☞ nofollow（不跟踪当前页链接，不论当前页是否被索引）</li>
     </ul>
     <p>如果声明冲突，某些引擎可能会做严格处理。需要注意的是并不是所有搜索引擎都支持robots meta，比较保守的做法是配合robots.txt使用。</p>
-    <p>声明搜索引擎抓取间隔:</p>
-    <pre>
-        &lt;meta name="revisit-after" content="10 days" / &gt;</pre>
+    <p>☟声明搜索引擎抓取间隔:</p>
+    <pre> &lt;meta name="revisit-after" content="10 days" / &gt;</pre>
     <p>有时候你可能并不希望站点一直被搜索引擎抓取，而是每间隔一段时间才来访问一次，这时，可以声明revisit-after meta。</p>
     <p>参考文档:<a href="http://blog.doyoe.com/2015/10/20/mobile/%E7%A7%BB%E5%8A%A8%E5%89%8D%E7%AB%AF%E7%AC%AC%E4%BA%8C%E5%BC%B9%EF%BC%9A%E5%96%84%E7%94%A8meta/" target="_blank">善用meta</a>, <a href="http://blog.csdn.net/yc123h/article/details/51356143" target="_blank">meta标签的作用及整理</a>,
         <a href="https://www.cnblogs.com/zhongxinWang/p/4105915.html" target="_blank"> HTMl中Meta标签详解以及meta property=og标签含义</a></p>
