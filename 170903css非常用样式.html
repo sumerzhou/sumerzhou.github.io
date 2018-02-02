@@ -451,10 +451,36 @@
     <p>3,由于ie6-7不显示content内容，所以要添加标签兼容ie6-7（如：span）；兼容ie8需要将::after替换成:after。</p>
     <p>参考文档: <a href="http://www.daqianduan.com/6179.html" target="_blank">css超出部分显示省略号</a></p>
     <h3>文字强制换行</h3>
-
-
-
-
+    <h4>☞ word-break</h4>
+    <p>● break-all:允许任意非CJK(Chinese/Japanese/Korean)文本间的单词断行。</p>
+    <p>● keep-all:不允许CJK(Chinese/Japanese/Korean)文本中的单词换行，只能在半角空格或连字符处换行。非CJK文本的行为实际上和normal一致。</p>
+    <h4>☞ word-wrap</h4>
+    <p>● break-word:一行单词中实在没有其他靠谱的换行点的时候换行。</p>
+    <p>word-wrap:break-word则带有怜悯之心，如果这一行文字有可以换行的点，如空格，或CJK(Chinese/Japanese/Korean)(中文/日文/韩文)之类的，则就不打英文单词或字符的主意了，让这些换行点换行，至于对不对齐，好不好看，则不关心，因此，很容易出现一片一片牛皮癣一样的空白的情况。</p>
+    <h5>参考文档:</h5>
+    <a href="http://www.zhangxinxu.com/wordpress/2015/11/diff-word-break-break-all-word-wrap-break-word/" target="_blank">word-break:break-all和word-wrap:break-word的区别</a>
+    <h3>文字垂直显示</h3>
+    <h4>☞ writing-mode</h4>
+    <p>writing-mode可以说是CSS世界里面最逆天的CSS属性了，直接颠覆CSS世界的众多规则。目前writing-mode的兼容性已经不成问题了。</p>
+    <h5>作用:</h5>
+    <p>和float属性有些类似，writing-mode原本设计的是控制内联元素的显示的（即所谓的文本布局-Text Layout）。因此，writing-mode用来实现文字可以竖着呈现的。</p>
+    <h5>语法:</h5>
+    <p>语法学习相比其他CSS属性要高一些，因为我们需要记住两套不同的语法。一个是IE私有属性，第二个是CSS3规范属性。</p>
+    <h5>一些说明：</h5>
+    <p>相同的writing-mode属性值并不会累加，例如父子均设置了writing-mode:tb-rl，只会渲染一次，子元素并不会2次“旋转”。</p>
+    <p>IE浏览器下，一个自身具有布局的元素（不是纯文本之类元素）如果writing-mode属性值和父元素不同，当子元素的布局流变化的时候，其父元素坐标系统的可用空间会被充分利用。左边文字太过术语，大家可能不懂，我解释下就是，IE浏览器下，当布局元素从水平变成垂直的时候（举个例子），你就想象为元素在垂直方向是100%自适应父元素高度的。所以，IE浏览器下(不包括IE13+)，元素vertical流的时候会发现高度高的吓人，布局和其他现代浏览器不一样，就是这个原因。</p>
+    <h5>writing-mode不经意改变了哪些规则:</h5>
+    <p>虽然writing-mode创造的本意是文本布局，但是，其带来的文档流向的改变，不仅改变了我们多年来正常的CSS认知，同时可以巧妙实现很多意想不到的需求和效果。</p>
+    <p>writing-mode将页面默认的水平流改成了垂直流，颠覆了很多我们以往的认知，基于原本水平方向才适用的规则全部都可以在垂直方向适用！</p>
+    <p>● 可以使用margin:auto实现垂直居中:传统的web流中，margin设置auto值的时候，只有水平方向才会居中，因为默认width是100%自适应的，auto才有计算值可依，而垂直方向，height没有任何设置的时候高度绝不会自动和父级高度一致，因此，auto没有计算空间，于是无法实现垂直居中。但是，在writing-mode的世界里，纵横规则已经改变，元素的行为表现发生了翻天覆地的变化。</p>
+    <p>● 可以使用text-align:center实现图片垂直居中</p>
+    <p>● 增加一个按钮按下文字下沉的效果。如果你来实现，你会这么实现呢？行高控制？但默认文本就不居中（对于高度自适应的按钮，line-height下沉为了避免按钮高度变化，默认是不能完全居中的）。padding+height精确控制，又略烦。然而，在writing-mode垂直流下，我们又有了新思路，例如，直接使用text-indent实现垂直方向的控制，无需关心height高度padding间距大小，任何按钮都可以通用，因为text-indent不会影响元素原本的盒布局。</p>
+    <p>● 可以实现全兼容的icon fonts图标的旋转效果:当writing-mode把文档变成垂直流的时候，我们的英文和数字符号是会“躺着”显示，也就是天然90°旋转了。此时，假如我们使用icon fonts技术让这些字符直接映射某个小图标，那岂不是松松实现小图标旋转了，关键在于，就算是千年杀的IE6,IE7浏览器也是支持的啊，这要比滤镜什么的简单多了！</p>
+    <h4>☞ writing-mode和direction的关系</h4>
+    <p>writing-mode, direction, unicode-bidi(MDN文档)是CSS世界中3大可以改变文本布局流向的属性。其中direction, unicode-bidi属于近亲，经常在一起使用，也是唯一两个不受CSS3 all属性影响的CSS属性，基本上就是和内联元素一起使用使用，且据说貌似为阿拉伯文字设计。</p>
+    <p>writing-mode似乎包含了direction, unicode-bidi某些功能和行为，例如vertical-rl的rl和direction的rtl值有相似之处，都是从右往左。然而，实际上，两者是没有交集的。因为vertical-rl此时的文档流为垂直方向，rl表示水平方向，此时再设置direction:rtl，实际上值rtl改变的是垂直方向的内联元素的文本方向，一横一纵，没有交集。而且writing-mode可以对块状元素产生影响，直接改变了CSS世界的纵横规则，要比direction强大和鬼畜的多。且据说貌似为东亚文字设计。</p>
+    <h5>参考文档:</h5>
+    <a href="http://www.zhangxinxu.com/wordpress/2016/04/css-writing-mode/" target="_blank">改变CSS世界纵横规则的writing-mode属性</a>
 
 </div>
 
