@@ -449,6 +449,39 @@
     position: relative;
 
 }
+.backend{
+    width: 980px;
+    position: relative;
+    top:100px;
+    height: 70%;
+}
+.backend>h1{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.backend>div{
+    background-color: white;
+    width: 23%;
+    height: 100%;
+    float: left;
+    margin-right:2%;
+    border-radius: 3px;
+    box-shadow: 2px 2px 1px black;
+}
+.backend>div>h3{
+    text-align: center;
+    padding:10px 0;
+    box-shadow: 1px 1px 2px grey;
+    text-shadow: 1px 1px 1px orange;
+}
+.backend>div>.backendSub{
+    padding: 5px;
+    overflow-y: auto;
+}
+.backend>div>.backendSub>a{
+    color: black;
+    display: block;
+}
 
 
 
