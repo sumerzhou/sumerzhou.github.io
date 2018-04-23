@@ -425,7 +425,7 @@
 </div>
 <!--text-->
 <div class="textBox">
-    <h2>React项目构建--react+ant design</h2>
+    <h2>React项目构建之create-react-app + ant design</h2>
     <h3>1,React 安装</h3>
     <p>create-react-app是创建 React 应用的一个脚手架，它与其他脚手架不同的一个地方就是将一些复杂工具（比如 webpack,babel）的配置封装了起来，让使用者不用关心这些工具的具体配置，从而降低了工具的使用难度。</p>
     <pre>
@@ -566,6 +566,22 @@
 
             /*** 省略其他代码*/
     }</pre>
+    <h4>create-react-app优点:</h4>
+    <h5>热加载自动刷新:</h5>
+    <p>如果你使用过webpack-dev-server或webpack搭建过开发环境，你就会发现，create-react-app的开发环境也有类似webpack-dev-server的--inline --hot自动刷新的功能。</p>
+    <p>一旦源码文件，一更新，再保存之后，浏览器会自动刷新，能实时查看效果。</p>
+    <h5>eslint的功能:</h5>
+    <h5>服务器数据交互CORS问题:</h5>
+    <p>在开发react应用时，api存在的服务器可能是跟react应用完全分开的，而且，开发环境跟线上环境又不太一样。</p>
+    <p>比如，开发环境中，你的react应用是跑在3000端口的，可是api服务可能跑在3001端口，这个时候，你跟api服务器交互的时候，可能会使用fetch或各种请求库，比如jquery的ajax。这个时候可能会遇到CORS问题，毕竟端口不同。</p>
+    <p>而线上环境却没有这个问题，因为你都控制线上环境的react应用和api应用，跑在同一个端口上。</p>
+    <p>按照以往思路，解决的方法可能是用环境变量，比如：</p>
+    <pre>
+    const apiBaseUrl = process.env.NODE_ENV === 'development' ? 'localhost:3001' : '/'</pre>
+    <p>但是这样搞起来，还是有些复杂，然而，create-react-app提供了一个超级简单的方法，只需要在package.json文件中，加一个配置项就可以了。</p>
+    <pre>//比如：
+    "proxy": "http://localhost:3001/",</pre>
+    <p>至于你用的是http的何种请求库，都是一样的，不用改任何代码。这个选项，只对开发环境有效，线上环境还是保持react应用和api应用同一个端口。</p>
     <h4>create-react-app使用:</h4>
     <h5>增加样式:</h5>
     <p>react-scripts 通过Autoprefixer 帮css文件自动添加浏览器兼容前缀.例如：</p>
@@ -755,7 +771,8 @@
     <a href="https://www.jianshu.com/p/c0bec50ec385" target="_blank">使用webpack、babel、react、antdesign配置单页面应用开发环境</a>,<br>
     <a href="https://www.cnblogs.com/dadifeihong/p/6443272.html" target="_blank">webpack+babel+ES6+react环境搭建</a>,<br>
     <a href="https://www.cnblogs.com/swaggyC/p/6403451.html">npm和webpack</a>,<br>
-    <a href="https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md" target="_blank">create-react-app开发流程的官方文档</a>
+    <a href="https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md" target="_blank">create-react-app开发流程的官方文档</a>,<br>
+    <a href="https://yezihaohao.github.io/2017/05/09/React-AntD%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-%E7%BB%88%E6%9E%81%E7%89%88/" target="_blank">练习demo：React+AntD后台管理系统解决方案--终极版</a>
 </div>
 
 </body>
