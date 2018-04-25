@@ -431,11 +431,12 @@
     <p>grunt与gulp是差不多的，可以理解为gulp是grunt的简化版。grunt用起来相对比较麻烦。执行速度慢，每次任务从硬盘读写，效率比较低。当任务多时，效率很低。所以便有了后来的gulp。</p>
     <h3>4,Rollup</h3>
     <p><a href="http://www.rollupjs.com/" target="_blank">Rollup</a>是新一代的 JavaScript 模块打包工具 ,可以将小块代码编译成大块复杂的代码。</p>
-
+    <p>rollup很强大，打包效率性能比webpack高，按需加载模块。</p>
     <h3>5,Parcel</h3>
     <p>Parcel(<a href="https://www.parceljs.cn/" target="_blank">中文文档</a>) - 极速、零配置的 web 应用打包工具。</p>
-
-    <h3>6,gulp与webpack的区别</h3>
+    <h3>6,browserify</h3>
+    <p>browserify不太适合单页应用，限制比较多，目前用的人比较少。</p>
+    <h3>7,gulp与webpack的区别</h3>
     <p>常有人拿gulp与webpack来比较，知道这两个构建工具功能上有重叠的地方，可单用，也可一起用，但本质的区别就没有那么清晰。</p>
     <h4>gulp:</h4>
     <p>gulp强调的是前端开发的工作流程，我们可以通过配置一系列的task，定义task处理的事务（例如文件压缩合并、雪碧图、启动server、版本控制等），然后定义执行顺序，来让gulp执行这些task，从而构建项目的整个前端开发流程。</p>
