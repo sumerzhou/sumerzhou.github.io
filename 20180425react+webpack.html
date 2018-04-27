@@ -538,7 +538,237 @@
             )
         }
     }</pre>
-    <p>现在，我们通过webpack启动页面。启动前，我们把webpack.config.js中publicPath设置为空，因为webpack也只是在dist目录下简单地启了一个web server,并没有做路径映射。然后 npm run build,打开dist目录下的index.html文件。结果浏览器页面显示出了'this is app ~'文字。</p>
+    <p>现在，我们通过webpack启动页面。启动前，我们把webpack.config.js中publicPath暂时设置为空，因为webpack也只是在dist目录下简单地启了一个web server,并没有做路径映射。然后 npm run build,打开dist目录下的index.html文件。结果浏览器页面显示出了'this is app ~'文字。</p>
+    <h3>2,服务端渲染基础配置</h3>
+    <p>在现代的webapp开发模式下，我们用的很多前端框架做的单页应用，都是在浏览器端去渲染出HTML内容。这样会存在一些问题：</p>
+    <p>☞ SEO不友好。因为百度、Google搜索引擎去抓取网页内容时是不会去执行js代码的，所以根据网页的url加载过来的这时是一个空白的HTML，会认为我们的网站是没有任何东西的。</p>
+    <p>☞ 首次请求等待时间较长。因为要等js加载完后才会呈现内容，等待js加载的时间就会比较长，体验不好。</p>
+    <p>react构建的webapp，能够在node.js环境下进行一个渲染过程，得到一些HTML的内容，以此可以直接返回给浏览器端已经可以呈现的HTML内容，这样一方面网页可以被爬虫抓取，另一方面可以让用户等待时间变短。</p>
+    <p>react-dom是React专为web端开发的渲染工具。我们可以在客户端使用react-dom的render方法渲染组件，而在服务端，react-dom/server提供我们将react组件渲染成HTML的方法。</p>
+    <h4>开始coding:</h4>
+    <p>服务端没有document和window这些对象，所以我们在client文件夹下新建一个server.entry.js文件。这个文件用来把我们需要服务端渲染的内容export出去。</p>
+    <pre> //server.entry.js
+    import React from 'react'
+    import App from './App.jsx'
+
+    export default &lt;App/&gt;</pre>
+    <p>在服务端渲染的时候需要使用这个文件，需要单独打包它。这个代码不能直接在服务端执行的，因为它是jsx代码，不能直接在node.js环境去import这jsx代码，所以需要打包过。打包的过程需要新建一个webpack配置文件，在build文件夹下创建webpack.config.server.js : </p>
+    <pre style="height: 200px;">//webpack.config.server.js
+    const path = require('path');
+
+    module.exports = {
+        target:'node',  //指明这个js打包出来的内容是使用在哪个执行环境中的,可以是web、node或其他
+        entry:{
+            app:path.join(__dirname,'../client/server.entry.js')
+        },
+        output:{
+            filename:'server.entry.js',
+            path:path.join(__dirname,'../dist'),
+            publicPath:'' ,
+            libraryTarget:'commonjs2'   //打包出来的js使用的模块方案，比方umd,cmd,commonjs等
+        },
+        module:{ //配置让webpack可以识别jsx文件
+            rules:[
+                {
+                    test:/.jsx$/,
+                    loader:'babel-loader'
+                },
+                {
+                    test:/.js$/,
+                    loader:'babel-loader',
+                    exclude:[
+                        path.join(__dirname,'../node_modules')
+                    ]
+                }
+            ]
+        }
+    };</pre>
+    <p>配置完后我们需要把这部分js打包出来。因为打包时也需要用到client的代码，为了方便起见，把原先的webpack.config.js更名为webpack.config.client.js,并在package.json中scripts作修改：</p>
+    <pre>//package.json
+    {   ...
+        "scripts": {
+            "test": "echo \"Error: no test specified\" && exit 1",
+            "build:client":"webpack --config build/webpack.config.client.js",
+            "build:server":"webpack --config build/webpack.config.server.js",
+            "clear":"rimraf dist",
+            "build": "npm run clear && npm run build:client && npm run build:server"
+        },
+        ...
+    }</pre>
+    <p>目前情况下，每次build构建，在dist目录下都会生成新的文件，但实际中是希望能够把dist目录覆盖掉。为此，package.json中增加了一个‘clear’命令,删除dist目录。‘rimraf’是node.js的一个很小的包，是专门用来删除文件夹的。这个包需要安装一下：</p>
+    <pre>
+    npm i rimraf -D</pre>
+    <p>然后npm run build打包，完成后在dist文件夹下多了一个server.entry.js文件。</p>
+    <p>打包完成后，我们就可以在服务端渲染中使用这个模块。在根目录下新建一个server文件夹，在文件夹里新建server.js文件。写服务我们用的是express，先安装一下：</p>
+    <pre>
+    npm i express -S</pre>
+    <p>安装express完成后，在server.js中写服务：</p>
+    <pre>
+    const express = require('express');
+    const ReactSSR = require('react-dom/server');
+    const serverEntry = require('../dist/server.entry').default;//服务端代码在server.entry.js中
+
+    const app = express();
+    app.get('*',function (req,res) {
+        const appString = ReactSSR.render(serverEntry);//服务端渲染得到的内容
+        res.send(appString);
+    });
+
+    app.listen(3333,function () {
+        console.log('server is listening on 3333...')
+    });</pre>
+    <p>在package.json的scripts中添加启动命令:</p>
+    <pre>
+    "start": "node server/server.js"</pre>
+    <p>然后可以npm start启动服务。此时在浏览器中输入localhost:3333,页面输出‘this is app ~’。检查网页network下localhost的response,内容为‘&lt;div&gt;this is app ~&lt;/div&gt;’。</p>
+    <p>实际项目中，我们需要把服务端渲染出来的内容插入到index.html中的body里面，再把整个index.html返回到浏览器端。至此，我们需要在client目录下新建一个template.html：</p>
+    <pre>//template.html
+     /*其余内容都是输入‘！+tab’默认生产的*/
+    ...
+    &lt;body&gt;
+        &lt;div id="root"&gt;&lt;app&gt;&lt;/app&gt;&lt;/div&gt;
+    &lt;/body&gt;
+    ...</pre>
+    <p>在root下加一个app标签，如果浏览器默认加载这个HTML也不会显示任何内容。这部分内容是需要在服务器渲染的时候替换掉的，且在客户端渲染的时候也需要把它替换掉。接着修改app.js:</p>
+    <pre>
+    ReactDOM.render(&lt;App/&gt;,document.getElementById('root'));</pre>
+    <p>如何在webpack中去使用template.html呢？我们在webpack.config.client.js中继续配置：</p>
+    <pre>
+    plugins:[
+        new HTMLPlugin({
+            template:path.join(__dirname,'../client/template.html') //这样配置后，最终在dist目录下生成的index.html会以template.html作为模板，里面的内容都不变，然后插入我们生成的js。
+        })   //生成HTML页面，同时在webpack编译的时候，把所有的entry注入到HTML中，而且名称路径也是根据output中的配置。
+    ]</pre>
+    <p>然后在server端需要这么做：</p>
+    <pre>//server.js
+    const fs = require('fs');
+    const path = require('path'); //在引用某一个文件路径时最好都用path去解析一下，用绝对路径去做，这样不会存在任何问题。
+    const template = fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8'); //注意要用utf8格式才会变为string，不然是nodejs的buffer
+    ...
+    app.use('/public',express.static(path.join(__dirname,'../dist')));  //给静态文件制定请求返回。express有提供一个模块帮我们去处理这个内容。
+    app.get('*',function (req,res) {
+        const appString = ReactSSR.renderToString(serverEntry);//服务端渲染得到的内容
+        res.send(template.replace('&lt;app&gt;&lt;/app&gt;',appString));
+    });
+    ...</pre>
+    <p>在webpack.config.client.js和webpack.config.server.js中把output的publicPath设置回‘/public’。如果请求的资源没有用‘/public’这样的设置而是直接一个路径，就没办法在服务端很好的区分，哪些路径我们要返回静态内容，哪些又是要返回服务端渲染的代码。所以这样设置后，‘/public’开头的内容全部返回静态文件，映射到目录文件夹就可以了。</p>
+    <p>然后npm run build后，npm start启动服务并刷新页面。</p>
+    <p>在react16里面新增了一个ReactDOM.hydrate()方法，如果使用了服务端渲染，需要用这个新方法代替ReactDOM.render()在客户端的js里渲染客户端的内容。 react会对比客户端和服务端代码的差别，如果有差别它认为服务端代码是有一定问题的，它会用客户端新代码去代替服务端代码。</p>
+    <h3>3,项目开发时的常用配置</h3>
+    <p>webpack dev server是webpack官方提供的插件，能够通过webpack的配置去启动一个服务器，服务于webpack配置中提到的css、js和自动生成的HTML等，能很方便去访问到，并且在编译过程是存在于内存中，每次文件变化都会自动执行编译。能在浏览器中很快看到效果。</p>
+    <p>hot module replacement修改任何代码，能在页面上无刷新的看到编辑之后的效果。它能保持当前状态，进入到编辑修改之后的状态，并马上看到效果。不需要重新开始获取状态和数据，提高了效率。</p>
+    <h4>配置webpack-dev-server:</h4>
+    <p>在webpack.config.client.js下增加一些配置。首选需要判断当前环境是否是开发环境：</p>
+    <pre>//webpack.config.client.js
+    ...
+    const isDev = process.env.NODE_ENV === 'development'; //启动命令时手动输入的.可以让webpack适用于不同的环境
+    const config = {
+        entry:{
+            ...
+        },
+       ...
+    };
+    if(isDev){   //devServer是webpack里面开发环境的一些常用配置
+        //因为是在本地开发，最简单是绑定0.0.0.0 ，代表我们可以任何方式进行访问，比方可以用124.0.0.1进行访问。这是指向本机ip的方式。第二种可以使用localhost，也是一样的意思。第三种可以用本机的ip。如果写的是localhost或124.0.0.1，就不能用本机的ip进行访问，存在的问题是如果在局域网内进行开发，别人想连你的电脑进行调试会连不了。
+        config.devServer = {
+            host:'0.0.0.0',
+            port:'8888',
+            contentBase:path.join(__dirname,'../dist'),  //devServer服务于经过webpack编译出来的静态文件的，所以contentBase就是output中的path
+            hot:true,  //启动hot module replacement。之前的webpack1.x配置起来是比价麻烦的。
+            overlay:{
+                errors:true  //只显示错误信息，像warning这些就不用提示了
+            }//在webpack编译过程出现任何错误，让它在网页上面显示出一层黑色背景的错误信息。
+        }
+    }
+    module.exports = config;
+    ...</pre>
+    <p>安装webpack-dev-server:</p>
+    <pre>
+    npm i webpack-dev-server -D</pre>
+    <p>安装完后在package.json中写一个命令:</p>
+    <pre>
+    "dev:client":"cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.js",</pre>
+    <p>cross-env是一个需要安装的包。在mac，linux等不同系统在设置环境变量时是有区别的，这个包就是来做这方面事情的。</p>
+    <pre>
+    npm i cross-env -D</pre>
+    <p>webpack.config.client.js里devServer的contentBase意思是，我们在dist目录下启动了webpack-dev-server服务,这个服务server的整个环境是在dist目录下。所以dist目录下文件的访问路径应该是localhost:8888/filename，可以访问到里面的文件。但是dist下静态文件实际路径是前面带有‘public/’的，所以在devServer里还需加上一些配置来解决这个问题：</p>
+    <pre>
+    config.devServer = {
+        ...
+        publicPath:'/public', //webpack-dev-server的publicPath,这样就跟webpack的publicPath的配置对应起来。意思是，访问所有dist下的静态路径都要通过前面加‘/public’才能访问到。
+        historyApiFallback:{  //historyApiFallback很有用，它配置了很多的对应的关系
+            index:'/public/index.html'   //可以让所有404的请求都返回这个HTML
+        }
+    }</pre>
+    <p>webpack-dev-server会去检测硬盘上面有没有dist这个目录，如果有会直接去访问。所以在启动客户端代码流程npm run dev:client前，把已经存在的dist目录删除。服务启动(启动前把hot:true暂时注释掉,等配置完hot module replacement再恢复)，编译完成后，使用localhost:8888访问页面。</p>
+    <p>ps:页面此时会有一个warning，我们把template.html下&lt;app&gt;标签用&lt;!--app--&gt;代替，同时修改server.js中replace的内容。</p>
+    <pre>// template.html
+        &lt;div id="root"&gt;&lt;!-- app --&gt;&lt;/div&gt; </pre>
+    <h4>配置hot-module-replacement:</h4>
+    <p>在.babelrc加一个配置：</p>
+    <pre>
+    "plugins": ["react-hot-loader/babel"] //react-hot-loader就是提供react的hot-module-replacement功能的工具</pre>
+    <p>安装react-hot-loader:</p>
+    <pre>
+    npm i react-hot-loader@next -D //它是最新的3.x版本，是测试版，还没作为主包发布到npm,所以用@next版本号安装 </pre>
+    <p>修改app.js :</p>
+    <pre>...
+    ReactDOM.hydrate(&lt;App/&gt;,document.getElementById('root'));
+    if(module.hot){
+        module.hot.accept('./App.jsx',() => { //当需要热更新的代码出现的时候，把app重新加载一边
+            const  NextApp = require('./App.jsx').default;
+            ReactDOM.hydrate(&lt;NextApp/&gt;,document.getElementById('root'));
+        })
+    }</pre>
+    <p>hot-module-replacement需要webpack的一个插件来进行使用的。在webpack.config.client.js中添加配置:</p>
+    <pre>...
+    const webpack = require('webpack');
+    ...
+    if(isDev){
+        ...
+        config.plugins.push(new webpack.HotModuleReplacementPlugin())
+    }
+    </pre>
+    <p>在开发的时候需要给我们的webpack.config.client.js的entry增加一些东西：</p>
+    <pre>    ...
+    if(isDev){
+        config.entry = { //webpack的entry可以是一个数组，数组代表我们这一个entry里面包含的很多的引用的文件，全部打包到一个文件里面去。
+            app:[
+                'react-hot-loader/patch', //客户端代码热更新需要用到的内容
+                path.join(__dirname,'../client/app.js')
+            ]
+        };
+        ...
+    }</pre>
+    <p>还要注意在app.js中得引用一个东西AppContainer,我们需要用AppContainer去包裹根节点需要渲染的实际的html内容：</p>
+    <pre>//app.js
+    ...
+    import { AppContainer } from 'react-hot-loader'
+    const root = document.getElementById('root');
+    const render = Component => {
+        ReactDOM.hydrate(
+            &lt;AppContainer&gt; &lt;Component/&gt; &lt;/AppContainer&gt;,
+            root
+        );
+    };
+
+    render(App);
+    if(module.hot){
+        module.hot.accept('./App.jsx',() => { //当需要热更新的代码出现的时候，把app重新加载一边
+            const  NextApp = require('./App.jsx').default;
+            render(NextApp);
+        })
+    }</pre>
+    <p>完成后，启动服务npm run dev:client，看一下效果。</p>
+    <p>还有一个重要的点要注意：在webpack.config.client.js中publicPath的内容之前一直是‘/public’。在某些版本的hot-module-replacement功能会失效，需要把publicPath写成‘/public/’。</p>
+    <h3>4,开发时的服务端渲染</h3>
+    <p>服务端渲染会涉及到客户端的js及服务端的bundles,所以服务端不可能像之前写的那样，因为并没有在dist目录下已经生成好对应的文件了。我们需要用其他方法去获取template.html及server bundle这些内容。所以我们需要修改服务端代码：</p>
+    <pre>//server.js
+
+    </pre>
+
+
+    <h3>5,使用eslint和editorconfig规范代码</h3>
 
     <br/>
     <h5>参考文档:</h5>
