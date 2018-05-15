@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>HTML5新增window.history扩展|sumerzhou's blog</title>
+    <meta charset="UTF-8">
+    <title>react-router v4|sumerzhou's blog</title>
     <link href="myblog.css" rel="stylesheet" type="text/css">
     <script src="myblog.js" type="text/javascript"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <style>
         .textBox{
             width: 980px;
@@ -24,6 +25,9 @@
             border-bottom:1px solid lightblue;
             box-shadow: 2px 2px 1px black;
         }
+        .textBox h4{
+            text-shadow: 1px 1px 2px #4F68B0;
+        }
         .textBox p{
             text-indent: 2em;
         }
@@ -36,11 +40,16 @@
             width: 850px;
             border-left: 1px solid black;
             border-right: 1px solid black;
-            box-shadow: 2px 2px 1px black;
+            box-shadow: 4px 3px 2px black;
             padding-left: 30px;
             position: relative;
             left: -30px;
             font-family: '仿宋';
+            background-color: rgb(40,44,52);
+            line-height: 1.5;
+            font-size: 15px;
+            color:white;
+            overflow-y: auto;
         }
     </style>
 </head>
@@ -67,7 +76,7 @@
         </div>
     </div>
     <div class="headerbotm">
-        <a class="logohome" href="index.html"><img src="imgs/blog.png"></a>
+        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
         <ul id="hdbotmUl">
             <li>
                 <a href="company.html">WEB前端</a>
@@ -416,26 +425,106 @@
 </div>
 <!--text-->
 <div class="textBox">
-    <h2>HTML5新增window.history扩展--onpopstate事件,history.pushState(),history.replaceState()</h2>
-    <h3>1,回顾location.hash</h3>
-    <p>参考文章: <a href="http://blog.csdn.net/aitangyong/article/details/46455627" target="_blank">利用window.location.hash实现ajax操作时浏览器的前进/后退功能</a>,
-        <a href="http://www.cnblogs.com/yeer/archive/2013/01/21/2869827.html" target="_blank">location.hash详解</a>,
-        <a href="http://blog.httpwatch.com/2011/03/01/6-things-you-should-know-about-fragment-urls/" target="_blank">6 Things You Should Know About Fragment URLs</a>
-    </p>
-    <h3>2,简介</h3>
-    <p>HTML5的新API扩展了window.history，使历史记录点更加开放了。可以存储当前历史记录点、替换当前历史记录点、监听历史记录点。</p>
+    <h2>react-router v4简介</h2>
+    <h3></h3>
+    <p>React Router 4.x 本次采用单代码仓库模型架构（monorepo），这意味者这个仓库里面有若干相互独立的包，分别是：</p>
+    <p>● react-router :React Router 核心</p>
+    <p>● react-router-dom :用于 DOM 绑定的 React Router</p>
+    <p>● react-router-native :用于 React Native 的 React Router</p>
+    <p>● react-router-redux :React Router 和 Redux 的集成</p>
+    <p>● react-router-config :静态路由配置的小助手</p>
+    <p>本文主要讨论在 web app 中如何使用使用 React Router 4.x。</p>
+    <h4>插件初引入</h4>
+    <p>那么react-router和react-router-dom是不是两个都要引用呢？非也，他们两个只要引用一个就行了，不同之处就是后者比前者多出了 &lt;Link&gt; &lt;BrowserRouter&gt; 这样的 DOM 类组件。因此我们只需引用 react-router-dom 这个包就行了。当然，如果搭配 redux ，你还需要使用 react-router-redux。</p>
+    <h3>&lt;Router&gt;</h3>
+    <p>在React Router 4 中，可以将各种组件及标签放进 &lt;Router&gt;组件中。Router是所有路由组件共用的底层接口，一般我们的应用并不会使用这个接口，而是使用高级的路由：</p>
+    <p style="background-color: rgb(247,247,247);">● &lt;BrowserRouter&gt;：使用 HTML5 提供的 history API 来保持 UI 和 URL 的同步；</p>
+    <p style="background-color: rgb(247,247,247);">● &lt;HashRouter&gt;：使用 URL 的 hash (例如：window.location.hash) 来保持 UI 和 URL 的同步；</p>
+    <p style="background-color: rgb(247,247,247);">● &lt;MemoryRouter&gt;：能在内存保存你 “URL” 的历史纪录(并没有对地址栏读写)；</p>
+    <p style="background-color: rgb(247,247,247);">● &lt;NativeRouter&gt;：为使用React Native提供路由支持；</p>
+    <p style="background-color: rgb(247,247,247);">● &lt;StaticRouter&gt;：从不会改变地址；</p>
+    <p>TIPS：和之前的Router不一样，这里Router组件下只允许存在一个子元素，如存在多个则会报错。</p>
+    <p>每个路由器都会创建一个history对象并用其保持追踪当前location,并且在有变化时对网站进行重新渲染。这个history对象保证了React Router提供的其他组件的可用性，所以其他组件必须在router内部渲染。一个React Router组件如果向父级上追溯却找不到router组件，那么这个组件将无法正常工作。</p>
+    <p>history是用来兼容不同浏览器或者环境下的历史记录管理的，当我跳转或者点击浏览器的后退按钮时，history就必须记录这些变化，4.0之前版本的react-router将history分为三类:</p>
+    <p style="background-color: rgb(247,247,247);">● hashHistory 老版本浏览器的history</p>
+    <p style="background-color: rgb(247,247,247);">● browserHistory h5的history</p>
+    <p style="background-color: rgb(247,247,247);">● memoryHistory node环境下的history，存储在memory中</p>
+    <p>4.0之前版本的react-router针对三者分别实现了createHashHistory、createBrowserHistory和create MemoryHistory三个方法来创建三种情况下的history。到了4.0版本，在react-router-dom中直接将这三种history作了内置，于是我们看到了BrowserRouter、HashRouter、MemoryRouter这三种Router。</p>
+
+    <h3>&lt;Route&gt;</h3>
+    <p>Route组件是React Router中主要的结构单元,主要的作用就是当一个location匹配路由的path时，渲染某些UI。</p>
+    <pre>示例如下：
+    &lt;Router&gt;
+      &lt;div&gt;
+        &lt;Route exact path="/" component={Home}/&gt;
+        &lt;Route path="/news" component={NewsFeed}/&gt;
+      &lt;/div&gt;
+    &lt;/Router&gt;
+    // 如果应用的地址是/,那么相应的UI会类似这个样子：
+    &lt;div&gt;
+      &lt;Home/&gt;
+    &lt;/div&gt;
+    // 如果应用的地址是/news,那么相应的UI就会成为这个样子：
+    &lt;div&gt;
+      &lt;NewsFeed/&gt;
+    &lt;/div&gt;</pre>
+    <h5>&lt;Route&gt;组件有如下属性：</h5>
+    <p style="background-color: rgb(247,247,247);">● path（string）: 路由匹配路径。（没有path属性的Route 总是会 匹配）；</p>
+    <p style="background-color: rgb(247,247,247);">● exact（bool）：为true时，则要求路径与location.pathname必须完全匹配；</p>
+    <p style="background-color: rgb(247,247,247);">● strict（bool）：true的时候，有结尾斜线的路径只能匹配有斜线的location.pathname；</p>
+    <h6>ps：需要注意的是Route的path中冒号":"后的部分相当于通配符，而匹配到的url将会把匹配的部分作为match.param中的属性传递给组件，属性名就是冒号后的字符串。</h6>
+    <h4>&lt;Route&gt;是如何渲染？</h4>
+    <p>新版的路由为&lt;Route&gt;提供了三种渲染内容的方法：</p>
+    <p style="background-color: rgb(247,247,247);">● &lt;Route component&gt;：在地址匹配的时候React的组件才会被渲染，route props也会随着一起被渲染。</p>
+    <p style="background-color: rgb(247,247,247);">● &lt;Route render&gt;：这种方式对于内联渲染和包装组件却不引起意料之外的重新挂载特别方便。render返回React element的函数,当匹配成功后调用该函数。该过程与传入component参数类似，并且对于行级渲染与需要向元素传入额外参数的操作会更有用。</p>
+    <p style="background-color: rgb(247,247,247);">● &lt;Route children&gt;：与render属性的工作方式基本一样，除了它是不管地址匹配与否都会被调用。children 返回React element的函数。</p>
+    <pre>
+    &lt;Route path='/page' component={Page} /&gt;
+    const extraProps = { color: 'red' }
+    &lt;Route path='/page' render={(props) => (
+      &lt;Page {...props} data={extraProps}/&gt;
+    )}/&gt;
+    &lt;Route path='/page' children={(props) => (
+      props.match
+        ? &lt;Page {...props}/&gt;
+        : &lt;EmptyPage {...props}/&gt;
+    )}/&gt;</pre>
+    <p>通常component参数与render参数被更经常地使用。children参数偶尔会被使用，它更常用在path无法匹配时呈现的'空'状态。</p>
+    <p>通过&lt;Route&gt;渲染的元素会被传入一些参数。分别是match对象，当前location对象以及history对象（由router创建）。</p>
+    <p><strong>match对象:</strong></p>
+    <p>当路由地址匹配成功后，会创建一个含有以下属性的match对象：</p>
+    <p>● url ：与当前location路径名所匹配部分</p>
+    <p>● path ：路由的地址</p>
+    <p>● isExact ：path 是否等于 pathname</p>
+    <p>● params ：从path-to-regexp获取的路径中取出的值都被包含在这个对象中,path中包含的一些额外数据</p>
+    <p>重点看下render的渲染方式：</p>
+    <pre>
+    // 行内渲染示例
+    &lt;Route path="/home" render={() => &lt;div&gt;Home&lt;/div&gt;}/&gt;
+    // 包装/合成
+    const FadingRoute = ({ component: Component, ...rest }) => (
+      &lt;Route {...rest} render={props => (
+        &lt;FadeIn&gt;
+          &lt;Component {...props}/&gt;
+        &lt;/FadeIn&gt;
+      )}/&gt;
+    )
+    &lt;FadingRoute path="/cool" component={Something}/&gt;</pre>
+    <p>TIPS:&lt;Route component&gt;的优先级要比&lt;Route render&gt;高，所以不要在同一个&lt;Route&gt;中同时使用这两个属性。</p>
+    <h3>&lt;Link&gt;</h3>
+    <p>Link标签可以理解为a标签，点击会改变浏览器Url的hash值，通过Route标签来捕获这个url并返回component属性中定义的组件。</p>
+
     <br/>
-    <h5>参考文章:</h5>
-    <a href="http://www.mamicode.com/info-detail-856993.html" target="_blank">history.pushState()和popstate事件实现AJAX的前进\后退功能</a>,<br/>
-    <a href="http://www.tuicool.com/articles/uAniau" target="_blank">HTML5之pushstate、popstate操作history，无刷新改变当前url</a>,<br/>
-    <a href="https://www.w3cplus.com/html5/html5-history-api.html" target="_blank">HTML5 History API </a>,
-    
+    <h5>参考文档:</h5>
+    <a href="http://reacttraining.cn/" target="_blank">React Router V4 中文文档</a> ,<br>
+    <a href="https://reacttraining.com/react-router/web/guides/quick-start" target="_blank">React Router V4官方文档</a> ,<br>
+    <a href="https://www.jianshu.com/p/6a45e2dfc9d9" target="_blank">React Router v4 入坑指南</a> ,<br>
+    <a href="https://segmentfault.com/a/1190000010174260" target="_blank">React Router 4 简易入门</a> ,<br>
+    <a href="https://www.cnblogs.com/zero7room/p/6908752.html" target="_blank">react-router@4.0 使用和源码解析</a> ,<br>
+    <a href="https://blog.csdn.net/sinat_17775997/article/details/69218382" target="_blank">初探 React Router 4.0</a> ,<br>
+    <a href="http://www.ruanyifeng.com/blog/2016/05/react_router.html?utm_source=tool.lu" target="_blank">阮一峰React Router 2.x使用教程</a> ,<br>
+    <a href="https://www.cnblogs.com/wyaocn/p/5805777.html" target="_blank">深入理解 react-router2.x 路由系统</a>
 </div>
+
 </body>
 </html>
-<script>
-
-
-
-
-</script>
