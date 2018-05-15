@@ -1,0 +1,880 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>react+webpack项目架构|sumerzhou's blog</title>
+    <link href="myblog.css" rel="stylesheet" type="text/css">
+    <script src="myblog.js" type="text/javascript"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
+            line-height: 2em;
+        }
+        .textBox h2{
+            margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
+        }
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox h4{
+            text-shadow: 1px 1px 2px #4F68B0;
+        }
+        .textBox p{
+            text-indent: 2em;
+        }
+        .textBox li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .textBox pre{
+            display: block;
+            width: 850px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 4px 3px 2px black;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+            font-family: '仿宋';
+            background-color: rgb(40,44,52);
+            line-height: 1.5;
+            font-size: 15px;
+            color:white;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+<!--header-->
+<div class="headerbox">
+    <div class="headertop">
+        <div class="hdtopbut">
+            <a href="http://blog.hungking.cc/" target="_blank"><img src="imgs/sns_blog_off.png"></a>
+            <a href="https://www.facebook.com/HoungkingHsi" target="_blank"><img src="imgs/sns_facebook_off.png"></a>
+            <a href="http://globalblog.hungking.cc/" target="_blank"><img src="imgs/sns_gBlog_off.png"></a>
+            <a href="http://www.linkedin.com/imisslovelove" target="_blank"><img src="imgs/sns_in_off.png"></a>
+            <a href="http://www.youtube.com/imisslovelove" target="_blank"><img src="imgs/sns_youTube_off.png"></a>
+            <a href="http://www.instagram.com/imisslovelove" target="_blank"><img src="imgs/sns_instagram_off.png"></a>
+            <a href="http://story.kakao.com/ch/imisslovelove" target="_blank" style="background: transparent none;"><img src="imgs/sns_kakao_off.png"></a>
+            <div class="hdtopbutR">
+                <a href="construction.html" style="background-position-x:85px ;">Contact Me</a>
+                <a href="construction.html">AboutSite</a>
+                <span onclick="ifshow(0)">Language<img src="imgs/btn_globalSite_open.gif"></span>
+                <ul id="lag">
+                    <li>KOREAN</li><li>CHINESE</li><li>JAPANESE</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="headerbotm">
+        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
+        <ul id="hdbotmUl">
+            <li>
+                <a href="company.html">WEB前端</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">HTML</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Corporate Overview</a></li>
+                                <li><a href="">Vision of houngking</a></li>
+                                <li><a href="">History of houngking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">CSS/CSS3</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Brand Story</a></li>
+                                <li><a>CI</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">JavaScript</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Greetings</a></li>
+                                <li><a>CEO's Message</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Ajax</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>hougking Affiliates</a></li>
+                                <li><a>Steel</a></li>
+                                <li><a>E&C</a></li>
+                                <li><a>Trade</a></li>
+                                <li><a>ICT</a></li>
+                                <li><a>Energy</a></li>
+                                <li><a>Material-Chemistry</a></li>
+                                <li><a>Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">jQuery</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Global</a></li>
+                                <li><a>Asia</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Business Ethics</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Major Activities</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Products/Technology</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Products of hounking</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Hot Rolled Steel</a></li>
+                                <li><a href="">Steel Plate</a></li>
+                                <li><a href="">Winter Day</a></li>
+                                <li><a href="">Gold Rolled Steel</a></li>
+                                <li><a href="">Galvanized Steel</a></li>
+                                <li><a href="">Electrical Galvanized</a></li>
+                                <li><a href="">Electrical Steel</a></li>
+                                <li><a href="">Automotive materials</a></li>
+                                <li><a href="">Stainless Steel</a></li>
+                                <li><a href="">Titanium Product</a></li>
+                                <li><a href="">Magnesium Product</a></li>
+                                <li><a href="">Aluminum-plated products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">houngking Technology</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">FINEX Technology</a></li>
+                                <li><a href="">Strip Casting</a></li>
+                                <li><a href="">Endless Hot Rolling Technology</a></li>
+                                <li><a href="">Operation Technology</a></li>
+                                <li><a href="">CEM Technology</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Production Process</a>
+                    </li>
+                    <li>
+                        <a href="">Sales information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">e-Sales</a></li>
+                                <li><a href="">e-Procurement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Investor Relations</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">IR Activeties</a>
+                    </li>
+                    <li>
+                        <a href="">Stock Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Stock Price</a></li>
+                                <li><a href="">Price Comparision</a></li>
+                                <li><a href="">ADR</a></li>
+                                <li><a href="">houngking Stock Exchange</a></li>
+                                <li><a href="">Economic Trend</a></li>
+                                <li><a href="">Shareholders Demographics</a></li>
+                                <li><a href="">Dividend</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Financial Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Income Statement</a></li>
+                                <li><a href="">Credit Rating</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">IR Archive</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Audit Report</a></li>
+                                <li><a href="">Form 20-F</a></li>
+                                <li><a href="">Annual Report</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Sustainability</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Sustainability Management System</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Management System</a></li>
+                                <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
+                                <li><a href="">Risk Management</a></li>
+                                <li><a href="">Stakeholder</a></li>
+                                <li><a href="">Relevant Institutes Activities</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Social Responsibility </a>
+                    </li>
+                    <li>
+                        <a href="">Environmental Management </a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Family's Environmental Management</a></li>
+                                <li><a href="">Environmental Management</a></li>
+                                <li><a href="">Climate change /Energy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Customer</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Marketing strategy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Employee</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Employee Health / Safety</a></li>
+                                <li><a href="">Organizational Culture</a></li>
+                                <li><a href="">HR system</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Report</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Report</a></li>
+                                <li><a href="">Carbon Report</a></li>
+                                <li><a href="">Conflict Minerals Disclosure</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">PR Room</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">News room</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">News letter</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">houngking SNS</a>
+                    </li>
+                    <li>
+                        <a href="">PR Archives</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
+                                <li><a href="">PR Movies</a></li>
+                                <li><a href="">Printed Advertisement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Download</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
+        <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
+        <div class="hdmenu" id="hdmenu">
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--text-->
+<div class="textBox">
+    <h2>react+webpack项目架构</h2>
+    <h3>1,项目基本目录结构</h3>
+    <p>views目录：views目录用于存放项目功能模块的页面，需要根据路由配置情况分割子级目录。</p>
+    <p>config目录：存放一些配置目录，比方第三方类库应用，路由配置等。</p>
+    <p>store目录：用于存放项目store相关的文件，包括数据获取的封装等。store是现在webapp比较流行的一种开发模式，用于存放一些数据管理的东西。</p>
+    <p>components目录：用于存放非业务组件，或者在多个业务间都需要用到的公用组件。</p>
+    <p>在client目录下新增views、config、store、components目录，修改后的client目录如下：</p>
+    <img src="imgs/react3.png" alt="" style="padding-left:30px;">
+    <p>App.jsx是作为所有页面的主入口，把它放到views根目录下。</p>
+    <p>views下面的所有子目录都建一个index.jsx。每个子目录表示一个页面，要引用某个页面只需要引用子目录里的index.jsx就可以了,作为一个入口。</p>
+    <p>在这两个页面的index.jsx文件中写一点简单的代码:</p>
+    <pre>
+    import React from 'react'
+    export default class TopicList extends React.Component {
+      componentDidMount() {
+        // do something here
+      }
+      render() {
+        return (
+          &lt;div&gt;this is topic list~&lt;/div&gt;   //detail页面把div中要显示的内容改为‘this is topic detail’
+        )
+      }
+    }</pre>
+    <h3>2,路由配置</h3>
+    <h5>前端路由的实现：</h5>
+    <p>HTML5 APi中的history API能够在url变化的时候js代码可以监听到这个事件，然后阻止浏览器的默认刷新页面的行为。然后在js代码中去执行我们想要的操作，一般来说会去重新渲染一个新页面，同时通过API请求获取数据，再把想要显示的数据结合页面把内容填充进去展示给用户。在history API出现之前，可以使用hash跳转实现。</p>
+    <h5>react中的路由:</h5>
+    <p>react-router是一个非常好用的路由控制插件，能像书写jsx组件一样控制路由的跳转。首先安装react-router:</p>
+    <pre>
+    npm i react-router -S </pre>
+    <p>react-router集合了react-router-dom和react-router-native。这个项目只做网站，还是使用react-router-dom比较好。再安装一下react-router-dom ：</p>
+    <pre>
+    npm i react-router-dom -S </pre>
+    <p>在config/router.jsx中书写路由：</p>
+    <pre>
+    import React from 'react'
+    import { Route, Redirect } from 'react-router-dom'
+    import TopicList from '../views/topic-list/index'
+    import TopicDetail from '../views/topic-detail/index'
+
+    export default () => [
+      &lt;Route path="/" render={() => &lt;Redirect to="/list" /&gt;} exact /&gt;,
+      &lt;Route path="/list" component={TopicList} /&gt;,
+      &lt;Route path="/detail" component={TopicDetail} /&gt;,
+    ]  //react16中，不需一个组件render的内容必须有父标签然后所有东西都放在父标签，可以返回一个数组在同一层级的。</pre>
+    <p>修改编辑App.jsx:</p>
+    <pre>
+    import React from 'react'
+    import { Link } from 'react-router-dom'
+    import Routes from '../config/router'
+
+    export default class App extends React.Component {
+      componentDidMount(){  //暂时为了防止eslint报错，加上这个生命周期函数
+        // do something here
+      }
+      render(){
+        return [
+          &lt;div&gt;
+            &lt;Link to="/"&gt;首页&lt;/Link&gt;
+            &lt;br /&gt;
+            &lt;Link to="/detail"&gt;详情页&lt;/Link&gt;
+          &lt;/div&gt;,
+          &lt;Routes /&gt;
+        ]
+      }
+    }</pre>
+    <p>编辑app.js 。引入BrowserRouter，包裹在整个应用的最外层，包裹住整个app。这样路由才会生效。</p>
+    <pre>
+    ...
+    import { BrowserRouter} from 'react-router-dom'   //注意引用位置
+    ...
+    const render = (Component) => {
+      ReactDOM.hydrate(
+        &lt;AppContainer&gt;
+          &lt;BrowserRouter&gt;
+            &lt;Component /&gt;
+          &lt;/BrowserRouter&gt;
+        &lt;/AppContainer&gt;,
+        root,
+      );
+    };
+    ...</pre>
+    <p>此时运行npm run dev:client命令，发现eslint报‘Unexpected use of file extension "jsx" for "./views/App.jsx" ’（eslint希望import module的时候不需要去写后缀名）和‘Can't resolve '../config/router' in 'F:\React\react-webpack\client\views'’（因为webpack默认是只认识.js文件的，js文件不写后缀没关系）等处的错误。</p>
+    <p>ps:把报“jsx-a11y/anchor-is-valid”类型错误的规则在.eslintrc文件中去掉。</p>
+    <p>先把app.js中需要引入'./views/App.jsx'的地方都改为‘./views/App'。然后在webpack.base.js中加一条配置：</p>
+    <pre>
+    ...
+    output: {
+      ...
+    },
+    resolve: {
+      extensions: ['.js','.jsx']  //申明不需要写后缀名的module
+    },
+    ...</pre>
+    <p>此时重新启动npm run dev:client成功。</p>
+    <h3>3,store配置</h3>
+    <p>伴随react一起诞生的，是Facebook推出的一套前端数据流方案，叫做flux，在其中数据存储的地方，就叫做store。</p>
+    <p>以前开发web app更多地是使用mvc模式，但mvc模式在前端不是特别适用，因为很多数据都是异步的，然后每个页面可能会共享一部分的数据。这些数据更新的时候，没有很好的办法让view层检测到这些数据的更新以及什么时候会更新，这会导致视图层跟model层出现一定的脱节，产生一定的问题。</p>
+    <p>flux又叫做单项数据流,也就是说整个app有个单独存放数据的地方，即store。所有页面上的内容都是根据store的内容渲染出来的。store里面数据的变化会立即影响到视图层的渲染效果。这就解决了mvc模式下经常会出现的数据依赖关系错乱的问题，让数据维护都集中在一个点上。我们只需要使用一个action去处理数据，然后视图就会很好的更新成最新的样子。</p>
+    <p>跟react一起推出，是因为react是一个纯视图层解决方案，它的虚拟DOM让我们即便把整个数据更新了，react也能非常搞笑的处理视图的重新渲染。因为伴随视图层解决方案的进化，导致使用这种单一数据流方式来创建应用。</p>
+    <p>在本实战项目中，我们使用<a href="https://mobx.js.org/" target="_blank">Mobx</a>这个flux实现的后起之秀。它跟传统的flux有一定的区别。Mobx是react的一个数据框架，它的所有数据一但更改，绑定的数据的地方会立刻更新。这就是在JavaScript中新起的一种reactive的编程模式，它的使用方法相比Redux（有mutation、action、dispatch等概念）等这些纯flux实现要简单很多。</p>
+    <h4>项目代码:</h4>
+    <p>先在store目录下新建一个app-state.js文件。该目录下的store.js是用来创建整个应用的store的，而应用可能会分很多不同的小的store。app-state.js用来存储跟业务逻辑没有太大关系的,用来控制应用展示的纯前端相关的交互逻辑之类的东西。</p>
+    <p>在正式使用mobx前，为了使用装饰器，需要在.babelrc进行配置：</p>
+    <pre>
+    {
+      "presets": [
+        ["es2015",{"loose":true}],
+        "stage-1",    //针对非es6的语法，是es@next的
+        "react"
+      ],
+      "plugins": ["transform-decorators-legacy","react-hot-loader/babel"]  //transform-decorators-legacy要放在plugins第一项，否则会出现一定问题
+    }</pre>
+    <p>安装以上新增配置：</p>
+    <pre>
+    npm i babel-plugin-transform-decorators-legacy babel-preset-stage-1 -D </pre>
+    <p>安装Mobx:</p>
+    <pre>
+    npm i mobx mobx-react -S
+    //mobx-react是Mobx连接react应用的工具</pre>
+    <p>安装完后就可以使用装饰器了。去app-state.js中定义：</p>
+    <pre style="height: 300px;">//app-state.js
+    import { observable, computed, autorun, action } from 'mobx'
+
+    export class AppState {
+      @observable count = 0;  //@observable指定count是个reactive的值，更新之后会实时显示到视图层。
+      @observable name = 'Jokcy';
+      @computed get msg() {
+        return `${this.name} say count is ${this.count}`
+      }
+      @action add() {
+        this.count += 1;
+      }
+      @action changeName(name) {
+        this.name = name;
+      }
+    }
+    const appState = new AppState();
+    autorun(() => {
+      console.log(appState.msg)
+    });
+    setInterval(() => {
+      appState.add();
+    },1000);
+
+    export default appState</pre>
+    <p>然后把app-state.js连接到app上。在app.js上修改，用法跟browserrouter类似，在整个应用的外面包一层。这种包一层的用法在很多情况下是使用react里面的一个隐藏API context（上下文关系），context可以让内容从顶层传到每个组件的任何地方都可以拿到。这样的话连接起来API就变得比较简单。所以很多插件都会选择这种方式来做。</p>
+    <pre>//app.js
+    ...
+    import { Provider } from 'mobx-react'
+    ...
+    import appState from './store/app-state'
+    const root = document.getElementById('root');
+    const render = (Component) => {
+      ReactDOM.hydrate(
+        &lt;AppContainer&gt;
+          &lt;Provider appState={appState}&gt;
+            ...
+          &lt;/Provider&gt;
+        &lt;/AppContainer&gt;,
+    ...</pre>
+    <p>Provider提供之后，我们可以在应用里非常方便地拿到在Provider上定义的属性。比如在topic-list/index.jsx中：</p>
+    <pre style="height: 300px;">//  topic-list/index.jsx
+    import React from 'react'
+    import { observer, inject } from 'mobx-react'
+    import PropTypes from 'prop-types'
+    import { AppState } from '../../store/app-state'
+
+    //inject用来注入provider上提供的东西到组件
+    //observer告诉我们这个组件是observable的，它是reactive的，store里面的值一更新组件里的内容也会更新。
+    @inject('appState') @observer
+    export default class TopicList extends React.Component {
+      constructor() {
+        super();
+        this.changeName = this.changeName.bind(this)
+      }
+      componentDidMount() {
+        // do something here
+      }
+      changeName(event) {
+        this.props.appState.changeName(event.target.value)
+      }
+      render() {
+        return (
+          &lt;div&gt;
+            &lt;input type="text" onChange={this.changeName} /&gt;
+            &lt;span&gt;{this.props.appState.msg}&lt;/span&gt;
+          &lt;/div&gt;
+        )
+      }
+    }
+
+    TopicList.propTypes = {
+      appState: PropTypes.instanceOf(AppState).isRequired,
+    };//appState是AppState类的一个实例</pre>
+    <p>在几个版本之前react已经把propTypes这个检测props类型的工具拆分出去了，所以需要再安装一个包prop-types：</p>
+    <pre>
+    npm i prop-types -S </pre>
+    <p>完成后，启动npm run dev:client,在浏览器localhost:8888查看页面效果。</p>
+    <p>ps：有些版本react会报一个关于‘key’的错误，这是因为react return的标签元素如果是个子节点是数组的标签，我们需要给数组的每个项加上一个key来区分。</p>
+    <h3>4, Cnode API代理实现</h3>
+    <p>首先打开https://cnodejs.org/api(cnode开发API)。</p>
+    <p>如果我们所有接口都是在页面端发送请求到cnodejs API这边，然后返回内容就可以的话，那我们直接使用代理就可以。但这里会存在一个问题，有些接口需要用户登录之后才能去调用，这边的登录是通过一个叫accessToken的东西。我们发送的请求如果里面有accessToken这个参数，则代表我们有权限去请求接口。但这个accessToken肯定不能储存在浏览器端，不安全。我们需要在获取accessToken之后存在nodejs端的session里面，然后接下去的所有的请求就代表我们在服务端去检测我们的session有没有accessToken，如果有就表示已经登录可以发送这个请求，若没有就告诉浏览器端需要先登录。</p>
+    <p>我们需要安装几个工具:</p>
+    <pre>
+    npm i body-parser express-session query-string -S </pre>
+    <p>body-parser是用来转化我们的请求的body的，转化为json格式的数据以便于后期的使用。</p>
+    <p>express-session是express的一个插件，用来存放服务端的session。</p>
+    <p>query-string用来转化通过连接请求过来的url后面‘？’某一个参数等于什么的这种形式的string，把其转化为json格式的数据，让我们可以方便的使用。</p>
+    <p>安装完后修改server.js：</p>
+    <pre>//  server/server.js
+    ...
+    const bodyParser = require('body-parser');
+    const session = require('express-session');
+    ...
+    const app = express();
+    app.use(bodyParser.json()); //把app的json格式的请求数据转化成req.body上面的数据。后面写业务逻辑的时候只要去调用req.body的内容就可以拿到请求里面的数据。
+    app.use(bodyParser.urlencoded({extended:false}));
+    app.use(session({
+      maxAge: 10*60*1000,  //设10分钟，测试用不需要太久。真正上线时，session需要存在数据库中，作为缓存等。因为我们现在没有用数据库，就直接存在内存中，跟着我们的服务一起，服务一但宕机或关机，session就没有了，下次进来需要重新登录。
+      name:'tid',  //session会放一个cookieid到浏览器端，给这个cookieid取一个名字，随便定义。
+      resave:false,  //每次请求是否要重新生成一个cookieid。若为true，会有比较大的资源浪费。
+      saveUninitialized:false,   //跟resave差不多。
+      secret:'react cnode'     //用自定义的字符串加密cookie，以保证cookie在浏览器端不被解密。
+    }));
+    ...</pre>
+    <p>然后在server/util目录下新建一个文件handle-login.js。login接口需要单独处理，因为要存到session里面，不可能直接代理到cnode接口然后去返回数据给浏览器。我们把数据存到session里面，在后续调用需要登陆的接口时都可以用到这些数据。</p>
+    <pre style="height: 300px;">// handle-login.js
+    const router = require('express').Router();
+    const axios = require('axios'); //引用axios,因为我们要发送请求
+    const baseUrl = 'https://cnodejs.org/api/v1';
+
+    router.post('/login',function (req,res,next) {
+      axios.post(`${baseUrl}/accesstoken `,{
+        accesstoken:req.body.accessToken
+      })
+        .then(resp => {
+          if(resp.status == 200 && resp.data.success){
+            req.session.user = {
+              accessToken: req.body.accessToken,
+              loginName: resp.data.loginname,
+              id: resp.data.id,
+              avatarUrl:resp.data.avatar_url
+            };
+            res.json({
+              success:true,
+              data:resp.data
+            })
+          }
+        })
+        .catch(err => {
+          if(err.response){
+            //response的意思是请求有返回，只是有业务逻辑的错误而不是服务器报错。
+            res.json({
+              success:false,
+              data:err.response
+            })
+          }else {
+            next(err); //把错误抛给全局的错误处理器去处理。
+          }
+        })
+    });
+    module.exports = router;</pre>
+    <p>登陆接口完成了，然后去代理其他接口。在util目录下新建一个proxy.js文件，这个文件里把所有发向cnode API的接口全部代理出去。</p>
+    <pre style="height: 300px;">// proxy.js
+    const axios = require('axios');
+    const baseUrl = 'https://cnodejs.org/api/v1';
+    module.exports = function (req,res,next) {
+      const path = req.path;
+      const user = req.session.user || {};  //判断用户是否登录
+      const needAccessToken = req.query.needAccessToken;
+
+      if(needAccessToken && !user.accessToken){
+        res.status(401).send({
+          success:false,
+          msg:'need login'
+        })
+      }
+
+      /** 进行代理 **/
+      //我们并不知道这个请求有没有一个query。如果是get请求的话可能会有query的参数，不能直接把query传过去，因为有我们自己加的一些属性，比如needAccessToken。需要把query重新定义一下：
+      const query = Object.assign({},req.query);
+      if(query.needAccessToken) delete query.needAccessToken;
+      //method跟客户端发送过来的请求是一样的
+      //在axios里面，query是用params这个key来传递的。data是req的body，body需要加上accessToken，即便对方不需要accessToken加上也没关系。
+      //cnode API有个小问题，需要加上headers。因为cnode API使用axios直接发送时，它的content-type是json的，cnode API有些API可以接受application json有些不能，只能用form-data传输。为了防止出现问题，把所有content-type设为‘application/x-www-form-urlencoded’,这样axios发送请求的时候用form data的形式发送请求。
+      axios(`${baseUrl}${path}`,{
+        method: req.method,
+        parmas:query,
+        data:Object.assign({},req.body,{
+          accesstoken:user.accessToken
+        }),
+        headers:{
+          'Content-Type':'application/x-www-form-urlencoded'
+        }
+      }).then(resp => {
+        if(resp.status == 200){
+          res.send(resp.data)
+        }else {
+          res.status(resp.status).send(resp.data)
+        }
+      }).catch(err => {
+        if(err.response){
+          res.status(500).send(err.response.data)
+        }else {
+          res.status(500).send({
+            success:false,
+            msg:'未知错误'
+          })
+        }
+      })
+    };</pre>
+    <p>然后去server.js中使用这两个新建的文件：</p>
+    <pre>
+    ...
+    //一定要放在服务端渲染的代码之前。因为服务端代码所有请求来都会返回，所以要先处理API，API拦截到需要处理的，那API直接返回就可以了。
+    app.use('/api/user',require('./util/handle-login'));
+    app.use('/api',require('./util/proxy'));
+
+    if(!isDev){
+    ...</pre>
+    <p>然后启动服务npm run dev:server,测试一下接口(server.entry.js会有个报错，把import的jsx文件后缀去掉.)。</p>
+    <p>测试接口我们使用一个工具，在chrome上可以安装的插件postman。在postman启动后，输入想要请求的地址(localhost:3333)下的接口，比如/api/topics。输入localhost:3333/api/topics后就可以看到数据了。</p>
+    <h3>5,调试接口代理</h3>
+    <p>用实际中在页面发送请求的方式来测试我们的API是否能正常运行。</p>
+    <p>对于需要accesstoken去调用的接口，我们在服务端把accesstoken放到请求的参数里面去，然后发送给cnode一端，这样就可以请求需要的接口了。</p>
+    <p>在views目录下新增一个test目录，在test目录里新建一个api-test.jsx文件。在api-test.jsx中写一个简单的组件，可以点击按钮发送请求。</p>
+    <pre style="height: 300px;">// api-test.jsx
+    import React from 'react'
+    import axios from 'axios'
+
+    //下面代码只用来测试，所以不希望eslint检测，可使用以下注释方式：
+    /* eslint-disable */
+    export default class TestApi extends React.Component {
+      getTopics(){
+        axios.get('/api/topics')
+          .then(resp => {
+            console.log(resp)
+          }).catch(err => {
+            console.log(err)
+        })
+      }
+      login(){
+        //accessToken去cnode网站登录账号后的设置中获取。
+        axios.post('/api/user/login',{
+          accessToken:'*****************'
+        }).then(resp => {
+          console.log(resp)
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+      markAll(){
+        axios.post('/api/message/mark_all?needAccessToken=true')
+          .then(resp => {
+            console.log(resp)
+          }).catch(err => {
+          console.log(err)
+        })
+      }
+      render(){
+        return (
+          &lt;div&gt;
+            &lt;button onClick={this.getTopics}&gt;topics&lt;/button&gt;
+            &lt;button onClick={this.login}&gt;login&lt;/button&gt;
+            &lt;button onClick={this.markAll}&gt;markAll&lt;/button&gt;
+          &lt;/div&gt;
+        )
+      }
+    }
+    /* eslint-enable */</pre>
+    <p>test页面写好之后把它加到router.jsx里面,这样才能在应用里访问到：</p>
+    <pre>
+    ...
+    import TestApi from '../views/test/api-test'
+    export default () => [
+        ...
+        &lt;Route path="/test" component={TestApi} /&gt;,
+    ]</pre>
+    <p>然后启动服务。client端和server端的服务都要启动。这里还有个注意点，在webpack-config-client.js的devServer中要加一个配置，因为现在加了store和router之后，服务端渲染是不能够直接使用的，需要再升级服务端渲染的配置（后面会讲到）。现在只能用客户端的页面访问去测试我们的接口。为了使接口访问能到我们的服务端，在webpack-config-client.js的devServer中加一个叫proxy的配置:</p>
+    <pre>// webpack-config-client.js
+    ...
+    config.devServer = {
+        host:'0.0.0.0',
+        port:'8888',
+        ...
+        proxy:{
+            '/api':'http://localhost:3333'
+        }
+    };
+    ...</pre>
+    <p>这样通过客户端启动的devServer去访问的请求，只要是‘/api’下面的，它同样会代理到服务端的代码上面，这就是使用‘/api’这样的固定前缀的好处。</p>
+    <p>然后启动npm run dev:client和npm run dev:server。在页面上访问localhost:8888/test,查看几个接口的访问情况。</p>
+    <p>打开浏览器的network，然后点击topics按钮，可以看到请求成功了，preview里有数据返回的详细信息。再点击login按钮，请求也成功，它的headers头信息里有个set-cookie，下面有个‘tid’,这个就是服务端返回的cookie信息，拿到这个之后，浏览器会自动存储这个cookie信息，然后在下次请求时把cookie信息带到服务端，这样服务端就能读取存在服务端的session里面的用户数据。接着点击markAll按钮，发现返回了500的报错。</p>
+    <p>原来，application/x-www-form-urlencoded格式的Content-Type，与对应的数据‘data’直接传的一个json Object(proxy.js中Object.assign返回的对象)翻译出的json字符串的数据格式是不对应的。所以需要修改下：</p>
+    <pre>// proxy.js
+    ...
+    const querystring = require('query-string');
+    //在没有用querystring.stringify转化前，字符串是以{'accesstoken':'xxx'}这样的形式传输的；而使用这个转化后，就变为'accesstoken=xxx'这样的格式。
+    ...
+        axios(`${baseUrl}${path}`,{
+            ...
+            data:querystring.stringify(Object.assign({},req.body,{
+              accesstoken:user.accessToken
+            })),
+    ...</pre>
+    <p>注意：若proxy.js中headers的‘Content-Type’如果写错，cnode API那边接收的时候就不会是我们希望的解析的方式去解析‘data’这一块，导致没有办法获得body里面的数据，拿不到accesstoken，就会报错。</p>
+    <p>保存修改后，服务会自动重启。我们需要重新login一下，然后再点击markAll按钮，请求就成功了。</p>
+    <h4>两个小问题：</h4>
+    <h5>若api-test.js中给的accessToken的值使登录错误:</h5>
+    <p>会发现请求一直没有返回，这是因为handle-login.js的catch err返回的data是err.response，而response是个非常大的JavaScript对象，它里面有非常多的嵌层。使用res.json()的时候，它默认会把内容用json.stringify来转化成字符串。因为response很大，它无法转化成字符串。所以，我们需要使用err.response.data来返回值：</p>
+    <pre>// handle-login.js
+    ...
+    .catch(err => {
+      if(err.response){
+        res.json({
+          success:false,
+          data:err.response.data
+        })
+      }else {
+        next(err); //把错误抛给全局的错误处理器去处理。
+      }
+    })
+    ...</pre>
+    <p>重试之后会发现，返回了正确的错误信息。</p>
+    <h5>proxy.js中当get请求需要accesstoken时:</h5>
+    <p>proxy.js进行代理时，我们之前是把accesstoken放在body里面，但如果是一个get请求需要accesstoken，我们需要在query数据格式上去做文章：</p>
+    <pre>// proxy.js
+    ...
+    const query = Object.assign({},req.query,{
+        accesstoken:(needAccessToken && req.method === 'GET') ? user.accessToken : ''
+    });
+    if(query.needAccessToken) delete query.needAccessToken;
+    axios(`${baseUrl}${path}`,{
+        method: req.method,
+        parmas:query,
+        data:querystring.stringify(Object.assign({},req.body,{
+          accesstoken:(needAccessToken && req.method === 'POST') ? user.accessToken : ''
+        })),
+    ...</pre>
+    <p>这样就确保不同的请求方法时也会有对应的accesstoken。</p>
+    <h3>6,服务端渲染优化</h3>
+    <p>前端代码加入了router和store之后，对于服务端渲染会有一定影响。</p>
+    <p>因为需要控制router的跳转，浏览器的请求过来之后，服务端渲染的内容需要根据router不同的路径映射来返回不同的HTML内容。使用者可能从任意路由进入我们的网站，不可能说每个路由进来跳转给用户的页面效果是一样的，不然服务端渲染就没有任何意义。所以需要在服务端渲染中使用路由跳转，在返回给客户端的时候就是指定页面。</p>
+    <p>服务端渲染的时候，会将当前需要展示给客户的页面上的数据全部渲染到对应的页面也就是对应的组件当中。内容渲染完后可以拿到HTML，但内容给客户端之后，客户端的js又会重新去渲染一次，这个时候如果没有拿到服务端渲染时用到的数据，就需要重新通过API请求再去服务端请求一次数据。这样一次页面展示需要通过两次请求，会造成浪费。所以需要在服务端渲染优化这些内容。</p>
+    <p>先打开server.entry.js。</p>
+
+    <br/>
+    <h5>参考文档:</h5>
+</div>
+
+</body>
+</html>
