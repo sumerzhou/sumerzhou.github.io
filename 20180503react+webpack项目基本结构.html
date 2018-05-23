@@ -1146,15 +1146,263 @@
     <p>跑npm run build:server,把server bundle这个文件打包到硬盘上看一下实际输出的内容。在生成的dist目录下有个server.entry.js文件，文件内容非常大，里面包含的大部分代码是类库代码，像Mobx、react这些类库等，所以每次打包完成后这份js里就会包含一个Mobx实例。如何去解决这个问题呢？</p>
     <p>在webpack.config.server.js中增加一个配置externals,externals中指定的某些包，不打包到最终输出的js里面。</p>
     <pre>// webpack.config.server.js
-
-    </pre>
-
+    ...
+    module.exports = webpackMerge(baseConfig,{
+        ...
+        externals:Object.keys(require('../package.json').dependencies), //dependencies中安装在node_module里的模块已经存在，而编译出的代码是在node环境中运行，所以这些类库可以通过require在js中调用。
+        output:{
+           ...
+        }
+    });</pre>
+    <p>增加externals配置后，把包出的dist目录下的server.entry.js文件就非常小，不包含任何引用类库的代码。</p>
+    <p>但在增加externals配置后，npm run dev:server报了一个“cannot find module 'react'”的错。这是因为在dev-static.js中，“m._compile(bundle,'server-entry.js'); ”将打包出的js字符串compile到一个module，使用这种方式无法使用require的模式去从node_modules里引用包。而在新的bundle里面因为模块并未打包在里面，需要通过modules里去require进来。如果解决这个矛盾呢？我们需要用新方法来解决：</p>
+    <pre style="height: 300px;">// dev-static.js
+    ...
+    - const Module = module.constructor;
+    + const NativeModule = require('module');
+    + const vm = require('vm');
+    + const getModuleFromString = (bundle, filename) => {
+    +   const m = { exports: {} };
+    +   const wrapper = NativeModule.wrap(bundle);
+        // wrapper:`(function(exports,require,module,__filename,__dirname){ ... bundle code //真正要执行的代码 })`
+        // 参数exports就是在bundle code中要执行的module.exports是一样的效果。
+    +   const script = new vm.Script(wrapper,{
+    +     filename: filename,
+    +     displayErrors: true  //有错误信息时传出来
+    +   });
+    +   const result = script.runInThisContext();
+    +   result.call(m.exports, m.exports, require, m);
+    +   return m;
+    + };
+    ...
+    serverCompiler.watch({},(err,stats) => {
+        ...
+        - const m = new Module;
+        - m._compile(bundle,'server-entry.js');
+        + const m = getModuleFromString(bundle,'server-entry.js');
+        serverBundle = m.exports.default;
+        createStoreMap = m.exports.createStoreMap;
+    });
+    ...</pre>
+    <p>NativeModule其实就是nodejs的module.exports。‘module’是原生的模块，文档上并没有说明这部分内容。它有一个方法wrap()，可以把可执行的javascript代码包装成类似于`(function(exports,require,module,__filename,__dirname){ ... bundle code //真正要执行的代码 })`的方法。</p>
+    <p>wrapper的这些参数是在这个执行环境下去使用的module、require、exports。这些东西wrap之后就成了字符串代码，去调用的时候就可以定制的方式去传入参数。去跑javascript字符串代码，需要用vm的Script类，并且可以去指定context执行环境。调用时，用call指定m.exports为调用者去调用result代码，参数exports就是m.exports，参数require就是当前环境下的require，参数module就是m。通过这种方式，让实际执行的bundle code执行完之后把m.exports的东西全部附在m对象上，这样就可以拿到想要的东西。</p>
+    <p>getModuleFromString这个方法时如何解决上面报“cannot find module 'react'”的问题的呢？因为require是当前环境传进去的require，它是可以去require到node_modules里的代码的。这是一个常规的方法。</p>
     <h4>SEO:</h4>
     <p>服务端渲染很多情况下是为了去做SEO，SEO会看中‘title’和‘description’这些内容，是SEO里面非常重要的一部分。这些内容我们希望通过前后端通用的一种方式去实现。</p>
+    <p>我们希望每个页面的title在相应页面里去定义。我们需要一个工具react-helmet去解决这个问题： </p>
+    <pre>
+    npm i react-helmet -S </pre>
+    <p>然后打开topic-list/index.jsx :</p>
+    <pre>// topic-list/index.jsx
+    ...
+    import Helmet from 'react-helmet'
+    ...
+        render() {
+            return (
+              &lt;div&gt;
+                &lt;Helmet&gt;
+                  &lt;title&gt;this is topic list&lt;/title&gt;
+                  &lt;meta name="description" content="this is description" /&gt;
+                &lt;/Helmet&gt;
+                ...
+              &lt;/div&gt;
+            )
+        }
+    ...</pre>
+    <p>增加的Helmet组件里的内容，需要作为服务端渲染时HTML上已经拥有的，这样SEO才能真正使用到这些信息。不然等js加载完成后再在页面上渲染出来，就没有效果了。所以在dev-static.js里修改：</p>
+    <pre>// dev-static.js
+    ...
+    const Helmet = require('react-helmet').default; // 用export和import模式写的代码，需要加上.default
+    ...
+        asyncBootstrap(app).then(() => {
+            if(routerContext.url){
+                ...
+            }
+            const helmet = Helmet.rewind(); //在当前页面拿到需要显示的title、description这些东西
+            ...
+            const html = ejs.render(template,{
+                appString:content,
+                initialState:serialize(state),
+                meta:helmet.meta.toString(),
+                title:helmet.title.toString(),
+                style:helmet.style.toString(),
+                link:helmet.link.toString()
+            });
+            res.send(html);
+        });
+    ...</pre>
+    <p>ejs里render的内容变了，所以ejs模板也要调整一下：</p>
+    <pre>// server.template.ejs
+    ...
+    &lt;head&gt;
+      ...
+      - &lt;title&gt;Document&lt;/title&gt;
+      + &lt;%%- meta %&gt;
+      + &lt;%%- title %&gt;
+      + &lt;%%- link %&gt;
+      + &lt;%%- style %&gt;
+    &lt;/head&gt;
+    ...</pre>
+    <p>重新请求list页面，发现meta便签和title的内容都出来了。</p>
+    <h3>8,将服务端渲染用于生产环境</h3>
+    <p>如何在开发时和上线时使用同一套代码来执行服务端渲染。首先在util目录下新建一个server-render.js文件，把整个服务端渲染的逻辑都放到这里：</p>
+    <pre style="height: 300px;">// server-render.js
+    const ReactDomServer = require('react-dom/server');
+    const asyncBootstrap = require('react-async-bootstrapper');
+    const serialize = require('serialize-javascript');
+    const ejs = require('ejs');
+    const Helmet = require('react-helmet').default; // 用export和import模式写的代码，需要加上.default
+    const getStoreState = (stores) => {
+      //这样就形成了在服务端渲染结束之后，数据的默认值的情况。
+      return Object.keys(stores).reduce((result,storeName) => {
+        result[storeName] = stores[storeName].toJson();
+        return result
+      },{})
+    };
 
+    module.exports = (bundle, template, req, res) => {
+      return new Promise((resolve, reject) => {
+        + const createStoreMap = bundle.createStoreMap;
+        + const createApp = bundle.default;
+
+        const routerContext = {};
+        const stores = createStoreMap();
+        const app = createApp(stores,routerContext,req.url);//createApp现在已不是一个直接可以渲染的内容，而是一个方法，所以需要根据这个方法去创建渲染内容。
+        asyncBootstrap(app).then(() => {
+          //asyncBootstrap方法执行app之后返回异步的结果，这个时候已经可以拿到routerContext。
+          if(routerContext.url){
+            res.status(302).setHeader('Location',routerContext.url);//通过在header上设置location去让浏览器自动跳转。
+            res.end();//结束这次请求
+            return
+          }
+          const helmet = Helmet.rewind(); //在当前页面拿到需要显示的title、description这些东西
+          const state = getStoreState(stores);//拿到想要的值。需要一个方法把数据插到HTML内容里让客户端代码拿到。
+          const content = ReactDomServer.renderToString(app);
+          const html = ejs.render(template,{
+            appString:content,
+            initialState:serialize(state),
+            meta:helmet.meta.toString(),
+            title:helmet.title.toString(),
+            style:helmet.style.toString(),
+            link:helmet.link.toString()
+          });
+          res.send(html);
+          // res.send(template.replace('&lt;!--app--&gt;',content));
+          resolve();
+        }).catch(reject);
+      })
+    };</pre>
+    <p>整理之后，dev-static.js的内容变为：</p>
+    <pre style="height: 300px;">// dev-static.js
+    const path = require('path');
+    const axios = require('axios');
+    const webpack = require('webpack');
+    const serverConfig = require('../../build/webpack.config.server');
+    const MemoryFs = require('memory-fs');
+    const proxy = require('http-proxy-middleware');
+    const serverRender = require('./server-render');
+    const getTemplate = () => {  //通过webpack-dev-server实时地拿到最新的template文件
+        return new Promise((resolve,reject) => {
+            axios.get('http://localhost:8888/public/server.ejs')
+                .then(res =>{
+                    resolve(res.data);
+                })
+                .catch(reject);
+        })
+    };
+    const NativeModule = require('module');
+    const vm = require('vm');
+    const getModuleFromString = (bundle, filename) => {
+      const m = { exports: {} };
+      const wrapper = NativeModule.wrap(bundle);
+      const script = new vm.Script(wrapper,{
+        filename: filename,
+        displayErrors: true
+      });
+      const result = script.runInThisContext();
+      result.call(m.exports, m.exports, require, m);
+      return m;
+    };
+    const mfs = new MemoryFs;
+    const serverCompiler = webpack(serverConfig);
+    serverCompiler.outputFileSystem = mfs;
+    let serverBundle;
+    serverCompiler.watch({},(err,stats) => {
+        if(err) throw err;
+        stats = stats.toJson();
+        stats.errors.forEach(err => console.error(err));
+        stats.warnings.forEach(warn => console.warn(warn));
+        //读取server bundle的信息：
+        const bundlePath = path.join(
+            serverConfig.output.path,
+            serverConfig.output.filename
+        );//服务端bundle的整个路径
+        const bundle = mfs.readFileSync(bundlePath,'utf-8'); //bundle是个string，并非在js中可使用的模块内容.
+        const m = getModuleFromString(bundle,'server-entry.js');
+        // serverBundle = m.exports.default;
+        // createStoreMap = m.exports.createStoreMap; //把createStoreMap方法拿进来
+        serverBundle = m.exports;
+    });
+
+    module.exports = function (app) {
+        app.use('/public',proxy({
+            target:'http://localhost:8888'
+        }));
+        app.get('*',function (req,res,next) {
+            if (!serverBundle){
+              //优化，webpack的compile正在执行，现在还没发去服务端渲染。这是开发时才会出现的情况。
+              return res.send('waiting for compile, refresh later.')
+            }
+            //返回服务端渲染完成的结果给浏览器端
+            getTemplate().then(template => {
+              return serverRender(serverBundle,template,req,res)
+            }).catch(next)
+        });
+    };</pre>
+    <p>然后在正式环境下来执行服务端渲染。打开server.js :</p>
+    <pre style="height: 300px;">// server.js
+    ...
+    - const ReactSSR = require('react-dom/server');
+    + const serverRender = require('./util/server-render');
+    ...
+    if(!isDev){
+        - const serverEntry = require('../dist/server.entry').default;
+        - const template = fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8');
+        + const serverEntry = require('../dist/server.entry');
+        + const template = fs.readFileSync(path.join(__dirname,'../dist/server.ejs'),'utf8');
+        ...
+        app.get('*',function (req,res) {
+            - const appString = ReactSSR.renderToString(serverEntry);//服务端渲染得到的内容
+            - res.send(template.replace('&lt;!--app--&gt;',appString));
+            + serverRender(serverEntry,template,req,res).catch(next);
+        });
+    }else {
+      ...
+    }
+    //对于next扔出来的错误，express有一个机制，在全局上可以定义一个error处理的中间件。
+    //这个中间件会有一定的特殊，后三个参数虽然用不到但还是要传，因为express会去读取参数的长度判断到底是不是个error handler。
+    app.use(function (error,req,res,next) {
+      console.log(err);
+      res.status(500).send(error);
+    });
+    ...</pre>
+    <p>验证一下在正式环境里的服务端渲染。停掉之前的开发服务。然后npm run build ,再去package.json加一个scripts脚本命令“start”用来启动服务。</p>
+    <pre>// package.json
+    ...
+    "scripts": {
+        ...
+        "start":"cross-env NODE_ENV=production node server/server.js"
+      },
+    ...</pre>
+    <p>最后npm start启动服务就可以了。</p>
+    <h4>服务端渲染逻辑：</h4>
+    <p>1，得到服务端渲染的HTML内容</p>
+    <p>2，同步store，使服务端渲染使用到的数据在客户端渲染时立马可以拿到而无需重新请求</p>
+    <p>3，路由跳转，如果服务端渲染过程中有发现路由需要跳转，就直接redirect掉，而不用在客户端去redirect。因为如果在客户端redirect返回的内容是当前的页面内容，爬虫在爬取内容时就爬不到，这样对SEO会有问题。</p>
+    <p>4，title之类的信息处理</p>
+    <p>5，涉及到开发过程，修改代码希望能自动重新获取bundle，需要借助工具</p>
 
     <br/>
-    <h5>参考文档:</h5>
 </div>
 
 </body>
