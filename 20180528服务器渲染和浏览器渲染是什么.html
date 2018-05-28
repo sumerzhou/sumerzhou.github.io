@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>react+webpack项目业务功能实现|sumerzhou's blog</title>
+    <title>服务器渲染和浏览器渲染是什么|sumerzhou's blog</title>
     <link href="myblog.css" rel="stylesheet" type="text/css">
     <script src="myblog.js" type="text/javascript"></script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -425,156 +425,45 @@
 </div>
 <!--text-->
 <div class="textBox">
-    <h2>react+webpack 项目业务功能实现</h2>
-    <h3>1,React16介绍</h3>
-    <p>React16更小了，react+react-dom在gzipped之后小了10k左右，从四十几k变成三十多k。其中主要是因为在react的生产环境版本，它使用的是rollup进行打包，rollup打包完的是一个小到极致的代码包，在使用webpack、browserify等工具去引用react的时候，引用的是一个打包完的最小化的包，这个包使用rollup发布，所以整个压缩比例非常好。其次它整个代码都用fiber重写了。fiber是现在js界比较流行的一种编程理念，它给react带来非常多的新功能。最后它更新了一堆非常有用的功能，这些功能是以前版本中被希望去实现的。</p>
-    <h4>新特性:</h4>
-    <h5>error boundary:</h5>
-    <p>它是帮助捕获react整个渲染过程中出现的错误，在正式环境中如果有错误出现，就可以显示一个提醒并且捕获到错误的内容，通过某些方式可以记录在一个地方。这样可以为以后排错和更新代码提供参考。</p>
-    <h5>New render return types:</h5>
-    <p>现在的react16可以支持在render function里面返回一个数组和string。在以往的版本中，render function必须要返回有个根节点（div）的内容。</p>
-    <h5>Portals:</h5>
-    <p>Portals 提供了一种很好的将子节点渲染到父组件以外的 DOM 节点的方式。</p>
-    <h5>Better server-side rendering:</h5>
-    <p>react16更新了一些服务端渲染的功能。它提升了渲染速度，且支持streaming。</p>
-    <p>streaming是说在一个请求过来时服务端先返回一部分不需要等待的内容，比如HTML头和一些固定信息之类，然后剩下要等待的过程比如去数据库读取数据，等数据读取完成渲染完成功后再把这部分内容返回，最后再把结尾部分发送过去。这样以流的方式发送给浏览器端，可以让用户先看到一部分内容，会感觉网站非常快。streaming也有局限性，最终渲染出的HTML内容需要按照这种顺序的方式渲染，如果没有办法按照这种方式渲染得到，就无法使用streamimg的方式。</p>
-    <p>react16更多是在整体方面有了速度的提升。比如，在服务端渲染内容发送到客户端之后，因为react还要在客户端再渲染一次，react16提供了一个新API专门在有服务端渲染的情况下去渲染客户端代码，就是ReactDOM.hydrate。</p>
-    <h3>2,Material-ui安装使用</h3>
-    <p><a href="https://material-ui.com/" target="_blank">Material-ui</a>是个很好用的组件库，是react中最著名的组件库之一。它的所有组件遵循Google的material design。</p>
-    <p>我们使用的是v1正式版本。它的实现方式跟之前很多ui库不一样，它有很多自己设计的一套理念，东西非常多，功能非常强大，组件非常多。但它的浏览器兼容性并不高，IE要在10以后的版本才会支持。</p>
-    <p>在正式使用这个ui组件库之前，需要进行一些设置，也是关于服务端渲染的。在官网的guides-server rendering里有说明在使用组件库时需要配置一定的服务端渲染的东西，会涉及到样式上的内容。因为这个组件库的样式实现是它自己实现了一个工具叫jss，也就是css in js，在用组件库写css时全部在js中写，没有css文件sass文件less文件。最终写的css会以一个样式表的形式从js插入到HTML的head里某一个style标签下，以此来实现css。它的css有非常好的动态性，以及ClassName是实时生成的、动态的、可压缩的。</p>
-    <h4>项目使用</h4>
-    <p>安装:</p>
-    <pre>
-    npm i @material-ui/core @material-ui/icons -S </pre>
-    <p>先在客户端配置。material-ui是可以配置主题的，主题颜色可以在js中设置。打开app.js :</p>
-    <pre>// app.js
-    ...
-    import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'   //这两个方法用来创建主题
-    import { lightBlue, pink } from '@material-ui/core/colors'   //引入主题颜色
-    const theme = createMuiTheme({   //创建一个主题
-      palette: {
-        primary: lightBlue,
-        accent: pink,
-        type: 'light',
-      },
-    });
-    ...
-          &lt;MuiThemeProvider theme={theme}&gt;  //把theme挂载到整个app上。然后就可以在应用中去使用material-ui了。
-            &lt;Component /&gt;
-          &lt;/MuiThemeProvider&gt;
-    ...</pre>
-    <p>然后去topic-list/index.jsx中使用。在react中，使用每一个组件都去单独import，这样能控制整个app在使用组件上面按需加载，我们装了整个组件库并不需要把所有组件一次性打包到js里。</p>
-    <pre>// topic-list/index.jsx
-    ...
-    import Button from '@material-ui/core/Button'
-    ...
-        render() {
-            return (
-              ...
-                &lt;Button variant="raised" color="primary"&gt;this is a button&lt;/Button&gt;
-                &lt;input type="text" onChange={this.changeName} /&gt;
-              ...</pre>
-    <p>然后npm run dev:client和npm run dev:server看一下效果。</p>
-    <p>检查网页element，会发现css在head中出现，是material-ui的一些东西。查看网页源代码，里面却并没有css。这导致的结果是，页面一开始加载过来的时候并没有样式，要等js运行了把样式插入到head之后才会显示想要的样式。所以要去在服务端渲染时做一些配置，让其在服务端返回的内容里就有样式。</p>
-    <p>首先去安装几个工具:</p>
-    <pre>
-    npm i react-jss -S
-    //react-jss是用jss去连接react的一个工具</pre>
-    <p>官网文档里服务端渲染文档所演示的代码片段因为跟我们项目架构不一样，所以不具有太大参考性。但可以参照它的整体思路去实现我们自己的内容。</p>
-    <p>整个基本流程：通过server-render.js里去创建sheetsRegistry和theme,然后传给createApp去通过MuiThemeProvider、JssProvider组件把整个app构建出来，之后再renderToString，然后再通过sheetsRegistry对象拿到最终的css代码，接着通过ejs的模板把内容渲染进去。</p>
-    <p>打开server-entry.js :</p>
-    <pre>// server-entry.js
-    ...
-    import { JssProvider } from 'react-jss'
-    import { MuiThemeProvider } from '@material-ui/core/styles'
-    ...
-    export default (stores, routerContext, sheetsRegistry, generateClassName, theme, url) => (
-      ...
-          &lt;JssProvider registry={sheetsRegistry} generateClassName={generateClassName}&gt;
-            &lt;MuiThemeProvider theme={theme}&gt;
-              &lt;App /&gt;
-            &lt;/MuiThemeProvider&gt;
-          &lt;/JssProvider&gt;
-    ...</pre>
-    <p>接下去到server-render.js里创建这些东西：</p>
-    <pre style="height: 300px;">// server-render.js
-    ...
-    const SheetsRegistry = require('react-jss').SheetsRegistry; //使用require引入时需要后面加上.SheetsRegistry
-    const createMuiTheme = require('@material-ui/core/styles').createMuiTheme;
-    const createGenerateClassName = require('@material-ui/core/styles').createGenerateClassName;
-    const colors = require('@material-ui/core/colors');
-    ...
-        const createApp = bundle.default;
-        const theme = createMuiTheme({
-          palette: {
-            primary: colors.lightBlue,
-            accent: colors.pink,
-            type: 'light',
-          },
-        });//保持和客户端一致
-        const sheetsRegistry = new SheetsRegistry(); //theme、sheetsRegistry每个请求都需要去创建
-        const generateClassName = createGenerateClassName();
-        ...
-        const app = createApp(stores,routerContext,sheetsRegistry,generateClassName,theme,req.url);
-        asyncBootstrap(app).then(() => {
-          ...
-          const html = ejs.render(template,{
-            ...
-            materialCss:sheetsRegistry.toString()  //把样式放到template里
-          });
-          ...</pre>
-    <p>然后需要去改一下模板server.template.ejs,让它渲染到style标签里去:</p>
-    <pre>// server.template.ejs
-    ...
-    &lt;head&gt;
-      ...
-      &lt;style id="jss-server-side"&gt;
-        &lt;%%- materialCss %&gt;
-      &lt;/style&gt;
-    &lt;/head&gt;
-    ...</pre>
-    <p>刷新页面后查看网页源代码，可以看到在style标签下有很多样式，这些样式就是在服务端渲染时候生成的。</p>
-    <p>到这里还存在一个小问题，官网文档说到The Client Side的时候我们需要把服务端生产的css去掉。因为在客户端渲染时也会同样生成这段css（在整个节点渲染完后，客户端css才会真正生成），服务端的css和客户端css可能会造成冲突，导致一些问题。官方文档提供了一个去掉服务端css的例子：在客户端组件componentDidMount时候，查找一个css节点，然后删除。参考这部分代码，我们首先要去在style标签上去加一个id。所以我们在ejs模板文件里的style标签上加上“id=‘jss-server-side’”，然后修改app.js：</p>
-    <pre style="height: 300px;">// app.js
-    ...
-    //在客户端时有可能不仅仅是第一次渲染时用到TheApp，或许还会去用到这部分内容，所以每次去新建createApp。
-    const createApp = (TheApp) => {
-      class Main extends React.Component {
-        // Remove the server-side injected CSS.
-        componentDidMount() {
-          const jssStyles = document.getElementById('jss-server-side');
-          if (jssStyles && jssStyles.parentNode) {
-            jssStyles.parentNode.removeChild(jssStyles);
-          }
-        }
-        render() {
-          return &lt;TheApp /&gt;
-        }
-      }
-      return Main
-    };
-    const root = document.getElementById('root');
-    ...
-    render(createApp(App));
-    if (module.hot) {
-      ...
-        render(createApp(NextApp));
-      })
-    }</pre>
-    <p>重新刷新网页，检查元素会看到head标签里服务端渲染的style标签就没有了。</p>
-    <h3>3,页面主框架实现</h3>
-    <p>实现cnodejs网站功能。</p>
-    <p>在views目录下新建一个layout目录，里面放导航栏。在该目录下新建一个app-bar.jsx文件：</p>
-    <pre>// app-bar.jsx
+    <h2>服务器渲染和浏览器渲染是什么</h2>
+    <h3>1,浏览器在完整展示一个页面前做了哪些</h3>
+    <p>① 加载：根据请求的URL进行域名解析，向服务器发起请求，接收文件（HTML、JS、CSS、图象等）。</p>
+    <p>② 解析：从html解析出DOM tree，解析css产生css规则树（计算css样式），js，通过DOM api和Css api操作DOM tree和CSS ruletree。</p>
+    <p>③ 渲染：解析完成后，浏览器引擎会通过DOM tree和CSS RuleTree来构造Rendering tree（渲染树）（不包含Header等不需要显示的东西），也就是将CSS rule加到每一个DOM结点上（或者叫做Frame）。定位坐标和大小，是否换行等。</p>
+    <p>④ 绘制：最后调用操作系统的Native GUI的API绘制。</p>
+    <h3>2,前端(浏览器)渲染</h3>
+    <p>浏览器端渲染，指的是用js去生成html，前端做路由。举例：React, Vue等等前端框架。适合<strong>单页面应用</strong>程序。</p>
+    <h4>特点：</h4>
+    <p>指的是后端返回json数据，前端利用预先写的html模板，循环读取json数据，拼接字符串，并插入页面。</p>
+    <p>好处：网络传输数据量小。不占用服务端运算资源（解析模板），模板在前端（很有可能仅部分在前端），改结构变交互都前端自己来了，改完自己调就行。</p>
+    <p>坏处：前端耗时较多。占用（一部分、少部分）客户端运算资源（解析模板）。前端代码多点，毕竟包含模板代码了么。</p>
+    <h4>客户端渲染路线：</h4>
+    <p>1. 请求一个html -> 2. 服务端返回一个html -> 3. 浏览器下载html里面的js/css文件 -> 4. 等待js文件下载完成 -> 5. 等待js加载并初始化完成 -> 6. js代码终于可以运行，由js代码向后端请求数据( ajax/fetch ) -> 7. 等待后端数据返回 -> 8. 客户端从无到完整地，把数据渲染为响应页面</p>
+    <h3>3,服务端渲染</h3>
+    <p>现在的服务端渲染和过去的服务端渲染完全是两码事。</p>
+    <p>以前的服务器渲染，是以“文档”为核心思想。服务器端的逻辑是把HTML, CSS, Javascript当作一个静态文件，对“文档”而言不存在“指令”和“数据”的区别，一切都是数据。所以我们可以看到服务器渲染，GET就是请求一个文件，而web 1.0时代的诸多服务端框架最基础的组件之一就是文档模版，比如asp, JSP之类，核心设计理念就是HTML文件里放占位符然后由服务端逻辑替换成实际数据后一股脑返回。即指的是用后台语言通过一些模版引擎生成html。举例：PHP文件、JSP文件、Python的Flask配合Jinja引擎、Django框架、Java配合vm模版引擎、NodeJS配合Jade。适合<strong>多页面应用</strong>。其实大部分网站现在还是这种形式。</p>
+    <p>现在<strong>Web 2.0时代最大的思想革命本质不是前后端分离，而是把网页当作独立的应用程序（app）。前后端分离只是实现这一新架构的必然结果。</strong>对程序而言指令和数据是分离的。HTTP GET拿到的不是渲染后的网页，而是一个由html和Javascript组成的app, 这个app以浏览器为虚拟机。装载和显示数据是app启动之后的运行逻辑。传统上app叫什么？叫Client，也就是前端。于是前后端就这么分离了，浏览器变成了app的运行环境，后端蜕化成了单纯的业务逻辑和数据接口。写Javascript不再是给网页添特效的小伎俩，而是正经的和写桌面应用程序一样的工程。于是我们看到了前端工程化，编译（转译），各种MVC/MVVM框架，依赖工具，等等。前端NodeJS的那堆东西，什么npm，Babel，Webpack，gulp，各个框架的cli... 本质上就是开源社区东拼西凑做一个Visual Studio。</p>
+    <p>模版式的服务端编程早就进了垃圾堆。现在的服务器渲染的目的只是为了加速和搜索引擎优化（准确的说是非Google引擎优化，因为Google可以解析Javascript动态网页）。而实现也很简单：拿个浏览器核心跑一下app然后把生成的html存起来给搜索爬虫就行了。与其说是渲染，不如说是“快照”，就像给app截图一样。</p>
+    <p>所以有为了让单页面应用利于SEO，让服务器和客户端同构，也使用React/Vue渲染的方案。</p>
+    <h4>特点：</h4>
+    <p>前端请求，后端用后台模板引擎直接生成htm，前端接受到数据之后，直接插入页面。</p>
+    <p>好处：前端耗时少，即减少了首屏时间，模板统一在后端。前端（相对）省事，不占用客户端运算资源（解析模板）。前后端分离的弊端就是接口的对外暴露，导致我们可以抓别人的接口为所欲为,而服务端渲染可以做到，至少一小部分不该暴露出去的接口是可以留在服务端。</p>
+    <p>坏处：占用服务器资源。</p>
+    <h4>服务端渲染路线：</h4>
+    <p>1. 请求一个html -> 2. 服务端请求数据( 内网请求快 ) -> 3. 服务器初始渲染（服务端性能好，较快） -> 4. 服务端返回已经有正确内容的页面 -> 5. 客户端请求js/css文件 -> 6. 等待js文件下载完成 -> 7. 等待js加载并初始化完成 -> 8. 客户端把剩下一部分渲染完成( 内容小，渲染快 )</p>
+    <p>对同一个组件，服务端渲染“可视的”一部分( render/componentWillMount部分代码  )，为确保组件有完善的生命周期及事件处理，客户端需要再次渲染。即：服务端渲染，实际上也是需要客户端进行 再次地、但开销很小的二次渲染。</p>
+    <h3>4,比较</h3>
+    <p>1,数据请求：由服务端请求数据而不是客户端请求数据，这是“快”的一个主要原因。服务端在内网进行请求，数据响应速度快。客户端在不同网络环境进行数据请求，且外网http请求开销大，导致时间差（主要原因）。</p>
+    <p>2,步骤：服务端是先请求数据然后渲染“可视”部分，而客户端是等待js代码下载、加载完成再请求数据、渲染。即：服务端渲染不用等待js代码下载完成再请求数据，并会返回一个已经有内容的页面。</p>
+    <p>3,渲染性能：服务端性能比客户端高，渲染速度快( 猜测，该项数据不详 )。</p>
+    <p>4,渲染内容：服务端渲染会把”可视“部分先渲染，然后交给客户端再作部分渲染。而客户端渲染，则是从无到有，需要经历完整的渲染步骤。</p>
 
-    </pre>
-    <p>去App.jsx中把app-bar引入:</p>
 
 
     <br/>
     <h5>参考文档:</h5>
-    <p style="background-color: rgb(247,247,247);">● &lt;BrowserRouter&gt;：使用 HTML5 提供的 history API 来保持 UI 和 URL 的同步；</p>
+    <a href="https://blog.csdn.net/qizhiqq/article/details/51822794" target="_blank">前后端渲染页面的区别</a>,<br>
+    <a href="https://segmentfault.com/q/1010000008563275/a-1020000008738562" target="_blank">浏览器渲染和服务器渲染区别以及各自适合什么场景的开发</a>,
 </div>
 
 </body>
