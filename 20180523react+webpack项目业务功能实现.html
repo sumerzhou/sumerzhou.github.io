@@ -566,10 +566,378 @@
     <h3>3,页面主框架实现</h3>
     <p>实现cnodejs网站功能。</p>
     <p>在views目录下新建一个layout目录，里面放导航栏。在该目录下新建一个app-bar.jsx文件：</p>
-    <pre>// app-bar.jsx
+    <pre style="height: 300px;">// app-bar.jsx
+    import React from 'react'
+    // import PropTypes from 'prop-types'
+    // import { withStyles } from '@material-ui/core/styles'
+    import AppBar from '@material-ui/core/AppBar'
+    import Toolbar from '@material-ui/core/Toolbar'
+    import Button from '@material-ui/core/Button'
+    import Typography from '@material-ui/core/Typography'
+    import IconButton from '@material-ui/core/IconButton'
+    import HomeIcon from '@material-ui/icons/Home'
+
+    class MainAppBar extends React.Component {
+      constructor() {
+        super();//super()方法在有申明constructor方法时一定要写，因为是extend自React.Cmponent。
+        //如果没有申明constructor方法，super()会默认执行。
+        this.onHomeIconClick = this.onHomeIconClick.bind(this);
+        this.createButtonClick = this.createButtonClick.bind(this);
+        this.loginButtonClick = this.loginButtonClick.bind(this);
+      }
+      /* eslint-disable */
+      onHomeIconClick(){
+
+      }
+
+      createButtonClick(){
+
+      }
+
+      loginButtonClick(){
+
+      }
+      /* eslint-enable */
+
+      render() {
+        return (
+          &lt;div&gt;
+            &lt;AppBar position="fixed"&gt;
+              &lt;Toolbar&gt;
+                &lt;IconButton color="contrast" onClick={this.onHomeIconClick}&gt;
+                  &lt;HomeIcon /&gt;
+                &lt;/IconButton&gt;
+                &lt;Typography type="title" color="inherit"&gt;
+                  JNode
+                &lt;/Typography&gt;
+                &lt;Button variant="raised" color="accent" onClick={this.createButtonClick}&gt;
+                  新建话题
+                &lt;/Button&gt;
+                &lt;Button color="contrast" onClick={this.loginButtonClick}&gt;
+                  登录
+                &lt;/Button&gt;
+              &lt;/Toolbar&gt;
+            &lt;/AppBar&gt;
+          &lt;/div&gt;
+        )
+      }
+    }
+    export default MainAppBar</pre>
+    <p>去App.jsx中把app-bar引入:</p>
+    <pre>// App.jsx
+    import React from 'react'
+    import Routes from '../config/router'
+    import AppBar from './layout/app-bar'
+    export default class App extends React.Component {
+      componentDidMount() {
+        // do something here
+      }
+      render() {
+        return [
+          &lt;AppBar /&gt;,
+          &lt;Routes /&gt;,
+        ]
+      }
+    }</pre>
+    <p>在验证前，还需小改一个地方。在webpack.config.client.js下面把config.devServer.contentBase注释掉。这个东西没什么用，如果我们使用‘/public/’这种方式在客户端启动webpack devServer去访问的时候，就不需要声明contentBase。</p>
+    <p>另外还需要在开发时候加一个配置devtool:#cheap-module-eval-source-map。这是个webpack devtool的一个选项，它能够形成一个source map，让我们在浏览器中调试代码时同时调试我们写的源代码，也就是jsx没有经过编译的代码。这样可以非常快定位错误，而不是编译完成的代码。</p>
+    <pre>// webpack.config.client.js
+    ...
+    if(isDev){
+        config.devtool = '#cheap-module-eval-source-map';
+    ...</pre>
+    <p>服务端渲染已经完成差不多了，后期只需要每次去测试时使用服务端渲染去测试就可以。平时开发时写前端代码，还是以客户端模式开发为主。因为一旦报错，服务端渲染的时候是很难定位到错误的，而在浏览器中打开就很容易定位。</p>
+    <p>然后启动服务npm run dev:server和npm run dev:client。server也需要启动，因为需要去代理接口。访问localhost:8888。</p>
+    <h4>调整样式:</h4>
+    <p>参考Material-ui官网的例子去调整页面样式。</p>
+    <p>在app.js中createMuiTheme的时候，我们可以预先定义很多东西，比如fontsize。这是一个很好的主题定义的方案。后续写样式的时候，都用主题定义时的样式的话，如果要改变某一样式，那在主题theme样式里变了，后面所有对应的东西样式也都自动改了。</p>
+    <p>theme可通过withStyles方法包含到组件里定义的style，然后就可以用theme里的变量。</p>
+    <p>修改app-bar.jsx:</p>
+    <pre style="height: 300px;">// app-bar.jsx
+    ...
+    const styles = {
+      root: {
+        width: '100%',
+      },
+      flex: {
+        flex: 1,
+      },
+    };
+    class MainAppBar extends React.Component {
+        ...
+        render() {
+            const { classes } = this.props;
+            return (
+              &lt;div className={classes.root}&gt;
+                &lt;AppBar position="fixed"&gt;
+                  &lt;Toolbar&gt;
+                    ...
+                    &lt;Typography type="title" color="inherit" className={classes.flex}&gt;
+                      JNode
+                    &lt;/Typography&gt;
+                    ...
+                  &lt;/Toolbar&gt;
+                &lt;/AppBar&gt;
+              &lt;/div&gt;
+            )
+        }
+    }
+    MainAppBar.propTypes = {
+      classes: PropTypes.object.isRequired,
+    };
+    //使用withStyles方法会给组件外面套一层组件，形成css。
+    //套完后会给props传一个classes对象，classes里包含了定义的样式。
+    export default withStyles(styles)(MainAppBar)</pre>
+    <p>再在layout下新建一个文件container.jsx :</p>
+    <pre style="height:300px;">// container.jsx
+    import React from 'react'
+    import PropTypes from 'prop-types'
+    import { withStyles } from '@material-ui/core/styles'
+    import Paper from '@material-ui/core/Paper'
+    const styles = {
+      root: {
+        margin: 24,
+        marginTop: 80,
+      },
+    };
+
+    const Container = ({ classes, children }) => (
+      &lt;Paper elevation={4} className={classes.root}&gt;
+        {children}
+      &lt;/Paper&gt;
+    );
+
+    Container.propTypes = {
+      classes: PropTypes.object.isRequired,
+      children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.element),
+        PropTypes.element,
+      ]),
+    };
+    export default withStyles(styles)(Container)</pre>
+    <p>然后把Container组件引入到topic-list页面：</p>
+    <pre>// topic-list/index.jsx
+    ...
+    import Container from '../layout/container'
+    ...
+    export default class TopicList extends React.Component {
+        ...
+      render() {
+        return (
+          &lt;Container&gt;
+            ...
+            &lt;span&gt;{this.props.appState.msg}&lt;/span&gt;
+          &lt;/Container&gt;
+        )
+      }
+    }
+    ...</pre>
+    <p>至此，页面的主框架已经好了。</p>
+    <h3>4,主页样式实现</h3>
+    <p>首先要去完成主页话题列表的tab切换功能以及展示的列表组件。</p>
+    <p>列表部分单独写一个组件，因为需要重复循环。在topic-list目录下新建一个list-item.jsx文件。</p>
+    <pre style="height: 500px;">// topic-list/list-item.jsx
+    import React from 'react'
+    import ListItem from '@material-ui/core/ListItem';
+    import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+    import ListItemText from '@material-ui/core/ListItemText';
+    import Avatar from '@material-ui/core/Avatar';
+    import PropTypes from 'prop-types'
+    import { withStyles } from '@material-ui/core/styles'
+    import { topicPrimaryStyle, topicSecondaryStyle } from './style'
+
+    const Primary = ({ classes, topic }) => (
+      &lt;div className={classes.root}&gt;
+        &lt;span className={classes.tab}&gt;{topic.tab}&lt;/span&gt;
+        &lt;span className={classes.title}&gt;{topic.title}&lt;/span&gt;
+      &lt;/div&gt;
+    );
+    const StyledPrimary = withStyles(topicPrimaryStyle)(Primary);
+    const Secondary = ({ classes, topic }) => (
+      &lt;div className={classes.root}&gt;
+        &lt;span className={classes.userName}&gt;{topic.username}&lt;/span&gt;
+        &lt;span className={classes.count}&gt;
+          &lt;span className={classes.accentColor}&gt;{topic.reply_count}&lt;/span&gt;
+          &lt;span&gt;/&lt;/span&gt;
+          &lt;span&gt;{topic.visit_count}&lt;/span&gt;
+        &lt;/span&gt;
+        &lt;span&gt;创建时间:{topic.create_at}&lt;/span&gt;
+      &lt;/div&gt;
+    );
+    const StyledSecondary = withStyles(topicSecondaryStyle)(Secondary);
+    Primary.propTypes = {
+      topic: PropTypes.object.isRequired,
+      classes: PropTypes.object.isRequired,
+    };
+    Secondary.propTypes = {
+      topic: PropTypes.object.isRequired,
+      classes: PropTypes.object.isRequired,
+    };
+
+    const TopicListItem = ({ onClick, topic }) => (
+      &lt;ListItem button onClick={onClick}&gt;
+        &lt;ListItemAvatar&gt;
+          &lt;Avatar src={topic.image} /&gt;
+        &lt;/ListItemAvatar&gt;
+        &lt;ListItemText
+          primary={&lt;StyledPrimary topic={topic} /&gt;}
+          secondary={&lt;StyledSecondary topic={topic} /&gt;}
+        /&gt;
+      &lt;/ListItem&gt;
+    );
+    TopicListItem.propTypes = {
+      onClick: PropTypes.func.isRequired,
+      topic: PropTypes.object.isRequired,
+    };
+
+    export default TopicListItem </pre>
+    <p>打开topic-list/index.jsx :</p>
+    <pre style="height: 500px;">// topic-list/index.jsx
+    import React from 'react'
+    import { observer, inject } from 'mobx-react'
+    import PropTypes from 'prop-types'
+    import Helmet from 'react-helmet'
+    import Button from '@material-ui/core/Button'
+    import Tabs from '@material-ui/core/Tabs';
+    import Tab from '@material-ui/core/Tab';
+    import { AppState } from '../../store/app-state'
+    import Container from '../layout/container'
+    import TopicListItem from './list-item'
+
+    //inject用来注入provider上提供的东西到组件
+    //observer告诉我们这个组件是observable的，它是reactive的，store里面的值一更新组件里的内容也会更新。
+    @inject('appState') @observer
+    export default class TopicList extends React.Component {
+      constructor() {
+        super();
+        this.state = {
+          tabIndex: 0,
+        };
+        this.changeName = this.changeName.bind(this);
+        this.changeTab = this.changeTab.bind(this);
+        this.listItemClick = this.listItemClick.bind(this);
+      }
+
+      componentDidMount() {
+        // do something here
+      }
+
+      asyncBootstrap() {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            this.props.appState.count = 3;
+            resolve(true);//一定要resolve(true),asyncBootstrap会根据resolve的内容true还是false来决定这个方法有没有执行成功。
+          })
+        })
+      }
+
+      changeName(event) {
+        this.props.appState.changeName(event.target.value)
+      }
+
+      changeTab(e, index) {
+        this.setState({
+          tabIndex: index,
+        })
+      }
+
+      /* eslint-disable */
+      listItemClick() {
+
+      }
+      /* eslint-enable */
+
+      render() {
+        const { tabIndex } = this.state;
+        const topic = {
+          title: 'this is title',
+          username: 'jocky',
+          reply_count: 20,
+          visit_count: 30,
+          create_at: 'sohoenasfeohn',
+          tab: 'share',
+          image: 'https://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg',
+        }; //临时随便声明一个topic空对象，让页面先跑起来
+        return (
+          &lt;Container&gt;
+            &lt;Helmet&gt;
+              &lt;title&gt;this is topic list&lt;/title&gt;
+              &lt;meta name="description" content="this is description" /&gt;
+            &lt;/Helmet&gt;
+            &lt;Tabs value={tabIndex} onChange={this.changeTab}&gt;
+              &lt;Tab label="全部" /&gt;
+              &lt;Tab label="分享" /&gt;
+              &lt;Tab label="工作" /&gt;
+              &lt;Tab label="问答" /&gt;
+              &lt;Tab label="精品" /&gt;
+              &lt;Tab label="测试" /&gt;
+            &lt;/Tabs&gt;
+            &lt;TopicListItem onClick={this.listItemClick} topic={topic} /&gt;
+            &lt;Button variant="raised" color="primary"&gt;this is a button&lt;/Button&gt;
+            &lt;input type="text" onChange={this.changeName} /&gt;
+            &lt;span&gt;{this.props.appState.msg}&lt;/span&gt;
+          &lt;/Container&gt;
+        )
+      }
+    }
+
+    TopicList.propTypes = {
+      appState: PropTypes.instanceOf(AppState).isRequired,
+    };//appState是AppState类的一个实例</pre>
+    <p>定制样式控制话题列表的内容，使整个列表符合审美。在topic-list目录下新建一个style.js文件:</p>
+    <pre style="height: 300px;">// topic-list/style.js
+    export const topicPrimaryStyle = theme => ({
+      root: {
+        display: 'flex',
+        alignItems: 'center',
+      },
+      title: {
+        color: '#555',
+      },
+      tab: {
+        backgroundColor: theme.palette.primary[500],
+        textAlign: 'center',
+        display: 'inline-block',
+        padding: '0 6px',
+        color: '#fff',
+        borderRadius: 3,
+        marginRight: 10,
+        fontSize: '12px',
+      },
+    });
+
+    export const topicSecondaryStyle = theme => ({
+      root: {
+        display: 'flex',
+        alignItems: 'center',
+        paddingTop: 3,
+      },
+      count: {
+        textAlign: 'center',
+        marginRight: 20,
+      },
+      userName: {
+        marginRight: 20,
+        color: '#9e9e9e',
+      },
+      accentColor: {
+        color: theme.palette.accent[300],
+      },
+    });
+
+    export default topicPrimaryStyle</pre>
+    <h3>5,列表页面数据获取实现</h3>
+    <p>接下去，需从cnode api获取列表数据。</p>
+    <p>在client目录下新建一个util目录。在新建的util目录下新建一个模块文件http.js，这个文件是用来发送api接口请求的js，使用它对axios做一些封装，这样的话使用API请求会更简单一点。</p>
+    <p>默认情况下访问API接口使用绝对路径就可以了，如：/api/xxx。但因为代码是需要使用服务端渲染的，服务端渲染发送请求的时候，需要发送到它本地的地址，因为是服务端在启动服务，也就是说要指定类似‘127.0.0.1’这样的地址。因为这个发送地址是存在客户端和服务端的区别的，所以需要去webpack.config.server.js做一些配置：</p>
+    <pre>// webpack.config.server.js
 
     </pre>
-    <p>去App.jsx中把app-bar引入:</p>
+    <p>然后编写http.js</p>
+    <pre>// client/util/http.js
+
+    </pre>
+
 
 
     <br/>
