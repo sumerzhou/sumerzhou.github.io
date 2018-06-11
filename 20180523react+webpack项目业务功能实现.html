@@ -931,13 +931,409 @@
     <p>在client目录下新建一个util目录。在新建的util目录下新建一个模块文件http.js，这个文件是用来发送api接口请求的js，使用它对axios做一些封装，这样的话使用API请求会更简单一点。</p>
     <p>默认情况下访问API接口使用绝对路径就可以了，如：/api/xxx。但因为代码是需要使用服务端渲染的，服务端渲染发送请求的时候，需要发送到它本地的地址，因为是服务端在启动服务，也就是说要指定类似‘127.0.0.1’这样的地址。因为这个发送地址是存在客户端和服务端的区别的，所以需要去webpack.config.server.js做一些配置：</p>
     <pre>// webpack.config.server.js
-
-    </pre>
+    const webpack = require('webpack');
+    ...
+    module.exports = webpackMerge(baseConfig,{
+        ...
+        output:{
+           ...
+        },
+        plugins: [
+            new webpack.DefinePlugin({ //定义一些变量，让它可以在打包以后的代码里去获取这个变量。
+                'process.env.API_BASE':'"http://127.0.0.1:3000"'  //用DefinePlugin定义的变量，值如果是字符串，需要用单引号里面用双引号引起来，让其为一个字符串。
+            })
+        ]
+    });</pre>
     <p>然后编写http.js</p>
-    <pre>// client/util/http.js
+    <pre style="height:300px;">// client/util/http.js
+    import axios from 'axios'
 
-    </pre>
+    const baseUrl = process.env.API_BASE || ''; //在客户端访问的时候，直接为空就可以，并不需要特殊处理。
+    const parseUrl = (url, params) => {
+      const str = Object.keys(params).reduce((result, key) => {
+        result += `${key}=${params[key]}&`;
+        return result
+      }, '');
+      return `${baseUrl}/api/${url}?${str.substr(0, str.length - 1)}`
+    };//处理url
 
+    //export API。cnode API只提供了get和post两种请求方式。
+    //params是url‘？’后面的参数
+    export const get = (url, params) => new Promise((resolve, reject) => {
+      axios.get(parseUrl(url, params))
+        .then((resp) => {
+          const { data } = resp;
+          if (data && data.success === true) {
+            resolve(data)
+          } else {
+            reject(data)
+          }
+        }).catch(reject)
+    });
+    export const post = (url, params, datas) => new Promise((resolve, reject) => {
+      axios.post(parseUrl(url, params), datas)
+        .then((resp) => {
+          const { data } = resp;
+          if (data && data.success === true) {
+            resolve(data)
+          } else {
+            reject(data)
+          }
+        }).catch(reject)
+    });</pre>
+    <p>在store目录下新建一个topic-store.js文件，在这里创建一个类专门处理和话题有关的数据。</p>
+    <pre style="height: 300px;">// topic-store.js
+    import { observable, action, extendObservable } from 'mobx'
+    import { topicSchema } from '../util/variable-define'
+    import { get } from '../util/http'
+
+    const createTopic = topic => Object.assign({}, topicSchema, topic); //返回一个所有字段都有定义的topic对象
+
+    //为了让扩展更容易，单独定义一个topic类，每个话题都放到类里面，变成类的实例，可以更好地控制话题的东西。
+    class Topic {
+      constructor(data) {
+        //接收topic相关数据，把它赋值到topic的this对象上，这样可以方便地调用topic的实例上面的一些属性。
+        //把data里面的东西直接extend到this上面。
+        //因为我们要让数据使用Mobx的reactive的特性，如果直接给this附加这些值而没有使用observable这种类型，那这个值就不是reactive的，它的值更新了之后，在组件里去使用这里面的值时，组件里是不会同步更新的。
+        //所以所有附加到this上面的属性都要用extendObservable方法，把一个对象上的所有属性附加到另一个对象上。
+        extendObservable(this, data);
+      }
+      //如果有进行异步操作的请求数据的动作，syncing会变成true的状态。这时候可以在组件中去反映出我们在进行一些加载操作。
+      @observable syncing = false;
+    }
+
+    class TopicStore {
+      @observable topics;
+      @observable syncing;
+
+      constructor({ syncing, topics } = { syncing: false, topics: [] }) {
+        this.syncing = syncing;
+        //所有在TopicStore里存储的topic相关的东西都用Topic类去操作它。
+        this.topics = topics.map(topic => new Topic(createTopic(topic)));
+      }
+
+      addTopic(topic) {
+        this.topics.push(new Topic(createTopic(topic)))
+      }
+
+      @action fetchTopics() {
+        return new Promise((resolve, reject) => {
+          this.syncing = true;
+          //mdrender:告诉CPI是否要把markdown的字符串渲染成HTML字符串，因为cnode写文章的时候是markdown格式的，需要进行一步转义才能在网页进行展现的。
+          //在这里我们还是使用markdown格式，因为有时候需编辑markdown内容的时候，如果没有markdown源码就没法编辑。
+          this.topics = [];
+          get('/topics', {
+            mdrender: false,
+          }).then((resp) => {
+            if (resp.success) {
+              resp.data.forEach((topic) => {
+                this.addTopic(topic)
+              });
+              resolve();
+            } else {
+              reject();
+            }
+            this.syncing = false;
+          }).catch((err) => {
+            reject(err);
+            this.syncing = false;
+          })
+        })
+      }
+    }
+    export default TopicStore</pre>
+    <p>在创建Topic实例的时候，拿到的数据不一定是反映了所有cnode返回的数据里面的所有字段。但如果不在一次性地使用extendObservable把这些东西变成observable属性的值附加到this上面，那后续去修改的时候又会出现问题。为了解决这个问题，需要去创建一个schema。在client/util目录下创建一个variable-define.js文件，里面定义了一些字段以及默认值，这些字段就是cnode API返回的topic数据里面会包含的。这样我们在创建的时候就可以去使用这个东西来创建topic。</p>
+    <pre style="height: 200px;">// variable-define.js
+    export const topicSchema = {
+      id: '',
+      author_id: '',
+      tab: '',
+      content: '',
+      title: '',
+      last_reply_at: '',
+      good: false,
+      top: false,
+      reply_count: 0,
+      visit_count: 0,
+      create_at: '',
+      is_collect: '',
+      author: {
+        loginname: '',
+        avatar_url: '',
+      },
+      replies: [],
+    };</pre>
+    <p>去app.js把TopicStore传入:</p>
+    <pre style="margin-bottom: 10px;">// store.js
+    import AppState from './app-state'
+    import TopicStore from './topic-store'
+
+    export { AppState, TopicStore }
+    export default {
+      AppState,
+      TopicStore,
+    }
+    //这个函数是专门给服务端渲染用的
+    export const createStoreMap = () => ({
+      appState: new AppState(),
+      topicStore: new TopicStore(),
+    })</pre>
+    <pre>// app.js
+    ...
+    - import AppState from './store/app-state'
+    + import { AppState, TopicStore } from './store/store'
+    ...
+    const appState = new AppState(initialState.appState);
+    const topicStore = new TopicStore(initialState.topicStore);
+    const render = (Component) => {
+      ReactDOM.hydrate(
+        &lt;AppContainer&gt;
+          &lt;Provider appState={appState} topicStore={topicStore}&gt;
+            ...
+          &lt;/Provider&gt;
+        &lt;/AppContainer&gt;,
+        root,
+      );
+    };
+    ...</pre>
+    <p>然后就可以在组件里去inject了。</p>
+    <pre style="height: 350px;">// topic-list/index.jsx
+    ...
+    import List from '@material-ui/core/List'
+    import CircularProgress from '@material-ui/core/CircularProgress';//圆形loading组件
+    ...
+    //inject用来注入provider上提供的东西到组件
+    //observer告诉我们这个组件是observable的，它是reactive的，store里面的值一更新组件里的内容也会更新。
+    // @inject('appState') @observer
+    //我们换一个方式去注入。因为后续可能会注入一些奇怪的东西，如果直接以字符串的方式注入，那只能注入名字，这样扩展性比价差。
+    //注入时使用一个方法，方法接收一个stores参数。stores是一个对象，包含了在app.js里Provider上定义的任何属性的名字。
+    @inject(stores => ({
+      appState: stores.appState,
+      topicStore: stores.topicStore,
+    })) @observer
+    export default class TopicList extends React.Component {
+        ...
+        componentDidMount() {
+            // 获取数据
+            this.props.topicStore.fetchTopics()
+        }
+        ...
+        render() {
+            const { tabIndex } = this.state;
+            const { topicStore } = this.props;
+            const topicList = topicStore.topics;
+            const syncingTopics = topicStore.syncing;
+            return (
+              &lt;Container&gt;
+                ...
+                &lt;List&gt;
+                  {
+                    topicList.map(topic => &lt;TopicListItem onClick={this.listItemClick} topic={topic} /&gt;)
+                  }
+                &lt;/List&gt;
+                {
+                  syncingTopics ?
+                    (
+                      &lt;div&gt;
+                        &lt;CircularProgress color="accent" size={100} /&gt;
+                      &lt;/div&gt;
+                    ) : null
+                }
+                ...
+              &lt;/Container&gt;
+            )
+        }
+    }
+
+    TopicList.wrappedComponent.propTypes = {
+      appState: PropTypes.instanceOf(AppState).isRequired,
+      topicStore: PropTypes.object.isRequired,
+    };//验证Mobx注入的内容的时候，使用wrappedComponent来验证。
+
+    /*TopicList.propTypes = {
+      appState: PropTypes.instanceOf(AppState).isRequired,
+    };*///appState是AppState类的一个实例</pre>
+    <p>然后去list-item.jsx里面去把之前写的‘死’数据改成接口返回的数据格式。</p>
+    <pre>// list-item.jsx
+    ...
+    const Secondary = ({ classes, topic }) => (
+      &lt;span className={classes.root}&gt;//ListItemText标签其实是一个p标签，里面不合适包含一个div，所以改成span。
+        &lt;span className={classes.userName}&gt;{topic.author.loginname}&lt;/span&gt;
+        ...
+      &lt;/span&gt;
+    );
+    ...
+    const TopicListItem = ({ onClick, topic }) => (
+      ...
+          &lt;Avatar src={topic.author.avatar_url} /&gt;
+      ...
+    );
+    ...</pre>
+    <p>然后启动客户端和服务端，访问localhost:8888。页面列表信息就获取成功了。</p>
+    <h3>6,列表页面tab切换实现</h3>
+    <p>我们希望的效果是，点开某个列表tab，回退的时候能回到之前的列表tab。这之中有一个路由跳转的过程。</p>
+    <p>tab切换就是在list路由后面跟上一个query，“?tab=xxx”这样的形式来告诉用户现在选中的是哪个tab。</p>
+    <p>首先去TopicList里面去获取到url上面的query。要拿到query，需要在组件里面注入一个新的东西，就是路由的location。</p>
+    <pre style="height: 350px;">// topic-list/index.jsx
+    import React from 'react'
+    import { observer, inject } from 'mobx-react'
+    import PropTypes from 'prop-types'
+    import Helmet from 'react-helmet'
+    import Button from '@material-ui/core/Button'
+    import Tabs from '@material-ui/core/Tabs';
+    import Tab from '@material-ui/core/Tab';
+    import List from '@material-ui/core/List'
+    import CircularProgress from '@material-ui/core/CircularProgress';//圆形loading组件
+    import queryString from 'query-string'
+    import { AppState } from '../../store/app-state'
+    import Container from '../layout/container'
+    import TopicListItem from './list-item'
+    import { tabs } from '../../util/variable-define'
+
+    //inject用来注入provider上提供的东西到组件
+    //observer告诉我们这个组件是observable的，它是reactive的，store里面的值一更新组件里的内容也会更新。
+    // @inject('appState') @observer
+    //我们换一个方式去注入。因为后续可能会注入一些奇怪的东西，如果直接以字符串的方式注入，那只能注入名字，这样扩展性比价差。
+    //注入时使用一个方法，方法接收一个stores参数。stores是一个对象，包含了在app.js里Provider上定义的任何属性的名字。
+    @inject(stores => ({
+      appState: stores.appState,
+      topicStore: stores.topicStore,
+    })) @observer
+    export default class TopicList extends React.Component {
+      static contextType = {
+        router: PropTypes.object,
+      };//router是在使用react-router时候加到react的context里面的，
+      //从最顶层加上去之后，可以在下面所有的组件里面通过这种方式获取到context（就是router）。
+
+      constructor() {
+        super();
+        this.changeName = this.changeName.bind(this);
+        this.changeTab = this.changeTab.bind(this);
+        this.listItemClick = this.listItemClick.bind(this);
+      }
+
+      componentDidMount() {
+        // 获取数据
+        const tab = this.getTab();
+        this.props.topicStore.fetchTopics(tab)
+      }
+
+      asyncBootstrap() {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            this.props.appState.count = 3;
+            resolve(true);//一定要resolve(true),asyncBootstrap会根据resolve的内容true还是false来决定这个方法有没有执行成功。
+          })
+        })
+      }
+
+      changeName(event) {
+        this.props.appState.changeName(event.target.value)
+      }
+
+      getTab() {
+        const query = queryString.parse(this.props.location.search);//把query字符串转成json形式
+        return query.tab || 'all';//默认情况下进来的路由可能是没有query string的，所以定义一个默认值
+      }
+
+      changeTab(e, value) {
+        //路由跳转.需要使用到router对象
+        this.context.router.history.push({
+          pathname: '/index',
+          search: `?tab=${value}`,
+        })
+      }
+
+      /* eslint-disable */
+      listItemClick() {
+
+      }
+      /* eslint-enable */
+
+      render() {
+        const { topicStore } = this.props;
+        const topicList = topicStore.topics;
+        const syncingTopics = topicStore.syncing;
+        //location对象其实是react-router的Route组件在渲染实际的组件的时候就已经传进来了。所以可以直接使用。
+        const tab = this.getTab();
+        return (
+          &lt;Container&gt;
+            &lt;Helmet&gt;
+              &lt;title&gt;this is topic list&lt;/title&gt;
+              &lt;meta name="description" content="this is description" /&gt;
+            &lt;/Helmet&gt;
+            &lt;Tabs value={tab} onChange={this.changeTab}&gt;
+              {
+                Object.keys(tabs).map(t => (
+                  &lt;Tab label={tabs[t]} value={t} /&gt;
+                ))
+              }
+            &lt;/Tabs&gt;
+            &lt;List&gt;
+              {
+                topicList.map(topic => &lt;TopicListItem onClick={this.listItemClick} topic={topic} /&gt;)
+              }
+            &lt;/List&gt;
+            {
+              syncingTopics ?
+                (
+                  &lt;div&gt;
+                    &lt;CircularProgress color="accent" size={100} /&gt;
+                  &lt;/div&gt;
+                ) : null
+            }
+            &lt;Button variant="raised" color="primary"&gt;this is a button&lt;/Button&gt;
+            &lt;input type="text" onChange={this.changeName} /&gt;
+            &lt;span&gt;{this.props.appState.msg}&lt;/span&gt;
+          &lt;/Container&gt;
+        )
+      }
+    }
+
+    TopicList.wrappedComponent.propTypes = {
+      appState: PropTypes.instanceOf(AppState).isRequired,
+      topicStore: PropTypes.object.isRequired,
+    };//验证Mobx注入的内容的时候，使用wrappedComponent来验证。
+
+    TopicList.propTypes = {
+      location: PropTypes.object.isRequired,
+    };</pre>
+    <p>Tab组件里的value属性值需对应到cnode网站需要的tab参数的值。因为tab参数在其他地方也会用到，我们去variable-define.js定义：</p>
+    <pre>// variable-define.js
+    ...
+    export const tabs = {
+      all: '全部',
+      share: '分享',
+      job: '工作',
+      ask: '问答',
+      good: '精品',
+      dev: '测试',
+    };</pre>
+    <p>然后需要修改一下topic-store.js的fetchTopics方法：</p>
+    <pre>// topic-store.js
+    ...
+        @action fetchTopics(tab) {
+            ...
+            get('/topics', {
+                mdrender: false,
+                tab,
+            }).then(
+        ...
+        }
+    ...</pre>
+    <p>接下去，需要去修改一下list-item显示在页面上的tab的字，字就是variable-define的tabs里面的内容。另外，如果cnode API返回的列表数据中有“top:true”字段时，tab上的字显示“置顶”。</p>
+    <pre>// list-item.jsx
+    ...
+    import { tabs } from '../../util/variable-define'
+    const Primary = ({ classes, topic }) => (
+      ...
+        &lt;span className={classes.tab}&gt;{topic.top ? '置顶' : tabs[topic.tab]}&lt;/span&gt;
+        ...
+    );
+    ...</pre>
+    <p>然后针对list-item在页面上显示字的tab，我们希望加一个class样式进行特殊的区分。我们使用一个新的模块classnames。这个包是用来帮助生成classname的，非常好用，react里大部分的组件库都会去依赖这个包。因为classname的组装会有很多的逻辑判断，它会帮我们去做。安装：</p>
+    <pre>
+    npm i classnames -S </pre>
 
 
     <br/>
