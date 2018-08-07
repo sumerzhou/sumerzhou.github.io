@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>浏览器跨域通信的几种方式|sumerzhou's blog</title>
+    <link href="myblog.css" rel="stylesheet" type="text/css">
+    <script src="myblog.js" type="text/javascript"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
+            line-height: 2em;
+        }
+        .textBox h2{
+            margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
+        }
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox h4{
+            text-shadow: 1px 1px 2px #4F68B0;
+        }
+        .textBox p{
+            text-indent: 2em;
+        }
+        .textBox li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .textBox pre{
+            display: block;
+            width: 850px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 4px 3px 2px black;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+            font-family: '仿宋';
+            background-color: rgb(40,44,52);
+            line-height: 1.5;
+            font-size: 15px;
+            color:white;
+            overflow-y: auto;
+        }
+        .highlight{
+            background-color: rgb(255,243,212);
+        }
+    </style>
+</head>
+<body>
+<!--header-->
+<div class="headerbox">
+    <div class="headertop">
+        <div class="hdtopbut">
+            <a href="http://blog.hungking.cc/" target="_blank"><img src="imgs/sns_blog_off.png"></a>
+            <a href="https://www.facebook.com/HoungkingHsi" target="_blank"><img src="imgs/sns_facebook_off.png"></a>
+            <a href="http://globalblog.hungking.cc/" target="_blank"><img src="imgs/sns_gBlog_off.png"></a>
+            <a href="http://www.linkedin.com/imisslovelove" target="_blank"><img src="imgs/sns_in_off.png"></a>
+            <a href="http://www.youtube.com/imisslovelove" target="_blank"><img src="imgs/sns_youTube_off.png"></a>
+            <a href="http://www.instagram.com/imisslovelove" target="_blank"><img src="imgs/sns_instagram_off.png"></a>
+            <a href="http://story.kakao.com/ch/imisslovelove" target="_blank" style="background: transparent none;"><img src="imgs/sns_kakao_off.png"></a>
+            <div class="hdtopbutR">
+                <a href="construction.html" style="background-position-x:85px ;">Contact Me</a>
+                <a href="construction.html">AboutSite</a>
+                <span onclick="ifshow(0)">Language<img src="imgs/btn_globalSite_open.gif"></span>
+                <ul id="lag">
+                    <li>KOREAN</li><li>CHINESE</li><li>JAPANESE</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="headerbotm">
+        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
+        <ul id="hdbotmUl">
+            <li>
+                <a href="company.html">WEB前端</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">HTML</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Corporate Overview</a></li>
+                                <li><a href="">Vision of houngking</a></li>
+                                <li><a href="">History of houngking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">CSS/CSS3</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Brand Story</a></li>
+                                <li><a>CI</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">JavaScript</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Greetings</a></li>
+                                <li><a>CEO's Message</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Ajax</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>hougking Affiliates</a></li>
+                                <li><a>Steel</a></li>
+                                <li><a>E&C</a></li>
+                                <li><a>Trade</a></li>
+                                <li><a>ICT</a></li>
+                                <li><a>Energy</a></li>
+                                <li><a>Material-Chemistry</a></li>
+                                <li><a>Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">jQuery</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Global</a></li>
+                                <li><a>Asia</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Business Ethics</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Major Activities</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Products/Technology</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Products of hounking</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Hot Rolled Steel</a></li>
+                                <li><a href="">Steel Plate</a></li>
+                                <li><a href="">Winter Day</a></li>
+                                <li><a href="">Gold Rolled Steel</a></li>
+                                <li><a href="">Galvanized Steel</a></li>
+                                <li><a href="">Electrical Galvanized</a></li>
+                                <li><a href="">Electrical Steel</a></li>
+                                <li><a href="">Automotive materials</a></li>
+                                <li><a href="">Stainless Steel</a></li>
+                                <li><a href="">Titanium Product</a></li>
+                                <li><a href="">Magnesium Product</a></li>
+                                <li><a href="">Aluminum-plated products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">houngking Technology</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">FINEX Technology</a></li>
+                                <li><a href="">Strip Casting</a></li>
+                                <li><a href="">Endless Hot Rolling Technology</a></li>
+                                <li><a href="">Operation Technology</a></li>
+                                <li><a href="">CEM Technology</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Production Process</a>
+                    </li>
+                    <li>
+                        <a href="">Sales information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">e-Sales</a></li>
+                                <li><a href="">e-Procurement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Investor Relations</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">IR Activeties</a>
+                    </li>
+                    <li>
+                        <a href="">Stock Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Stock Price</a></li>
+                                <li><a href="">Price Comparision</a></li>
+                                <li><a href="">ADR</a></li>
+                                <li><a href="">houngking Stock Exchange</a></li>
+                                <li><a href="">Economic Trend</a></li>
+                                <li><a href="">Shareholders Demographics</a></li>
+                                <li><a href="">Dividend</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Financial Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Income Statement</a></li>
+                                <li><a href="">Credit Rating</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">IR Archive</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Audit Report</a></li>
+                                <li><a href="">Form 20-F</a></li>
+                                <li><a href="">Annual Report</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Sustainability</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Sustainability Management System</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Management System</a></li>
+                                <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
+                                <li><a href="">Risk Management</a></li>
+                                <li><a href="">Stakeholder</a></li>
+                                <li><a href="">Relevant Institutes Activities</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Social Responsibility </a>
+                    </li>
+                    <li>
+                        <a href="">Environmental Management </a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Family's Environmental Management</a></li>
+                                <li><a href="">Environmental Management</a></li>
+                                <li><a href="">Climate change /Energy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Customer</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Marketing strategy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Employee</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Employee Health / Safety</a></li>
+                                <li><a href="">Organizational Culture</a></li>
+                                <li><a href="">HR system</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Report</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Report</a></li>
+                                <li><a href="">Carbon Report</a></li>
+                                <li><a href="">Conflict Minerals Disclosure</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">PR Room</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">News room</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">News letter</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">houngking SNS</a>
+                    </li>
+                    <li>
+                        <a href="">PR Archives</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
+                                <li><a href="">PR Movies</a></li>
+                                <li><a href="">Printed Advertisement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Download</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
+        <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
+        <div class="hdmenu" id="hdmenu">
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--text-->
+<div class="textBox">
+    <h2>浏览器跨域通信的几种方式</h2>
+    <h3>1,同源策略</h3>
+    <p>浏览器同源策略指的是：协议(http/https)，域名，端口相同，同源策略是一种安全协议。指一段脚本只能读取来自同一来源的窗口和文档的属性。</p>
+    <p>为什么要有同源限制？我们举例说明：比如一个黑客程序，他利用Iframe把真正的银行登录页面嵌到他的页面上，当你使用真实的用户名，密码登录时，他的页面就可以通过Javascript读取到你的表单中input中的内容，这样用户名，密码就轻松到手了。</p>
+    <h4>限制:</h4>
+    <p>· Cookie/LocalStorage和IndexDB无法读取</p>
+    <p>· DOM无法获得</p>
+    <p>· Ajax请求不能发送</p>
+    <h3>2,前后端如何通信</h3>
+    <p>· Ajax：同源下通信方式</p>
+    <p>· WebSocket：不限制同源策略</p>
+    <p>· CORS：支持跨域通信，也支持同源通信</p>
+    <h4>跨域通信的几种方式:</h4>
+    <p>要解决这个问题方法有很多 ，但大致分为两类：1, 是服务端进行设置默认允许某些域名跨域访问;2, 从客户端入手想办法绕开同源安全策略。</p>
+    <p>·跨全域:</p>
+    <p>·● JSONP :需要目标服务器配合一个callback函数。</p>
+    <p>·● CORS : 跨域资源共享（Cross-origin resource sharing）,具体来说，就是在头信息之中，增加一个Origin字段。Origin字段用来说明，本次请求来自哪个源（协议+域名+端口）。服务器设置HTTP响应头中Access-Control-Allow-Origin值，解除跨域限制。</p>
+    <p>·● 用代理的方式实现跨域</p>
+    <p>·● WebSocket</p>
+    <p>·● Fetch API </p>
+    <p>·跨页面:</p>
+    <p>·● Hash :window.location.hash+iframe,需要目标服务器作处理</p>
+    <p>·● postMessage :html5的 postMessage+ifrme 这个也是需要目标服务器或者说是目标页面写一个postMessage，主要侧重于前端通讯</p>
+    <p>·● document.domain</p>
+    <p>·● window.name :需要目标服务器响应window.name</p>
+    <p>常用的JSONP和CORS方案都存在一个致命的缺陷，严重依赖后端的协助。开发中遇到的每一个接口都需要提前找后端进行特殊处理。而且即使后端愿意帮忙，某些接口也不是随便能开放的（譬如已经在线上正式环境的接口）。 所以依赖后端协助的跨域解决方式都会在一定程度上限制前端的开发进度。</p>
+    <h3>3,使用代理解决跨域</h3>
+    <p>服务器代理是由本域服务器请求跨域服务器（<span class="highlight">服务端不存在同源策略，也就不存在跨不跨域这一说</span>），然后将得到的信息发送给前端，这一过程中页面只是请求了本域服务器，并没有直接和跨域服务器发生直接关系，所以也很好理解这为什么叫服务器代理。</p>
+    <h4>原理</h4>
+    <p>举个栗子：用node起了一个localhost:8080的服务器,那么在这个服务器下访问的网页也就是默认在8080这个域下面。假设服务端所在的域是www.njc.com，这样通过ajax发送请求的话，由客户端直接传过去的就是一个域名为localhost：8080的请求。而服务端所在的域是www.njc.com，域名不同 跨域请求失败。</p>
+    <p>到这里可以看出跨不跨域实际上是由客户端(浏览器)来告诉服务器的。这也就为实现跨域访问提供了实现的基础。通过一些方法设置代理，在请求发送(接收)之前加入中间层，将不同的域名转换成相同的，就解决了跨域的问题。</p>
+    <p>依旧以上面的栗子：客户端发送请求时,不直接到服务器,而是先到代理的中间层,在这里将localhost：8080的这个域名装换为www.njc.com，再将请求发送到服务器,这样在服务器端收到的请求就是使用的www.njc.com域名。同理，当服务器返回数据的时候，也是先到代理的中间层，将www.njc.com转换成localhos：8080，这样在客户端也是在相同域名下访问的了。</p>
+    <h4>代理</h4>
+    <p>代理，也称正向代理，是指一个位于客户端和目标服务器(target server)之间的服务器，为了从目标服务器取得内容，客户端向代理发送一个请求并指定目标(目标服务器)，然后代理向目标服务器转交请求并将获得的内容返回给客户端。</p>
+    <p>应用: 最经典的应用就是科学上网：我是一个国内用户，我访问不了google，但是我能访问一个香港的某个代理服务器。这个香港的代理服务器可以访问google，于是我先把请求发送到那个代理服务器，告诉他我需要访问google，代理服务器去取内容，最后返回给我。</p>
+    <p></p>
+
+    <h4>反向代理</h4>
+    <p>反向代理（Reverse Proxy）是指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器。</p>
+    <p>在外部看来，「代理服务器」和「处理数据的服务器」是一个整体。即对于浏览器来说，到达反向代理服务器已经完成任务了，后面的操作由反向代理服务器负责。</p>
+    <h5>nginx反向代理:</h5>
+    <p>nginx反向代理 这个方法一般很少有人提及，但是他可以不用目标服务器配合，不过需要你搭建一个中转nginx服务器，用于转发请求。</p>
+    <p>...</p>
+    <h4>比较</h4>
+    <p>● 从用途上来讲：</p>
+    <p>·正向代理的典型用途是为在防火墙内的局域网客户端提供访问Internet的途径。正向代理还可以使用缓冲特性减少网络使用率。</p>
+    <p>·反向代理的典型用途是为后端的多台服务器提供负载平衡，或为后端较慢的服务器提供缓冲服务。</p>
+    <p>● 从安全性来讲：</p>
+    <p>·正向代理允许客户端通过它访问任意网站并且隐藏客户端自身，因此你必须采取安全措施以确保仅为经过授权的客户端提供服务。</p>
+    <p>·反向代理对外都是透明的，访问者并不知道自己访问的是一个代理。</p>
+    <p>● 从使用方来看：</p>
+    <p>· <span class="highlight">正向代理是浏览器端进行配置的</span>，与服务器端无关，甚至可以对服务端隐藏。</p>
+    <p>·反向代理是服务器端配置的，对浏览器端是透明的。</p>
+
+    <h3>4,jsonp跨域</h3>
+    <p>JSONP是一种非正式传输协议，该协议的一个要点就是允许用户传递一个callback参数给服务端，然后服务端返回数据时会将这个callback参数作为函数名来包裹住JSON数据，这样客户端就可以随意定制自己的函数来自动处理返回数据了。</p>
+    <p>这几乎是最耳熟能祥的跨域方式了，但是由于在jquery类库中以$.ajax封装，dataType为jsonp，而且总是被人与ajax相提及，所以总是让人误以为jsonp做了一系列的跨域处理之后，能够让ajax跨域了，然而恰恰相反，导致需要跨域的原因是因为ajax的XMLHttpRequest受到同源策略的约束，我们才需要跨域。</p>
+    <p>我们使用jsonp跨域主要是利用了script标签不受同源策略限制的特性，在实现jsonp的过程中和ajax没有半毛钱关系，感觉颇有点hack的味道。</p>
+    <p>1,首先前端先设置好回调函数，并将其作为 url 的参数。</p>
+    <p>2,服务端接收到请求后，通过该参数获得回调函数名，并将数据放在参数中将其返回。</p>
+    <p>3,收到结果后因为是 script 标签，所以浏览器会当做是脚本进行运行，从而达到跨域获取数据的目的。</p>
+    <h5>优点：</h5>
+    <p>1,兼容性很好，在古老的浏览器也能很好的运行</p>
+    <p>2,脱离ajax，不需要 XMLHttpRequest 或 ActiveX 的支持；并且在请求完毕后可以通过调用 callback 的方式回传结果。</p>
+    <h5>缺点：</h5>
+    <p>1,支持 GET 请求而不支持 POST 等其它类行的 HTTP 请求。</p>
+    <p>2,它只支持跨域 HTTP 请求这种情况，不能解决不同域的两个页面或 iframe 之间进行数据通信的问题。</p>
+    <h5>ajax与jsonp的异同:</h5>
+    <p>1、ajax和jsonp这两种技术在调用方式上“看起来”很像，目的也一样，都是请求一个url，然后把服务器返回的数据进行处理，因此jquery和ext等框架都把jsonp作为ajax的一种形式进行了封装；</p>
+    <p>2、但ajax和jsonp其实本质上是不同的东西。ajax的核心是通过XmlHttpRequest获取非本页内容，而jsonp的核心则是动态添加script标签来调用服务器提供的js脚本。</p>
+    <p>3、所以说，其实ajax与jsonp的区别不在于是否跨域，ajax通过服务端代理一样可以实现跨域，jsonp本身也不排斥同域的数据的获取。</p>
+    <p>4、还有就是，jsonp是一种方式或者说非强制性协议，如同ajax一样，它也不一定非要用json格式来传递数据，如果你愿意，字符串都行，只不过这样不利于用jsonp提供公开服务。</p>
+    <p>jsonp不是ajax的一个特例，哪怕jquery等巨头把jsonp封装进了ajax，也不能改变着一点！</p>
+    <h4>JSONP的客户端具体实现：</h4>
+    <p>1,远程服务器remoteserver.com根目录下有个remote.js文件代码如下：</p>
+    <pre>alert('我是远程文件');</pre>
+    <p>本地服务器localserver.com下有个jsonp.html页面代码如下：</p>
+    <pre>&lt;script type="text/javascript" src="http://remoteserver.com/remote.js"&gt;&lt;/script&gt;</pre>
+    <p>毫无疑问，页面将会弹出一个提示窗体，显示跨域调用成功。</p>
+    <p>2、现在我们在jsonp.html页面定义一个函数，然后在远程remote.js中传入数据进行调用。</p>
+    <pre>// jsonp.html
+    &lt;script type="text/javascript"&gt;
+        var localHandler = function(data){
+            alert('我是本地函数，可以被跨域的remote.js文件调用，远程js带来的数据是：' + data.result);
+        };
+    &lt;/script&gt;
+    &lt;script type="text/javascript" src="http://remoteserver.com/remote.js"&gt;&lt;/script&gt;</pre>
+    <p>remote.js文件代码如下：</p>
+    <pre>localHandler({"result":"我是远程js带来的数据"});</pre>
+    <p>运行之后查看结果，页面成功弹出提示窗口，显示本地函数被跨域的远程js调用成功，并且还接收到了远程js带来的数据。很欣喜，跨域远程获取数据的目的基本实现了，但是又一个问题出现了，我怎么让远程js知道它应该调用的本地函数叫什么名字呢？毕竟是jsonp的服务者都要面对很多服务对象，而这些服务对象各自的本地函数都不相同啊？我们接着往下看。</p>
+    <p>3,聪明的开发者很容易想到，只要服务端提供的js脚本是动态生成的就行了呗，这样调用者可以传一个参数过去告诉服务端“我想要一段调用XXX函数的js代码，请你返回给我”，于是服务器就可以按照客户端的需求来生成js脚本并响应了。</p>
+    <pre>// jsonp.html
+    &lt;script type="text/javascript"&gt;
+        var flightHandler = function(data){
+            alert('你查询的航班结果是：票价 ' + data.price + ' 元，' + '余票 ' + data.tickets + ' 张。');
+        };   // 得到航班信息查询结果后的回调函数
+        // 提供jsonp服务的url地址（不管是什么类型的地址，最终生成的返回值都是一段javascript代码）
+        var url = "http://flightQuery.com/jsonp/flightResult.aspx?code=CA1998&callback=flightHandler";
+
+        var script = document.createElement('script');  // 创建script标签，设置其属性
+        script.setAttribute('src', url);  // 把script标签加入head，此时调用开始
+        document.getElementsByTagName('head')[0].appendChild(script);
+    &lt;/script&gt;</pre>
+    <p>这次的代码变化比较大，不再直接把远程js文件写死，而是编码实现动态查询，而这也正是jsonp客户端实现的核心部分，本例中的重点也就在于如何完成jsonp调用的全过程。</p>
+    <p>我们看到调用的url中传递了一个code参数，告诉服务器我要查的是CA1998次航班的信息，而callback参数则告诉服务器，我的本地回调函数叫做flightHandler，所以请把查询结果传入这个函数中进行调用。</p>
+    <p>OK，服务器很聪明，这个叫做flightResult.aspx的页面生成了一段这样的代码提供给jsonp.html（服务端的实现这里就不演示了，与你选用的语言无关，说到底就是拼接字符串）：</p>
+    <pre>
+    flightHandler({
+        "code": "CA1998",
+        "price": 1780,
+        "tickets": 5
+    });</pre>
+    <p>传递给flightHandler函数的是一个json，它描述了航班的基本信息。运行一下页面，成功弹出提示窗口，jsonp的执行全过程顺利完成！</p>
+    <p>4、想知道jQuery如何实现jsonp调用？给一段jQuery使用jsonp的代码（依然沿用上面那个航班信息查询的例子，假定返回jsonp结果不变）：</p>
+    <pre>
+&lt;script type="text/javascript"&gt;
+    jQuery(document).ready(function(){
+        $.ajax({
+             type: "get",
+             async: false,
+             url: "http://flightQuery.com/jsonp/flightResult.aspx?code=CA1998",
+             dataType: "jsonp",
+             jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
+             jsonpCallback:"flightHandler",//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据
+             success: function(json){
+                 alert('您查询到航班信息：票价： ' + json.price + ' 元，余票： ' + json.tickets + ' 张。');
+             },
+             error: function(){
+                 alert('fail');
+             }
+         });
+     });
+&lt;/script&gt;</pre>
+    <p>是不是有点奇怪？为什么这次没有写flightHandler这个函数呢？而且竟然也运行成功了！这就是jQuery的功劳了，jquery在处理jsonp类型的ajax时（虽然jquery也把jsonp归入了ajax，但其实它们真的不是一回事儿），自动帮你生成回调函数并把数据取出来供success属性方法来调用，是不是很爽呀？</p>
+
+    <h3>5,CORS跨域</h3>
+    <p>CORS是一个W3C标准，它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。</p>
+    <p>在jsonp中，我们使用了script标签的src属性不受同源策略影响的特性来跨域，但是这样的方式让人觉得不怎么优雅，而且没法愉快地使用ajax，为了愉快地解决这个问题，于是就有了CORS。</p>
+    <p>相对于jsonp，CORS跨域主要在于对服务器端的处理，只要服务端实现了CROS接口，我们就可以优雅地使用ajax进行跨域了，甚至在客户端书写代码时我们都不会对此有感知。</p>
+    <p>主要是在response的响应头上添加了一个字段“Access-Control-Allow-Origin”，其主要对应浏览器请求中的orgin字段，如果这两个字段值不一致，服务器就会拒绝这一次请求，抛出一个错误（这个错误无法通过状态码识别，因为返回状态码可能是200）。</p>
+    <h5>优点:</h5>
+    <p>1,客户端不需要额外的冗余代码，优雅简单</p>
+    <p>2,支持 POST 请求方式</p>
+    <h5>缺点:</h5>
+    <p>因为需要浏览器的额外支持，所以对浏览器版本有要求，存在兼容问题，仅支持 IE 10 以上。</p>
+
+    <br/>
+    <h5>参考文档:</h5>
+    <a href="https://www.jianshu.com/p/4bdda9ddeba5" target="_blank">使用代理解决跨域问题的原理</a>,<br>
+    <a href="https://blog.csdn.net/sjn0503/article/details/74474660" target="_blank">跨域之Server Proxy</a>,<br>
+    <a href="https://www.cnblogs.com/softidea/p/7425894.html" target="_blank">前端开发如何独立解决跨域问题(代理与反向代理)</a>,<br>
+    <a href="https://www.cnblogs.com/renjing/p/6394725.html" target="_blank">nginx反向代理-解决前端跨域问题</a>,<br>
+    <a href="https://blog.csdn.net/sjn0503/article/details/73850480" target="_blank">跨域之jsonp</a>,<br>
+    <a href="https://blog.csdn.net/q535999731/article/details/79661943" target="_blank">JS浏览器通信</a>, <br>
+    <a href="http://www.cnblogs.com/dowinning/archive/2012/04/19/json-jsonp-jquery.html" target="_blank">说说JSON和JSONP</a>,<br>
+    <a href="http://www.cnblogs.com/2050/p/3191744.html" target="_blank">js中几种实用的跨域方法原理详解</a>, <br>
+    <a href="https://blog.csdn.net/sjn0503/article/details/74273847" target="_blank">跨域之CORS</a>
+</div>
+
+</body>
+</html>
