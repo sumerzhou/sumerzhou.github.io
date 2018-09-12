@@ -1962,9 +1962,472 @@
     ]</pre>
     <p>另外再写一下点击导航栏home按钮跳转到首页的功能：</p>
     <pre>// app-bar.jsx
-
-    </pre>
+    ...
+        onHomeIconClick() {
+            this.context.router.history.push('/list?tab=all');
+        }
+    ...</pre>
     <h3>9,用户信息页面</h3>
+    <p>在user.jsx中添加登录成功后的用户头像信息展示。</p>
+    <pre>// user.jsx
+    import { inject, observer } from 'mobx-react'
+        ...
+    @inject(stores => ({
+      user: stores.appState.user,
+    })) @observer
+    class User extends React.Component {
+        ...
+        render() {
+            const user = this.props.user.info;
+        ...
+    }
+    User.wrappedComponent.propTypes = {
+      user: PropTypes.object.isRequired,
+    };
+    ...</pre>
+    <p>编辑在user文件夹下新建的info.jsx组件：</p>
+    <pre style="height: 400px;">// user/info.jsx
+import React from 'react'
+import PropTypes from 'prop-types'
+import { inject, observer } from 'mobx-react'
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText'
+import Avatar from '@material-ui/core/Avatar'
+import Typography from '@material-ui/core/Typography'
+import { withStyles } from '@material-ui/core/styles'
+import UserWrapper from './user'
+import infoStyles from './styles/user-info-style'
+
+const TopicItem = ({ topic, onClick }) => (
+  &lt;ListItem button onClick={onClick}&gt;
+    &lt;Avatar src={topic.author.avatar_url} /&gt;
+    &lt;ListItemText
+            primary={topic.title}
+            secondary={`最新回复:${topic.last_reply_at}`}
+    /&gt;
+  &lt;/ListItem&gt;
+);
+TopicItem.propTypes = {
+  topic: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+
+@inject(stores => ({
+  user: stores.appState.user,
+  appState: stores.appState,
+})) @observer
+class UserInfo extends React.Component {
+  static contextTypes = {
+    router: PropTypes.object,
+  };
+  componentWillMount() {
+    if (!this.props.user.isLogin) {
+      this.context.router.history.replace('/user/login')
+    } else {
+      this.props.appState.getUserDetail();
+      this.props.appState.getUserCollection();
+    }
+  }
+  goToTopic(id) {
+    this.context.router.history.push(`/detail/${id}`)
+  }
+  render() {
+    const { classes } = this.props;
+    const topics = this.props.user.detail.recentTopics;
+    const replies = this.props.user.detail.recentReplies;
+    const collections = this.props.user.collections.list;
+    return (
+      &lt;UserWrapper&gt;
+        &lt;div className={classes.root}&gt;
+          &lt;Grid container spacing={16} aling="stretch"&gt;
+            &lt;Grid item xs={12} md={4}&gt;
+              &lt;Paper elevation={2}&gt;
+                &lt;Typography className={classes.partTitle}&gt;
+                  &lt;span&gt;最近发布的话题&lt;/span&gt;
+                &lt;/Typography&gt;
+                &lt;List&gt;
+                  {
+                    topics.length > 0 ?
+                      topics.map(topic => (
+                        &lt;TopicItem
+                                topic={topic}
+                                key={topic.id}
+                                onClick={() => this.goToTopic(topic.id)}
+                        /&gt;)) :
+                      &lt;Typography align="center"&gt;
+                        最近没有发布过话题
+                      &lt;/Typography&gt;
+                  }
+                &lt;/List&gt;
+              &lt;/Paper&gt;
+            &lt;/Grid&gt;
+            &lt;Grid item xs={12} md={4}&gt;
+              &lt;Paper elevation={2}&gt;
+                &lt;Typography className={classes.partTitle}&gt;
+                  &lt;span&gt;新的回复&lt;/span&gt;
+                &lt;/Typography&gt;
+                &lt;List&gt;
+                  {
+                    replies.length > 0 ?
+                      replies.map(topic => (
+                        &lt;TopicItem
+                                topic={topic}
+                                key={topic.id}
+                                onClick={() => this.goToTopic(topic.id)}
+                        /&gt;)) :
+                      &lt;Typography align="center"&gt;
+                        最近没有新的回复
+                      &lt;/Typography&gt;
+                  }
+                &lt;/List&gt;
+              &lt;/Paper&gt;
+            &lt;/Grid&gt;
+            &lt;Grid item xs={12} md={4}&gt;
+              &lt;Paper elevation={2}&gt;
+                &lt;Typography className={classes.partTitle}&gt;
+                  &lt;span&gt;收藏的话题&lt;/span&gt;
+                &lt;/Typography&gt;
+                &lt;List&gt;
+                  {
+                    collections.length > 0 ?
+                      collections.map(topic => (
+                        &lt;TopicItem
+                                topic={topic}
+                                key={topic.id}
+                                onClick={() => this.goToTopic(topic.id)}
+                        /&gt;)) :
+                      &lt;Typography align="center"&gt;
+                        还没有收藏话题哦
+                      &lt;/Typography&gt;
+                  }
+                &lt;/List&gt;
+              &lt;/Paper&gt;
+            &lt;/Grid&gt;
+          &lt;/Grid&gt;
+        &lt;/div&gt;
+      &lt;/UserWrapper&gt;
+    )
+  }
+}
+UserInfo.wrappedComponent.propTypes = {
+  user: PropTypes.object.isRequired,
+  appState: PropTypes.object.isRequired,
+};
+UserInfo.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+export default withStyles(infoStyles)(UserInfo)</pre>
+    <p>给info.jsx添加样式：</p>
+    <pre  style="height: 200px;">// user/styles/user-info-style.js
+    export default theme => ({
+      root: {
+        padding: 16,
+        minHeight: 400,
+      },
+      gridContainer: {
+        height: '100%',
+      },
+      paper: {
+        height: '100%',
+      },
+      partTitle: {
+        lineHeight: '40px',
+        paddingLeft: 20,
+        backgroundColor: theme.palette.primary[700],
+        color: '#fff',
+      },
+      '@media screen and (max-width: 480px)': {
+        root: {
+          padding: 10,
+          minHeight: 300,
+        },
+      },
+    })</pre>
+    <p>接着需要去获取数据。在app-state.js里添加内容：</p>
+    <pre style="height: 200px;">// app-state.js
+    ...
+    import { post, get } from '../util/http'
+    ...
+        @observable user = {
+            isLogin: false,
+            info: {},
+            detail: {
+              recentTopics: [],
+              recentReplies: [],
+              syncing: false,
+            },
+            collections: {
+              syncing: false,
+              list: [],
+            },
+        };
+        ...
+        @action getUserDetail() {
+            this.user.detail.syncing = true;
+            return new Promise((resolve, reject) => {
+              get(`/user/${this.user.info.loginname}`).then((resp) => {
+                if (resp.success) {
+                  this.user.detail.recentTopics = resp.data.recent_replies;
+                  this.user.detail.recentReplies = resp.data.recent_topics;
+                  resolve();
+                } else {
+                  reject();
+                }
+                this.user.detail.syncing = false;
+              }).catch((err) => {
+                this.user.detail.syncing = false;
+                reject(err);
+              })
+            })
+        }
+        @action getUserCollection() {
+            this.user.collections.syncing = true;
+            return new Promise((resolve, reject) => {
+              get(`/topic_collect/${this.user.info.loginname}`).then((resp) => {
+                if (resp.success) {
+                  this.user.collections.list = resp.data;
+                  resolve();
+                } else {
+                  reject();
+                }
+                this.user.collections.syncing = false;
+              }).catch((err) => {
+                this.user.collections.syncing = false;
+                reject(err);
+              })
+            })
+        }
+    }</pre>
+    <p>修改下util/http.js里的parseUrl，对未传params的情况做处理：</p>
+    <pre>// util/http.js
+    ...
+    const parseUrl = (url, params) => {
+      params = params || {};
+      ...
+    };
+    ...</pre>
+    <p>在router.jsx添加路由入口：</p>
+    <pre>// router.jsx
+    ...
+    import UserInfo from '../views/user/info'
+    ...
+        &lt;Route path="/user/info" exact component={UserInfo} /&gt;,
+    ...</pre>
+    <p>然后就可以在info.jsx中调用getUserDetail方法获取detail的数据了。</p>
+    <h3>10,话题回复功能实现&话题创建</h3>
+    <p>需要一个react-simplemde-editor组件，它可以书写markdown格式，对markdown有一定支持。这个组件使用了simpleMDE js插件，这个js插件就是实现了markdown功能，它不依赖与任何类库。react-simplemde-editor是基于simpleMDE js插件，实现了react的使用封装。还需要在template.html和server.template.ejs中引入simplemde css的cdn。</p>
+    <h3>11,路由配置优化</h3>
+    <p>通过路由配置实现某些需要通过登录才能访问的页面浏览。</p>
+    <p>在router.jsx中新建一个组件：</p>
+    <pre style="height: 300px;">// router.jsx
+    ...
+    import { Route, Redirect, withRouter } from 'react-router-dom'
+    import { inject, observer } from 'mobx-react'
+    import PropTypes from 'prop-types'
+    ...
+    const PrivateRoute = ({ isLogin, component: Component, ...rest }) => (
+      &lt;Route
+              {...rest}
+              render={
+              props => (
+            isLogin ?
+              &lt;Component {...props} /&gt; :
+              &lt;Redirect
+                      to={{
+                      pathname: '/user/login',
+                  search: `?from=${rest.path}`, //从哪里来，登录之后可以调回来处。
+                }}
+              /&gt;
+          )
+        }
+      /&gt;
+    )
+    //因为PrivateRoute是纯函数而不是class，Mobx不能使用@这种写法，要用函数的写法。
+    const InjectedPrivateRoute = withRouter(inject(stores => ({
+      isLogin: stores.appState.user.isLogin,
+    }))(observer(PrivateRoute)));
+    PrivateRoute.propTypes = {
+      isLogin: PropTypes.bool,
+      component: PropTypes.element.isRequired,
+    };
+    PrivateRoute.defaultProps = {
+      isLogin: false,
+    };
+    export default () => [
+        ...
+      &lt;InjectedPrivateRoute path="/user/info" exact component={UserInfo} /&gt;,
+    ]</pre>
+    <p>这里需要注意一个点，在使用Mobx和react-router的时候，它们都是通过context去传内容的，这就有一个问题，因为Mobx会去修改组件，当用inject和observer组件时，会修改组件里的componentshouldmount。所以像InjectedPrivateRoute的函数使用，会跟react-router产生一定冲突，当路由变化时组件不会进行重渲染，这在react-router官方文档有提到的。官方文档的withRouter方法就是为我们提供在组件有内容更新时强制重渲染，并且在componentshouldmount被修改的情况下使用，需要把withRouter放在最外面。</p>
+    <p>然后可以去去掉info.jsx多余的路由判断：</p>
+    <pre>// info.jsx
+    ...
+        componentWillMount() {
+          this.props.appState.getUserDetail();
+          this.props.appState.getUserCollection();
+        }
+    ...</pre>
+    <p>接下去在login.jsx页面加上登录成功后跳转到登录前的路由的功能。先删除login.jsx里的componentWillMount方法。</p>
+    <pre style="height: 250px;">// login.jsx
+    ...
+    import { Redirect } from 'react-router-dom'
+    import queryString from 'query-string'
+    ...
+    class UserLogin extends React.Component {
+        ...
+        getFrom(location) {
+             location = location || this.props.location;
+             const query = queryString.parse(location.search);
+             return query.from || '/user/info'
+        }
+        ...
+        handleLogin() {
+            ...
+            return this.props.appState.login(this.state.accesstoken).catch((error) => {
+              console.log(error); //eslint-disable-line
+            })
+        }
+        render() {
+            const { classes } = this.props;
+            const from = this.getFrom();
+            const { isLogin } = this.props.user;
+            if (isLogin) {
+              return &lt;Redirect to={from} /&gt;
+            }
+            return (
+        ...
+    }
+    UserLogin.propTypes = {
+        ...
+      location: PropTypes.object.isRequired,
+    };
+    ...</pre>
+    <h4>另一个小的优化：</h4>
+    <p>topic-store.js里的fetchTopics方法里，resp.data用forEach方法来addTopic，这样每条数据都会触发this.topics数组的改变，每次改变都会使组件重渲染，导致性能问题。用Array的map()来修改就可以避免这个问题：</p>
+    <pre>// topic-store.js
+    ...
+        @action fetchTopics(tab) {
+            ...
+            get('/topics', {
+                mdrender: false,
+                tab,
+            }).then((resp) => {
+                if (resp.success) {
+                  this.topics = resp.data.map(topic => new Topic(createTopic(topic)));
+                  ...
+        }
+    ...</pre>
+    <h3>12,服务器渲染优化</h3>
+    <p>服务端渲染优化，比方说服务端渲染首页list后客户端不用再重复请求渲染、解决客户端刷新后用户登录信息消失的问题。</p>
+    <p>截至目前，访问localhost：3333时，服务器直接报错。这里面会涉及到业务功能数据方面的一些问题，需要去修改的。</p>
+    <p>首先打开topic-store.js,联合server-render.js来看一下，在获取store数据的时候，是通过store里的toJson方法拿到这些数据的。因为在服务端渲染完成之后，store里面的数据要通过这个toJson方法获取出来。</p>
+    <p>在app-state.js里加上toJson方法。调用Mobx里的toJS方法，把observable的数据转成正常的js对象。</p>
+    <pre>// app-state.js
+    import { observable, computed, action, toJS } from 'mobx'
+    ...
+    export default class AppState {
+        ...
+        toJson() {
+            return {
+              user: toJS(this.user),
+            }
+        }
+    }</pre>
+    <p>topic-store.js也类似:</p>
+    <pre>// topic-store.js
+    import { observable, action, computed, extendObservable, toJS } from 'mobx'
+        ...
+        toJson() {
+            return {
+              topics: toJS(this.topics),
+              syncing: this.syncing,
+              details: toJS(this.details),
+            }
+        }
+    ...</pre>
+    <p>再次尝试访问localhost：3333 。查看网页源代码，看看服务端渲染的时候是否有把列表的内容渲染出来。然而并没有。这是因为在topic-list/index.jsx里的asyncBootstrap方法里是之前样例的代码，并没有去获取需要的数据。</p>
+    <pre>// topic-list/index.jsx
+...
+    asyncBootstrap() {
+        /*return new Promise((resolve) => {
+          setTimeout(() => {
+            this.props.appState.count = 3;
+            resolve(true);//一定要resolve(true),asyncBootstrap会根据resolve的内容true还是false来决定这个方法有没有执行成功。
+          })
+        })*/
+        const query = queryString.parse(this.props.location.search);
+        const { tab } = query;
+        return this.props.topicStore.fetchTopics(tab || 'all').then(() => true).catch(() => false)
+    }
+...</pre>
+    <p>还有一点要注意，webpack.config.server.js里配置的API_BASE是端口3000，而实际启的服务器是3333的端口。需要修改过来，不然到时候会有错误出现。</p>
+    <pre>// webpack.config.server.js
+    ...
+        plugins: [
+            new webpack.DefinePlugin({ //定义一些变量，让它可以在打包以后的代码里去获取这个变量。
+                'process.env.API_BASE':'"http://127.0.0.1:3333"'
+            })
+        ]
+    ...</pre>
+    <p>
+        此时刷新页面，会发现网页有重新load的现象。查看网页源代码，发现需要从cnode API 加载的window.__INITIAL__STATE__需要的数据都有了。为何还会出现重加载情况？是因为topic-list/index.jsx里在服务端渲染时通过asyncBootstrap获取了列表数据并且放到了store里，但是在componentDidMount客户端渲染的时候又重新获取了一边数据。而在topic-store.js里fetchTopics方法中是没有做任何判断的，也就是说在页面端渲染的时候依然会去通过接口获取数据，然后此方法里的逻辑有把this.topics清空。所以需要在fetchTopics中去加判断逻辑，实现的方法是多样的。</p>
+    <pre style="height: 200px;">// topic-store.js
+    ...
+    class TopicStore {
+        ...
+        @observable tab
+        constructor({ syncing = false, topics = [], tab = null, details = [] } = {}) {
+            ...
+            this.tab = tab;
+        }
+        ...
+        @action fetchTopics(tab) {
+            return new Promise((resolve, reject) => {
+                if(tab === this.tab && this.topics.length > 0) {
+                    resolve()
+                } else {
+                this.tab = tab;
+                ...
+        }
+        ...
+        toJson() {
+            return {
+              ...
+              tab: this.tab,
+            }
+        }
+    ...</pre>
+    <p>因为app-state.js并没有声明一个constructor方法，我们换一种方式来初始化数据。</p>
+    <pre>// app-state.js
+    ...
+    export default class AppState {
+        ...
+        init({ user }) {
+            if (user) {
+              this.user = user;
+            }
+        }
+        ...
+    }</pre>
+    <p>有了这个新增的方法之后，就可以在app.js里使用了：</p>
+    <pre>// app.js
+    ...
+    const appState = new AppState();
+    appState.init(initialState.appState);
+    ...</pre>
+    <h4>优化刷新后用户登录信息消失的问题:</h4>
+    <p>登录之后，希望服务端渲染时用户数据是直接有的。之前登录后，每次刷新页面用户数据就没有了。这个在服务端渲染时就可以优化掉。打开server-render.js</p>
+    <pre>//  server-render.js
+    ...
+    const stores = createStoreMap();
+    const user = req.session.user;
+    if (user) {
+      stores.appState.user.isLogin = true;
+      stores.appState.user.info = user;
+    }
+    ...</pre>
 
 
     <br/>
