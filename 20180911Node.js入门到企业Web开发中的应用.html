@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Node.js入门到企业Web开发中的应用|sumerzhou's blog</title>
+    <link href="myblog.css" rel="stylesheet" type="text/css">
+    <script src="myblog.js" type="text/javascript"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
+            line-height: 2em;
+        }
+        .textBox h2{
+            margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
+        }
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox h4{
+            text-shadow: 1px 1px 2px #4F68B0;
+        }
+        .textBox p{
+            text-indent: 2em;
+        }
+        .textBox li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .textBox pre{
+            display: block;
+            width: 850px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 4px 3px 2px black;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+            font-family: '仿宋';
+            background-color: rgb(40,44,52);
+            line-height: 1.5;
+            font-size: 15px;
+            color:white;
+            overflow-y: auto;
+        }
+        .highlight{
+            background-color: rgb(255,243,212);
+        }
+    </style>
+</head>
+<body>
+<!--header-->
+<div class="headerbox">
+    <div class="headertop">
+        <div class="hdtopbut">
+            <a href="http://blog.hungking.cc/" target="_blank"><img src="imgs/sns_blog_off.png"></a>
+            <a href="https://www.facebook.com/HoungkingHsi" target="_blank"><img src="imgs/sns_facebook_off.png"></a>
+            <a href="http://globalblog.hungking.cc/" target="_blank"><img src="imgs/sns_gBlog_off.png"></a>
+            <a href="http://www.linkedin.com/imisslovelove" target="_blank"><img src="imgs/sns_in_off.png"></a>
+            <a href="http://www.youtube.com/imisslovelove" target="_blank"><img src="imgs/sns_youTube_off.png"></a>
+            <a href="http://www.instagram.com/imisslovelove" target="_blank"><img src="imgs/sns_instagram_off.png"></a>
+            <a href="http://story.kakao.com/ch/imisslovelove" target="_blank" style="background: transparent none;"><img src="imgs/sns_kakao_off.png"></a>
+            <div class="hdtopbutR">
+                <a href="construction.html" style="background-position-x:85px ;">Contact Me</a>
+                <a href="construction.html">AboutSite</a>
+                <span onclick="ifshow(0)">Language<img src="imgs/btn_globalSite_open.gif"></span>
+                <ul id="lag">
+                    <li>KOREAN</li><li>CHINESE</li><li>JAPANESE</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="headerbotm">
+        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
+        <ul id="hdbotmUl">
+            <li>
+                <a href="company.html">WEB前端</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">HTML</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Corporate Overview</a></li>
+                                <li><a href="">Vision of houngking</a></li>
+                                <li><a href="">History of houngking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">CSS/CSS3</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Brand Story</a></li>
+                                <li><a>CI</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">JavaScript</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Greetings</a></li>
+                                <li><a>CEO's Message</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Ajax</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>hougking Affiliates</a></li>
+                                <li><a>Steel</a></li>
+                                <li><a>E&C</a></li>
+                                <li><a>Trade</a></li>
+                                <li><a>ICT</a></li>
+                                <li><a>Energy</a></li>
+                                <li><a>Material-Chemistry</a></li>
+                                <li><a>Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">jQuery</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Global</a></li>
+                                <li><a>Asia</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Business Ethics</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Major Activities</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Products/Technology</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Products of hounking</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Hot Rolled Steel</a></li>
+                                <li><a href="">Steel Plate</a></li>
+                                <li><a href="">Winter Day</a></li>
+                                <li><a href="">Gold Rolled Steel</a></li>
+                                <li><a href="">Galvanized Steel</a></li>
+                                <li><a href="">Electrical Galvanized</a></li>
+                                <li><a href="">Electrical Steel</a></li>
+                                <li><a href="">Automotive materials</a></li>
+                                <li><a href="">Stainless Steel</a></li>
+                                <li><a href="">Titanium Product</a></li>
+                                <li><a href="">Magnesium Product</a></li>
+                                <li><a href="">Aluminum-plated products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">houngking Technology</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">FINEX Technology</a></li>
+                                <li><a href="">Strip Casting</a></li>
+                                <li><a href="">Endless Hot Rolling Technology</a></li>
+                                <li><a href="">Operation Technology</a></li>
+                                <li><a href="">CEM Technology</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Production Process</a>
+                    </li>
+                    <li>
+                        <a href="">Sales information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">e-Sales</a></li>
+                                <li><a href="">e-Procurement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Investor Relations</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">IR Activeties</a>
+                    </li>
+                    <li>
+                        <a href="">Stock Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Stock Price</a></li>
+                                <li><a href="">Price Comparision</a></li>
+                                <li><a href="">ADR</a></li>
+                                <li><a href="">houngking Stock Exchange</a></li>
+                                <li><a href="">Economic Trend</a></li>
+                                <li><a href="">Shareholders Demographics</a></li>
+                                <li><a href="">Dividend</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Financial Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Income Statement</a></li>
+                                <li><a href="">Credit Rating</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">IR Archive</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Audit Report</a></li>
+                                <li><a href="">Form 20-F</a></li>
+                                <li><a href="">Annual Report</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Sustainability</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Sustainability Management System</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Management System</a></li>
+                                <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
+                                <li><a href="">Risk Management</a></li>
+                                <li><a href="">Stakeholder</a></li>
+                                <li><a href="">Relevant Institutes Activities</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Social Responsibility </a>
+                    </li>
+                    <li>
+                        <a href="">Environmental Management </a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Family's Environmental Management</a></li>
+                                <li><a href="">Environmental Management</a></li>
+                                <li><a href="">Climate change /Energy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Customer</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Marketing strategy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Employee</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Employee Health / Safety</a></li>
+                                <li><a href="">Organizational Culture</a></li>
+                                <li><a href="">HR system</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Report</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Report</a></li>
+                                <li><a href="">Carbon Report</a></li>
+                                <li><a href="">Conflict Minerals Disclosure</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">PR Room</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">News room</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">News letter</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">houngking SNS</a>
+                    </li>
+                    <li>
+                        <a href="">PR Archives</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
+                                <li><a href="">PR Movies</a></li>
+                                <li><a href="">Printed Advertisement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Download</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
+        <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
+        <div class="hdmenu" id="hdmenu">
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--text-->
+<div class="textBox">
+    <h2>Node.js入门到企业Web开发中的应用</h2>
+    <h3>1,NodeJS 是什么，为什么偏爱NodeJS？</h3>
+    <p>nodejs不是一门语言，更多的是用来进行web开发的runtime，是javaScript runtime。</p>
+    <p>nodejs的两个重要特性：事件驱动，非阻塞的I/O模型。事件驱动的一个很大的用处就是I/O等异步操作结束后的通知主进程。</p>
+    <p>nodejs并不适用于所有server端的场景，web是nodejs最适合的场景。它的事件模型和异步I/O模型使它在处理高并发、I/O密集场景性能有明显优势，而web开发正式这样的场景。</p>
+    <p>CPU密集：一个程序大部分时间用来做运算、逻辑判断的CPU动作。如压缩、解压、加密、解密。</p>
+    <p>I/O密集：一个程序大部分时间用来做存取设备、网络设施的读取操作。如文件操作、网络操作、数据库。</p>
+    <p>大部分指令依赖的都是CPU运算，计算机发展到现在，CPU的运行速度是奇快无比的，1秒可执行30亿条指令。所以大部分非I/O操作感觉不出慢。而I/O操作是个特殊的操作，它比较慢。</p>
+    <h5>web常见场景：</h5>
+    <p>1,静态资源读取：静态HTML、css、js文件读取。</p>
+    <p>2,数据库操作。</p>
+    <p>3,渲染页面：读取模板文件，再根据数据生成HTML。</p>
+    <p>那javascript做了什么让nodejs比java等在这种web场景更有优势。</p>
+    <h5>高并发应对之道：</h5>
+    <p>1,增加机器数</p>
+    <p>2,增加每台机器的CPU数--多核</p>
+    <p>这种应对高并发的方式，使用java、nodejs、Python语言都没什么区别。我们所说的nodejs性能好，指的是单个CPU单台机器的时候，处理web请求的方式跟java、apache是迥异的。</p>
+    <p>先了解一个重要的概念:</p>
+    <p>进程：是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位。</p>
+    <p>多进程：启动多个进程，多个进程可以一块执行多个任务。</p>
+    <h4>nodejs的单线程:</h4>
+    <p>线程：进程内一个相对独立的、可调度的执行单元，与同属一个进程的线程共享进程的资源。</p>
+    <p>多线程：启动一个进程，在一个进程内启动多个线程，这样，多个线程也可以一块执行多个任务。</p>
+    <p>nodejs继承了javascript的单线程特性，只开一个进程，一个进程也只开一个线程。</p>
+    <p>nodejs的单线程只是针对nodejs主进程，I/O操作系统底层还是可以多线程多进程调度的。</p>
+    <p>说nodejs性能好有几个前提：web场景（高并发，I/O密集）。</p>
+    <h4>常用场景：</h4>
+    <p>a,web Server</p>
+    <p>b,本地代码编译构建</p>
+    <p>c,实用工具开发,如小爬虫</p>
+    <h3>2,环境 &amp; 调试</h3>
+    <h4>环境:</h4>
+    <h5>CommonJS</h5>
+    <p>NodeJS是CommonJS规范的实现，webpack 也是以CommonJS的形式来书写。(CommonJS规范不适用于浏览器环境,因为require 是同步的)</p>
+    <p>commonjs规定，每个文件是一个模块，有自己的作用域。</p>
+    <p>在模块内部module变量代表模块本身。</p>
+    <p>module.exports属性代表模块对外的接口。</p>
+    <p>require规则：/表示绝对路径，./表示相对于当前文件的路径；支持js、json、node拓展名，不写依次尝试。</p>
+    <p>require特性：module被加载的时候执行，加载后缓存。只加载一次，之后可以直接用放在内存中的结果，不会重复加载。</p>
+    <p>nodejs中一个js模块在执行时，nodejs会帮我们包裹一个函数，这个函数放在一个括号里面。这个函数依次有exports、require、module、__filename、__dirname参数。exports参数相当于是module.exports的一个快捷方式。</p>
+    <h5>global</h5>
+    <p>nodejs没有DOM，BOM这些东西，没有windows这个全局对象。它的global对象有一些方法和属性:</p>
+    <p>1,commonJS:能直接用，直接在全局中的</p>
+    <p>2,buffer,process,console</p>
+    <p>3,timer</p>
+    <p>在nodejs中，希望全局访问的对象可以挂到global对象中。</p>
+    <h5>process</h5>
+    <p>process表示当前执行的进程。这是挂在global下面的。</p>
+    <p>参数相关：argv,argv0,execArgv,execPath。nodejs启动时查看启动脚本传递相关的一些参数，通过argv这个对象。</p>
+    <p>环境相关：env</p>
+    <p>setImmediate(func(){}):下一个队列首部调用</p>
+    <p>nextTick(func(){}):会比setImmediate执行的早,插入本队列尾部</p>
+    <h4>调试:</h4>
+    <p>nodejs官网有多种调试方法。</p>
+    <h5>nodejs自带的inspector:</h5>
+    <h3>3,NodeJS 基础 API</h3>
+    <h4>path:</h4>
+    <p>和路径有关的一切。</p>
+    <p>path.join(),path.resolve()把相对路径解析成绝对路径,path.normalize(),path.basename()文件名,path.dirname()路径名,path.extname()扩展名,path.parse()解析路径各部分详情,path.format()把parse的结果恢复成原路径,path.sep()路径的分隔符,path.delimiter()</p>
+    <p>● __filename、__dirname总是返回文件的绝对路径。</p>
+    <p>● process.cwd()总是返回执行node命令所在文件夹的路径。</p>
+    <h4>buffer:</h4>
+    <p>● buffer用于处理二进制数据流</p>
+    <p>● 实例类似整数数组，大小固定</p>
+    <p>● C++代码在V8对外分配物理内存</p>
+    <p>Buffer.byteLength(),Buffer.isBuffer(),Buffer.concat(),buf.length(),buf.toString(),buf.fill(),buf.equals(),buf.indexOf(),buf.copy()</p>
+    <h4>event:</h4>
+    <p>例：</p>
+    <pre>// 事件监听，触发，传参
+    const EventEmitter = require('events');
+    class CustomEvent extends EventEmitter {}
+    const ce = new CustomEvent();
+    ce.on('error',(err,time) => {
+        console.log(err);
+        console.log(time);
+    });
+    ce.emit('error', new Error('oops!'), Date.now());</pre>
+    <p>有一种情况，某事件定义有n种情况可以触发它，但希望对应的事件处理程序只执行一次就好，其他不用做处理。</p>
+    <pre>
+    const EventEmitter = require('events');
+    class CustomEvent extends EventEmitter {}
+    const ce = new CustomEvent();
+    ce.once('test',() => {
+        ...
+    });
+    setInterval(() => {
+       ce.emit('test');
+    },500);</pre>
+    <p>removeLinsterner(),removeAllListeners()用于移除绑定的事件。</p>
+    <h4>fs:</h4>
+    <p>fs.readFile(path,'utf8',callback)</p>
+    <p>fs.writeFile(path,content,{encoding:'utf8'},callback)</p>
+    <p>fs.stat(path,callback(err,stats){})文件信息</p>
+    <p>fs.rename(path,targetName,callback)重命名文件</p>
+    <p>fs.unlink(path,callback)删除文件</p>
+    <p>fs.readdir(path,callback(err,files))读文件夹</p>
+    <p>fs.mkdir(path,callback)创建文件夹</p>
+    <p>fs.rmdir(path,callback)删除文件夹</p>
+    <p>fs.watch(path,{recursive:true},callback(eventType,filename))监视文件或文件夹</p>
+    <p>rs=fs.createReadStream(path),rs.pipe()需要输出的设备,比fs.readfile实现更优雅</p>
+    <p>ws=fs.createWriteStream(path),ws.write()</p>
+    <p>promisify把普通的回调转化为promise函数，解决“回调地狱”。</p>
+    <pre>
+    const fs = require('fs');
+    const promisify = require('util').promisify;
+    const read = promisify(fs.readFile);
+    read(filePath).then(data => {...}).catch(ex => {...});
+    //or use async/await
+    async function test(){
+        try{
+            const content = await read(filePath);
+        } catch(err){...}
+    }</pre>
+    <h3>4,项目初始化</h3>
+    <h4>项目：实现一个静态资源服务器</h4>
+    <h5>.npmignore </h5>
+    <h5>.gitignore</h5>
+    <h5>.editorconfig设置项目编辑风格，像缩进、空格等。</h5>
+    <h5>eslint</h5>
+
+    <br/>
+    <h5>参考文档:</h5>
+
+</div>
+
+</body>
+</html>
