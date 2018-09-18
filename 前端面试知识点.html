@@ -811,6 +811,50 @@
         obj.fn();                   //22 。此时return函数内的this指向Object对象
         console.log(num);           //30
         console.log(obj.num);       //31 </pre>
+    <h3>**javascript课程笔记</h3>
+    <h4>A,基础：</h4>
+    <p>数据类型：五种值类型/基本类型/基础类型（number string Booleanundefined null），其余都是引用类型。</p>
+    <h4>B,语句：</h4>
+    <p>Switch:多路选择结构语句，匹配具体参数值。内部可用default来写其他条件不满足时的情况。</p>
+    <p>Break只能在循环或switch中使用。结束循环。</p>
+    <p>Continue，只停止当前循环，当前循环之后的语句不在执行。</p>
+    <p>Return,在函数内使用，返回结果，后面的语句不再执行。</p>
+    <p>For循环。先判断，后循环。</p>
+    <p>While循环。先判断，后循环。</p>
+    <p>Do while循环。do{//循环体}while()。先循环，后判断。While不像for循环有显示的计数器，需要手动申明。</p>
+    <p>JS中，‘\n’换行，’\t’空格，在html中会被忽略。</p>
+    <p>For(var i in obj){ alert(obj[i]); }，用来遍历对象obj的属性值。i是字符串</p>
+    <p>JavaScript数组的forEach()方法调用数组中的每个元素。语法：array.forEach(callback[, thisObject])。callback : 函数测试数组的每个元素。thisObject : 对象作为该执行回调时使用。</p>
+    <p>自从JavaScript5起，我们开始可以使用内置的forEach方法,写法简单了许多，但也有短处：你不能中断循环（使用break语句或使用return语句）。</p>
+    <h4>C,函数：</h4>
+    <p>1，	申明方式：函数声明式声明（function fun(){}）、表达式申明（var fun=function(){}）、匿名申明（立执行函数）、动态申明（new  function（））</p>
+    <p>2，	函数时JS的一等公民，函数式声明会被提前;表达式申明不会被提前（表达式声明需要先声明在调用，不然会报错）。</p>
+    <pre>
+a．Function fun(){console.log(1); };
+    Function fun(){console.log(2); };
+    Fun(); //2,第一个声明被覆盖
+b.  var fun=function(){console.log(1); };
+    Function fun(){console.log(2); };
+    Fun(); //1,第二个声明被提升到最前开始解释</pre>
+    <p>3，	JS渲染，自上到下，从左到右</p>
+    <p>4，	Apply和call都是用来改变函数this的指向</p>
+    <p>5, 直接被调用的函数是普通函数。第二种是构造函数，又叫构造器。</p>
+    <p>6，new出来的函数称为构造函数。</p>
+    <h5>ps:</h5>
+    <p>使用Function构造器生成的Function对象是在函数创建时解析的。这比你使用函数声明或者函数表达式(function)并在你的代码中调用更为低效，因为使用后者创建的函数是跟其他代码一起解析的。注意: 使用Function构造器生成的函数，并不会在创建它们的上下文中创建闭包；它们一般在全局作用域中被创建。当运行这些函数的时候，它们只能访问自己的本地变量和全局变量，不能访问Function构造器被调用生成的上下文的作用域。这和使用带有函数表达式代码的 eval 不同。参考：<a
+            href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function" target="_blank">Function(MDN)</a></p>
+    <h4>D,数组：</h4>
+    <p>Length数组的属性，获取数组长度。Name.length。</p>
+    <p>new Array(n), 当array里只有一个数值时，意思是申明空间。</p>
+    <p>JS里数字的特性，是数组也是集合。可以自动扩充容器，所以具备了集合的特性。</p>
+    <p>Arguments是函数function自有的数组，传入的参数都会被这个数组接受。</p>
+    <h4>E,对象：</h4>
+    <p>创建：</p>
+    <p>1, var box={ name:’xiaohei’,age:21,sex:’男’}</p>
+    <p>2,varobj=new Object();  obj.age=25;obj.name=’dina’;</p>
+    <h4>F,面试重点：</h4>
+    <p>去重。排序。DOM操作。事件流。Ajax。函数（原型、this、闭包）。</p>
+    
 </div>
 <!--leftfixedbox-->
 <div class="leftfixedbox">
