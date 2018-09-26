@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>react-router按需加载|sumerzhou's blog</title>
+    <link href="myblog.css" rel="stylesheet" type="text/css">
+    <script src="myblog.js" type="text/javascript"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
+            line-height: 2em;
+        }
+        .textBox h2{
+            margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
+        }
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox h4{
+            text-shadow: 1px 1px 2px #4F68B0;
+        }
+        .textBox p{
+            text-indent: 2em;
+        }
+        .textBox li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .textBox pre{
+            display: block;
+            width: 850px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 4px 3px 2px black;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+            font-family: '仿宋';
+            background-color: rgb(40,44,52);
+            line-height: 1.5;
+            font-size: 15px;
+            color:white;
+            overflow-y: auto;
+        }
+        .highlight{
+            background-color: rgb(255,243,212);
+        }
+    </style>
+</head>
+<body>
+<!--header-->
+<div class="headerbox">
+    <div class="headertop">
+        <div class="hdtopbut">
+            <a href="http://blog.hungking.cc/" target="_blank"><img src="imgs/sns_blog_off.png"></a>
+            <a href="https://www.facebook.com/HoungkingHsi" target="_blank"><img src="imgs/sns_facebook_off.png"></a>
+            <a href="http://globalblog.hungking.cc/" target="_blank"><img src="imgs/sns_gBlog_off.png"></a>
+            <a href="http://www.linkedin.com/imisslovelove" target="_blank"><img src="imgs/sns_in_off.png"></a>
+            <a href="http://www.youtube.com/imisslovelove" target="_blank"><img src="imgs/sns_youTube_off.png"></a>
+            <a href="http://www.instagram.com/imisslovelove" target="_blank"><img src="imgs/sns_instagram_off.png"></a>
+            <a href="http://story.kakao.com/ch/imisslovelove" target="_blank" style="background: transparent none;"><img src="imgs/sns_kakao_off.png"></a>
+            <div class="hdtopbutR">
+                <a href="construction.html" style="background-position-x:85px ;">Contact Me</a>
+                <a href="construction.html">AboutSite</a>
+                <span onclick="ifshow(0)">Language<img src="imgs/btn_globalSite_open.gif"></span>
+                <ul id="lag">
+                    <li>KOREAN</li><li>CHINESE</li><li>JAPANESE</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="headerbotm">
+        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
+        <ul id="hdbotmUl">
+            <li>
+                <a href="company.html">WEB前端</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">HTML</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Corporate Overview</a></li>
+                                <li><a href="">Vision of houngking</a></li>
+                                <li><a href="">History of houngking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">CSS/CSS3</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Brand Story</a></li>
+                                <li><a>CI</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">JavaScript</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Greetings</a></li>
+                                <li><a>CEO's Message</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Ajax</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>hougking Affiliates</a></li>
+                                <li><a>Steel</a></li>
+                                <li><a>E&C</a></li>
+                                <li><a>Trade</a></li>
+                                <li><a>ICT</a></li>
+                                <li><a>Energy</a></li>
+                                <li><a>Material-Chemistry</a></li>
+                                <li><a>Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">jQuery</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Global</a></li>
+                                <li><a>Asia</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Business Ethics</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Major Activities</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Products/Technology</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Products of hounking</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Hot Rolled Steel</a></li>
+                                <li><a href="">Steel Plate</a></li>
+                                <li><a href="">Winter Day</a></li>
+                                <li><a href="">Gold Rolled Steel</a></li>
+                                <li><a href="">Galvanized Steel</a></li>
+                                <li><a href="">Electrical Galvanized</a></li>
+                                <li><a href="">Electrical Steel</a></li>
+                                <li><a href="">Automotive materials</a></li>
+                                <li><a href="">Stainless Steel</a></li>
+                                <li><a href="">Titanium Product</a></li>
+                                <li><a href="">Magnesium Product</a></li>
+                                <li><a href="">Aluminum-plated products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">houngking Technology</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">FINEX Technology</a></li>
+                                <li><a href="">Strip Casting</a></li>
+                                <li><a href="">Endless Hot Rolling Technology</a></li>
+                                <li><a href="">Operation Technology</a></li>
+                                <li><a href="">CEM Technology</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Production Process</a>
+                    </li>
+                    <li>
+                        <a href="">Sales information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">e-Sales</a></li>
+                                <li><a href="">e-Procurement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Investor Relations</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">IR Activeties</a>
+                    </li>
+                    <li>
+                        <a href="">Stock Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Stock Price</a></li>
+                                <li><a href="">Price Comparision</a></li>
+                                <li><a href="">ADR</a></li>
+                                <li><a href="">houngking Stock Exchange</a></li>
+                                <li><a href="">Economic Trend</a></li>
+                                <li><a href="">Shareholders Demographics</a></li>
+                                <li><a href="">Dividend</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Financial Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Income Statement</a></li>
+                                <li><a href="">Credit Rating</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">IR Archive</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Audit Report</a></li>
+                                <li><a href="">Form 20-F</a></li>
+                                <li><a href="">Annual Report</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Sustainability</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Sustainability Management System</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Management System</a></li>
+                                <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
+                                <li><a href="">Risk Management</a></li>
+                                <li><a href="">Stakeholder</a></li>
+                                <li><a href="">Relevant Institutes Activities</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Social Responsibility </a>
+                    </li>
+                    <li>
+                        <a href="">Environmental Management </a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Family's Environmental Management</a></li>
+                                <li><a href="">Environmental Management</a></li>
+                                <li><a href="">Climate change /Energy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Customer</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Marketing strategy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Employee</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Employee Health / Safety</a></li>
+                                <li><a href="">Organizational Culture</a></li>
+                                <li><a href="">HR system</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Report</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Report</a></li>
+                                <li><a href="">Carbon Report</a></li>
+                                <li><a href="">Conflict Minerals Disclosure</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">PR Room</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">News room</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">News letter</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">houngking SNS</a>
+                    </li>
+                    <li>
+                        <a href="">PR Archives</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
+                                <li><a href="">PR Movies</a></li>
+                                <li><a href="">Printed Advertisement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Download</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
+        <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
+        <div class="hdmenu" id="hdmenu">
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--text-->
+<div class="textBox">
+    <h2>react-router按需加载</h2>
+    <h3>1,历史背景</h3>
+    <p>使用react，基本上都是react + router + redux的单页面应用的套路，好用，但是应用越来越庞大时，首页的渲染时间就会越来越长， 这个时候就需要用到按需加载。</p>
+    <p>在router4以前，我们是使用getComponent的的方式来实现按需加载的，router4中，getComponent方法已经被移除。getComponent与 component 属性一样，但是是异步的，当路由匹配时才会调用这个方法，常用于代码分割。</p>
+    <h4>router3的按需加载方式:</h4>
+    <p>webpack 为我们提供了一个按需加载函数 require.ensure(dependencies, callback, chunkName)。</p>
+    <p>route3中实现按需加载只需要按照下面代码的方式实现就可以了。</p>
+    <pre>
+const about = (location, cb) => {
+    require.ensure([], require => {
+        cb(null, require('../Component/about').default)
+    },'about')
+}
+
+//配置route
+&lt;Route path="helpCenter" getComponent={about} /&gt;</pre>
+    <p>注意：cb(null, require('./Component/about').default) 因为用 es6 的 export default 导出的组件，所以 require 之后要加上 default，如果使用 module.export 导出组件 则不需要加 default。</p>
+
+    <h3>2,React-router 4按需加载实现</h3>
+    <p>react-router 按需加载的方式有很多种，选择合适于自己的即可。</p>
+    <p>react-router4版本 相对于v2 , v3有非常大的区别，可以说是完全重构的感觉。react-router4 中 拆分为:</p>
+    <p>a, react-router  核心功能</p>
+    <p>b, react-router-dom 针对于浏览器的路由</p>
+    <p>c, react-reouter-native 针对于native端的路由</p>
+    <p>在此基础上我们可能还需要：react-router-redux , react-router-config等插件。</p>
+    <p>这里介绍react-router v4版本4种异步加载配置。</p>
+    <h4>（1）Code Splitting使用 react-loadable , babel-plugin-syntax-dynamic-import</h4>
+    <p>参考地址：<a href="https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/guides/code-splitting.md" target="_blank">https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/guides/code-splitting.md</a> ,
+        <a href="https://www.npmjs.com/package/react-loadable" target="_blank">https://www.npmjs.com/package/react-loadable</a></p>
+    <h5>1.安装依赖</h5>
+    <pre>
+npm install react-loadable --save-dev
+npm install babel-plugin-syntax-dynamic-import --save-dev</pre>
+
+    <h4>（2）bundle-loader 按需加载方式，官方文档案例</h4>
+    <p>参考地址：<a href="https://www.npmjs.com/package/bundle-loader" target="_blank">https://www.npmjs.com/package/bundle-loader</a> ,
+        <a href="https://reacttraining.com/react-router/web/guides/code-splitting" target="_blank">https://reacttraining.com/react-router/web/guides/code-splitting</a></p>
+    <h5>1.安装依赖</h5>
+    <pre>npm install bundle-loader --save-dev</pre>
+    <h5>2.新增Bundle组件</h5>
+    <pre>// ./src/components/Bundle.js
+import React, {Component} from 'react'
+export default class Bundle extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            // short for "module" but that's a keyword in js, so "mod"
+            mod: null
+        }
+    }
+    componentWillMount() {
+        this.load(this.props)
+    }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.load !== this.props.load) {
+            this.load(nextProps)
+        }
+    }
+    load = (props) => {
+        this.setState({
+            mod:null
+        })
+        props.load((mod) => {
+            this.setState({
+                // handle both es imports and cjs
+                mod:mod.default?mod.default:mod
+            })
+        })
+    }
+    render() {
+        // if state mode not undefined,The container will render children
+        return this.state.mod ? this.props.children(this.state.mod) : null;
+    }
+}</pre>
+    <h5>3.router路由配置</h5>
+    <pre style="margin-bottom: 10px;">
+import Bundle from './components/Bundle';
+import aContainer from 'bundle-loader?lazy!./containers/A'
+const A = (props) => (
+  &lt;Bundle load={aContainer}&gt;
+      //这里只是给this.props.child传一个方法，最后在Bundle的render里面调用
+    {(Container) => &lt;Container {...props}/&gt;}
+  &lt;/Bundle&gt;
+)
+export default class Test extends Component {
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;h1&gt;Welcome!&lt;/h1&gt;
+        &lt;Route path="/about" component={About}/&gt;
+        &lt;Route path="/dashboard" component={A}/&gt;
+      &lt;/div&gt;
+    )
+  }
+}</pre>
+    <p class="highlight">Bundle.js这个文件的作用:</p>
+    <p>先看这段代码：</p>
+    <pre>
+module.exports = function (cb) {
+    __webpack_require__.e/* require.ensure */(2).then((function (require) {
+        cb(__webpack_require__(305));
+    }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+};</pre>
+    <p>这里是我们通过import loadDashboard from 'bundle-loader?lazy!./containers/A'这种方式引入的container控件。我们使用了bundle-loader将A的源码转化成了上面的代码，具体实现大家可以看bundle-loader源码，代码很少。</p>
+    <p>上面说到Bundle.js其实就使用来处理这个文件的，这个文件需要一个callback的参数，在Bundle的load方法中，我们会设置这个callback，当路由要调到A Container这里的时候，就回去加载A Container,然后调用这个callback，这个callback会调用setState方法，将我们之前传入的load设置给mod，然后渲染出来。</p>
+
+
+    <h4>(3) 改变2的方案  import按需加载</h4>
+    <p>参考链接：<a href="https://www.jianshu.com/p/547aa7b92d8c" target="_blank">https://www.jianshu.com/p/547aa7b92d8c</a> ,
+        <a href="https://reactjs.org/blog/2017/05/18/whats-new-in-create-react-app.html#code-splitting-with-dynamic-import" target="_blank">https://reactjs.org/blog/2017/05/18/whats-new-in-create-react-app.html#code-splitting-with-dynamic-import</a></p>
+    <h5>1.安装依赖</h5>
+    <pre> npm install babel-plugin-syntax-dynamic-import --save-dev</pre>
+
+    <h4>(4) Create an Async Componen 创建一个Async组件方式异步加载</h4>
+    <p>参考链接：<a href="https://serverless-stack.com/chapters/code-splitting-in-create-react-app.html" target="_blank">https://serverless-stack.com/chapters/code-splitting-in-create-react-app.html</a> ,
+        <a href="https://reactjs.org/blog/2017/05/18/whats-new-in-create-react-app.html#code-splitting-with-dynamic-import" target="_blank">https://reactjs.org/blog/2017/05/18/whats-new-in-create-react-app.html#code-splitting-with-dynamic-import</a> ,
+        <a href="https://babeljs.io/docs/en/babel-polyfill/" target="_blank">https://babeljs.io/docs/en/babel-polyfill/</a></p>
+    <h5>1.由于需要支持 async,await的语法，因此我们安装一下babel-polyfill</h5>
+    <pre>
+npm install babel-polyfill --save-dev
+npm install babel-plugin-syntax-dynamic-import --save-dev</pre>
+
+    <h3>3,react-router4基于react-router-config的路由拆分与按需加载</h3>
+
+
+
+    <br/>
+    <h5>参考文档:</h5>
+    <a href="https://blog.csdn.net/mjzhang1993/article/details/54913942" target="_blank">react router3按需加载</a>,<br>
+    <a href="https://blog.seosiwei.com/detail/10" target="_blank">基于react16 webpack3 搭建前端spa基础框架 react-router的4种异步加载方式</a>,<br>
+    <a href="https://www.jianshu.com/p/d712a5030c13" target="_blank">react router4 按需加载</a>, <br>
+    <a href="https://segmentfault.com/a/1190000009539836#articleHeader2" target="_blank">React-router 4 按需加载的实现方式及原理(Code Splitting)</a>,<br>
+    <a href="https://blog.csdn.net/mjzhang1993/article/details/79094594" target="_blank">React-router-v4 - Webpack 实现按需加载（code-splitting）</a>,<br>
+    <a href="https://blog.csdn.net/wangweianger/article/details/78918976" target="_blank">react-router4基于react-router-config的路由拆分与按需加载</a>,<br>
+
+</div>
+
+</body>
+</html>
