@@ -479,6 +479,7 @@
     <h4>分组:</h4>
     <p>匹配字符串byron连续出现3次的场景:byron{3}。结果是'n'匹配了3次。</p>
     <p>使用()可以达到分组的功能,使量词作用于分组:(byron){3}。</p>
+    <p>(x),匹配 'x' 并且记住匹配项。括号被称为 捕获括号。</p>
     <h4>或:</h4>
     <p>使用|可以达到'或'的效果。</p>
     <p>byron | casper :byron或casper 。</p>
@@ -560,9 +561,20 @@
     <pre>/^(0|86|17951)?(13[0-9]|15[012356789]|18[0-9]|14[57]|177)[0-9]{8}$/
 //phone&email:
 /^(1[34578][0-9]{9}$)|([a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(.[a-zA-Z0-9-]+)*.[a-zA-Z0-9]{2,6}$)/</pre>
+    <h4>匹配并获取特定符号内的内容:</h4>
+    <pre>
+    //  var reg1=/\[\S[^\[]+]/g ,resTemp; //此reg1的主要区别是没有()，无法捕获[]里内容，RegExp.$1为空
+    var reg1 = /\[([^\]]+)]/g,resTemp;
+    var str = '[发生时间]6[房间床位]4[老人姓名]离床未归';
+    while((resTemp =reg1.exec(str))!=null){
+        console.log('res temp:',resTemp,'RegExp.$1:',RegExp.$1,'lastindex:',reg1.lastIndex);
+    }//lastIndex下一个匹配的索引值。这个属性只有在使用g参数时可用   </pre>
+	
     <br>
     <div style="font-size: 24px;"><strong>相关链接:</strong></div>
-    <a href="https://www.jianshu.com/p/e8477fdccbe9" target="_blank">最新手机号码正则表达式</a> ;
+    <a href="https://www.jianshu.com/p/e8477fdccbe9" target="_blank">最新手机号码正则表达式</a> ;<br/>
+    <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions" target="_blank">正则表达式(MDN) </a> ;<br/>
+    <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp/n" target="_blank">RegExp.$1-$9 (MDN)</a> ;
 </div>
 </body>
 </html>
