@@ -442,8 +442,27 @@
     <p>OSX和linux版本：https://github.com/creationix/nvm</p>
     <p>window版本：https://github.com/coreybutler/nvm-windows</p>
     <p>nvm配置步骤: 参考《<a href="http://blog.csdn.net/superdog007/article/details/59093000" target="_blank">angularJS环境配置篇</a>》</p>
+    <h5>nvm几个常用的命令：</h5>
+    <pre>
+    nvm install 6.2.0     //选择安装node 版本
+    nvm list              //列出已安装版本
+    nvm use 6.2.0         //切换使用的node版本
+    nvm uninstall 6.2.0   //卸载对应的版本</pre>
+    <h5>nvm与n的区别: </h5>
+    <p>node 版本管理工具还有一个是 TJ 大神的 n 命令，n命令作为node的模块而存在，而nvm是独立于npm/node之外的一个shell脚本，因此n命令相比nvm更加局限。</p>
+    <p>由于 npm 安装的模块路径均为 /usr/local/lib/node_modules ，当使用 n 切换不同的 node 版本时，实际上会共用全局的 node/npm 目录。 因此不能很好的满足『按不同 node 版本使用不同全局 node 模块』的需求。</p>
+    <h5>n简介：</h5>
+    <p>n是Node的一个模块，作者是TJ Holowaychuk（鼎鼎大名的Express框架作者）。</p>
+    <pre>
+    npm install -g n
+    n stable  //安装稳定版
+    n         //查看已安装版本
+    n rm 0.10.1   //删除指定版本</pre>
+    <p>很多同学安装之后直接去使用n会发现命令不存在,解决方法很简单,仔细查看安装n模块之后的返回信息，进入对应的n目录然后就可以使用n命令进行升级了。</p>
     <h4>其余参考:</h4>
-    	  <p><a href="http://www.runoob.com/nodejs/nodejs-tutorial.html" target="_blank"> node.js菜鸟教程</a>，<a href="http://nodejs.cn/api/" target="_blank">node.js中文官网教程</a> 。</p>
+    	  <p><a href="http://www.runoob.com/nodejs/nodejs-tutorial.html" target="_blank"> node.js菜鸟教程</a>，<a href="http://nodejs.cn/api/" target="_blank">node.js中文官网教程</a>,
+		  <a href="https://blog.csdn.net/xiejunna/article/details/79776355" target="_blank">linux（CentOS）安装node nvm</a>,
+              <a href="http://web.jobbole.com/84249/" target="_blank">管理 node 版本，选择 nvm 还是 n</a>, <a href="https://www.cnblogs.com/gumuzi/p/7039511.html" target="_blank">最简单的方式在linux上升级node.js版本</a>。</p>
     	  <h3>2,NodeJS使用（前提是环境已被配置好）</h3>
     	  <p>a,官网下载安装</p>
     	  <p>b,安装完成后，继续在命令窗口输入node命令，此刻将进入Node.js的交互环境。在交互环境下，可以输入任意JavaScript语句，例如100+200，回车后将得到输出结果。JS内置的属性和对象都可以操作，非内置的不可用（如cookie和window对象不可用）。</p>
