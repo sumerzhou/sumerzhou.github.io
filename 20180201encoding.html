@@ -444,11 +444,23 @@
     <p>所有的ASCII码都可以用“\”加数字（一般是8进制数字）来表示。而C中定义了一些字母前加"\"来表示常见的那些不能显示的ASCII字符，如\0,\t,\n等，就称为转义字符，因为后面的字符，都不是它本来的ASCII字符意思了。</p>
     <p>转义字符串（Escape String），即字符实体（Character Entity）分成三部分：第一部分是一个&符号，英文叫ampersand；第二部分是实体（Entity）名字或者是#加上实体（Entity）编号；第三部分是一个分号。比如，要显示小于号（<），就可以写 & lt; 或者 < 。HTML的& lt; & gt; & amp; & quot; & copy;分别是<，>，&，"，©;的转义字符。</p>
     <p>用实体（Entity）名字的好处是比较好理解，一看lt，大概就猜出是less than的意思，但是其劣势在于并不是所有的浏览器都支持最新的Entity名字。而实体(Entity)编号，各种浏览器都能处理。</p>
+    <h3>6,Base64</h3>
+    <p>Base64是一种任意二进制到文本字符串的编码方法，常用于在URL、Cookie、网页中传输少量二进制数据。</p>
+    <p>按照RFC2045的定义，Base64被定义为：Base64内容传送编码被设计用来把任意序列的8位字节描述为一种不易被人直接识别的形式。（The Base64 Content-Transfer-Encoding is designed to represent arbitrary sequences of octets in a form that need not be humanly readable.）</p>
+    <p>用记事本打开exe、jpg、pdf这些文件时，我们都会看到一大堆乱码，因为二进制文件包含很多无法显示和打印的字符，所以，如果要让记事本这样的文本处理软件能处理二进制数据，就需要一个二进制到字符串的转换方法。Base64是一种最常见的二进制编码方法。</p>
+    <h4>Base64作用:</h4>
+    <p>由于某些系统中只能使用ASCII字符。Base64就是用来将非ASCII字符的数据转换成ASCII字符的一种方法。</p>
+    <p>base64特别适合在http，mime协议下快速传输数据。</p>
+    <p>Base64适用于小段内容的编码，比如数字证书签名、Cookie的内容等。</p>
+    <p>base64其实不是安全领域下的加密解密算法。虽然有时候经常看到所谓的base64加密解密。其实base64只能算是一个编码算法，对数据内容进行编码来适合传输。虽然base64编码过后原文也变成不能看到的字符格式，但是这种方式很初级，很简单。</p>
+    <h4>Base64原理:</h4>
+    <p>Base64编码方法要求把每三个8Bit的字节转换为四个6Bit的字节，其中，转换之后的这四个字节中每6个有效bit为是有效数据，空余的那两个 bit用0补上成为一个字节。因此Base64所造成数据冗余不是很严重，Base64是当今比较流行的编码方法，因为它编起来速度快而且简单。</p>
+    <p>base64编码简单，虽然编码后不是明文，看不出原文，但是解码也很简单。</p>
 
-
-
-
-
+    <br/>
+    <h5>参考文档：</h5>
+    <a href="https://blog.csdn.net/s13383754499/article/details/80914157" target="_blank">什么是Base64？</a><br/>
+    <a href="https://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001399413803339f4bbda5c01fc479cbea98b1387390748000" target="_blank">base64</a>，
 
 </div>
 
