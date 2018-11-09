@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vuejs2.0学习|sumerzhou's blog</title>
+    <link href="myblog.css" rel="stylesheet" type="text/css">
+    <script src="myblog.js" type="text/javascript"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
+            line-height: 2em;
+        }
+        .textBox h2{
+            margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
+        }
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox h4{
+            text-shadow: 1px 1px 2px #4F68B0;
+        }
+        .textBox p{
+            text-indent: 2em;
+        }
+        .textBox li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .textBox pre{
+            display: block;
+            width: 850px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 4px 3px 2px black;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+            font-family: '仿宋';
+            background-color: rgb(40,44,52);
+            line-height: 1.5;
+            font-size: 15px;
+            color:white;
+            overflow-y: auto;
+        }
+        .highlight{
+            background-color: rgb(255,243,212);
+        }
+    </style>
+</head>
+<body>
+<!--header-->
+<div class="headerbox">
+    <div class="headertop">
+        <div class="hdtopbut">
+            <a href="http://blog.hungking.cc/" target="_blank"><img src="imgs/sns_blog_off.png"></a>
+            <a href="https://www.facebook.com/HoungkingHsi" target="_blank"><img src="imgs/sns_facebook_off.png"></a>
+            <a href="http://globalblog.hungking.cc/" target="_blank"><img src="imgs/sns_gBlog_off.png"></a>
+            <a href="http://www.linkedin.com/imisslovelove" target="_blank"><img src="imgs/sns_in_off.png"></a>
+            <a href="http://www.youtube.com/imisslovelove" target="_blank"><img src="imgs/sns_youTube_off.png"></a>
+            <a href="http://www.instagram.com/imisslovelove" target="_blank"><img src="imgs/sns_instagram_off.png"></a>
+            <a href="http://story.kakao.com/ch/imisslovelove" target="_blank" style="background: transparent none;"><img src="imgs/sns_kakao_off.png"></a>
+            <div class="hdtopbutR">
+                <a href="construction.html" style="background-position-x:85px ;">Contact Me</a>
+                <a href="construction.html">AboutSite</a>
+                <span onclick="ifshow(0)">Language<img src="imgs/btn_globalSite_open.gif"></span>
+                <ul id="lag">
+                    <li>KOREAN</li><li>CHINESE</li><li>JAPANESE</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="headerbotm">
+        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
+        <ul id="hdbotmUl">
+            <li>
+                <a href="company.html">WEB前端</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">HTML</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Corporate Overview</a></li>
+                                <li><a href="">Vision of houngking</a></li>
+                                <li><a href="">History of houngking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">CSS/CSS3</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Brand Story</a></li>
+                                <li><a>CI</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">JavaScript</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Greetings</a></li>
+                                <li><a>CEO's Message</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Ajax</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>hougking Affiliates</a></li>
+                                <li><a>Steel</a></li>
+                                <li><a>E&C</a></li>
+                                <li><a>Trade</a></li>
+                                <li><a>ICT</a></li>
+                                <li><a>Energy</a></li>
+                                <li><a>Material-Chemistry</a></li>
+                                <li><a>Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">jQuery</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Global</a></li>
+                                <li><a>Asia</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Business Ethics</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Major Activities</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Products/Technology</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Products of hounking</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Hot Rolled Steel</a></li>
+                                <li><a href="">Steel Plate</a></li>
+                                <li><a href="">Winter Day</a></li>
+                                <li><a href="">Gold Rolled Steel</a></li>
+                                <li><a href="">Galvanized Steel</a></li>
+                                <li><a href="">Electrical Galvanized</a></li>
+                                <li><a href="">Electrical Steel</a></li>
+                                <li><a href="">Automotive materials</a></li>
+                                <li><a href="">Stainless Steel</a></li>
+                                <li><a href="">Titanium Product</a></li>
+                                <li><a href="">Magnesium Product</a></li>
+                                <li><a href="">Aluminum-plated products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">houngking Technology</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">FINEX Technology</a></li>
+                                <li><a href="">Strip Casting</a></li>
+                                <li><a href="">Endless Hot Rolling Technology</a></li>
+                                <li><a href="">Operation Technology</a></li>
+                                <li><a href="">CEM Technology</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Production Process</a>
+                    </li>
+                    <li>
+                        <a href="">Sales information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">e-Sales</a></li>
+                                <li><a href="">e-Procurement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Investor Relations</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">IR Activeties</a>
+                    </li>
+                    <li>
+                        <a href="">Stock Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Stock Price</a></li>
+                                <li><a href="">Price Comparision</a></li>
+                                <li><a href="">ADR</a></li>
+                                <li><a href="">houngking Stock Exchange</a></li>
+                                <li><a href="">Economic Trend</a></li>
+                                <li><a href="">Shareholders Demographics</a></li>
+                                <li><a href="">Dividend</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Financial Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Income Statement</a></li>
+                                <li><a href="">Credit Rating</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">IR Archive</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Audit Report</a></li>
+                                <li><a href="">Form 20-F</a></li>
+                                <li><a href="">Annual Report</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Sustainability</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Sustainability Management System</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Management System</a></li>
+                                <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
+                                <li><a href="">Risk Management</a></li>
+                                <li><a href="">Stakeholder</a></li>
+                                <li><a href="">Relevant Institutes Activities</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Social Responsibility </a>
+                    </li>
+                    <li>
+                        <a href="">Environmental Management </a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Family's Environmental Management</a></li>
+                                <li><a href="">Environmental Management</a></li>
+                                <li><a href="">Climate change /Energy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Customer</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Marketing strategy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Employee</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Employee Health / Safety</a></li>
+                                <li><a href="">Organizational Culture</a></li>
+                                <li><a href="">HR system</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Report</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Report</a></li>
+                                <li><a href="">Carbon Report</a></li>
+                                <li><a href="">Conflict Minerals Disclosure</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">PR Room</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">News room</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">News letter</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">houngking SNS</a>
+                    </li>
+                    <li>
+                        <a href="">PR Archives</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
+                                <li><a href="">PR Movies</a></li>
+                                <li><a href="">Printed Advertisement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Download</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
+        <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
+        <div class="hdmenu" id="hdmenu">
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--text-->
+<div class="textBox">
+    <h2>vuejs 2.0 学习</h2>
+    <h3>1,vue简介</h3>
+    <p>vue同样采取了虚拟DOM形式。</p>
+    <p>Vue.js 使用了基于 HTML 的模板语法，允许开发者声明式地将 DOM 绑定至底层 Vue 实例的数据。在底层的实现上，Vue 将模板编译成虚拟 DOM 渲染函数。</p>
+    <p>"Mustache"语法 (双大括号)只能存在单行语句，且不能作用在HTML属性中。</p>
+
+    <h3>2,Vue基础要点</h3>
+    <h4>>> 事件处理：</h4>
+    <h5>事件修饰符:</h5>
+    <p>stop,prevent,once,self</p>
+    <h5>按键修饰符:</h5>
+    <p>enter,tab,delete,esc,space,down,up</p>
+    <h4>>> 指令：</h4>
+    <h5>v-model修饰符：</h5>
+    <p>lazy，number，trim</p>
+    <h4>>> 组件：</h4>
+    <p>在ul、table、select这样的元素里允许包含的元素有限制，在自定义组件中使用这些受限元素时会导致一些问题，变通的方案是使用特殊的is特性。</p>
+    <p>单文件组件，由三个部分组成：Style，Template，Script</p>
+    <h5>style :</h5>
+    <p>scoped:样式只在当前组件内生效</p>
+    <h5>props:</h5>
+    <p>子父组件交互通信：</p>
+    <p>父 -> 子：props</p>
+    <p>子 -> 父：emit Event</p>
+    <p>数据传递类型限制/验证;</p>
+    <h5>子组件通过自定义事件给父组件通信:</h5>
+    <p>this.$emit(key,value)</p>
+    <h5>使用插槽分发内容: </h5>
+    <p>使用slot插槽使得子父集的传递不仅是数据，还可以是视图。</p>
+    <h5>动态组件,keep-alive:</h5>
+    <p>通过使用保留的component元素，动态地绑定到它的is特性，让多个组件可以使用同一个挂载点，并动态切换。</p>
+    <p>实践中，不用component元素和is特性，直接用双括号放置组件的动态变量，也可以实现。</p>
+    <p>keep-alive可以把切换出去的组件保留在内存中，它可以保留组件的状态或避免重新渲染。</p>
+    <h4>>> 过渡与动画:</h4>
+    <p>可以有css和js两种方式实现。建议使用css，因为js对性能消耗要大。</p>
+    <p>· 在css过渡和动画中自动应用class。</p>
+    <p>· 可以配合使用第三方css动画库，如Animate.css。</p>
+    <h4>>> 自定义指令:</h4>
+    <p>有全局指令和局部指令之分。</p>
+    <h4>>> 过滤器</h4>
+    <p>过滤器可以在两个地方使用：双花括号插值和v-bind表达式（后者从2.1.0+开始支持）。加载javascript表达式尾部，由“管道”符号指示。</p>
+    <h4>>> 跨域解决方案：</h4>
+    <p>开发时的跨域用jsonp一般是不适合的。像vue这样前后端分离开发，上线后程序的客户端代码和服务器代码是放在一起的，不存在跨越的问题的。</p>
+    <p>vue给我们提供了一个配置方案。在config里面有个index.js，里面有个专门的解决跨域的方案proxyTable。例如:</p>
+    <pre style="margin-bottom: 10px;">// 第一步  /config/index.js
+module.exports = {
+  dev: {
+    ...
+    proxyTable: {
+      "/api":{
+        target:"http://localhost:3000",
+        changeOrigin:true,
+        pathRewrite:{
+          '^/api':''
+        }
+      }
+    },
+    host: 'localhost', // can be overwritten by process.env.HOST
+    port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    ...</pre>
+    <pre>// 第二步  /main.js
+Vue.prototype.HOST = '/api'
+    // 读HOST相当于读了config/index里proxyTable的‘api’的target地址</pre>
+    <p>然后一个url地址就可以用this.HOST+path来表示了。</p>
+    <p>注意：此种跨域解决方案，只能适用于测试阶段，对上线后的跨域不行。因为打包的时候，不会具备服务器，不能跨域了。</p>
+    <h4>>> Mock数据模拟: </h4>
+    <p>1, 自己创建json文件。使用get请求形式访问数据</p>
+    <p>优点：方便，快捷</p>
+    <p>缺点：只能存在get请求</p>
+    <p>2，项目中集成服务器（比如node环境），模拟各种接口</p>
+    <p>优点：模拟真实线上环境</p>
+    <p>缺点：增加开发成本</p>
+    <p>3，直接使用线上数据</p>
+    <p>优点：真实</p>
+    <p>缺点：不一定每个项目都存在这样的数据</p>
+    <p>4,数据模拟库</p>
+    <p>mock.js</p>
+    <h4>>> 路由(vue-router 2)</h4>
+    <p>vue-router@2.x只适用于vue 2.x。</p>
+    <p>安装：npm install vue-router</p>
+    <p>通过Vue.use()明确地安装路由功能：</p>
+    <pre>// main.js
+    import Vue from 'vue'
+    import VueRouter from 'vue-router'
+    Vue.use(VueRouter)
+    const router = new VueRouter({ routes:[{path:'/',component:HellowWorld} ] })
+    new Vue({ router }).$mount('#app')</pre>
+    <p>&lt;router-view&gt;组件是一个功能组件，渲染路径匹配到的视图组件。它渲染的组件还可以内嵌自己的&lt;router-view&gt;，根据嵌套路径，渲染嵌套组件。</p>
+    <p>&lt;router-link&gt;组件通过to属性指定目标地址，实现点击导航。默认渲染成带有正确连接的a标签。</p>
+    <p>路由嵌套：new VueRouter（）时候，在routes数组下对应有嵌套需求的对象中增加children属性.</p>
+    <h5>路由传递参数:</h5>
+    <pre>
+    //方式一： 带查询参数，下面的结果为/user?count=123
+    &lt;router-link :to="{ path:'/user', query:{count:123}}"&gt;Register&lt;/router-link&gt;
+    //方式二： 下面的结果为/user/123
+    &lt;router-link :to="{ name:'user', params:{ count:123 }}"&gt;User&lt;/router-link&gt;  </pre>
+    <p>对应的路由里面这样写：</p>
+    <pre>// router/index.js
+routes: [
+    {
+      path: '/user/:count',
+      name: 'user',
+      component: User,
+    },
+],</pre>
+    <h5>获取路由传递的参数：</h5>
+    <p>方式一的路由参数传递方式，可以通过$route.query.count这样的方式，来获取到传递的值。</p>
+    <p>方式二的路由参数传递方式，可以通过$route.params.count这样的方式，来获取到传递的值。</p>
+    <h5>选中路由的高亮效果：</h5>
+    <p>a,设置默认的.router-link-active类的样式；</p>
+    <p>b,默认值可以通过路由的构造选项linkActiveClass来全局配置。</p>
+    <h4>>> vueX之store :</h4>
+    <p>vuex是vue应用程序的状态管理模式，通俗讲就是使程序组件共享数据。</p>
+
+    <h3>3,vue配套使用的框架、库</h3>
+    <h4>>> UI库Element</h4>
+    <h4>>> swiper移动端触摸滑动插件</h4>
+    <h4>>> vue-lazyload </h4>
+    <p>github地址: https://github.com/hilongjw/vue-lazyload</p>
+    <h4>>> rem与less: </h4>
+    <p>安装less、style-loader、css-loader、less-loader，然后在配置文件里配置less。</p>
+    <p>配置完成后，在vue项目里模块的style部分，添加lang属性为less，接着就可以用less写模块的样式了。</p>
+    <h4>>> vue-resource </h4>
+    <p>Vue.js是数据驱动的，这使得我们并不需要直接操作DOM，如果我们不需要使用jQuery的DOM选择器，就没有必要引入jQuery。vue-resource是Vue.js的一款插件，它可以通过XMLHttpRequest或JSONP发起请求并处理响应。也就是说，$.ajax能做的事情，vue-resource插件一样也能做到，而且vue-resource的API更为简洁。另外，vue-resource还提供了非常有用的inteceptor功能，使用inteceptor可以在请求前和请求后附加一些行为，比如使用inteceptor在ajax请求时显示loading界面。</p>
+    <p>和Vue.js一样，vue-resource除了不支持IE 9以下的浏览器，其他主流的浏览器都支持。</p>
+    <p>vue更新到2.0之后，作者就不在对vue-resource更新了，而是推荐axios。</p>
+
+
+    <h3>4,简易实例项目演示</h3>
+    <p>环境要求： Node.js (>=6.x, 8.x preferred), npm version 3+</p>
+    <p>安装 <a href="https://github.com/vuejs/vue-cli/tree/v2#vue-cli--" target="_blank">vue-cli </a>:</p>
+    <pre>npm install -g vue-cli </pre>
+    <p>初始化项目(我的项目名vue2.0dev)：</p>
+    <pre>vue init webpack vue2.0dev </pre>
+    <p>初始化完成后，项目的环境就搭建好了，包括eslint、babel、webpack、router等，在初始化过程中可以根据命令行窗口的提示安装。</p>
+    <h4>项目目录结构：</h4>
+    <p>.postcssrc.js：postcss配置文件</p>
+    <p>static：静态文件目录。服务器启动之后，可以直接访问到它下面的内容。通常会把一些json文件、文档放在static下面。</p>
+    <p>config文件夹：一般是针对开发上服务器的配置。比如开发环境的配置、生产环境配置、针对服务器跨域的一些配置、host等。</p>
+    <p>build文件夹:包含服务器和webpack配置。</p>
+    <p>main.js：入口文件。</p>
+    <p>App.vue:第一个vue组件。</p>
+    <p>assets文件夹：资源目录，比方公共的css、字体、图片等。</p>
+    <h4>项目过程: </h4>
+    <p>安装axios：npm install axios --save</p>
+    <p>引入加载axios：</p>
+    <pre>// main.js
+    import Axios from "axios"
+    Vue.prototype.$axios = Axios;
+    // 在Vue原型上创建了一个$axios 对象。</pre>
+
+
+    <br/>
+    <h5>参考文档:</h5>
+
+</div>
+
+</body>
+</html>
