@@ -1,0 +1,1714 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>angular4基础-项目实践|sumerzhou's blog</title>
+    <link href="myblog.css" rel="stylesheet" type="text/css">
+    <script src="myblog.js" type="text/javascript"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
+            line-height: 2em;
+        }
+        .textBox h2{
+            margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
+        }
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox h4{
+            text-shadow: 1px 1px 2px #4F68B0;
+        }
+        .textBox p{
+            text-indent: 2em;
+        }
+        .textBox li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .textBox pre{
+            display: block;
+            width: 850px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 4px 3px 2px black;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+            font-family: '仿宋';
+            background-color: rgb(40,44,52);
+            line-height: 1.5;
+            font-size: 15px;
+            color:white;
+            overflow-y: auto;
+        }
+        .highlight{
+            background-color: rgb(255,243,212);
+        }
+    </style>
+</head>
+<body>
+<!--header-->
+<div class="headerbox">
+    <div class="headertop">
+        <div class="hdtopbut">
+            <a href="http://blog.hungking.cc/" target="_blank"><img src="imgs/sns_blog_off.png"></a>
+            <a href="https://www.facebook.com/HoungkingHsi" target="_blank"><img src="imgs/sns_facebook_off.png"></a>
+            <a href="http://globalblog.hungking.cc/" target="_blank"><img src="imgs/sns_gBlog_off.png"></a>
+            <a href="http://www.linkedin.com/imisslovelove" target="_blank"><img src="imgs/sns_in_off.png"></a>
+            <a href="http://www.youtube.com/imisslovelove" target="_blank"><img src="imgs/sns_youTube_off.png"></a>
+            <a href="http://www.instagram.com/imisslovelove" target="_blank"><img src="imgs/sns_instagram_off.png"></a>
+            <a href="http://story.kakao.com/ch/imisslovelove" target="_blank" style="background: transparent none;"><img src="imgs/sns_kakao_off.png"></a>
+            <div class="hdtopbutR">
+                <a href="construction.html" style="background-position-x:85px ;">Contact Me</a>
+                <a href="construction.html">AboutSite</a>
+                <span onclick="ifshow(0)">Language<img src="imgs/btn_globalSite_open.gif"></span>
+                <ul id="lag">
+                    <li>KOREAN</li><li>CHINESE</li><li>JAPANESE</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="headerbotm">
+        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
+        <ul id="hdbotmUl">
+            <li>
+                <a href="company.html">WEB前端</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">HTML</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Corporate Overview</a></li>
+                                <li><a href="">Vision of houngking</a></li>
+                                <li><a href="">History of houngking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">CSS/CSS3</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Brand Story</a></li>
+                                <li><a>CI</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">JavaScript</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Greetings</a></li>
+                                <li><a>CEO's Message</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Ajax</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>hougking Affiliates</a></li>
+                                <li><a>Steel</a></li>
+                                <li><a>E&C</a></li>
+                                <li><a>Trade</a></li>
+                                <li><a>ICT</a></li>
+                                <li><a>Energy</a></li>
+                                <li><a>Material-Chemistry</a></li>
+                                <li><a>Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">jQuery</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Global</a></li>
+                                <li><a>Asia</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Business Ethics</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Major Activities</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Products/Technology</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Products of hounking</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Hot Rolled Steel</a></li>
+                                <li><a href="">Steel Plate</a></li>
+                                <li><a href="">Winter Day</a></li>
+                                <li><a href="">Gold Rolled Steel</a></li>
+                                <li><a href="">Galvanized Steel</a></li>
+                                <li><a href="">Electrical Galvanized</a></li>
+                                <li><a href="">Electrical Steel</a></li>
+                                <li><a href="">Automotive materials</a></li>
+                                <li><a href="">Stainless Steel</a></li>
+                                <li><a href="">Titanium Product</a></li>
+                                <li><a href="">Magnesium Product</a></li>
+                                <li><a href="">Aluminum-plated products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">houngking Technology</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">FINEX Technology</a></li>
+                                <li><a href="">Strip Casting</a></li>
+                                <li><a href="">Endless Hot Rolling Technology</a></li>
+                                <li><a href="">Operation Technology</a></li>
+                                <li><a href="">CEM Technology</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Production Process</a>
+                    </li>
+                    <li>
+                        <a href="">Sales information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">e-Sales</a></li>
+                                <li><a href="">e-Procurement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Investor Relations</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">IR Activeties</a>
+                    </li>
+                    <li>
+                        <a href="">Stock Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Stock Price</a></li>
+                                <li><a href="">Price Comparision</a></li>
+                                <li><a href="">ADR</a></li>
+                                <li><a href="">houngking Stock Exchange</a></li>
+                                <li><a href="">Economic Trend</a></li>
+                                <li><a href="">Shareholders Demographics</a></li>
+                                <li><a href="">Dividend</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Financial Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Income Statement</a></li>
+                                <li><a href="">Credit Rating</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">IR Archive</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Audit Report</a></li>
+                                <li><a href="">Form 20-F</a></li>
+                                <li><a href="">Annual Report</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Sustainability</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Sustainability Management System</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Management System</a></li>
+                                <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
+                                <li><a href="">Risk Management</a></li>
+                                <li><a href="">Stakeholder</a></li>
+                                <li><a href="">Relevant Institutes Activities</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Social Responsibility </a>
+                    </li>
+                    <li>
+                        <a href="">Environmental Management </a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Family's Environmental Management</a></li>
+                                <li><a href="">Environmental Management</a></li>
+                                <li><a href="">Climate change /Energy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Customer</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Marketing strategy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Employee</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Employee Health / Safety</a></li>
+                                <li><a href="">Organizational Culture</a></li>
+                                <li><a href="">HR system</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Report</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Report</a></li>
+                                <li><a href="">Carbon Report</a></li>
+                                <li><a href="">Conflict Minerals Disclosure</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">PR Room</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">News room</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">News letter</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">houngking SNS</a>
+                    </li>
+                    <li>
+                        <a href="">PR Archives</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
+                                <li><a href="">PR Movies</a></li>
+                                <li><a href="">Printed Advertisement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Download</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
+        <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
+        <div class="hdmenu" id="hdmenu">
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--text-->
+<div class="textBox">
+    <h2>angular4基础-项目实践(Angular打造企业级协作平台)</h2>
+    <h3>前言:AngularJS、 Angular 2、Angular 4 </h3>
+    <p>常说的 Angular 1 是指 AngularJS； 从Angular 2 开始已经改名了。不再带有JS，只是单纯的 Angular。</p>
+    <p>相比 Angular 1.x， Angular 2 的体积更小，快。 如果仅仅用于PC 端的WEB开发， Angular 1.x足以应对， 如果是用于 mobile app ，在用户体验方面，略显捉襟见肘！推出 Angular 2 是迫于 mobile apps 的需要。Angular 1写的代码无法用在Angular 2上,Angular 1.x 是基于JavaScript的框架，而Angular 2是基于TypeScript的框架。</p>
+    <p>Angular 4 是 Angular 2 的升级版本，Angular 4 比 Angular 2 更快。</p>
+
+    <h3>1,环境搭建</h3>
+    <p>视频教程使用的软件版本：angular4.x, @angular/cli-1.1.0, node6.9.2</p>
+    <h5>>> 系统基础环境：</h5>
+    <p>node：安装node是为了使用npm管理项目依赖的软件包.</p>
+    <p>@angular/cli是angular团队推出的一个脚手架工具，用于快速构建angular应用。使用angular CLI使我们无须理会复杂的配置，更专注angular。</p>
+    <p>chrome安装Augury插件，在网址chrome-extension-downloader.com，页面输入id（elgalmkoelokbchhkhacckoklkejnhcd）后下载。</p>
+    <h5>>> angular CLI的几个常用命令：</h5>
+    <p>ng --version:查看安装的angular的版本号</p>
+    <p>ng new 项目名：新建angular项目</p>
+    <p>ng build -prod:生产环境编译。如果没有加prod，生成出的并不是优化的代码，加了之后会有代码压缩等。</p>
+    <p>ng serve:启动发开服务器</p>
+    <h5>>> Mock Rest API:</h5>
+    <p><a href="https://www.npmjs.com/package/json-server" target="_blank">json-server</a> :用于快速搭建REST API的利器。利用json文件快速生产非常接近于真实的rest API。</p>
+    <p>安装：npm install -g json-server </p>
+    <p>使用：在项目中构造一个json文件用来存放API数据，然后用“json-server 文件路径”启动API host服务。这时在浏览器中访问localhost:3000可以看到json里的接口和数据。支持get、post、put、patch、delete等REST命令操作。</p>
+    <h5>>> 测试REST API：</h5>
+    <p>上面那样是使用浏览器测试get请求，但浏览器并不能测试所有的REST API，比如post、put。</p>
+    <p>几种常见的API测试工具：</p>
+    <p>a, 使用postman测试常用的API</p>
+    <p>b, 使用VSCode的REST Client插件</p>
+    <h5>>> 常见问题解决：</h5>
+    <p>安装某个包出现错误,可以适当的清除缓存试试。删掉重新安装：</p>
+    <p>先npm uninstall [package]</p>
+    <p>然后清除缓存npm cache clean --force</p>
+    <p>再重新安装刚刚安装出错被删除的package。</p>
+    <p>某些情况下可以删除整个node_modules 模块：rm -rf node_modules</p>
+    <h3>2,用Angular Material 组件打造页面</h3>
+    <p>实际项目的练习环境：node8.0.0，@angular/cli-1.1.0</p>
+    <pre>npm i -g @angular/cli@1.1.0 </pre>
+    <p>新建项目first-angular：</p>
+    <pre>
+        ng new first-angular --skip-install --style=scss
+    // 样式风格用scss，因为后面要用angular-material做主题的一些支持，这个主题需要scss的一些特性。</pre>
+    <p>在src/app下添加模块:</p>
+    <pre>ng g m moduleName</pre>
+    <p>用上面的命令在app文件夹下增加core和shared模块。core模块在系统中只加载一次。share模块作为共享模块，最主要的作用是把公用的东西导入并导出，以后有其他模块需要这里导入的模块的话，只要导入shared模块就可以了，因为分别在每一个模块里去导入导出的话会很繁琐。还有一些共享的组件可以放在shared模块中。</p>
+    <pre style="margin-bottom: 5px;height: 200px;">// core/core.module.ts
+import { NgModule, SkipSelf, Optional } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@NgModule({
+  imports: [
+    CommonModule
+  ],
+  declarations: []
+})
+export class CoreModule {
+  constructor(@Optional() @SkipSelf() parent: CoreModule) {
+    //SkipSelf注解，让函数不要在自己这里打转，去父级那里寻找
+    //Optional说明这个依赖是可选的
+    if (parent) {
+      throw new Error('模块已经存在，不能再次加载！');
+    }
+  }
+}</pre>
+    <pre style="height:200px;">// shared/shared.module.ts
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@NgModule({
+  imports: [
+    CommonModule
+  ],
+  exports: [
+    CommonModule
+  ],
+  declarations: []
+})
+export class SharedModule { }</pre>
+    <p>在app.module.ts中把core模块导入,这样只需在根模块中加载一次core模块，其他时候就不加载了：</p>
+    <pre style="height: 200px;">// app.module.ts
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { CoreModule } from './core/core.module';
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    CoreModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { } </pre>
+    <h4>UI整体布局 :</h4>
+    <p>在core文件夹下新建一个header组件:</p>
+    <pre> ng g c core/header --spec=false //--spec=false暂时不使用测试</pre>
+    <p>命令行方式创建组件后，程序会自动在core.module.ts中的declarations数组中把新添加的组件声明进来。</p>
+    <p>同样方法在core目录下新建footer和sidebar组件。</p>
+    <p>去app.component.html中实现整体布局：</p>
+    <pre>// app/app.component.html
+&lt;div class="site" &gt;
+  &lt;header&gt;
+    &lt;app-header&gt;&lt;/app-header&gt;
+  &lt;/header&gt;
+  &lt;main&gt;&lt;/main&gt;
+  &lt;footer&gt;
+    &lt;app-footer&gt;&lt;/app-footer&gt;
+  &lt;/footer&gt;
+&lt;/div&gt; </pre>
+    <p>在core.module.ts中把新增的三个组件用exports作导出：</p>
+    <pre>// core.module.ts
+@NgModule({
+  imports: [
+    CommonModule
+  ],
+  declarations: [HeaderComponent, FooterComponent, SidebarComponent],
+  exports: [HeaderComponent, FooterComponent, SidebarComponent]
+})</pre>
+    <p>这时候运行程序会发现布局已经显示出来了。</p>
+    <p>布局应用全局样式：</p>
+    <pre style="height: 150px;">// src/styles.scss
+html,body,app-root,md-sidenav-container,.site{
+  width:100%;
+  height: 100%;
+  margin:0;
+}
+.site{
+  display: flex;
+  flex-direction: column;
+}
+main{
+  flex:1;
+}
+.full-width{
+  width: 100%;
+}</pre>
+    <h4><a href="https://github.com/angular/material2" target="_blank">angular Material</a>介绍:</h4>
+    <p>Google官方对于web和手机端、平板端统一的一套界面风格。(ps: <a href="http://materialdesignblog.com/" target="_blank">优秀的material UI设计欣赏</a>)</p>
+    <p>优点：兼容性好，可扩展性强，可测试性好，对主题的支持好.</p>
+    <p>缺点：目前组件仍不算丰富，只有material风格.</p>
+    <p>安装angular material：</p>
+    <pre>npm i --save @angular/material@2.0.0-beta.7 </pre>
+    <p>在app.module.ts中引入material包的MdSidenavModule：</p>
+    <pre>// app.module.ts
+import { MdSidenavModule } from '@angular/material';
+...
+@NgModule({
+        ...
+        imports: [
+           ...
+            MdSidenavModule
+        ],
+    ...</pre>
+    <p>MdSidenavModule导入后可以提供两个组件：md-sidenav-container和md-sidenav 。</p>
+    <pre>// app/app.component.html
+&lt;md-sidenav-container&gt;
+  &lt;md-sidenav #sidenav&gt;
+    &lt;app-sidebar&gt;&lt;/app-sidebar&gt;
+  &lt;/md-sidenav&gt;
+  ...
+    &lt;main&gt;
+        &lt;button (click)="sidenav.open()" &gt;打开侧边栏&lt;/button&gt;
+    &lt;/main&gt;
+  ...
+&lt;/md-sidenav-container&gt;  </pre>
+    <p>sidebar默认情况下是隐藏的，需要有一个操作把它给调出来。</p>
+    <p>在全局样式文件中引入angular material的主题文件：</p>
+    <pre>// src/styles.scss
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css"; </pre>
+    <p>material內建了几个主题。如果要自定义主题，需要用scss的一些方法来实现(后面具体说)。</p>
+    <p>接下来打造header和footer：</p>
+    <pre style="margin-bottom: 5px;">// core.module.ts
+import { MdToolbarModule, MdIconModule, MdButtonModule} from '@angular/material';
+...
+  imports: [
+    CommonModule,
+    MdToolbarModule,
+    MdIconModule,
+    MdButtonModule
+  ],
+  ...  </pre>
+    <pre>// footer.component.html
+&lt;md-toolbar&gt;
+  &lt;span class="fill-remaining-space"&gt;&lt;/span&gt;
+  &lt;span&gt; &copy;8888888*******&lt;/span&gt;
+  &lt;span class="fill-remaining-space"&gt;&lt;/span&gt;
+  &lt;md-toolbar-row&gt;
+    &lt;span class="fill-remaining-space"&gt;&lt;/span&gt;
+    &lt;span&gt; 这是第二行 !&lt;/span&gt;
+    &lt;span class="fill-remaining-space"&gt;&lt;/span&gt;
+  &lt;/md-toolbar-row&gt;
+&lt;/md-toolbar&gt; </pre>
+    <p>想让footer的文字居中可以有几种方法，我们可以借助flex布局来做。material很多组件都是用flex来调整布局的。在styles.scss中加入一个样式：</p>
+    <pre>// styles.scss
+.fill-remaining-space{
+  // 使用flexbox，填充剩余空间
+  // @angular/material中很多空间使用了flex布局
+  flex:1 1 auto;
+} </pre>
+    <p>给header增加菜单和样式：</p>
+    <pre style="margin-bottom: 5px;">// header.component.html
+&lt;md-toolbar color="primary"&gt;
+  &lt;button (click)="openSidebar()"&gt;
+     &lt;md-icon&gt;menu&lt;/md-icon&gt;
+  &lt;/button&gt;
+  &lt;span&gt;企业协作平台&lt;/span&gt;
+&lt;/md-toolbar&gt; </pre>
+    <pre style="margin-bottom: 5px;">// header.component.ts
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+...
+export class HeaderComponent implements OnInit {
+  @Output() toggle = new EventEmitter&lt;void&gt;();
+  ...
+  openSidebar() {
+    this.toggle.emit();
+  }
+}</pre>
+    <pre>// app.component.html
+&lt;header&gt;
+  &lt;app-header (toggle)="sidenav.open()"&gt;&lt;/app-header&gt;
+&lt;/header&gt;
+&lt;main&gt;&lt;/main&gt; </pre>
+    <h4>MdIcon 组件:</h4>
+    <p>md-icon控件:使用图标字体，內建material icon支持；支持svg（通过注入MdIconRegistry 和DomSanitizer完成）。</p>
+    <p>图标查询地址:https://material.io/tools/icons</p>
+    <p>要能正常使用图标字体，还需要在index.html中引入外部的css样式文件，正常需要引入的是Google的iconfont地址，国内这里需要使用镜像：//lib.baomitu.com/material-design-icons/3.0.1/iconfont/material-icons.min.css</p>
+    <pre>// index.html
+&lt;link rel="stylesheet" href="//lib.baomitu.com/material-design-icons/3.0.1/iconfont/material-icons.min.css"&gt; </pre>
+    <p>此时header里菜单的icon图标整体还是一个不透明的效果（因为是把icon套在了button便签里），我们需要把button也变成material风格(需要在core.module.ts中引入MdButtonModule)：</p>
+    <pre>// header.component.html
+&lt;button md-icon-button (click)="openSidebar()"&gt;
+     &lt;md-icon&gt;menu&lt;/md-icon&gt;
+&lt;/button&gt; </pre>
+    <h5>MdIcon导入svg图片导入当成图标使用：</h5>
+    <p>在文件夹assets中放入一张svg格式的图片（shouce.svg）。为了避免在需求svg资源组件内哪使用哪加载导致的图标资源加载重复和分散问题，推荐在app目录下创建一个工具文件夹utils:</p>
+    <pre>// app/utils/svg.util.ts
+import {MdIconRegistry} from '@angular/material';
+import {DomSanitizer} from '@angular/platform-browser';
+
+export const loadSvgResources = (ir: MdIconRegistry, ds: DomSanitizer) => {
+  ir.addSvgIcon('gifts', ds.bypassSecurityTrustResourceUrl('assets/shouce.svg'));
+} //DomSanitizer构建安全的url</pre>
+    <p>这时候，如果去像header之类组件里的constructor函数调用工具类，还是存在重复调用的问题，每个用到svg转的icon图标时都会调用。最好的入口（本项目中）是在core.module.ts中，导入一次，其他组件都不用关心这一状态，只要用就可以了。加载这件事在core module初始化中去做。</p>
+    <p>material icon如果要导svg是需要http依赖的，所以在core.module.ts中导入HttpModule:</p>
+    <pre style="height: 200px;">// core.module.ts
+import { HttpModule } from '@angular/http';
+import {MdIconRegistry} from '@angular/material';
+import {DomSanitizer} from '@angular/platform-browser';
+import { loadSvgResources } from '../utils/svg.util'
+...
+@NgModule({
+  imports: [
+    ...
+    HttpModule
+  ],
+  ...
+})
+export class CoreModule {
+  constructor(
+    @Optional() @SkipSelf() parent: CoreModule,
+    ir: MdIconRegistry,
+    ds: DomSanitizer
+    ) {
+    ...
+    loadSvgResources(ir, ds);
+  }
+} </pre>
+    <p>然后就可以在需要使用icon的地方应用了,比如：:</p>
+    <pre>// header.component.html
+&lt;md-icon svgIcon="gifts"&gt;&lt;/md-icon&gt;
+&lt;span&gt;企业协作平台&lt;/span&gt;</pre>
+    <h4>Input 组件:</h4>
+    <p>mdInput组件需要放在&lt;md-input-container&gt;内部，有前缀后缀。</p>
+    <p>&lt;md-error&gt; : 验证不通过时才出现，对两种类型表单都是如此</p>
+    <p>&lt;md-hint&gt; : 当error显示时，hint会隐藏。</p>
+    <p>&lt;span mdSuffix&gt;@gmail.com&lt;/span&gt; : 后缀</p>
+    <p>&lt;input mdInput type="text" &gt; : 用mdInput 把普通input标签变为material风格的。</p>
+    <p>接下来构建登录页面。首先在app目录下新建一个domain目录，在其下创建一个用户领域对象user.model.ts:</p>
+    <pre>// app/domain/user.model.ts
+export interface User {
+  id?: string;
+  email: string;
+  password: string;
+  name: string;
+  avatar: string;
+} </pre>
+    <p>使用命令ng g m login在src/app下新增一个login模块,再ng g c login/login --spec=false创建login组件：</p>
+    <pre style="height: 150px;">// login.component.html
+&lt;form&gt;
+    &lt;md-card&gt;
+      &lt;md-card-header&gt;
+        &lt;md-card-title&gt;登录: &lt;/md-card-title&gt;
+      &lt;/md-card-header&gt;
+      &lt;md-card-content&gt;
+        &lt;md-input-container  class="full-width"&gt;
+          &lt;input mdInput type="text" placeholder="您的email"&gt;
+        &lt;/md-input-container&gt;
+        &lt;md-input-container  class="full-width"&gt;
+          &lt;input mdInput type="password" placeholder="您的密码"&gt;
+        &lt;/md-input-container&gt;
+        &lt;button md-raised-button type="button"&gt;登录&lt;/button&gt;
+      &lt;/md-card-content&gt;
+      &lt;md-card-actions&gt;
+        &lt;p&gt;还没有账户？ &lt;a href=""&gt;注册&lt;/a&gt;&lt;/p&gt;
+        &lt;p&gt;忘记密码？ &lt;a href=""&gt;找回&lt;/a&gt;&lt;/p&gt;
+      &lt;/md-card-actions&gt;
+    &lt;/md-card&gt;
+&lt;/form&gt; </pre>
+    <p>module逐渐增多后把公用常用的module放到shared.module.ts中,把core.module.ts中原来几个material的module也移过去：</p>
+    <pre style="height: 200px;margin-bottom: 5px;">// shared.module.ts
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MdToolbarModule, MdIconModule, MdButtonModule, MdCardModule, MdInputModule} from '@angular/material';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    MdToolbarModule,
+    MdIconModule,
+    MdButtonModule,
+    MdCardModule,
+    MdInputModule
+  ],
+  exports: [
+    CommonModule,
+    MdToolbarModule,
+    MdIconModule,
+    MdButtonModule,
+    MdCardModule,
+    MdInputModule
+  ],
+  declarations: []
+})
+export class SharedModule { }</pre>
+    <pre>// core.module.ts
+import { SharedModule } from '../shared/shared.module';
+...
+@NgModule({
+  imports: [
+    // CommonModule,
+    HttpModule,
+    SharedModule
+  ],
+   ... </pre>
+    <p>为了使用login组件，我们需要在app/login下建一个子路由（不希望在app.component中使用login组件）login-routing.module.ts :</p>
+    <pre>// login-routing.module.ts
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent} from './login/login.component';
+
+const routes: Routes = [
+  { path: 'login', component: LoginComponent }
+];
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class LoginRoutingModule {}  </pre>
+    <p>子模块导入子模块的子路由：</p>
+    <pre>// login.module.ts
+import { NgModule } from '@angular/core';
+import { SharedModule } from '../shared/shared.module';
+import { LoginRoutingModule } from './login-routing.module';
+import { LoginComponent } from './login/login.component';
+
+@NgModule({
+  imports: [
+    SharedModule,
+    LoginRoutingModule
+  ],
+  declarations: [LoginComponent]
+})
+export class LoginModule { } </pre>
+    <p>在app目录下建一个app-routing.module.ts根路由：</p>
+    <pre>// app/app-routing.module.ts
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' }
+];
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {} </pre>
+    <p>在根模块app.module.ts中还需要把根路由引入，不然程序不知道路由在哪里：</p>
+    <pre>// app.module.ts
+...
+import { LoginModule } from './login/login.module';
+import { AppRoutingModule } from './app-routing.module';
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    ...
+    AppRoutingModule,
+    LoginModule
+  ],
+    ...</pre>
+    <p>在根模板中放入router-outlet标签，把路由方进入：</p>
+    <pre>// app.component.html
+&lt;main&gt;
+  &lt;router-outlet&gt;&lt;/router-outlet&gt;
+&lt;/main&gt;  </pre>
+    <p>还需安装一个依赖，因为很多material的控件动画需要：</p>
+    <pre> npm install --save @angular/animations </pre>
+    <p>把animations导入core.module.ts中 :</p>
+    <pre>//  core.module.ts
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+...
+    @NgModule({
+      imports: [
+        BrowserAnimationsModule,
+    ...</pre>
+    <h4>Card 和 Button 组件:</h4>
+    <p>md-button是以指令形式提供的。</p>
+    <p>标准按钮：md-button, md-raised-button, md-icon-button</p>
+    <p>浮动按钮：md-fab, md-mini-fab</p>
+    <p>为使login组件居中显示，在login.component.scss中添加样式：</p>
+    <pre style="margin-bottom: 5px;height: 150px;">// login.component.html
+&lt;form&gt;
+  &lt;md-card&gt;
+      ...
+  &lt;/md-card&gt;
+  &lt;md-card&gt;
+    &lt;md-card-header&gt;
+      &lt;md-card-subtitle&gt;
+        满足感在于不断的努力，而不是现有的成就。全心努力定会胜利满满。
+      &lt;/md-card-subtitle&gt;
+    &lt;/md-card-header&gt;
+    &lt;img md-card-image src="http://img4.imgtn.bdimg.com/it/u=2880861195,1857877283&fm=200&gp=0.jpg" alt=""&gt;
+    &lt;md-card-content&gt;
+      Satisfaction lies in the effort，not in the attainment。Full effort is full victory。
+    &lt;/md-card-content&gt;
+  &lt;/md-card&gt;
+&lt;/form&gt;   </pre>
+    <pre style="height: 150px;">// login.component.scss
+md-card{
+  height: 25em;
+  flex:0 0 20em;
+}
+form{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+  height:100%;
+}
+.text-right{
+  margin: 10px;
+  text-align: end;
+}  </pre>
+    <h4>在侧滑菜单中使用 MdList:</h4>
+    <p>list包含&lt;md-list&gt;和&lt;md-nav-list&gt;</p>
+    <p>在app.component.scss中设置md-sidenav的宽度：</p>
+    <pre>// app.component.scss
+md-sidenav {
+  width:300px;
+}  </pre>
+    <p>在shared.module.ts中导入导出MdListModule后，编辑sidebar.component.html:</p>
+    <pre style="height: 200px;">//  sidebar.component.html
+&lt;md-nav-list dense&gt;
+  &lt;h3 md-subheader&gt;项目&lt;/h3&gt;
+  &lt;md-list-item&gt;
+    &lt;md-icon md-list-icon svgIcon="gifts"&gt;&lt;/md-icon&gt;
+    &lt;span md-line&gt;项目首页&lt;/span&gt;
+    &lt;span md-line md-subheader&gt;查看您的所有项目&lt;/span&gt;
+  &lt;/md-list-item&gt;
+  &lt;h3 md-subheader&gt;借阅管理&lt;/h3&gt;
+  &lt;md-list-item&gt;
+    &lt;md-icon md-list-icon&gt;screen_share&lt;/md-icon&gt;
+    &lt;span md-line&gt;图书借出&lt;/span&gt;
+    &lt;span md-line md-subheader&gt;查看您的所有借出图书&lt;/span&gt;
+  &lt;/md-list-item&gt;
+  &lt;md-list-item&gt;
+    &lt;md-icon md-list-icon&gt;settings_backup_restore&lt;/md-icon&gt;
+    &lt;span md-line&gt;图书归还&lt;/span&gt;
+    &lt;span md-line md-subheader&gt;查看图书归还情况&lt;/span&gt;
+  &lt;/md-list-item&gt;
+&lt;/md-nav-list&gt;   </pre>
+    <p>为了使图标跟文字在行首位置对齐，在sidebar的scss文件中加一个样式：</p>
+    <pre>// sidebar.component.scss
+md-icon{
+  align-self: flex-start;
+}  </pre>
+    <h5>(PS)日期类库：</h5>
+    <p>date-fns ,配合typescript用的话同时要安装@types/date-fns。</p>
+    <h4>Angular Material 主题:</h4>
+    <p>自定义主题：</p>
+    <p>material design-color tool: <a href="https://material.io/tools/color/#!/?view.left=0&view.right=0&primary.color=EA80FC" target="_blank">https://material.io/tools/color/#!/?view.left=0&view.right=0&primary.color=EA80FC</a></p>
+    <p>material design-palette: <a href="https://www.materialpalette.com/light-blue/yellow" target="_blank">https://www.materialpalette.com/light-blue/yellow</a></p>
+    <p>material angular主题定制官网例子: <a href="https://material.angular.io/guide/theming-your-components" target="_blank">https://material.angular.io/guide/theming-your-components</a></p>
+    <p>在src目录下新建一个theme.scss文件，在styles.scss头部引入：</p>
+    <pre>// styles.scss
+- @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
++ @import 'theme.scss';   </pre>
+    <p>在theme.scss中导入angular material的主题支持文件。</p>
+    <pre style="height: 200px;">// theme.scss
+@import '~@angular/material/theming';//主题支持文件
+@include mat-core();//把material中最基础和公用的风格包含进来
+//自定义变量，使用系统调色板函数mat-palette
+$my-app-primary: mat-palette($mat-indigo);
+$my-app-accent: mat-palette($mat-pink, A200, A100, A400);
+$my-app-warn: mat-palette($mat-red);
+$my-app-theme: mat-light-theme($my-app-primary,$my-app-accent,$my-app-warn);
+@include angular-material-theme($my-app-theme);//形成默认的自定义主题
+
+$my-dark-primary: mat-palette($mat-blue-grey);
+$my-dark-accent: mat-palette($mat-amber, A200, A100, A400);
+$my-dark-warn: mat-palette($mat-orange);
+$my-dark-theme: mat-dark-theme($my-dark-primary,$my-dark-accent,$my-dark-warn);
+
+.myapp-dark-theme{
+  @include angular-material-theme($my-dark-theme);
+}   </pre>
+    <p>接下来去操作如何切换主题。在shared.module.ts中导入导出MdSlideToggleModule后,在header组件中加一个调节明暗主题的开关：</p>
+    <pre style="margin-bottom: 5px;">// header.component.html
+&lt;span&gt;企业协作平台&lt;/span&gt;
+  &lt;span class="fill-remaining-space"&gt;&lt;/span&gt;
+&lt;md-slide-toggle (change)="onChange($event.checked)" &gt;黑夜模式&lt;/md-slide-toggle&gt;  </pre>
+    <pre>// header.component.ts
+export class HeaderComponent implements OnInit {
+  ...
+  @Output() toggleDarkTheme = new EventEmitter&lt;boolean&gt;();
+  ...
+  onChange(checked: boolean) {
+    this.toggleDarkTheme.emit(checked);
+  }
+}  </pre>
+    <p>然后在app.component去监听主题切换事件：</p>
+    <pre style="margin-bottom: 5px;">// app.component.html
+//angular提供了一个很方便的style选择
+&lt;md-sidenav-container [class.myapp-dark-theme]="darkTheme"&gt;
+    ...
+    &lt;app-header (toggle)="sidenav.open()" (toggleDarkTheme)="switchTheme($event)"&gt;&lt;/app-header&gt;
+    ...</pre>
+    <pre>// app.component.ts
+export class AppComponent {
+  darkTheme = false;
+  switchTheme(dark) {
+    this.darkTheme = dark;
+  }
+} </pre>
+    <p>设置在黑夜模式下的背景呈现灰色：</p>
+    <pre>// app.component.scss
+md-sidenav-container.myapp-dark-theme{
+  background-color: darkgray;
+}  </pre>
+    <h5>自定义主题时遇到的error报错：</h5>
+    <p class="highlight">ERROR in ./~/css-loader?{"sourceMap":false,"importLoaders":1}!./~/postcss-loader?{"ident":"postcss"}!./~/sass-loader/lib/loader.js?{"sourceMap":false,"precision":8,"includePaths":[]}!./src/styles.scss......Mixins may not be defined within control directives or other mixins.</p>
+    <p>根据Stack Overflow上的技术贴尝试了两种方案：</p>
+    <p>1,install sass-loader 6.0.3(<a href="https://github.com/webpack-contrib/sass-loader/pull/447#issuecomment-300263537" target="_blank">地址</a>),失败;</p>
+    <p>2,direct install node-sass@4.8.1(<a href="https://github.com/akveo/nebular/issues/316#issuecomment-376383942" target="_blank">地址</a>),成功.</p>
+    <h4>GridList 打造注册页面头像列表: </h4>
+    <p>GridList用途：用于相似的数据展示，尤其是图片、类似相册等。行为很想表格，有colspan,rowspan属性。</p>
+    <p>用命令ng g c login/register --spec=false在login模块下新建一个注册组件。在shared.module.ts中导入导出MdGridListModule：</p>
+    <pre style="height: 200px;">// register.component.html
+&lt;form&gt;
+  &lt;md-card&gt;
+    &lt;md-card-header&gt;
+      &lt;md-card-title&gt;注册: &lt;/md-card-title&gt;
+    &lt;/md-card-header&gt;
+    &lt;md-card-content&gt;
+      &lt;md-input-container class="full-width"&gt;
+        &lt;input mdInput type="text" placeholder="您的email"&gt;
+      &lt;/md-input-container&gt;
+      &lt;md-input-container class="full-width"&gt;
+        &lt;input mdInput type="text" placeholder="您的用户名"&gt;
+      &lt;/md-input-container&gt;
+      &lt;md-input-container class="full-width"&gt;
+        &lt;input mdInput type="password" placeholder="您的密码"&gt;
+      &lt;/md-input-container&gt;
+      &lt;md-input-container class="full-width"&gt;
+        &lt;input mdInput type="password" placeholder="确认密码"&gt;
+      &lt;/md-input-container&gt;
+      &lt;button md-raised-button color="primary" type="button"&gt;注册&lt;/button&gt;
+    &lt;/md-card-content&gt;
+  &lt;/md-card&gt;
+&lt;/form&gt;
+        // scss
+md-card{
+  width:600px;
+}  </pre>
+    <p>在login的子路由模块加一个register的路由：</p>
+    <pre>// login-routing.module.ts
+import { RegisterComponent } from './register/register.component';
+...
+    { path: 'register', component: RegisterComponent }
+...</pre>
+    <p>在login.component.html中加入链接到register页面的路由入口：</p>
+    <pre>// login.component.html
+&lt;p&gt;还没有账户？ &lt;a routerLink="/register"&gt;注册&lt;/a&gt;&lt;/p&gt;  </pre>
+    <h4>对话框dialog的使用:</h4>
+    <p>对话框很特殊（menu也是），需要在模块中的entryComponents中声明。因为他们都是事先需要隐藏的。一开始模块加载时看不到，在某个操作后出现，对于这种情况需要用到预加载。</p>
+    <p>传递数据也比较特殊：从调用者发送。</p>
+    <p>接收数据：在dialog的构造函数里面去注入MD_DIALOG_DATA令牌，就能取得调用者传递来的数据。constructor(@Inject(MD_DIALOG_DATA) public data:any){}</p>
+    <p>接着做项目列表页面:</p>
+    <p>ng g m project新建项目模块。</p>
+    <p>ng g c project/project-list --spec=false新建项目列表组件，由一个个项目卡片组成。</p>
+    <p>ng g c project/project-item --spec=false新建项目单个卡片组件。</p>
+    <p>ng g c project/new-project --spec=false，新建项目新增或修改时的dialog组件。</p>
+    <p>ng g c project/invite --spec=false,新建邀请其他成员的对话框组件。</p>
+    <p>在project.module.ts中把NewProjectComponent和InviteComponent组件复制放入entryComponents中：</p>
+    <pre>//  project.module.ts
+...
+import { ProjectRoutingModule } from './project-routing.module'
+@NgModule({
+  imports: [
+    SharedModule,
+    ProjectRoutingModule
+  ],
+  declarations: [ProjectListComponent, ProjectItemComponent, NewProjectComponent, InviteComponent],
+  entryComponents: [NewProjectComponent, InviteComponent]
+})</pre>
+    <p>在shared.module.ts中导入导出MdDialogModule后，构建各组件页面：</p>
+    <pre style="margin-bottom: 5px;height: 200px;">// project-list.component.html
+&lt;app-project-item *ngFor="let project of projects" [item]="project" class="card" (onEdit)="launchUpdateDialog()"&gt;
+
+&lt;/app-project-item&gt;
+&lt;button class="fab-button" md-fab type="button" (click)="openNewProjectDialog()"&gt;
+  &lt;md-icon&gt;add&lt;/md-icon&gt;
+&lt;/button&gt;
+   // scss
+.card{
+  height: 360px;
+  flex: 0 0 360px;
+  margin: 10px;
+}
+
+:host{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.fab-button{
+  position: fixed;
+  right: 32px;
+  bottom: 96px;
+  z-index: 998;
+}    </pre>
+    <pre style="margin-bottom: 5px;height: 150px;">// project-list.component.ts
+import { MdDialog } from '@angular/material';//MdDialog service是才angular material中提供的
+import { NewProjectComponent } from '../new-project/new-project.component';
+...
+export class ProjectListComponent implements OnInit {
+  projects = [{
+    name: '企业协作平台',
+    desc: '这是一个企业内部项目',
+    coverImg: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4103562629,1178676710&fm=26&gp=0.jpg'
+  }, {
+    name: '企业协作平台',
+    desc: '这是一个企业内部项目',
+    coverImg: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=553177394,1062800270&fm=26&gp=0.jpg'
+  }];
+  constructor(private dialog: MdDialog) { }
+  ngOnInit() {
+  }
+  openNewProjectDialog() {
+    const dialogRef = this.dialog.open(NewProjectComponent, {data: {dark: false }}); /*第一个是必选参数，模板或者组件的类型。*/
+    /*open的结果是返回了一个dialogRef。afterClosed方法是一个observable的观察对象。*/
+    dialogRef.afterClosed().subscribe(result => console.log(result));
+  }
+  launchUpdateDialog() {
+    const dialogRef = this.dialog.open(NewProjectComponent, {data: {title: '编辑项目' }});
+  }
+}  </pre>
+    <pre style="margin-bottom: 5px;height: 200px;">// project-item.component.html
+&lt;md-card&gt;
+  &lt;md-card-header&gt;
+    &lt;md-card-title&gt;{{item.name}}&lt;/md-card-title&gt;
+  &lt;/md-card-header&gt;
+  &lt;img md-card-image [src]="item.coverImg" alt="项目封面"&gt;
+  &lt;md-card-content&gt; {{item.desc}} &lt;/md-card-content&gt;
+  &lt;md-card-actions&gt;
+    &lt;button md-button type="button"  (click)="onEditClick()"&gt;
+      &lt;md-icon&gt;note&lt;/md-icon&gt;
+      &lt;span&gt;编辑&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button md-button type="button"&gt;
+      &lt;md-icon&gt;group_add&lt;/md-icon&gt;
+      &lt;span&gt;邀请&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button md-button type="button"&gt;
+      &lt;md-icon&gt;delete&lt;/md-icon&gt;
+      &lt;span&gt;删除&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/md-card-actions&gt;
+&lt;/md-card&gt;  </pre>
+    <pre>// project-item.component.ts
+import { Component, OnInit, Input } from '@angular/core';
+...
+export class ProjectItemComponent implements OnInit {
+  @Input() item;
+   ...
+}</pre>
+    <p>在project目录下新建project-routing.module.ts,指定project模块的子路由：</p>
+    <pre style="height: 150px;">// project-routing.module.ts
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { ProjectListComponent} from './project-list/project-list.component';
+
+const routes: Routes = [
+  { path: 'project', component: ProjectListComponent },
+];
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class ProjectRoutingModule {} </pre>
+    <p>在project.module.ts中把project的路由引入后，在app.module.ts中把ProjectModule导入：</p>
+    <pre style="height: 150px;">// app.module.ts
+import { ProjectModule } from './project/project.module'
+...
+@NgModule({
+ ...
+  imports: [
+    ...
+    LoginModule,
+    ProjectModule
+  ],
+  ...
+})</pre>
+    <p>接下来的任务是，点击右下角添加按钮，弹出新建的对话框。dialog和card非常像，也有几个指令，像md-dialog-title等。</p>
+    <p>dialog默认情况下是不支持主题的,menu也是这样的。如果需要支持主题，则需引入OverlayContainer。</p>
+    <pre style="margin-bottom: 5px;height: 150px;">// new-project.component.html
+&lt;form&gt;
+  &lt;h3 md-dialog-title=""&gt;{{title}}&lt;/h3&gt;
+  &lt;div md-dialog-content&gt;
+    &lt;md-input-container class="full-width"&gt;
+      &lt;input mdInput type="text" placeholder="项目名称"&gt;
+    &lt;/md-input-container&gt;
+    &lt;md-input-container class="full-width"&gt;
+      &lt;input mdInput type="text" placeholder="项目描述"&gt;
+    &lt;/md-input-container&gt;
+  &lt;/div&gt;
+  &lt;div md-dialog-actions&gt;
+    &lt;button type="button" md-raised-button color="primary" (click)="onClick()"&gt;保存&lt;/button&gt;
+    &lt;button type="button" md-button md-dialog-close&gt; 关闭&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt; </pre>
+    <pre style="height: 200px;">// new-project.component.ts
+import { Component, OnInit, Inject } from '@angular/core';
+import { MD_DIALOG_DATA, MdDialogRef, OverlayContainer } from '@angular/material'; /* MdDialogRef是一个泛型，用于回传数据给调用的组件。*/
+
+@Component({
+  selector: 'app-new-project',
+  templateUrl: './new-project.component.html',
+  styleUrls: ['./new-project.component.scss']
+})
+export class NewProjectComponent implements OnInit {
+  title = '';
+  constructor(
+    @Inject(MD_DIALOG_DATA) private data,
+    private dialogRef: MdDialogRef&lt;NewProjectComponent&gt;,
+    private oc: OverlayContainer ) { }
+  ngOnInit() {
+    this.title = this.data.title ? this.data.title : '新建项目' ;
+    console.log(JSON.stringify(this.data));
+    this.oc.themeClass = this.data.dark ? 'myapp-dark-theme' : null;
+  }
+  onClick() {
+    this.dialogRef.close('i received your message!')
+  }
+}  </pre>
+    <h4> Autocomplete 的使用:</h4>
+    <p>在shared.module.ts中导入导出MdAutocompleteModule后，编辑邀请组员组件：</p>
+    <pre style="margin-bottom: 5px;height: 150px;">// invite.component.html
+&lt;form&gt;
+  &lt;h3 md-dialog-title=""&gt;邀请组员： &lt;/h3&gt;
+  &lt;div md-dialog-content&gt;
+    &lt;md-input-container class="full-width"&gt;
+      &lt;input mdInput type="text" placeholder="组员姓名" [mdAutocomplete]="autoMembers"&gt;
+    &lt;/md-input-container&gt;
+  &lt;/div&gt;
+  &lt;div md-dialog-actions&gt;
+    &lt;button type="button" md-raised-button color="primary" (click)="onClick()"&gt;保存&lt;/button&gt;
+    &lt;button type="button" md-button md-dialog-close&gt; 关闭&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+&lt;md-autocomplete #autoMembers="mdAutocomplete"&gt;
+  &lt;md-option *ngFor="let item of items"  [value]="item.name"&gt; {{item.name}} &lt;/md-option&gt;
+&lt;/md-autocomplete&gt;  </pre>
+    <pre>// invite.component.ts
+export class InviteComponent implements OnInit {
+  items = [{
+    id: 1,
+    name: 'zhangsan'
+  }];
+ ...
+}  </pre>
+    <p>去project-item组件中给邀请组员按钮添加事件。</p>
+    <p>子组件最好只负责显示，有一些输入输出，但是不涉及逻辑，否则逻辑代码会分散，调错或需求变更时修改的地方多。</p>
+    <p>为了不涉及逻辑，把事件发射出去，让父组件去处理。</p>
+    <pre style="height: 150px;">// project-item
+//html
+&lt;button md-button type="button" (click)="onInviteClick()"&gt;
+  &lt;md-icon&gt;group_add&lt;/md-icon&gt;
+  &lt;span&gt;邀请&lt;/span&gt;
+&lt;/button&gt;
+
+//ts
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+...
+export class ProjectItemComponent implements OnInit {
+  @Input() item;
+  @Output() onInvite = new EventEmitter&lt;void&gt;();
+  @Output() onEdit = new EventEmitter&lt;void&gt;();
+  ...
+  onInviteClick() {
+    this.onInvite.emit();
+  }
+  onEditClick() {
+    this.onEdit.emit();
+  }
+} </pre>
+    <p>然后让project-list组件去处理：</p>
+    <pre style="margin-bottom: 5px;">// project-list.component.html
+&lt;app-project-item *ngFor="let project of projects" [item]="project" class="card" (onInvite)="launchInviteDialog()" (onEdit)="launchUpdateDialog()"&gt; </pre>
+    <pre>// project-list.component.ts
+import { InviteComponent } from '../invite/invite.component';
+...
+launchInviteDialog() {
+    const dialogRef = this.dialog.open(InviteComponent);
+} </pre>
+    <p>自动完成md-autocomplete也可以有另一种显示选中项的方式--displayWith,这种方式可以处理当md-option与md-input-container中input内容显示不一样的情况：</p>
+    <pre>// 另一种显示选中项的方式
+// invite.component.html
+&lt;md-autocomplete #autoMembers="mdAutocomplete" [displayWith]="displayUser"&gt;
+  &lt;md-option *ngFor="let item of items" [value]="item"&gt; {{item.name}} &lt;/md-option&gt;
+&lt;/md-autocomplete &gt;
+// invite.component.ts
+displayUser(user: {id: string; name: string}) {
+    return user ? user.name : '';
+}    </pre>
+    <h4>任务列表之菜单menu:</h4>
+    <p>与自动完成类似，menu也是分为两部分。在shared.module.ts中导入导出MdMenuModule。</p>
+    <p>ng g m task新建任务列表模块。</p>
+    <p>ng g c task/task-home --spec=false新建任务列表首页。</p>
+    <p>ng g c task/task-list --spec=false新建任务列表组件。</p>
+    <p>ng g c task/task-item --spec=false新建任务列表单元项组件。</p>
+    <p>ng g c task/task-header --spec=false新建任务列表头组件。</p>
+    <p>搭建task-home组件:</p>
+    <pre style="margin-bottom: 5px;height: 200px;">// task-home.component.html
+&lt;div class="task-lists"&gt;
+  &lt;app-task-list class="list-container" *ngFor="let list of lists"&gt;
+    &lt;app-task-header  [header]="list.name"  (newTask)="launchNewTaskDialog()" (moveAll)="launchCopyTaskDialog()" (onEditList)="launchEditListDialog()"&gt;&lt;/app-task-header&gt;
+    &lt;app-task-item *ngFor="let task of list.tasks" [item]="task" (taskClick)="launchUpdateTaskDialog(task)"&gt;&lt;/app-task-item&gt;
+  &lt;/app-task-list&gt;
+&lt;/div&gt;
+&lt;button class="fab-button" md-fab type="button" (click)="launchNewListDialog()"&gt;
+  &lt;md-icon&gt;add&lt;/md-icon&gt;
+&lt;/button&gt;
+
+// scss
+.fab-button{
+  position: fixed;
+  right: 32px;
+  bottom: 96px;
+  z-index: 998;
+}
+.task-lists{
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+}
+.list-container{
+  flex: 0 0 360px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}</pre>
+    <pre style="height:200px;">// task-home.component.ts
+export class TaskHomeComponent implements OnInit {
+  lists = [{
+    id: 1,
+    name: '待办',
+    tasks: [{
+      id: 1,
+      desc: '任务一：去买咖啡',
+      completed: false,
+      owner: {
+        id: 1,
+        name: '张三',
+        avatar: 'http://file.qqkj.cn/upload/avatar/201410/29/21/11/54432855c9c14351.jpg%21200x200.jpg'
+      },
+      dueDate: new Date(),
+      priority: 1,
+    }]
+  }];
+  ...
+}  </pre>
+    <p>构建task-list组件：</p>
+    <pre>// task-list.component.html
+&lt;md-list&gt;
+  &lt;ng-content&gt;&lt;/ng-content&gt;
+&lt;/md-list&gt;  </pre>
+    <p>ng-content是个模板插槽，具体显示内容从使用这个组件时从外部传入。</p>
+    <p>构建task-header组件：</p>
+    <pre style="margin-bottom: 5px;height:200px;">// task-header.component.html
+&lt;div md-subheader class="header-container"&gt;
+  &lt;div&gt;
+    &lt;h3&gt;{{header}}&lt;/h3&gt;
+  &lt;/div&gt;
+  &lt;div class="full"&gt;
+    &lt;button md-button  type="button" (click)="onNewTaskClick()"&gt;
+      &lt;md-icon&gt;add_circle_outline&lt;/md-icon&gt;
+      &lt;span&gt;新任务&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;button md-icon-button [mdMenuTriggerFor]="menu"&gt;
+      &lt;md-icon&gt;keyboard_arrow_down&lt;/md-icon&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;md-menu #menu="mdMenu"&gt;
+  &lt;button md-menu-item (click)="onEditListClick()"&gt;
+    &lt;md-icon&gt;mode_edit&lt;/md-icon&gt;
+    &lt;span&gt;修改列表名称&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;button md-menu-item&gt;
+    &lt;md-icon&gt;mouse&lt;/md-icon&gt;
+    &lt;span&gt;移动本列表所有内容&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;button md-menu-item (click)="onDelListClick()"&gt;
+    &lt;md-icon&gt;delete_forever&lt;/md-icon&gt;
+    &lt;span&gt;删除列表&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/md-menu&gt;  </pre>
+    <pre style="height: 150px;margin-bottom: 5px;">// task-header.component.scss
+.full{
+  flex:1;
+  text-align: center;
+}
+.header-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width:100%;
+} </pre>
+    <pre>// task-header.component.ts
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+...
+export class TaskHeaderComponent implements OnInit {
+  @Input() header = '';
+  @Output() newTask = new EventEmitter&lt;void&gt;();
+  @Output() onEditList = new EventEmitter&lt;void&gt;();
+    ...
+  onNewTaskClick() { this.newTask.emit(); }
+  onEditListClick() {  this.onEditList.emit();  }
+}    </pre>
+    <p>接着规划task的路由。在task目录下新建一个路由文件task-routing.module.ts：</p>
+    <pre style="margin-bottom: 5px;">// task/task-routing.module.ts
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { TaskHomeComponent } from './task-home/task-home.component';
+const routes: Routes = [
+  { path: 'tasklists', component: TaskHomeComponent },
+];
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class TaskRoutingModule {}  </pre>
+    <pre>// task.module.ts
+@NgModule({
+  imports: [
+    SharedModule,
+    TaskRoutingModule
+  ],
+...</pre>
+    <p>然后在app.module.ts中把TaskModule加入：</p>
+    <pre>// app.module.ts
+import { TaskModule } from './task/task.module';
+...
+    imports: [
+        ...
+        TaskModule,
+    ],
+...</pre>
+    <p>由于menu也不支持随主题切换，需要引入OverlayContainer。当然可以像上面dialog一样写在需要的dialog组件里，但有这样需求的组件多了就麻烦了。我们可以做一个全局的，放在app.component中：</p>
+    <pre>// app.component.ts
+import { OverlayContainer } from '@angular/material';
+...
+export class AppComponent {
+  darkTheme = false;
+  constructor(private oc: OverlayContainer) {}
+  switchTheme(dark) {
+    this.darkTheme = dark;
+    this.oc.themeClass = dark ? 'myapp-dark-theme' : null;
+  }
+}    </pre>
+    <h4>与HTML组件相似的material组件md-checkbox、md-radio、md-select：</h4>
+    <h5>md-checkbox:</h5>
+    <p>在shared.module.ts中导入导出MdCheckboxModule后，构建task-item组件：</p>
+    <pre style="margin-bottom: 5px;">// task-item.component.html
+&lt;md-list-item class="container" (click)="onItemClick()" [ngClass]="{'priority-n':item.priority === 2, 'priority-i':item.priority === 1}"&gt;
+  &lt;md-checkbox class="completion-status" [checked]="item.completed" (click)="onCheckBoxClick($event)"&gt;&lt;/md-checkbox&gt;
+  &lt;div md-line class="content"&gt;{{item.desc}}&lt;/div&gt;
+  &lt;div md-line class="bottom-bar" *ngIf="item.dueDate"&gt;
+    &lt;span class="due-date"&gt;{{item.dueDate | date:'yy-MM-dd'}}&lt;/span&gt;
+    &lt;md-icon *ngIf="item.reminder"&gt;alarm&lt;/md-icon&gt;
+  &lt;/div&gt;
+&lt;/md-list-item&gt;  </pre>
+    <pre style="margin-bottom: 5px;height: 150px;">// task-item.component.scss
+.completion-status{
+  order: -1;
+}
+.due-date{
+  background-color: #FF4F3E;
+  color: #fff;
+}
+.alarm{
+  font-size: 18px;
+}
+.bottom-bar{
+  margin-top: 3px;
+  margin-bottom: 2px;
+  font-size:10px;
+  width:100%;
+  order:1;
+}
+.content {
+  order:1;
+  width:100%;
+  padding:5px;
+}
+.container{
+  width:100%;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+:host{
+  width:100%;
+}
+.priority-n{
+  border-left:3px solid #A6A6A6;
+}
+.priority-i{
+  border-left:3px solid #FFAF38;
+}</pre>
+    <pre>// task-item.component.ts
+export class TaskItemComponent implements OnInit {
+  @Input() item;
+  @Output() taskClick = new EventEmitter&lt;void&gt;();
+  ...
+  onItemClick() { this.taskClick.emit(); }
+  onCheckBoxClick(ev: Event) {  ev.stopPropagation();  }
+}  </pre>
+    <p>ngClass指令可以用来根据不同状态动态显示样式。</p>
+    <p>当item内文字内容过多时（item.desc的内容），md-line指令会是的文字尾端显示"..."的状态，此时若需要使鼠标悬浮在文字上显示全部内容的效果，可以使用小组件md-tooltip。使用前先在shared.module.ts中导入导出MdTooltipModule :</p>
+    <pre>// task-item.component.html
+&lt;div md-line class="content"&gt;
+    &lt;span [md-tooltip]="item.desc"&gt;{{item.desc}}&lt;/span&gt;
+&lt;/div&gt;</pre>
+    <p>md-list-avatar指令可以把头像图标放入到list当中。</p>
+    <h5>md-radio,DatePicker:</h5>
+    <p>构建新增或修改任务的对话框,ng g c task/new-task --spec=false新增组件,然后在shared.module.ts中导入导出MdDatepickerModule、MdNativeDateModule、MdRadioModule：</p>
+    <pre style="height: 200px;margin-bottom: 5px;">// new-task.component.html
+&lt;form&gt;
+  &lt;h3 md-dialog-title=""&gt;{{title}}&lt;/h3&gt;
+  &lt;div md-dialog-content&gt;
+    &lt;md-input-container class="full-width"&gt;
+      &lt;input mdInput type="text" placeholder="任务内容"&gt;
+    &lt;/md-input-container&gt;
+    &lt;md-radio-group&gt;
+      &lt;md-radio-button *ngFor="let priority of priorities" [value]="priority.value"&gt;
+        {{priority.label}}
+      &lt;/md-radio-button&gt;
+    &lt;/md-radio-group&gt;
+    &lt;md-input-container class="full-width"&gt;
+      &lt;input mdInput [mdDatepicker]="dueDatepicker" type="text" placeholder="任务截止日期"&gt;
+      &lt;button type="button" mdSuffix [mdDatepickerToggle]="dueDatepicker"&gt;&lt;/button&gt;
+    &lt;/md-input-container&gt;
+    &lt;md-datepicker #dueDatepicker&gt;&lt;/md-datepicker&gt;
+    &lt;md-input-container class="full-width"&gt;
+      &lt;input mdInput [mdDatepicker]="reminderDatepicker" type="text" placeholder="任务截止日期"&gt;
+      &lt;button type="button" mdSuffix [mdDatepickerToggle]="reminderDatepicker"&gt;&lt;/button&gt;
+    &lt;/md-input-container&gt;
+    &lt;md-datepicker #reminderDatepicker&gt;&lt;/md-datepicker&gt;
+  &lt;/div&gt;
+  &lt;div md-dialog-actions&gt;
+    &lt;button type="button" md-raised-button color="primary" (click)="onClick()"&gt;保存&lt;/button&gt;
+    &lt;button type="button" md-dialog-close md-button&gt;关闭&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt; </pre>
+    <pre style="height: 150px;">// new-task.component.ts
+export class NewTaskComponent implements OnInit {
+  title = '';
+  priorities = [{
+    label: '重要',
+    value: 1
+  }, {
+    label: '普通',
+    value: 2
+  }];
+  constructor(@Inject(MD_DIALOG_DATA) private data) { }
+  ngOnInit() {
+    this.title = this.data.title;
+  }
+}  </pre>
+    <p>在task-header组件中把新增任务的事件发送到task-home去处理：</p>
+    <pre>// task-home.component.ts
+import { MdDialog } from '@angular/material';
+import { NewTaskComponent } from '../new-task/new-task.component';
+...
+export class TaskHomeComponent implements OnInit {
+    constructor(private dialog: MdDialog) { }
+    ...
+    launchNewTaskDialog() {
+        const dialogRef = this.dialog.open(NewTaskComponent, {data: {title: '新建任务'}});
+    }
+    launchUpdateTaskDialog(task) {
+        const dialogRef = this.dialog.open(NewTaskComponent, {data: {title: '修改任务', task: task}});
+    }
+}</pre>
+    <p>注意使用了dialog要在task.module.ts中的entryComponents数组中加入NewTaskComponent组件。</p>
+    <h4>任务列表之移动内容对话框:</h4>
+    <p>在shared.module.ts中导入导出 MdSelectModule后，ng g c task/copy-task --spec=false新建移动列表组件。</p>
+    <pre style="margin-bottom: 5px;height: 150px;">// copy-task.component.html
+&lt;form&gt;
+  &lt;h3 md-dialog-title&gt;移动本列表所有内容：&lt;/h3&gt;
+  &lt;div md-dialog-content&gt;
+    &lt;md-select placeholder="请选择目标列表"&gt;
+      &lt;md-option *ngFor="let list of lists" [value]="list"&gt;{{list.name}}&lt;/md-option&gt;
+    &lt;/md-select&gt;
+  &lt;/div&gt;
+  &lt;div md-dialog-actions&gt;
+    &lt;button type="button" md-raised-button color="primary" (click)="onClick()"&gt;保存&lt;/button&gt;
+    &lt;button type="button" md-button md-dialog-close&gt; 关闭&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;  </pre>
+    <pre>// copy-task.component.ts
+export class CopyTaskComponent implements OnInit {
+  lists: any[];
+  constructor(
+    @Inject(MD_DIALOG_DATA) private data,
+    private dialogRef: MdDialogRef&lt;CopyTaskComponent&gt;) { }
+  ngOnInit() {
+    this.lists = this.data.lists;
+  }
+} </pre>
+    <p>在task-header组件的菜单中添加调出copy-task的按钮：</p>
+    <pre style="margin-bottom: 5px;">// task-header.component.html
+&lt;button md-menu-item (click)="onMoveAllClick()"&gt;
+    ...
+    &lt;span&gt;移动本列表所有内容&lt;/span&gt;
+&lt;/button&gt;  </pre>
+    <pre>// task-header.component.ts
+export class TaskHeaderComponent implements OnInit {
+  ...
+  @Output() moveAll = new EventEmitter&lt;void&gt;();
+  onMoveAllClick() {
+    this.moveAll.emit();
+  }
+}  </pre>
+    <p>然后同样发送到task-home去处理,还要在task.module.ts中的entryComponents数组中加入CopyTaskComponent组件：</p>
+    <pre>// task-home.component.ts
+launchCopyTaskDialog() {
+    const dialogRef = this.dialog.open(CopyTaskComponent,{data:{lists:this.lists}});
+}  </pre>
+    <h4>完成主框架 :</h4>
+    <p>删除的弹框一般都可以共用，所以在shared目录下建一个confirm-dialog组件，由于组件比较简单，使用内联式模板和样式即可：</p>
+    <pre>ng g c shared/confirm-dialog -it -is --spec=false  //it:inline template,is:inline style</pre>
+    <p>注意使用dialog后要在shared.module.ts的entryComponents数组中添加ConfirmDialogComponent。</p>
+    <p>构建confirm-dialog组件：</p>
+    <pre style="height: 250px;">// confirm-dialog.component.ts
+import {Component, Inject, OnInit} from '@angular/core';
+import {MD_DIALOG_DATA, MdDialogRef} from '@angular/material';
+@Component({
+  selector: 'app-confirm-dialog',
+  template: `
+    &lt;h3 md-dialog-title&gt;{{title}}&lt;/h3&gt;
+    &lt;div md-dialog-content&gt;
+     {{content}}
+    &lt;/div&gt;
+    &lt;div md-dialog-actions&gt;
+      &lt;button type="button" md-raised-button color="primary" (click)="onClick(true)"&gt;确定&lt;/button&gt;
+      &lt;button type="button" md-button md-dialog-close (click)="onClick(false)"&gt; 取消&lt;/button&gt;
+    &lt;/div&gt;
+  `,
+  styles: []
+})
+export class ConfirmDialogComponent implements OnInit {
+  title = '';
+  content = '';
+  constructor(
+    private dialogRef: MdDialogRef&lt;ConfirmDialogComponent&gt;,
+    @Inject(MD_DIALOG_DATA) private data) { }
+  ngOnInit() {
+    this.title = this.data.title;
+    this.content = this.data.content;
+  }
+  onClick(result: boolean) {
+    this.dialogRef.close(result);
+  }
+}  </pre>
+    <p>然后去需要的地方调用它：</p>
+    <pre style="height: 150px;margin-bottom: 5px;">// project-item.component
+// html
+&lt;button md-button type="button" (click)="onDelClick()"&gt;
+    ...
+  &lt;span&gt;删除&lt;/span&gt;
+&lt;/button&gt;
+
+// ts
+@Output() onDel = new EventEmitter&lt;void&gt;();
+...
+onDelClick() {
+    this.onDel.emit();
+}  </pre>
+    <pre style="height: 200px;">// project-list.component
+// html
+&lt;app-project-item *ngFor="let project of projects" [item]="project" class="card"
+        (onInvite)="launchInviteDialog()"
+        (onEdit)="launchUpdateDialog()"
+        (onDel)="launchConfirmDialog()"&gt;
+
+// ts
+launchConfirmDialog() {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {data: {title: '编辑项目', content: '您确认删除该项目吗？'}});
+    dialogRef.afterClosed().subscribe(result => console.log(result));
+} </pre>
+    <p>同样方式，在task-header组件的下拉menu中的删除列表按钮中使用confirm-dialog组件。(此处代码省略)</p>
+    <p>ng g c task/new-task-list --spec=false新建一个新增任务列表组件new-task-list,在task.module.ts的entryComponents中把NewTaskListComponent加上:</p>
+    <pre style="margin-bottom: 5px;height: 150px;">// new-task-list.component.html
+&lt;form&gt;
+  &lt;h3 md-dialog-title&gt;{{title}}&lt;/h3&gt;
+  &lt;div md-dialog-content&gt;
+    &lt;md-input-container class="full-width"&gt;
+      &lt;input type="text" mdInput placeholder="列表名称"&gt;
+    &lt;/md-input-container&gt;
+  &lt;/div&gt;
+  &lt;div md-dialog-actions&gt;
+    &lt;button type="button" md-raised-button color="primary" (click)="onClick()"&gt;保存&lt;/button&gt;
+    &lt;button type="button" md-button md-dialog-close&gt; 关闭&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;  </pre>
+    <pre style="margin-bottom: 5px;">// new-task-list.component.ts
+export class NewTaskListComponent implements OnInit {
+  title = '';
+  constructor(
+    @Inject(MD_DIALOG_DATA) private data,
+    private dialogRef: MdDialogRef&lt;NewTaskListComponent&gt;) { }
+  ngOnInit() { this.title = this.data.title; }
+  onClick() { this.dialogRef.close();  }
+} </pre>
+    <pre>// task-home.component.ts
+launchEditListDialog() {
+    const dialogRef = this.dialog.open(NewTaskListComponent, {data: {title: '更改列表名称'}});
+    dialogRef.afterClosed().subscribe(result => console.log(result));
+}
+launchNewListDialog() {
+    const dialogRef = this.dialog.open(NewTaskListComponent, {data: {title: '新建列表'}});
+    dialogRef.afterClosed().subscribe(result => console.log(result));
+}  </pre>
+    <h5>hammer.js:</h5>
+    <p>在移动端的时候，angular material会用hammerjs去处理拖拽、点按、特效这些操作，所以先npm install --save hammerjs安装，然后在core.module.ts中引入：</p>
+    <pre>// core.module.ts
+import 'hammerjs';  </pre>
+
+
+
+    <br/>
+    <h5>参考文档:</h5>
+    <a href="http://sass.bootcss.com/docs/scss-for-sass-users/" target="_blank">SCSS 与 Sass 异同</a>, <br>
+    <a href="https://blog.csdn.net/powertoolsteam/article/details/76887138" target="_blank">Angular2 VS Angular4 深度对比：特性、性能</a>, <br>
+    <a href="https://www.itency.com/topic/show.do?id=487369" target="_blank">再谈Angular4 脏值检测 性能优化</a>, <br>
+    <a href="https://www.jianshu.com/p/850f0f76e908" target="_blank">如何理解angular的脏检查？</a><br>
+
+</div>
+
+</body>
+</html>
