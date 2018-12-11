@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>input File |sumerzhou's blog</title>
+    <link href="myblog.css" rel="stylesheet" type="text/css">
+    <script src="myblog.js" type="text/javascript"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
+            line-height: 2em;
+        }
+        .textBox h2{
+            margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
+        }
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox h4{
+            text-shadow: 1px 1px 2px #4F68B0;
+        }
+        .textBox p{
+            text-indent: 2em;
+        }
+        .textBox li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .textBox pre{
+            display: block;
+            width: 850px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 4px 3px 2px black;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+            font-family: '仿宋';
+            background-color: rgb(40,44,52);
+            line-height: 1.5;
+            font-size: 15px;
+            color:white;
+            overflow-y: auto;
+        }
+        .highlight{
+            background-color: rgb(255,243,212);
+        }
+    </style>
+</head>
+<body>
+<!--header-->
+<div class="headerbox">
+    <div class="headertop">
+        <div class="hdtopbut">
+            <a href="http://blog.hungking.cc/" target="_blank"><img src="imgs/sns_blog_off.png"></a>
+            <a href="https://www.facebook.com/HoungkingHsi" target="_blank"><img src="imgs/sns_facebook_off.png"></a>
+            <a href="http://globalblog.hungking.cc/" target="_blank"><img src="imgs/sns_gBlog_off.png"></a>
+            <a href="http://www.linkedin.com/imisslovelove" target="_blank"><img src="imgs/sns_in_off.png"></a>
+            <a href="http://www.youtube.com/imisslovelove" target="_blank"><img src="imgs/sns_youTube_off.png"></a>
+            <a href="http://www.instagram.com/imisslovelove" target="_blank"><img src="imgs/sns_instagram_off.png"></a>
+            <a href="http://story.kakao.com/ch/imisslovelove" target="_blank" style="background: transparent none;"><img src="imgs/sns_kakao_off.png"></a>
+            <div class="hdtopbutR">
+                <a href="construction.html" style="background-position-x:85px ;">Contact Me</a>
+                <a href="construction.html">AboutSite</a>
+                <span onclick="ifshow(0)">Language<img src="imgs/btn_globalSite_open.gif"></span>
+                <ul id="lag">
+                    <li>KOREAN</li><li>CHINESE</li><li>JAPANESE</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="headerbotm">
+        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
+        <ul id="hdbotmUl">
+            <li>
+                <a href="company.html">WEB前端</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">HTML</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Corporate Overview</a></li>
+                                <li><a href="">Vision of houngking</a></li>
+                                <li><a href="">History of houngking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">CSS/CSS3</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Brand Story</a></li>
+                                <li><a>CI</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">JavaScript</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Greetings</a></li>
+                                <li><a>CEO's Message</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Ajax</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>hougking Affiliates</a></li>
+                                <li><a>Steel</a></li>
+                                <li><a>E&C</a></li>
+                                <li><a>Trade</a></li>
+                                <li><a>ICT</a></li>
+                                <li><a>Energy</a></li>
+                                <li><a>Material-Chemistry</a></li>
+                                <li><a>Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">jQuery</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Global</a></li>
+                                <li><a>Asia</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Business Ethics</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Major Activities</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Products/Technology</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Products of hounking</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Hot Rolled Steel</a></li>
+                                <li><a href="">Steel Plate</a></li>
+                                <li><a href="">Winter Day</a></li>
+                                <li><a href="">Gold Rolled Steel</a></li>
+                                <li><a href="">Galvanized Steel</a></li>
+                                <li><a href="">Electrical Galvanized</a></li>
+                                <li><a href="">Electrical Steel</a></li>
+                                <li><a href="">Automotive materials</a></li>
+                                <li><a href="">Stainless Steel</a></li>
+                                <li><a href="">Titanium Product</a></li>
+                                <li><a href="">Magnesium Product</a></li>
+                                <li><a href="">Aluminum-plated products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">houngking Technology</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">FINEX Technology</a></li>
+                                <li><a href="">Strip Casting</a></li>
+                                <li><a href="">Endless Hot Rolling Technology</a></li>
+                                <li><a href="">Operation Technology</a></li>
+                                <li><a href="">CEM Technology</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Production Process</a>
+                    </li>
+                    <li>
+                        <a href="">Sales information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">e-Sales</a></li>
+                                <li><a href="">e-Procurement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Investor Relations</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">IR Activeties</a>
+                    </li>
+                    <li>
+                        <a href="">Stock Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Stock Price</a></li>
+                                <li><a href="">Price Comparision</a></li>
+                                <li><a href="">ADR</a></li>
+                                <li><a href="">houngking Stock Exchange</a></li>
+                                <li><a href="">Economic Trend</a></li>
+                                <li><a href="">Shareholders Demographics</a></li>
+                                <li><a href="">Dividend</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Financial Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Income Statement</a></li>
+                                <li><a href="">Credit Rating</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">IR Archive</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Audit Report</a></li>
+                                <li><a href="">Form 20-F</a></li>
+                                <li><a href="">Annual Report</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Sustainability</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Sustainability Management System</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Management System</a></li>
+                                <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
+                                <li><a href="">Risk Management</a></li>
+                                <li><a href="">Stakeholder</a></li>
+                                <li><a href="">Relevant Institutes Activities</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Social Responsibility </a>
+                    </li>
+                    <li>
+                        <a href="">Environmental Management </a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Family's Environmental Management</a></li>
+                                <li><a href="">Environmental Management</a></li>
+                                <li><a href="">Climate change /Energy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Customer</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Marketing strategy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Employee</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Employee Health / Safety</a></li>
+                                <li><a href="">Organizational Culture</a></li>
+                                <li><a href="">HR system</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Report</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Report</a></li>
+                                <li><a href="">Carbon Report</a></li>
+                                <li><a href="">Conflict Minerals Disclosure</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">PR Room</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">News room</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">News letter</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">houngking SNS</a>
+                    </li>
+                    <li>
+                        <a href="">PR Archives</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
+                                <li><a href="">PR Movies</a></li>
+                                <li><a href="">Printed Advertisement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Download</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
+        <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
+        <div class="hdmenu" id="hdmenu">
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--text-->
+<div class="textBox">
+    <h2>input File </h2>
+    <h3>1,关于input type=“file”</h3>
+    <p>● 多文件上传 设置属性 multiple</p>
+    <h4>FileUpload 对象:</h4>
+    <p>在 HTML 文档中 &lt;input type="file"&gt; 标签每出现一次，一个 FileUpload 对象就会被创建。</p>
+    <p>该元素包含一个文本输入字段，用来输入文件名，还有一个按钮，用来打开文件选择对话框以便图形化选择文件。</p>
+    <p>该元素的 value 属性保存了用户指定的文件的名称，但是当包含一个 file-upload 元素的表单被提交的时候，浏览器会向服务器发送选中的文件的内容而不仅仅是发送文件名。</p>
+    <p>为安全起见，file-upload 元素不允许 HTML 作者或 JavaScript 程序员指定一个默认的文件名。HTML value 属性被忽略，并且对于此类元素来说，value 属性是只读的，这意味着只有用户可以输入一个文件名。当用户选择或编辑一个文件名，file-upload 元素触发 onchange 事件句柄。</p>
+    <p>可以通过遍历表单的 elements[] 数组，或者通过使用 document.getElementById()来访问 FileUpload 对象。</p>
+    <h5>FileUpload 对象的主要属性&方法:</h5>
+    <p>accept: 设置或返回指示文件传输的 MIME 类型的列表（逗号分隔）。</p>
+    <p>defaultValue: 设置或返回 FileUpload 对象的初始值。</p>
+    <p>value: 返回由用户输入设置的文本后，FileUpload 对象的文件名。</p>
+    <p>select(): 选取 FileUpload 对象。</p>
+    <h4>FileReader API:</h4>
+    <p>FileReader 对象允许Web应用程序<span class="highlight">异步</span>读取存储在用户计算机上的文件（或原始数据缓冲区）的内容，使用 File 或 Blob 对象指定要读取的文件或数据。</p>
+    <p>其中File对象可以是来自用户在一个&lt;input&gt;元素上选择文件后返回的FileList对象,也可以来自拖放操作生成的 DataTransfer对象,还可以是来自在一个HTMLCanvasElement上执行mozGetAsFile()方法后返回结果。</p>
+    <p>FileReader提供了几个事件最有用的三个事件，progress,error,load,分别表示是否又读取了新数据，是否发生了错误，是否已经读完整个文件。</p>
+    <h5>FileReader有一下几种读取文件数据的方法:</h5>
+    <p>1）.readAsText(file,encoding);以纯文本的形式读取文件，将读取到的文件保存到result属性。encoding参数用于指定编码类型，是可选的。</p>
+    <p>2）.readAsDataURL(file);读取文件并将文件数据以URL形式（base64编码字符串）保存到result属性中。（读取图像文件常用方法）</p>
+    <p>3）.readAsBinaryString(file);读取为所读取文件的原始二进制字符串</p>
+    <p>4）.readAsArrayBuffer(file);一旦完成, result 属性中保存的将是被读取文件的 ArrayBuffer 数据对象.</p>
+    <p>5) abort() 终止读取操作</p>
+    <h5>实例:</h5>
+    <pre style="height: 200px;">
+function uploadFile(files){  //input file 的onchange事件函数
+    var file = files[0];
+    //创建FileReader对象
+    var fr = new FileReader();
+    if (file.type.match(/^text\//) !== null) {
+        readText(fr, file);
+    } else if (file.type.match(/^image\//) !== null) {
+        readImage(fr, file);
+    } else {
+        alert("你上传的文件格式无法读取");
+    }
+}
+function readImage(frObj, fileObj) {
+    frObj.onload = function(){
+        var img = document.createElement("img");
+        img.src = frObj.result;
+        document.querySelector("#box").appendChild(img);
+    }
+    frObj.readAsDataURL(fileObj);
+}
+function readText(frObj, fileObj) {
+    frObj.onload = function(){
+        var pre = document.createElement("pre");
+        pre.innerHTML = frObj.result;
+        document.querySelector("#box").appendChild(pre);
+    };
+    frObj.readAsText(fileObj);
+}</pre>
+    <h4>input type=“file”其files对象的深层探究:</h4>
+    <p>File对象记录了文件的name，size，type，和修改时间等，这个对象只存放了一些文件的信息，相当于是本地文件的索引，并不是把文件放到input中了，上传文件时它会再去找到实际的本地文件。</p>
+
+
+
+    <h3>2,File API</h3>
+    <p>我们可以使用在HTML5中被加入DOM的File API，使得用户选择本地文件并读取这些文件的内容变为可能。这种选择同样可以使用 HTML 的input元素或者通过drag 和 drop来实现。</p>
+    <p>File API使访问包含 File 对象的 FileList成为可能，FileList代表被用户选择的文件。</p>
+    <p>使用传统的DOM选择器访问一个被选择的文件:</p>
+    <pre>//  inputElement.files 获取FileList对象
+var selectedFile = document.getElementById('input').files[0]; //适用与jQuery的选择器</pre>
+    <p>可以通过change事件访问 FileList（但不是强制的）。</p>
+    <pre>&lt;input type="file" id="input" onchange="handleFiles(this.files)"&gt;</pre>
+    <p>当用户选择一个文件时，handleFiles()方法会被调用，同时传入包含File对象的 FileList 对象。File对象代表被用户选择的文件。</p>
+    <p>或动态添加一个change监听器:</p>
+    <pre>
+var inputElement = document.getElementById("input");
+inputElement.addEventListener("change", handleFiles, false);
+function handleFiles() {
+  var fileList = this.files; /* now you can work with the file list */
+}   //handleFiles() 方法是一个事件处理器，不像之前的例子中，它被事件处理器调用然后传递给它一个参数。</pre>
+    <h4>获取被选择文件的信息:</h4>
+    <p>FileList对象(handleFiles()方法被调用时传入的;是一个只读对象，不能修改)由DOM提供，列出了所有用户选择的文件，每一个代表了一个 File 对象。</p>
+    <p> File 对象提供的三个属性，包含了关于文件的一些有价值的信息:name,size,type。</p>
+    <h4>通过click()方法使用隐藏的file input元素:</h4>
+    <pre>// 考虑这段HTML：
+&lt;input type="file" id="fileElem" multiple accept="image/*" style="display:none" onchange="handleFiles(this.files)"&gt;
+&lt;a href="#" id="fileSelect"&gt;Select some files&lt;/a&gt;  </pre>
+    <h5>使用label元素来触发一个隐藏的file input元素:</h5>
+    <p>如果不想使用JavaScript (click() 方法)来打开文件选择器，可以使用 label 元素。</p>
+    <pre>
+&lt;input type="file" id="fileElem" multiple accept="image/*" style="display:none" onchange="handleFiles(this.files)"&gt;
+&lt;label for="fileElem"&gt;Select some files&lt;/label&gt;  </pre>
+    <p>这里不需要添加任何JavaScript代码来调用fileElem.click()，另外，这时你也可以给label元素添加你想要的样式。</p>
+    <h4>使用拖放来选择文件:</h4>
+    <p>虽然网页内容的哪部分接受拖放取决于你的应用设计，但是使一个元素接收drop事件是很容易的。第一步是创建一个drop区域。</p>
+    <pre>
+var dropbox;
+dropbox = document.getElementById("dropbox");
+dropbox.addEventListener("dragenter", dragenter, false);
+dropbox.addEventListener("dragover", dragover, false);
+dropbox.addEventListener("drop", drop, false); </pre>
+    <p>并不需要对dragenter and dragover 事件进行处理，所以这些函数都很简单。他们只需要包括禁止事件传播和阻止默认事件。</p>
+    <pre>
+function dragenter(e) {
+  e.stopPropagation();
+  e.preventDefault();
+}
+
+function dragover(e) {
+  e.stopPropagation();
+  e.preventDefault();
+}   </pre>
+    <p>真正的戏法发生在drop这个函数中：</p>
+    <pre>
+function drop(e) {
+  e.stopPropagation();
+  e.preventDefault();
+  var dt = e.dataTransfer;
+  var files = dt.files;
+  handleFiles(files);
+}</pre>
+    <p>这里，我们从事件中获取到了dataTransfer 这个域，然后从中得到文件列表，再将他们传递给handleFiles函数。从这一点开始，处理文件的方法和用input或者用拖拽是一样的了。</p>
+    <h4>显示用户选择的图片的缩略图:</h4>
+    <p>想使用HTML5来展示用户在实际上传之前的图片的缩略图。你可以创建自己的input元素或者drap区域就像我们之前讨论的那样，然后对他们使用一个回调函数比如下面的handleFiles()。</p>
+    <pre>
+function handleFiles(files) {
+  for (var i = 0; i < files.length; i++) {
+    var file = files[i];
+    var imageType = /^image\//;
+    if (!imageType.test(file.type)) {
+      continue;
+    }
+    var img = document.createElement("img");
+    img.classList.add("obj"); //每个图片元素都被添加了一个名为obj的class
+    img.file = file;  //每个图片添加了file属性使它具有File；这样可以拿到稍后需要实际上传的图片
+    preview.appendChild(img); // Assuming that "preview" is the div output where the content will be displayed.
+
+    var reader = new FileReader(); //处理异步的图片加载并把他赋给图片元素
+    //整个图片文件被全部加载完后，他们被转换成了一个被传递到onload回调函数的data:URL
+    reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+    reader.readAsDataURL(file);  //调用readAsDataURL函数在后台开始读取文件的操作
+  }
+}</pre>
+    <h4>使用对象URL:</h4>
+    <p>Gecko 2.0 (Firefox 4 / Thunderbird 3.3 / SeaMonkey 2.1)引入了对DOM window.URL.createObjectURL() 和 window.URL.revokeObjectURL() 方法的支持。这使得你可以创建用于引用任何数据的简单URL字符串，也可以引用一个包括用户电脑上的本地文件的DOM File对象。</p>
+    <p>当你需要在HTML中通过URL来引用一个File对象时，你可以创建一个对象URL，就像这样：</p>
+    <pre>var objectURL = window.URL.createObjectURL(fileObj);</pre>
+    <p>这个对象URL是一个标识File对象的字符串。每次你调用window.URL.createObjectURL()，就会产生一个唯一的对象URL，即使是你对一个已创建了对象URL的文件再次创建一个对象URL。每个创建了的对象URL必须要释放。当文档关闭时，它们会自动被释放。如果你的网页要动态使用它们，你需要显式调用 window.URL.revokeObjectURL()来释放它们：</p>
+    <pre>window.URL.revokeObjectURL(objectURL);</pre>
+    <p>用对象URL展示文件：</p>
+    <pre style="margin-bottom: 5px;">// img
+function handleFiles(files) {
+        ...
+    for (var i = 0; i < files.length; i++) {
+      ...
+      var img = document.createElement("img");
+      img.src = window.URL.createObjectURL(files[i]);
+      img.onload = function() {
+        window.URL.revokeObjectURL(this.src);
+      }
+      ...
+    }
+}</pre>
+    <pre style="margin-bottom: 5px;">// display PDF
+&lt;iframe id="viewer"&gt;
+//
+var obj_url = window.URL.createObjectURL(blob);
+var iframe = document.getElementById('viewer');
+iframe.setAttribute('src', obj_url);
+window.URL.revokeObjectURL(obj_url);  </pre>
+    <pre>// other file types
+var video = document.getElementById('video');
+var obj_url = window.URL.createObjectURL(blob);
+video.src = obj_url;
+video.play()
+window.URL.revokeObjectURL(obj_url);  </pre>
+
+
+    <h3>3,限制上传文件类型</h3>
+    <p>解决办法是可以给它添加一个accept属性，比如：</p>
+    <pre>&lt;input id="File1" type="file"  accept=".xls,.doc,.txt,.pdf"  /&gt;</pre>
+    <p>But,这只是最简单的掩人耳目的做法，在样选择时候默认会显示为限定的文件类型，还是能手动选择其它文件类型的。</p>
+    <p>如果要做到真正意义上限制类型做法，还是要通过js或者后台来控制。</p>
+
+
+    <br/>
+    <h5>参考文档:</h5>
+    <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/File/Using_files_from_web_applications" target="_blank">如何在web应用程序中使用文件(MDN)</a>,<br>
+    <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader" target="_blank">FileReader (MDN)</a>,<br>
+    <a href="https://www.jianshu.com/p/c619b81e8f04" target="_blank">HTML5 文件API-input File</a>,<br>
+    <a href="https://blog.csdn.net/lianzhang861/article/details/80283120" target="_blank">关于input type=“file”的及其files对象的深层探究</a>
+</div>
+
+</body>
+</html>
