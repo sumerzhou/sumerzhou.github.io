@@ -461,20 +461,89 @@ var blob = new Blob([JSON.stringify(paramsData)], {type: "text/plain;charset=utf
 saveAs(blob, "斑马线调试参数.txt");  </pre>
 
 
-    <h4>>> jquery.table2excel.js</h4>
+    <h4>>> 导出excel</h4>
+    <h5>jquery.table2excel.js插件</h5>
+    <h5>ExcellentExport.js:</h5>
+    <p>它主要就是个抓取table标签，然后导出为Excel的插件，支持导出xls、CSV，很简单的一款插件，参数填上table id即可,傻瓜式导出table ,功能单一，比较局限。</p>
+    <h5>Exceljs:</h5>
+    <p>github：https://github.com/guyonroche/exceljs </p>
+    <p>优点：对单元格的定制很全面，适合对表格样式有要求的人 </p>
+    <p>缺点：选项多就意味着代码多，另外支持的格式不够丰富</p>
+    <h5>js-xlsx:</h5>
+    <p>优点：支持格式最全面，尤其是读取文件方面，什么老古董格式都能读取，有很多延伸插件，可以选择使用</p>
+    <p>缺点：不是很好弄，相比较而言还是麻烦一些的。 </p>
+    <p>github里面有三个例子，各种导出都有。关键点：</p>
+    <p>1) Exceljs和js-xlsx都有关于使用node和不使用node的不同用法，注意区别使用，不过看似node用法很简单</p>
+    <p>2) 需要用到require()的地方是node的部分，可以参考我的另一篇关于requirejs的文章，例子中用到require()的地方跳过即可</p>
+    <h5>xlsx - npm</h5>
+    <p><a href="https://www.npmjs.com/package/xlsx" target="_blank">xlsx插件</a>可以设置导出的excel表格的简单格式，比如合并单元格。</p>
     <h4>>> 在线预览pdf的pdf.js</h4>
     <h4>>> 在线预览excel -- sheet.js</h4>
-    <h4>>> xlsx - npm</h4>
-    <p><a href="https://www.npmjs.com/package/xlsx" target="_blank">xlsx插件</a>可以设置导出的excel表格的简单格式，比如合并单元格。</p>
+    
 
     <h3>2,node适用</h3>
     <h4>>> node-xlsx</h4>
-
+	
+    <h3>3,不使用插件的方法</h3>
+    <h4>Web 端 js 导出csv文件(使用a标签):</h4>
+    <p>导出文件，使用最多的方式还是服务器端来处理。比如jsp 中使用response 的方式。</p>
+    <p>在IE中使用ActiveXObject 实现，在firefox 和Chrome 中使用  a 标签（或者js）就可以实现了。 这里主要讲一下其他浏览器中的实现。</p>
+    <h5>使用 a 标签实现方式:</h5>
+    <pre> &lt;a id="test" download="downlaod.txt" href="data:text/txt;charset=utf-8,download Test Data"&gt;download&lt;/a&gt;
+    //download 设置下载的文件名。
+    //href 加上 data:text/txt;charset=utf-8  分别设置点击link 是下载文件， 编码是utf-8 . 这个逗号后面的就是保存在文件中的内容了。</pre>
+    <h5>以多行，多列导出csv 文件:</h5>
+    <p>csv 文件可以用Excel打开， 如果是导出一个table 的话，使用Excel 就方便很多了。</p>
+    <p>问题是： 如何分行， 分列？</p>
+    <p>理论上 ： 分列使用 ， 号分割， 分行用 \n .</p>
+    <p>可以用以上方式，会发现列可以分开，但是不换行。 看上去不认识 \n.</p>
+    <p>解决方式是使用 encodeURIComponent 进行编码/</p>
+    <pre>
+function clickDownload(aLink) {
+         var str = "col1,col2,col3\nvalue1,value2,value3";
+         str =  encodeURIComponent(str);
+         aLink.href = "data:text/csv;charset=utf-8,"+str;
+         aLink.click();
+ }
+---------------------
+&lt;a id="test" onclick="clickDownload(this)" download="downlaod.csv" href="#"&gt;download&lt;/a&gt; </pre>
+    <h5>带中文问题的csv 导出:</h5>
+    <p>以上使用的都是utf-8 编码，理论上导出中文应该不是问题。但是导出csv 格式的话， 使用Excel 打开会发现中文是乱码，但是用其他文本程序打开确是正常的。原因就是少了一个 BOM头 。  \ufeff。加上一切都正常了，</p>
+    <pre>
+&lt;meta http-equiv="content-type" content="text/html; charset=gb2312"&gt;
+-----------------------------------
+function clickDownload(aLink){
+         var str = "栏位1,栏位2,栏位3\n值1,值2,值3";
+         str =  encodeURIComponent(str);
+         aLink.href = "data:text/csv;charset=utf-8,\ufeff"+str;
+         aLink.click();
+ }
+//这里有两个改变 :1. 页面的charset 需设置成gb2312; 2. 加上 \ufeff BOM 头</pre>
+    <h5>Chrome下载的文件名:</h5>
+    <p>以上使用 a 的download 属性可以指定下载的文件名及后缀。 但是在Chrome 执行的时候会发现， Chrome 压根不理会这个。</p>
+    <p>下载名是 "下载" 或是 "download".</p>
+    <p>上网搜索一下， 有说是Chrome 的 bug,参见 stackoverflow 中的两篇文章：</p>
+    <p>http://stackoverflow.com/questions/23962284/download-attribute-on-a-tag-doesnt-work-in-chrome</p>
+    <p>http://stackoverflow.com/questions/23816005/anchor-tag-download-attribute-not-working-bug-in-chrome-35-0-1916-114</p>
+    <p>解决方案：</p>
+    <pre>
+ var blob = new Blob([data], { type: 'text/csv' }); //new way
+ var csvUrl = URL.createObjectURL(blob);
+ document.getElementById("mylink").href = csvUrl;  </pre>
+    <p>使用Blob 和URL 来封装和转换. 问题解决。</p>
+    <p>这里如遇中文问题， 和上面的处理方式是一样的：1. 页面的charset 需设置成gb2312 （设成UTF-8 也可以）; 2. 加上 \ufeff BOM 头。具体的代码类似：</p>
+    <pre>
+data = "\ufeff"+data;
+var blob = new Blob([data], { type: 'text/csv,charset=UTF-8'});  </pre>
+    <h4>HTML用JS导出Excel的五种方法:</h4>
+	
 
     <br/>
     <h5>参考文档:</h5>
     <a href="http://www.cnblogs.com/kmonkeywyl/p/9896448.html" target="_blank">jquery插件导出word：jquery.wordexport.js</a>, <br>
     <a href="https://www.cnblogs.com/itafter/p/4379988.html" target="_blank">js jquery jquery.wordexport.js 实现导出word</a>, <br>
+    <a href="https://blog.csdn.net/oscar999/article/details/16342699" target="_blank">Web 端 js 导出csv文件(使用a标签)</a>,<br>
+    <a href="https://blog.csdn.net/aa122273328/article/details/50388673" target="_blank">HTML用JS导出Excel的五种方法</a>,<br>
 </div>
 
 </body>
