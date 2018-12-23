@@ -1,0 +1,982 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>angular4基础-项目实践(动画及核心概念) |sumerzhou's blog</title>
+    <link href="myblog.css" rel="stylesheet" type="text/css">
+    <script src="myblog.js" type="text/javascript"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
+            line-height: 2em;
+        }
+        .textBox h2{
+            margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
+        }
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox h4{
+            text-shadow: 1px 1px 2px #4F68B0;
+        }
+        .textBox p{
+            text-indent: 2em;
+        }
+        .textBox li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .textBox pre{
+            display: block;
+            width: 850px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 4px 3px 2px black;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+            font-family: '仿宋';
+            background-color: rgb(40,44,52);
+            line-height: 1.5;
+            font-size: 15px;
+            color:white;
+            overflow-y: auto;
+        }
+        .highlight{
+            background-color: rgb(255,243,212);
+        }
+    </style>
+    <script src="../../工作/woosiyuan/git项目/斑马线调试界面/smart_road/build/config.js"></script>
+</head>
+<body>
+<!--header-->
+<div class="headerbox">
+    <div class="headertop">
+        <div class="hdtopbut">
+            <a href="http://blog.hungking.cc/" target="_blank"><img src="imgs/sns_blog_off.png"></a>
+            <a href="https://www.facebook.com/HoungkingHsi" target="_blank"><img src="imgs/sns_facebook_off.png"></a>
+            <a href="http://globalblog.hungking.cc/" target="_blank"><img src="imgs/sns_gBlog_off.png"></a>
+            <a href="http://www.linkedin.com/imisslovelove" target="_blank"><img src="imgs/sns_in_off.png"></a>
+            <a href="http://www.youtube.com/imisslovelove" target="_blank"><img src="imgs/sns_youTube_off.png"></a>
+            <a href="http://www.instagram.com/imisslovelove" target="_blank"><img src="imgs/sns_instagram_off.png"></a>
+            <a href="http://story.kakao.com/ch/imisslovelove" target="_blank" style="background: transparent none;"><img src="imgs/sns_kakao_off.png"></a>
+            <div class="hdtopbutR">
+                <a href="construction.html" style="background-position-x:85px ;">Contact Me</a>
+                <a href="construction.html">AboutSite</a>
+                <span onclick="ifshow(0)">Language<img src="imgs/btn_globalSite_open.gif"></span>
+                <ul id="lag">
+                    <li>KOREAN</li><li>CHINESE</li><li>JAPANESE</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="headerbotm">
+        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
+        <ul id="hdbotmUl">
+            <li>
+                <a href="company.html">WEB前端</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">HTML</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Corporate Overview</a></li>
+                                <li><a href="">Vision of houngking</a></li>
+                                <li><a href="">History of houngking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">CSS/CSS3</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Brand Story</a></li>
+                                <li><a>CI</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">JavaScript</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Greetings</a></li>
+                                <li><a>CEO's Message</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Ajax</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>hougking Affiliates</a></li>
+                                <li><a>Steel</a></li>
+                                <li><a>E&C</a></li>
+                                <li><a>Trade</a></li>
+                                <li><a>ICT</a></li>
+                                <li><a>Energy</a></li>
+                                <li><a>Material-Chemistry</a></li>
+                                <li><a>Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">jQuery</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Global</a></li>
+                                <li><a>Asia</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Business Ethics</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Major Activities</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Products/Technology</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Products of hounking</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Hot Rolled Steel</a></li>
+                                <li><a href="">Steel Plate</a></li>
+                                <li><a href="">Winter Day</a></li>
+                                <li><a href="">Gold Rolled Steel</a></li>
+                                <li><a href="">Galvanized Steel</a></li>
+                                <li><a href="">Electrical Galvanized</a></li>
+                                <li><a href="">Electrical Steel</a></li>
+                                <li><a href="">Automotive materials</a></li>
+                                <li><a href="">Stainless Steel</a></li>
+                                <li><a href="">Titanium Product</a></li>
+                                <li><a href="">Magnesium Product</a></li>
+                                <li><a href="">Aluminum-plated products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">houngking Technology</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">FINEX Technology</a></li>
+                                <li><a href="">Strip Casting</a></li>
+                                <li><a href="">Endless Hot Rolling Technology</a></li>
+                                <li><a href="">Operation Technology</a></li>
+                                <li><a href="">CEM Technology</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Production Process</a>
+                    </li>
+                    <li>
+                        <a href="">Sales information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">e-Sales</a></li>
+                                <li><a href="">e-Procurement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Investor Relations</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">IR Activeties</a>
+                    </li>
+                    <li>
+                        <a href="">Stock Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Stock Price</a></li>
+                                <li><a href="">Price Comparision</a></li>
+                                <li><a href="">ADR</a></li>
+                                <li><a href="">houngking Stock Exchange</a></li>
+                                <li><a href="">Economic Trend</a></li>
+                                <li><a href="">Shareholders Demographics</a></li>
+                                <li><a href="">Dividend</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Financial Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Income Statement</a></li>
+                                <li><a href="">Credit Rating</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">IR Archive</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Audit Report</a></li>
+                                <li><a href="">Form 20-F</a></li>
+                                <li><a href="">Annual Report</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Sustainability</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Sustainability Management System</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Management System</a></li>
+                                <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
+                                <li><a href="">Risk Management</a></li>
+                                <li><a href="">Stakeholder</a></li>
+                                <li><a href="">Relevant Institutes Activities</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Social Responsibility </a>
+                    </li>
+                    <li>
+                        <a href="">Environmental Management </a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Family's Environmental Management</a></li>
+                                <li><a href="">Environmental Management</a></li>
+                                <li><a href="">Climate change /Energy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Customer</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Marketing strategy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Employee</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Employee Health / Safety</a></li>
+                                <li><a href="">Organizational Culture</a></li>
+                                <li><a href="">HR system</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Report</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Report</a></li>
+                                <li><a href="">Carbon Report</a></li>
+                                <li><a href="">Conflict Minerals Disclosure</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">PR Room</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">News room</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">News letter</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">houngking SNS</a>
+                    </li>
+                    <li>
+                        <a href="">PR Archives</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
+                                <li><a href="">PR Movies</a></li>
+                                <li><a href="">Printed Advertisement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Download</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
+        <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
+        <div class="hdmenu" id="hdmenu">
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--text-->
+<div class="textBox">
+    <h2>angular4基础-项目实践(动画及核心概念) </h2>
+    <h3>1,Angular Animation</h3>
+    <p>angular animation是官方內建提供的支持，在angular4起从核心组件中移除单独成块。</p>
+    <p>angular animation是基于W3C的Web Animations标准的。许多实现也是基于Css的动画。</p>
+    <pre> npm i --save @angular/animations </pre>
+    <h5>缓动函数:</h5>
+    <p>缓动函数速查: <a href="https://easings.net/zh-cn#" target="_blank">https://easings.net/zh-cn#</a></p>
+    <p>自定义缓动函数效果： <a href="http://cubic-bezier.com/#.17,.67,.83,.67" target="_blank">http://cubic-bezier.com/#.17,.67,.83,.67</a></p>
+    <p>不是所有的缓动函数css都支持，而angular动画很大程度是基于css，所以不是所有的cubic-bezier函数都能在angular中使用。此时我们还有另一种方法：关键帧。</p>
+    <h5>关键帧:</h5>
+    <p>从@angular/animations中import进keyframes。</p>
+    <h5>注意:</h5>
+    <p>import { BrowserAnimationsModule } from '@angular/platform-browser/animations'，引入的BrowserAnimationsModule 尽量放在所有import模块的最后，避免有时候放在其他模块前面引起的异常。</p>
+    <h4>项目卡片和任务动画：</h4>
+    <p>在app目录下新建一个anims目录，用来放置各种动画。在anims目录下新建一个card.anim.ts动画 :</p>
+    <pre>// card.anim.ts
+import { trigger, state, transition, style, animate, } from '@angular/animations';
+
+export const cardAnim = trigger('card', [
+  state('out', style({transform: 'scale(1)', 'box-shadow': 'none'})),
+  state('hover', style({transform: 'scale(1.1)', 'box-shadow': '3px 3px 5px 6px #ccc'})),
+  transition('out => hover', animate('100ms ease-in')),
+  transition('hover => out', animate('100ms ease-out'))
+]);  </pre>
+    <p>然后在project-item组件中引入card动画。</p>
+    <pre style="height: 200px;">// project-item.component.ts
+import { Component, OnInit, Input, Output, EventEmitter, HostBinding, HostListener } from '@angular/core';
+import { cardAnim } from '../../anims/card.anim';
+@Component({
+  ...
+  animations: [cardAnim]
+})
+export class ProjectItemComponent implements OnInit {
+    @HostBinding('@card') cardState = 'out'; /*HostBinding用来把某个变量值绑定到组件某个属性上*/
+    /*HostListener监听HTML数组的事件*/
+    @HostListener('mouseenter')
+    onMouseEnter() {
+      this.cardState = 'hover';
+    }
+    @HostListener('mouseleave')
+    onMouseLeave() {
+        this.cardState = 'out';
+    }
+    ...</pre>
+    <p>在anims目录下新建一个item.anim.ts动画：</p>
+    <pre>// item.anim.ts
+import { trigger, state, transition, style, animate, } from '@angular/animations';
+export const itemAnim = trigger('item', [
+  state('in', style({'border-left-width': '3px'})),
+  state('out', style({'border-left-width': '8px'})),
+  transition('out => hover', animate('100ms ease-in')),
+  transition('hover => out', animate('100ms ease-out'))
+]);  </pre>
+    <p>然后在task-item组件中引入item动画。这回的动画只改变组件的一部分（左侧的border宽度），而不是整个组件的动画，所以直接在组件内部的标签上嵌入动画就可。</p>
+    <pre style="margin-bottom: 5px;">// task-item.component.html
+&lt;md-list-item
+        class="container"
+        [@item]="widerPriority"
+        (click)="onItemClick()"
+        [ngClass]="{'priority-n':item.priority === 2, 'priority-i':item.priority === 1}"&gt; </pre>
+    <pre style="height: 150px;">// task-item.component.ts
+import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import {itemAnim} from '../../anims/item.anim';
+@Component({
+  ...
+  animations: [itemAnim]
+})
+export class TaskItemComponent implements OnInit {
+    widerPriority = 'in';
+    @HostListener('mouseenter')
+    onMouseEnter() {
+        this.widerPriority = 'out';
+    }
+    @HostListener('mouseleave')
+    onMouseLeave() {
+     this.widerPriority = 'in';
+    }
+    ...</pre>
+    <h4>路由动画及高阶动画函数:</h4>
+    <p>路由动画需要在host元数据中指定触发器。</p>
+    <h5>Group：</h5>
+    <p>用于同时进行一组的动画变换, group([animate(...),animate(...)])</p>
+    <h5>Query & Stagger:</h5>
+    <p>Query 用于父节点寻找子节点，把动画用到找到的节点上。</p>
+    <p>Stagger经常和query一起使用。指定有多个满足Query的元素，让每个的动画之间有间隔。</p>
+    <h5>添加路由动画:</h5>
+    <p>在anims目录下新增一个router.anim.ts动画：</p>
+    <pre style="height: 200px;">// router.anim.ts
+import { trigger, state, transition, style, animate, } from '@angular/animations';
+export const slideToRight = trigger('routeAnim', [
+  state('void', style({'position': 'fixed', 'width': '100%', 'height': '80%'})),
+  state('*', style({'position': 'fixed', 'width': '100%', 'height': '80%'})),
+  transition('void => *', [
+    style({transform: 'translateX(-100%)'}),
+    animate('.5s ease-in-out', style({transform: 'translateX(0)'}))
+  ]),
+  transition('* => void', [
+    style({transform: 'translateX(0)'}),
+    animate('.5s ease-in-out', style({transform: 'translateX(100%)'}))
+  ])
+]); //void：没状态，空状态 ; *：任意状态
+    //void => *别名：':enter'  ; * => void别名：':leave'</pre>
+    <p>路由切换相当于是页面切换，针对的是整个组件的，所以需要用HostBinding方式去绑定动画。</p>
+    <p>给project-list组件添加路由动画：</p>
+    <pre>// project-list.component.ts
+import { Component, OnInit, HostBinding } from '@angular/core';
+...
+import { slideToRight } from '../../anims/router.anim';
+@Component ({
+  ...
+  animations: [slideToRight]
+})
+export class ProjectListComponent implements OnInit {
+  @HostBinding('@routeAnim') state;
+    ...</pre>
+    <p>接下来去sidebar增加页面切换的路由：</p>
+    <pre>// sidebar.component.html
+&lt;md-list-item [routerLink]="['/project']" (click)="onNavClick()"&gt;
+    &lt;md-icon md-list-icon svgIcon="gifts"&gt;&lt;/md-icon&gt;
+    &lt;span md-line&gt;项目首页&lt;/span&gt;
+    &lt;span md-line md-subheader&gt;查看您的所有项目&lt;/span&gt;
+&lt;/md-list-item&gt;  </pre>
+    <p>同样方式也在task-home组件中添加路由动画。</p>
+    <p>目前core.module.ts中是没有routing的东西的，routing的东西在app-routing.module.ts中，需要把它从app.module.ts中拿出来放到core.module.ts中并导出，使得两边都能使用。</p>
+    <pre>// core.module.ts
+import { AppRoutingModule } from '../app-routing.module';
+@NgModule({
+  imports: [
+    ...
+    AppRoutingModule
+  ],
+    ...
+  exports: [HeaderComponent, FooterComponent, SidebarComponent, AppRoutingModule]
+})</pre>
+    <p>app.module.ts中的MdSidenavModule可以整理到shared.module.ts中去导入导出，并在app.module.ts里引入shared.module.ts。</p>
+    <p>BrowserAnimationsModule也可以放在core.module.ts中引入（不需要再exports导出）。</p>
+    <p>把sidebar做个小改动，点击菜单后让sidebar自动收回：</p>
+    <pre>// app.component.html
+&lt;app-sidebar (navClick)="sidenav.toggle()"&gt;&lt;/app-sidebar&gt;
+//navClick是app-sidebar组件emit出来的自定义事件</pre>
+    <h5>query& Stagger应用：</h5>
+    <p>新建一个list.anim.ts动画:</p>
+    <pre style="height: 150px;">// list.anim.ts
+import { trigger, stagger, transition, style, animate, query } from '@angular/animations';
+export const listAnimation = trigger('listAnim', [
+  transition('* => *', [
+    query(':enter', style({opacity: 0}), {optional: true}),
+    query(':enter', stagger(100, [
+      animate('1s', style({opacity: 1}))
+    ]), {optional: true}),
+    query(':leave', style({opcity: 1}), {optional: true}),
+    query(':leave', stagger(100, [
+      animate('1s', style({opacity: 0}))
+    ]), {optional: true})
+  ])
+]); </pre>
+    <p>把动画应用到project-list组件中新增或删除项目时的动态效果。应用这样的动画一般跟ngFor循环在一起的，这时候需要在循环外面套一层。</p>
+    <pre style="height:150px; margin-bottom: 5px;">// project-list.component.html
+&lt;div class="container" [@listAnim]="projects.length"&gt;
+  &lt;app-project-item *ngFor="let project of projects"
+    [item]="project" class="card"
+    (onInvite)="launchInviteDialog()"
+    (onEdit)="launchUpdateDialog()"
+    (onDel)="launchConfirmDialog(project)"&gt;
+  &lt;/app-project-item&gt;
+&lt;/div&gt;
+// scss
++ .container{
+- :host{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+} </pre>
+    <pre style="height:200px;">// project-list.component.ts
+import { listAnimation } from '../../anims/list.anim';
+@Component ({
+  ...
+  animations: [slideToRight, listAnimation]
+})
+export class ProjectListComponent implements OnInit {
+    ...
+    openNewProjectDialog() {
+        const dialogRef = this.dialog.open(NewProjectComponent, {data: {dark: false }}); /*第一个是必选参数，模板或者组件的类型。*/
+        /*open的结果是返回了一个dialogRef。afterClosed方法是一个observable的观察对象。*/
+        dialogRef.afterClosed().subscribe(result => {
+          this.projects = [...this.projects, {id: 3, name: '一个新项目', desc: '一个新项目',
+            coverImg: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2159989106,3526791124&fm=26&gp=0.jpg'}];
+        });
+    }
+    launchConfirmDialog(project) {
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {data: {title: '删除项目', content: '您确认删除该项目吗？'}});
+        dialogRef.afterClosed().subscribe(result => {
+          console.log(result);
+          this.projects = this.projects.filter(p => p.id !== project.id)
+        });
+    }
+}</pre>
+    <p>stagger的作用体现在，当同时新增多个project item时，让它们一个一个进场动画而不是同时出现。</p>
+
+    <h3>2,重要angular概念</h3>
+    <h4>什么是依赖性注入:</h4>
+    <p>依赖性注入是一种设计模式，对复杂的项目来说需要一个对应的依赖性注入框架帮忙处理这些事情。angular有一个非常完整的DI框架。</p>
+    <p>angular的DI框架有几个很重要的角色：injector注入者，用它的API创建依赖的实例；如何创建呢，是Provider来告诉injector如何去创建；创建好的Object就是你所处位置（组件或模块）所需要的依赖。依赖就是你所需要使用的某种类型的对象，依赖本身其实是一种类型。</p>
+    <p>angular提供了很多便利，利用typescript这种类型，声明哪种类型就去提供依赖的池子里找哪种类型的对象，给你构建出来。</p>
+    <p>我们在NgModule或Component的providers数组里提供的东西会自动注册到inject的池子里去，使用是直接@inject()进来。但默认情况下，这种依赖性的注入angular是当单件处理的，大家在池子里取到的都是那一个对象、一个实例。</p>
+    <p>某些情况下如果想创建一个新的依赖实例，可以利用父子注入这种方法。</p>
+    <h4>ChangeDetection:</h4>
+    <p>引起状态变化：events、XHR、Timers</p>
+    <p>ChangeDetection就是检测程序内部状态，然后反映到UI上。</p>
+    <p>ApplicationRef监听NgZone的onTurnDone方法，然后执行ChangeDetection检测。</p>
+    <p>angular中每一个组件都有自己的状态变化。对应的组件树形成后也会形成CD树（ChangeDetection树的缩写）。默认策略会把整个CD树跑一边去检测谁发生了变化，把变化体现在ui的哪个地方。默认策略执行其实也还挺快的，但在特别大的应用会出现一些性能问题，这个时候就有一种OnPush策略。</p>
+    <p>OnPush策略：组件状态是由外部决定的，内部不去更改状态。除非外部给我设置的属性发生变化的时候我才变化，否则都不用来检查我。这样就避免了把整个CD树跑一边，也是提高性能的一种方式。在大的引用中能显著提升性能。</p>
+    <h5>代码示例（以project module模块为例）:</h5>
+    <p>如果组件中不写ChangeDetection这个策略的话，默认是ChangeDetectionStrategy.Default策略。如果换成OnPush策略可以这么写：</p>
+    <pre>// project-list.component.ts
+import { Component, OnInit, HostBinding, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+...
+@Component ({
+  ...
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})  </pre>
+    <p>仅仅像上面这样把project-list组件改为OnPush策略，会有一个奇怪的现象：当鼠标在project item组件上移进移出时会出现之前硬编码新增项目的新增item。</p>
+    <p>由于此时project-item子组件还是default策略，而default策略中事件是引发检查的驱动元，所以mouseleave、mouseenter引发了全局的检查，由它引发的检查顺便也把新增的item的状态也检查掉了。对于list来讲，angular并未检查。这种情况可以手动告诉angular来检查list指定的节点：</p>
+    <pre style="height: 200px;">// project-list.component.ts
+export class ProjectListComponent implements OnInit {
+    constructor(private dialog: MdDialog, private cd: ChangeDetectorRef) { }
+    ...
+    openNewProjectDialog() {
+        const dialogRef = this.dialog.open(NewProjectComponent, {data: {dark: false }});
+        dialogRef.afterClosed().subscribe(result => {
+          this.projects = [...this.projects, {id: 3, name: '一个新项目', desc: '一个新项目',
+          coverImg: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2159989106,3526791124&fm=26&gp=0.jpg'}];
+          this.cd.markForCheck();
+        });
+    }
+    launchConfirmDialog(project) {
+        ...
+        dialogRef.afterClosed().subscribe(result => {
+          this.projects = this.projects.filter(p => p.id !== project.id)
+          this.cd.markForCheck();
+        });
+    }
+}    </pre>
+    <p>这样做的好处是，在事件发生时主动告诉angular来检查指定的路线，其他的不用检查。</p>
+    <p>改为OnPush策略,对于聪明组件需要如此做。而对于笨组件（只负责显示，有一些输入输出，但是不涉及逻辑）来说就简单多了。比如project-item这个笨组件,所有的状态改变都来自于输入：</p>
+    <pre>// project-item.component.ts
+@Component({
+  selector: 'app-project-item',
+  ...
+  changeDetection: ChangeDetectionStrategy.OnPush
+}) </pre>
+    <p>其余的invite、new-project笨组件也一样，changeDetection声明为ChangeDetectionStrategy.OnPush就可以了。类似的也可对task模块做相应的改造。</p>
+    <h4>打造支持拖拽的属性型指令:</h4>
+    <h5>指令：</h5>
+    <p>组件和指令非常像。组件是一种特殊的指令，组件是一种带模板的指令。指令是超集，组件是子集。</p>
+    <p>指令可分为结构型（Structural）指令和属性（Attribute）型指令。属性型指令是来改变行为的。</p>
+    <h5>Renderer2 和 ElementRef：</h5>
+    <p>angular不提倡直接操作DOM，这是一个很危险的行为，而且在server render时直接操作DOM也会出现一些问题。</p>
+    <p>angular4开始，对于dom的操作应该通过Renderer2 来进行。</p>
+    <p>ElementRef可以理解为指向dom元素的引用。</p>
+    <h5>自己写一个鼠标拖拽指令:</h5>
+    <p>ng g m directive新建一个指令模块。</p>
+    <p>新建drag和drop指令:</p>
+    <pre>
+ng g d directive/drag-drop/drag --spec=false
+ng g d directive/drag-drop/drop --spec=false    </pre>
+    <p>把命令行默认生成的两个指令的selector名称appDrag、appDrop改为app-draggable、app-droppable。</p>
+    <p>在dragstart事件中首先要去判断是不是当前drag指令应用的元素发起的，event的target如果等于指令应用的元素的话，就可以认为是这个元素发起的拖拽。在这种情况下我们可以去改变这个元素本身的样式。涉及到改变dom，就需要注入ElementRef和Renderer2了。</p>
+    <p>指令的输入型参数如何指定呢？在指令标识的后面跟上属性即可。</p>
+    <p>出于对指令以后可扩展的目的，希望指令也是可以进行输入的，一个布尔型，true时可拖拽，false不可拖拽。这样可以动态去调整它。</p>
+    <p>比如，如何让app-draggable变为一个可输入型的属性呢？可以给私有的_isDraggable属性的set方法用@Input()来对应到'app-draggable'属性。暴露到外面给组件使用这个指令时，用app-draggable等于什么时，就会调用这个set方法，这样就把值设置进来了。</p>
+    <pre style="height: 250px;">// app/directive/drag-drop/drag.directive.ts
+import { Directive, HostListener, ElementRef, Renderer2, Input } from '@angular/core';
+@Directive({
+  selector: '[app-draggable][draggedClass]'
+})
+export class DragDirective {
+  private _isDraggable = false;
+
+  @Input('app-draggable')
+  set isDraggable(val: boolean){
+    this._isDraggable = val;
+    this.rd.setAttribute(this.el.nativeElement, 'draggable', 'true');
+  }
+
+  get isDraggable(){
+    return this._isDraggable;
+  }
+
+  @Input() draggedClass: string;
+  constructor(private el: ElementRef, private rd: Renderer2) { }
+
+  @HostListener('dragstart', ['$event'])
+  onDragStart(ev: Event) {
+    if (this.el.nativeElement === ev.target) {
+      this.rd.addClass(this.el.nativeElement, this.draggedClass);
+    }
+  }
+
+  @HostListener('dragend', ['$event'])
+  onDragEnd(ev: Event) {
+    if (this.el.nativeElement === ev.target) {
+      this.rd.removeClass(this.el.nativeElement, this.draggedClass);
+    }
+  }
+}   </pre>
+    <p>然后到task-item组件中去使用：</p>
+    <pre style="margin-bottom: 5px;">// task-item.component.html
+&lt;md-list-item class="container"
+              [@item]="widerPriority"
+              (click)="onItemClick()"
+              [ngClass]="{'priority-n':item.priority === 2, 'priority-i':item.priority === 1}"
+              [app-draggable]="true"
+              [draggedClass]="'drag-start'"&gt;
+    ...
+&lt;/md-list-item&gt;    </pre>
+    <pre>// task-item.component.scss
+.drag-start{
+  opacity: 0.5;
+  border: #ff525b dashed 2px;
+}  </pre>
+    <p>在shared.module.ts中导入导出DirectiveModule后，修改directive.module.ts :</p>
+    <pre>// directive.module.ts
+import { NgModule } from '@angular/core';
+import { DragDirective } from './drag-drop/drag.directive';
+import { DropDirective } from './drag-drop/drop.directive';
+@NgModule({
+  declarations: [DragDirective, DropDirective],
+  exports: [DragDirective, DropDirective]
+})
+export class DirectiveModule { }  </pre>
+    <p>到这里，就可以去页面上用鼠标拖拽看效果了。</p>
+    <p>类似地，我们编写app-droppable指令：</p>
+    <pre style="height: 200px;">// app/directive/drag-drop/drop.directive.ts
+import { Directive, HostListener, ElementRef, Renderer2, Input } from '@angular/core';
+@Directive({
+  selector: '[app-droppable][dragEnterClass]'
+})
+export class DropDirective {
+  @Input() dragEnterClass: string;
+  constructor(private el: ElementRef, private rd: Renderer2) { }
+
+  @HostListener('dragenter', ['$event'])
+  onDragEnter(ev: Event) {
+    if (this.el.nativeElement === ev.target) {
+      this.rd.addClass(this.el.nativeElement, this.dragEnterClass);
+    }
+  }
+  @HostListener('dragover', ['$event'])
+  onDragOver(ev: Event) {
+    if (this.el.nativeElement === ev.target) {
+
+    }
+  }
+
+  @HostListener('dragleave', ['$event'])
+  onDragLeave(ev: Event) {
+    if (this.el.nativeElement === ev.target) {
+      this.rd.removeClass(this.el.nativeElement, this.dragEnterClass);
+    }
+  }
+  @HostListener('drop', ['$event'])
+  onDrop(ev: Event) {
+    if (this.el.nativeElement === ev.target) {
+      this.rd.removeClass(this.el.nativeElement, this.dragEnterClass);
+    }
+  }
+}   </pre>
+    <p>在task-home组件中去使用drop指令：</p>
+    <pre style="margin-bottom: 5px;">// task-home.component.html
+&lt;div class="task-lists"&gt;
+  &lt;app-task-list class="list-container" *ngFor="let list of lists" app-droppable [dragEnterClass]="'drag-enter'"&gt;
+  ...  </pre>
+    <pre>// task-home.component.scss
+.drag-enter{
+  background-color: dimgray;
+}  </pre>
+    <p>到这里，还有两个问题需要解决：1，多重拖拽，list和item都能拖拽 ；2，携带数据。所以我们需要创建一个service ：</p>
+    <pre> ng g s directive/drag-drop </pre>
+    <p>先在directive.module.ts中provider一下：</p>
+    <pre style="margin-bottom: 5px;">// directive.module.ts
+import {DragDropService} from './drag-drop.service';
+@NgModule({
+  ...
+  providers: [ DragDropService ],
+})    </pre>
+    <pre style="height: 200px;">// drag-drop.service.ts
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+export interface DragData {
+  tag: string;
+  data: any;
+}
+// tag：唯一标识，标识哪个拖拽，用户自己来保证唯一性；
+// BehaviorSubject：它的特性是总是能记住上一次的值；
+@Injectable()
+export class DragDropService {
+  private _dragData = new BehaviorSubject&lt;DragData&gt;(null);
+  constructor() { }
+  setDragData(data: DragData) {
+    this._dragData.next(data);
+  }
+  getDragData(): Observable&lt;DragData&gt; {
+    return this._dragData.asObservable();
+  }
+  clearDragData() {
+    this._dragData.next(null);
+  }
+}   </pre>
+    <p>需要去drag指令中多定义几个属性了：</p>
+    <pre style="height: 200px;">// drag.directive.ts
+import {DragDropService} from '../drag-drop.service';
+@Directive({
+  selector: '[app-draggable][dragTag][dragData][draggedClass]'
+})
+export class DragDirective {
+    ...
+    @Input() dragTag: string;
+    @Input() dragData: any;
+    constructor(private el: ElementRef, private rd: Renderer2, private service: DragDropService) { }
+    ...
+    onDragStart(ev: Event) {
+        if (this.el.nativeElement === ev.target) {
+          this.rd.addClass(this.el.nativeElement, this.draggedClass);
+          this.service.setDragData({tag: this.dragTag, data: this.dragData});
+        }
+    }
+  ...  </pre>
+    <p>类似地，对drop指令也做处理。对于drop来讲，它的tag是一个数组。在‘放’的时候，要需要判断这个拖拽是不是能够接收的，在不在自己的数据范围之内。</p>
+    <pre style="height: 250px;">// drop.directive.ts
+import { Directive, HostListener, ElementRef, Renderer2, Input, Output, EventEmitter } from '@angular/core';
+import {DragDropService, DragData} from '../drag-drop.service';
+@Directive({
+  selector: '[app-droppable][dropTags][dragEnterClass]'
+})
+export class DropDirective {
+  @Input() dragEnterClass: string;
+  @Input() dropTags: string[] = [];
+  private data$;
+  @Output() dropped = new EventEmitter&lt;DragData&gt;();
+  constructor(private el: ElementRef, private rd: Renderer2, private service: DragDropService) {
+    this.data$ = this.service.getDragData().take(1);
+  }
+
+  @HostListener('dragenter', ['$event'])
+  onDragEnter(ev: Event) {
+    ev.preventDefault();
+    ev.stopPropagation();
+    if (this.el.nativeElement === ev.target) {
+      this.data$.subscribe(dragData => {
+        if (this.dropTags.indexOf(dragData.tag) > -1) {
+          this.rd.addClass(this.el.nativeElement, this.dragEnterClass);
+        }
+      });
+    }
+  }
+  @HostListener('dragover', ['$event'])
+  onDragOver(ev: Event) {
+    ev.preventDefault();
+    ev.stopPropagation();
+    if (this.el.nativeElement === ev.target) {
+      this.data$.subscribe(dragData => {
+        if (this.dropTags.indexOf(dragData.tag) > -1) {
+          this.rd.setProperty(ev, 'dataTransfer.effectAllowed', 'all');
+          this.rd.setProperty(ev, 'dataTransfer.dropEffect', 'move');
+        }else {
+          this.rd.setProperty(ev, 'dataTransfer.effectAllowed', 'none');
+          this.rd.setProperty(ev, 'dataTransfer.dropEffect', 'none');
+        }
+      });
+    }
+  }
+  @HostListener('dragleave', ['$event'])
+  onDragLeave(ev: Event) {
+    ev.preventDefault();
+    ev.stopPropagation();
+    if (this.el.nativeElement === ev.target) {
+      this.data$.subscribe(dragData => {
+        if (this.dropTags.indexOf(dragData.tag) > -1) {
+          this.rd.removeClass(this.el.nativeElement, this.dragEnterClass);
+        }
+      });
+    }
+  }
+  @HostListener('drop', ['$event'])
+  onDrop(ev: Event) {
+    if (this.el.nativeElement === ev.target) {
+      this.data$.subscribe(dragData => {
+        if (this.dropTags.indexOf(dragData.tag) > -1) {
+          this.rd.removeClass(this.el.nativeElement, this.dragEnterClass);
+          this.dropped.emit(dragData);
+          this.service.clearDragData();
+        }
+      });
+    }
+  }
+}   </pre>
+    <p>在core.module.ts中引入rxjs:</p>
+    <pre>// core.module.ts
+import 'rxjs/add/operator/take';  </pre>
+    <p>剩下的要去改造task-item和task-home组件使用指令的模板：</p>
+    <pre style="margin-bottom: 5px;">// task-item.component.html
+&lt;md-list-item class="container"
+              [@item]="widerPriority"
+              (click)="onItemClick()"
+              [ngClass]="{'priority-n':item.priority === 2, 'priority-i':item.priority === 1}"
+              [app-draggable]="true"
+              [draggedClass]="'drag-start'"
+              [dragTag]="'task-item'"
+              [dragData]="item"&gt;
+    ...
+&lt;/md-list-item&gt;    </pre>
+    <pre style="margin-bottom: 5px;">// task-home.component.html
+&lt;div class="task-lists"&gt;
+  &lt;app-task-list class="list-container" *ngFor="let list of lists"
+                 app-droppable
+                 [dragEnterClass]="'drag-enter'"
+                 [dropTags]="['task-item','task-list']"
+                 [app-draggable]="true"
+                 [draggedClass]="'drag-start'"
+                 [dragTag]="'task-list'"
+                 [dragData]="list"
+                 (dropped)="handleMove($event, list)"&gt;
+  ...  </pre>
+    <pre style="height: 150px;">// task-home.component.ts
+handleMove(srcData, list) {
+    switch (srcData.tag) {
+      case 'task-item':
+        console.log('handling item');
+        break;
+      case 'task-list':
+        console.log('handling list');
+        break;
+      default:
+        break;
+    }
+  }</pre>
+    <h4>结构型指令:</h4>
+    <p>angular内置指令前面的*号是一个语法糖。</p>
+
+
+
+    <br/>
+    <h5>参考文档:</h5>
+    <a href="https://www.zhangxinxu.com/wordpress/2018/09/drag-drop-datatransfer-js/" target="_blank">拖拽献祭中的黑山羊-DataTransfer对象</a>,<br>
+    <a href="https://www.angular.cn/guide/quickstart" target="_blank">angular 4 中文文档</a>,<br>
+</div>
+
+</body>
+</html>
