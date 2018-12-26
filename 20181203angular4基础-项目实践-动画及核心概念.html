@@ -969,7 +969,401 @@ handleMove(srcData, list) {
   }</pre>
     <h4>结构型指令:</h4>
     <p>angular内置指令前面的*号是一个语法糖。</p>
-
+    <h5>模块：</h5>
+    <p>模块是一组具有相对独立功能的文件的集合，模块把这些文件组织起来。</p>
+    <p>有的时候用一些第三方库的时候经常看到forRoot()，包括一些自己內建的库比如router。router库imports的时候会用到RouterModule.forRoot()在跟模块，在子模块会用到RouterModule.forChild()。跟一般见到的模块为何有这种使用上的区别？查看模块原码会发现，forRoot（）是一个静态方法，其实是一个工厂。我们自己也可以来写一个：</p>
+    <pre>// ng g m services创建一个service module
+// step1:@NgModule里的元数据先不要；
+// step2:写一个静态的forRoot()工厂方法，把需要的东西返回回去，比如ngModule、providers；
+import {ModuleWithProviders, NgModule} from '@angular/core';
+@NgModule()
+export class ServicesModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: ServicesModule,
+      providers: []
+    }
+  }
+}   </pre>
+    <p>forRoot()的作用是：有时候元数据根据不同情况是变化的，不可能在元数据中指定一套值就ok了，而元数据又没有办法动态指定，所以就去静态构建工厂方法然后返回一个module。</p>
+    <p>使用的时候可以在比如core.module.ts中：</p>
+    <pre>// core.module.ts
+import {ServicesModule} from '../services/services.module';
+@NgModule({
+  imports: [
+    ...
+    ServicesModule.forRoot(),
+  ],
+  ...
+//这样就可以把自己的ServicesModule导入进来了。</pre>
+    <h5>ngClass,ngStyle,[class.yourstyle] :</h5>
+    <p>ngClass:用于条件动态指定样式类，适合对样式做大量更改的情况；</p>
+    <p>ngStyle:用于条件动态指定样式，适合少量更改的情况；</p>
+    <p>[class.yourstyle]="condition":直接对应一个条件。</p>
+    <p>用ngStyle来演示下拖放task-list后互换list的位置：</p>
+    <pre>// task-home.component.html
+&lt;div class="task-lists"&gt;
+  &lt;app-task-list class="list-container" *ngFor="let list of lists"
+                 app-droppable
+                 ...
+                 [ngStyle]="{'order':list.order}"&gt;  </pre>
+    <p>需要改造一下传递的数据lists：</p>
+    <pre style="height: 150px;">// task-home.component.ts
+export class TaskHomeComponent implements OnInit {
+    lists = [{
+        id: 1,
+        name: '待办',
+        order: 1,
+        ...
+      }, {
+        id: 2,
+        name: '完成',
+        order: 1,
+        ...
+    }];
+    ...
+    handleMove(srcData, list) {
+        switch (srcData.tag) {
+          case 'task-item':
+            console.log('handling item');
+            break;
+          case 'task-list':
+            console.log('handling list');
+            const srcList = srcData.data;
+            const tempOrder = srcList.order;
+            srcList.order = list.order;
+            list.order = tempOrder;
+            break;
+          default:
+            break;
+        }
+    }
+}    </pre>
+    <h4>模板驱动型表单处理:</h4>
+    <p>模板驱动型表单突出的特点就是可以进行数据的绑定、双向绑定。</p>
+    <p>令人困惑的ngModel:它的写法比较特殊，不像别的指令要么中括号要么小括号，它双向绑定时中括号小括号都有。这也是类似一个语法糖的东西。</p>
+    <h5>自定义表单控件FormControl例子:</h5>
+    <p>当表单过于复杂之后，可以把其中一部分分离出来单独做成一个表单控件来处理。</p>
+    <p>ng g c task/quick-task --spec=false新建一个用于快速新建任务的组件。从本质上来讲，这个组件就是一个输入框。</p>
+    <pre style="margin-bottom: 5px;">// quick-task.component.html
+&lt;form #f="ngForm" (ngSubmit)="onSubmit(f, $event)"&gt;
+  &lt;md-input-container&gt;
+    &lt;input mdInput type="text" placeholder="在这里快速建立一个任务" [(ngModel)]="desc" name="desc" required&gt;
+    &lt;button mdSuffix md-icon-button type="submit"&gt;&lt;md-icon&gt;send&lt;/md-icon&gt;&lt;/button&gt;
+    &lt;md-error&gt;不能为空&lt;/md-error&gt;
+  &lt;/md-input-container&gt;
+&lt;/form&gt;  </pre>
+    <pre>// quick-task.component.ts
+export class QuickTaskComponent implements OnInit {
+  desc: string;
+  ...
+  onSubmit({value, valid}, ev: Event) {
+    ev.preventDefault();
+    console.log('value:', value, 'valid:', valid);
+  }
+}   </pre>
+    <p>在shared.module.ts中导入导出FormsModule和ReactiveFormsModule：</p>
+    <pre style="height: 150px;">// shared.module.ts
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+...
+@NgModule({
+  imports: [
+        ...
+         FormsModule,
+        ReactiveFormsModule,
+  ],
+  exports: [
+        ...
+        FormsModule,
+        ReactiveFormsModule,
+  ],
+  ...  </pre>
+    <p>ngModel如果在form标签内使用的话，需要指定表单控件的name属性。ngModel指令创建了一个formControl，绑定到了元素上，name是为了找到表单里对应名字的控件。为何在form标签里就需要这个name呢？这是由于在angular中，form标签会默认自动加上一个ngForm指令，变为angular的一个表单，在angular中的表单是需要有一个name属性的。</p>
+    <h5>项目中的quick-task组件：</h5>
+    <p>本项目中的quick-task组件其实并不需要表单的形式（以上是为了演示）。</p>
+    <pre style="margin-bottom: 5px;">// quick-task.component.html
+&lt;md-input-container&gt;
+  &lt;input mdInput type="text" placeholder="在这里快速建立一个任务" [(ngModel)]="desc"&gt;
+  &lt;button mdSuffix md-icon-button type="button" (click)="sendQuickTask()"&gt;&lt;md-icon&gt;send&lt;/md-icon&gt;&lt;/button&gt;
+&lt;/md-input-container&gt;  </pre>
+    <pre style="height: 150px;">// quick-task.component.ts
+import {Component, HostListener, OnInit, Output, EventEmitter} from '@angular/core';
+...
+export class QuickTaskComponent implements OnInit {
+  @Output() quickTask = new EventEmitter();
+  ...
+  @HostListener('keyup.enter')  //同时也需要监听enter事件
+  sendQuickTask() {
+    if (!this.desc || this.desc.length === 0 || !this.desc.trim()) { return; }
+    this.quickTask.emit(this.desc);
+    this.desc = '';
+  }
+}   </pre>
+    <p>然后把quick-task组件放在task-home组件中使用：</p>
+    <pre style="margin-bottom: 5px;">// task-home.component.html
+...
+&lt;app-quick-task (quickTask)="handleQuickTask($event)" &gt;&lt;/app-quick-task&gt;
+&lt;app-task-item *ngFor="let task of list.tasks" [item]="task" (taskClick)="launchUpdateTaskDialog(task)"&gt;&lt;/app-task-item&gt;
+... </pre>
+    <pre>// task-home.component.ts
+handleQuickTask(desc: string) {
+    console.log(desc);
+}   </pre>
+    <p>模板型表单对于比较简单的form处理是比较方便直观的。</p>
+    <h4>响应式表单处理和自定义表单控件:</h4>
+    <p>响应式表单又叫模型驱动型表单。</p>
+    <p>过于复杂的表单，可对于其中的某一些控件做一些封装，封装成自定义的FormControl。在自定义的FormControl去处理这一块区域的逻辑。</p>
+    <h5>响应式表单：</h5>
+    <p>三个重要元素：FormControl(最基础的表单控件)，FormGroup(一组FormControl。整个表单也是一个FormGroup)，FormBuilder(用于快速构建表单的建设工厂)</p>
+    <p>（同步）验证器和异步验证器</p>
+    <p>动态指定验证器</p>
+    <h5>在login组件中演示响应式表单的处理：</h5>
+    <p>在响应式表单中，需要用formControlName来标识一下控件。它把组件声明成一个表单控件，绑定到HTML组件中去。</p>
+    <pre style="margin-bottom: 5px;">// login.component.html
+&lt;form [formGroup]="form" (ngSubmit)="onSubmit(form, $event)"&gt;
+    ...
+    &lt;input mdInput type="text" placeholder="您的email" formControlName="email"&gt;
+    ...
+    &lt;input mdInput type="password" placeholder="您的密码"  formControlName="password"&gt;
+    ...
+    &lt;button md-raised-button type="submit" [disabled]="!form.valid"&gt;登录&lt;/button&gt;
+    ...</pre>
+    <pre style="height: 150px;">// login.component.ts
+import { Component, OnInit } from '@angular/core';
+import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
+})
+export class LoginComponent implements OnInit {
+  form: FormGroup;
+  constructor(private fb: FormBuilder) { }
+  ngOnInit() {
+    this.form = new FormGroup({
+      email: new FormControl('wang@163.com', Validators.compose([Validators.required, Validators.email])),
+      password: new FormControl('', Validators.required)
+    });
+  }
+  onSubmit({value, valid}, ev: Event) {
+    ev.preventDefault();
+  }
+}    </pre>
+    <p>在非常复杂的表单中，FormGroup可能不止一个。根FormGroup会有一个，底下可能会有多个FormGroup，底下的FormGroup多了在初始化时候会非常繁琐。FormBuilder就是用来在这种情况下简化工作的。</p>
+    <p>login表单用FormBuilder可以改写为：</p>
+    <pre>// login.component.ts
+ngOnInit() {
+    this.form = this.fb.group({
+      email: ['wang@163.com', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.required]
+    });
+}  </pre>
+    <h5>给login组件的email输入添加自定义验证器:</h5>
+    <pre style="height: 150px;">// login.component.ts
+export class LoginComponent implements OnInit {
+  ...
+  ngOnInit() {
+    this.form = this.fb.group({
+      email: ['wang@163.com', Validators.compose([Validators.required, Validators.email, this.validate])],
+      password: ['', Validators.required]
+    });
+  }
+  ...
+  validate(c: FormControl): {[key: string]: any} {
+    if (!c.value) { return null; }
+    const pattern = /^wang+/;
+    if (pattern.test(c.value)) { return null; }
+    return {
+      emailNotValid: 'The email must start with wang'
+    }
+  }
+}   </pre>
+    <p>也可以在某些需要的情况下动态地指定自定义验证器：</p>
+    <pre>// login.component.ts
+onSubmit({value, valid}, ev: Event) {
+  ...
+  this.form.controls['email'].setValidators(this.validate);
+}</pre>
+    <p>在页面上显示自定义的错误信息：</p>
+    <pre>// login.component.html
+&lt;input mdInput type="text" placeholder="您的email" formControlName="email"&gt;
+&lt;md-error&gt;{{ form.controls['email'].errors | json}}&lt;/md-error&gt;  </pre>
+    <h4>实例：注册页面的响应式表单&自定义控件</h4>
+    <p>register组件中的（头像）图片选择部分可以作为一个公用组件进行封装。所以ng g c shared/image-list-select --spec=false,在shared文件夹内创建这个组件：</p>
+    <pre style="margin-bottom: 5px;height: 200px;">// image-list-select.component.html
+&lt;div&gt;
+  &lt;span&gt;{{title}}&lt;/span&gt;
+  &lt;md-icon class="avatar" [svgIcon]="selected" *ngIf="useSvgIcon else imgSelect"&gt;&lt;/md-icon&gt;
+  &lt;ng-template #imgSelect&gt;
+    &lt;img [src]="selected" alt="image selected" class="avatar"&gt;
+  &lt;/ng-template&gt;
+&lt;/div&gt;
+&lt;div class="scroll-container"&gt;
+  &lt;md-grid-list [cols]="cols" [rowHeight]="rowHeight"&gt;
+    &lt;md-grid-tile *ngFor="let item of items; let i = index"&gt;
+      &lt;div class="image-container" (click)="onChange(i)"&gt;
+        &lt;md-icon class="avatar" [svgIcon]="item" *ngIf="useSvgIcon else imgItem"&gt;&lt;/md-icon&gt;
+        &lt;ng-template #imgItem&gt;
+          &lt;img [src]="item" alt="image item" class="avatar" [ngStyle]="{'width': itemWidth}"&gt;
+        &lt;/ng-template&gt;
+        &lt;div class="after"&gt;
+          &lt;div class="zoom"&gt;
+            &lt;md-icon&gt;checked&lt;/md-icon&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/md-grid-tile&gt;
+  &lt;/md-grid-list&gt;
+&lt;/div&gt;   </pre>
+    <pre style="height: 150px;">// image-list-select.component.scss
+.avatar{
+  overflow: hidden;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin: 12px;
+}
+.scroll-container{
+  overflow-y: auto;
+  height: 200px;
+}
+.image-container{
+  position: relative;
+  display: inline-block;
+}
+.image-container img{
+  display: block;
+}
+.image-container .after{
+  position: absolute;
+  top:0;
+  left: 0;
+  width:100%;
+  height: 100%;
+  display: none;
+  color: #FFF;
+}
+.image-container:hover .after{
+  display: block;
+  background-color: rgba(0,0,0,.6);
+}
+.image-container .after .zoom{
+  color: #DDD;
+  font-size: 48px;
+  position: absolute;
+  top:50%;
+  left: 50%;
+  margin: -30px 00-19px;
+  height: 50px;
+  width:45px;
+  cursor: pointer;
+}
+.image-container .after .zoom:hover{
+  color: #FFF;
+}   </pre>
+    <p>要把这个封装的普通image-list-select组件变为表单控件（formControlName这种使用形式）使用，首先需要导入ControlValueAccessor，并实现这个接口。还需要引入一个令牌NG_VALUE_ACCESSOR，把自己注册到这个令牌上。对于控件验证器这种类型，把自己注册到NG_VALIDATORS令牌上。</p>
+    <pre style="height: 250px;">// image-list-select.component.ts
+import { Component, Input, forwardRef } from '@angular/core';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NG_VALIDATORS} from '@angular/forms';
+@Component({
+  selector: 'app-image-list-select',
+  templateUrl: './image-list-select.component.html',
+  styleUrls: ['./image-list-select.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ImageListSelectComponent),
+      multi: true
+    }, {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => ImageListSelectComponent),
+      multi: true
+    }
+  ]
+})
+// useExisting：用已有的。
+// forwardRef：向前引用，它会等待实例化之后再进行引用，但不妨碍useExisting注册到依赖池。
+// 这解决了useExisting使用ImageListSelectComponent时还未创建的问题。
+export class ImageListSelectComponent implements ControlValueAccessor {
+  @Input() title = '选择';
+  @Input() cols = 6;
+  @Input() rowHeight = '64px';
+  @Input() items: string[] = [];
+  @Input() useSvgIcon = false;
+  @Input() itemWidth = '64px';
+  selected: string;
+  private propagateChange = (_: any) => {};
+  constructor() { }
+  onChange(i) {
+    this.selected = this.items[i];
+  }
+  // writeValue:是用来写值的。表单设置this.form.patchValue或this.form.setValue时会调用。
+  writeValue(obj: any): void {
+    this.selected = obj;
+  }
+  // registerOnChange：控件本身的view或值发生了变化，需要通知表单，把变化发射给表单。
+  registerOnChange(fn: any): void {
+    this.propagateChange = fn;
+  }
+  // registerOnTouched: 已经被操作过的。（此处无需求）
+  registerOnTouched(fn: any): void { }
+  validate(c: FormControl): {[key: string]: any} {
+    return this.selected ? null : {
+      imageListInvalid: {
+        valid: false
+      }
+    }
+  }
+}   </pre>
+    <p>在register组件上去用新建的图片自定义控件。先把register组件的表单变为响应式表单。</p>
+    <pre style="margin-bottom: 5px;height: 150px;">// register.component.html
+&lt;form [formGroup]="form" (ngSumit)="onSubmit(form, $event)"&gt;
+  &lt;md-card&gt;
+    ...
+    &lt;md-card-content&gt;
+      &lt;md-input-container class="full-width"&gt;
+        &lt;input mdInput type="text" placeholder="您的email" formControlName="email"&gt;
+      &lt;/md-input-container&gt;
+      ...
+      &lt;app-image-list-select
+              [useSvgIcon]="false"
+              [cols]="6"
+              [title]="'选择头像:'"
+              [items]="items"
+              formControlName="avatar"&gt;
+      &lt;/app-image-list-select&gt;
+      &lt;button md-raised-button color="primary" type="submit"&gt;注册&lt;/button&gt;
+    &lt;/md-card-content&gt;
+  &lt;/md-card&gt;
+&lt;/form&gt;   </pre>
+    <pre style="height: 150px;">// register.component.ts
+export class RegisterComponent implements OnInit {
+  form: FormGroup;
+  items: string[];
+  constructor(private fb: FormBuilder) { }
+  ngOnInit() {
+    this.items = ['https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3154837558,3312040777&fm=26&gp=0.jpg',
+      'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3447739935,1277162725&fm=27&gp=0.jpg'];
+    this.form = this.fb.group({
+      email: [],
+      name: [],
+      password: [],
+      repeat: [],
+      avatar: ['https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3154837558,3312040777&fm=26&gp=0.jpg']
+    })
+  }
+}   </pre>
+    <p>注意，还需要在shared.module.ts中去导入导出ImageListSelectComponent，不然只能在shared module中使用。同时还要导入导出MdGridListModule模块。</p>
+    <pre>// shared.module.ts
+import { ImageListSelectComponent } from './image-list-select/image-list-select.component';
+@NgModule({
+    ...
+    exports: [
+        ...
+        ImageListSelectComponent
+    ],
+    declarations: [ConfirmDialogComponent, ImageListSelectComponent]
+    ...</pre>
 
 
     <br/>
