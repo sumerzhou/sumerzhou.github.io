@@ -1,0 +1,911 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rxjs常见操作符 |sumerzhou's blog</title>
+    <link href="myblog.css" rel="stylesheet" type="text/css">
+    <script src="myblog.js" type="text/javascript"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
+            line-height: 2em;
+        }
+        .textBox h2{
+            margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
+        }
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox h4{
+            text-shadow: 1px 1px 2px #4F68B0;
+        }
+        .textBox p{
+            text-indent: 2em;
+        }
+        .textBox li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .textBox pre{
+            display: block;
+            width: 850px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 4px 3px 2px black;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+            font-family: '仿宋';
+            background-color: rgb(40,44,52);
+            line-height: 1.5;
+            font-size: 15px;
+            color:white;
+            overflow-y: auto;
+        }
+        .highlight{
+            background-color: rgb(255,243,212);
+        }
+    </style>
+</head>
+<body>
+<!--header-->
+<div class="headerbox">
+    <div class="headertop">
+        <div class="hdtopbut">
+            <a href="http://blog.hungking.cc/" target="_blank"><img src="imgs/sns_blog_off.png"></a>
+            <a href="https://www.facebook.com/HoungkingHsi" target="_blank"><img src="imgs/sns_facebook_off.png"></a>
+            <a href="http://globalblog.hungking.cc/" target="_blank"><img src="imgs/sns_gBlog_off.png"></a>
+            <a href="http://www.linkedin.com/imisslovelove" target="_blank"><img src="imgs/sns_in_off.png"></a>
+            <a href="http://www.youtube.com/imisslovelove" target="_blank"><img src="imgs/sns_youTube_off.png"></a>
+            <a href="http://www.instagram.com/imisslovelove" target="_blank"><img src="imgs/sns_instagram_off.png"></a>
+            <a href="http://story.kakao.com/ch/imisslovelove" target="_blank" style="background: transparent none;"><img src="imgs/sns_kakao_off.png"></a>
+            <div class="hdtopbutR">
+                <a href="construction.html" style="background-position-x:85px ;">Contact Me</a>
+                <a href="construction.html">AboutSite</a>
+                <span onclick="ifshow(0)">Language<img src="imgs/btn_globalSite_open.gif"></span>
+                <ul id="lag">
+                    <li>KOREAN</li><li>CHINESE</li><li>JAPANESE</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="headerbotm">
+        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
+        <ul id="hdbotmUl">
+            <li>
+                <a href="company.html">WEB前端</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">HTML</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Corporate Overview</a></li>
+                                <li><a href="">Vision of houngking</a></li>
+                                <li><a href="">History of houngking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">CSS/CSS3</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Brand Story</a></li>
+                                <li><a>CI</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">JavaScript</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Greetings</a></li>
+                                <li><a>CEO's Message</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Ajax</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>hougking Affiliates</a></li>
+                                <li><a>Steel</a></li>
+                                <li><a>E&C</a></li>
+                                <li><a>Trade</a></li>
+                                <li><a>ICT</a></li>
+                                <li><a>Energy</a></li>
+                                <li><a>Material-Chemistry</a></li>
+                                <li><a>Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">jQuery</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Global</a></li>
+                                <li><a>Asia</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Business Ethics</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Major Activities</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Products/Technology</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Products of hounking</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Hot Rolled Steel</a></li>
+                                <li><a href="">Steel Plate</a></li>
+                                <li><a href="">Winter Day</a></li>
+                                <li><a href="">Gold Rolled Steel</a></li>
+                                <li><a href="">Galvanized Steel</a></li>
+                                <li><a href="">Electrical Galvanized</a></li>
+                                <li><a href="">Electrical Steel</a></li>
+                                <li><a href="">Automotive materials</a></li>
+                                <li><a href="">Stainless Steel</a></li>
+                                <li><a href="">Titanium Product</a></li>
+                                <li><a href="">Magnesium Product</a></li>
+                                <li><a href="">Aluminum-plated products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">houngking Technology</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">FINEX Technology</a></li>
+                                <li><a href="">Strip Casting</a></li>
+                                <li><a href="">Endless Hot Rolling Technology</a></li>
+                                <li><a href="">Operation Technology</a></li>
+                                <li><a href="">CEM Technology</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Production Process</a>
+                    </li>
+                    <li>
+                        <a href="">Sales information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">e-Sales</a></li>
+                                <li><a href="">e-Procurement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Investor Relations</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">IR Activeties</a>
+                    </li>
+                    <li>
+                        <a href="">Stock Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Stock Price</a></li>
+                                <li><a href="">Price Comparision</a></li>
+                                <li><a href="">ADR</a></li>
+                                <li><a href="">houngking Stock Exchange</a></li>
+                                <li><a href="">Economic Trend</a></li>
+                                <li><a href="">Shareholders Demographics</a></li>
+                                <li><a href="">Dividend</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Financial Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Income Statement</a></li>
+                                <li><a href="">Credit Rating</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">IR Archive</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Audit Report</a></li>
+                                <li><a href="">Form 20-F</a></li>
+                                <li><a href="">Annual Report</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Sustainability</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Sustainability Management System</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Management System</a></li>
+                                <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
+                                <li><a href="">Risk Management</a></li>
+                                <li><a href="">Stakeholder</a></li>
+                                <li><a href="">Relevant Institutes Activities</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Social Responsibility </a>
+                    </li>
+                    <li>
+                        <a href="">Environmental Management </a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Family's Environmental Management</a></li>
+                                <li><a href="">Environmental Management</a></li>
+                                <li><a href="">Climate change /Energy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Customer</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Marketing strategy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Employee</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Employee Health / Safety</a></li>
+                                <li><a href="">Organizational Culture</a></li>
+                                <li><a href="">HR system</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Report</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Report</a></li>
+                                <li><a href="">Carbon Report</a></li>
+                                <li><a href="">Conflict Minerals Disclosure</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">PR Room</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">News room</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">News letter</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">houngking SNS</a>
+                    </li>
+                    <li>
+                        <a href="">PR Archives</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
+                                <li><a href="">PR Movies</a></li>
+                                <li><a href="">Printed Advertisement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Download</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
+        <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
+        <div class="hdmenu" id="hdmenu">
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--text-->
+<div class="textBox">
+    <h2>Rxjs常见操作符 </h2>
+    <h3>1, Rxjs</h3>
+    <p>Rx名字的由来：Reactive Extension。这个框架最早是由微软推出的，微软为.NET平台开发的做响应式编程的扩展类库。微软2011年就已经开发出这个框架了。源自微软，火于NetFlix。它现在已经发展成一套完全开源的支持多平台多语言的框架，基本主流语言都有支持。</p>
+    <p>优势：在思考的维度上加入时间的考量。</p>
+    <p><a href="http://reactivex.io/languages.html" target="_blank">RxJS</a>是angular官方的重要依赖之一。在angular整个核心内部，提供了非常多的RxJS支持。用的好的话，在angular里处理复杂逻辑会变得非常简单。</p>
+    <p>推荐一个在线编辑器： <a href="https://jsbin.com/?html,js,output" target="_blank">jsbin.com</a></p>
+    <h5>事件流：</h5>
+    <p>理解Rx的关键是要把任何变化想象成时间维度的事件流。</p>
+    <p>这些流是主动把数据推给你的，而不是像传统那样需要不断去拉取数据。在RxJS中只要去监听就好了。</p>
+    <h4>常见操作符:</h4>
+    <h5>常见创建类操作符：</h5>
+    <p>创建类操作符可以作为连接传统编程和响应式编程的桥梁。</p>
+    <p>>> from：可以把数组、Promise、以及Iterable转化为Observable</p>
+    <p>>> fromEvent：可以把事件转化为Observable</p>
+    <p>>> of：接受一系列数据，并把它们emit出去</p>
+    <h5>常见转换操作符：</h5>
+    <p>map，mapTo，pluck</p>
+    <h5>常见工具操作符：do</h5>
+    <p>一般用来做调试，也用作外部条件的设置。</p>
+    <p>从某种角度上讲，起到一个临时subscribe的作用，做的事跟subscribe很像，但没用中断事件流。</p>
+    <h5>常见变换类操作符：scan</h5>
+    <h5>常见数学类操作符：reduce</h5>
+    <h5>过滤类操作符：</h5>
+    <p>filter，take，first/last,skip,...</p>
+    <h5>两个常见创建类操作符：Interval，Timer</h5>
+    <h5>过滤类操作符：</h5>
+    <p>>> debounce/debounceTime,相当于一个滤波器，对于条件内的操作不理会。可用于异步输入搜索获取数据时的频繁请求，减轻服务器负担。</p>
+    <p>>> distinct/distinctUntilChanged(注意内存消耗的隐患，尤其用到无尽序列的时候)</p>
+    <h5>合并类操作符：</h5>
+    <p>merge，concat，startWith, combineLatest/withLatestFrom/zip</p>
+    <h4>实例：login页面‘名言’的动态获取:</h4>
+    <p>先在app/domain目录下建立‘名言’的对象结构：</p>
+    <pre>// quote.model.ts
+export interface Quote {
+  id?: string;
+  cn: string;
+  pic: string;
+  en: string;
+}  </pre>
+    <p>然后在根目录下面(与src目录同级)建立一个mock目录，在该目录下新建一个data.json文件，用来放置Mock API的数据。</p>
+    <pre>// mock/data.json
+{
+  "quotes": [
+    {
+      "id": "1",
+      "cn": "满足感在于不断的努力，而不是现有的成就。全心努力定会胜利满满。",
+      "pic": "http://img4.imgtn.bdimg.com/it/u=2880861195,1857877283&fm=200&gp=0.jpg",
+      "en": "Satisfaction lies in the effort，not in the attainment。Full effort is full victory。"
+    }
+  ]
+}  </pre>
+    <p>npm install -g json-server安装好后，json-server ./mock/data.json启动，就可以用mock API获取自己构建的数据了。</p>
+    <p>接着到services目录下新建一个quote.service.ts服务：</p>
+    <pre style="height: 200px;">// services/quote.service.ts
+import {Inject, Injectable} from '@angular/core';
+import { Http } from '@angular/http';
+import {Observable} from 'rxjs/Observable';
+import {Quote} from '../domain/quote.model';
+@Injectable()
+export class QuoteService {
+  constructor(private http: Http, @Inject('BASE_CONFIG') private config) {}
+  getQuote(): Observable&lt;Quote&gt; {
+    const uri = `${this.config.uri}/quotes/2`;
+    return this.http.get(uri).map(res => {
+      // console.log(res.json());
+      return res.json() as Quote; // 在angular中，很多返回的东西都是Observable，跟rxjs配合非常方便。
+    })
+  }
+}   </pre>
+    <p>注意：在使用Http服务前，需要先在core.module.ts中导入HttpModule。把API的根地址依赖在core module中提供：</p>
+    <pre style="height: 150px;">// core.module.ts
+@NgModule({
+  imports: [
+    BrowserAnimationsModule,
+    HttpModule,
+    ...
+  ],
+ ...
+  providers: [
+    {
+      provide: 'BASE_CONFIG', useValue: {
+        uri: 'http://localhost:3000'
+      }
+    }
+  ]
+})  </pre>
+    <p>在services.module.ts中去提供QuoteService服务:</p>
+    <pre>// services.module.ts
+import { QuoteService } from './quote.service';
+...
+export class ServicesModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: ServicesModule,
+      providers: [QuoteService]
+    }
+  }
+}   </pre>
+    <p>然后到login组件中去改造，把QuoteService导入进来：</p>
+    <pre style="height: 150px;margin-bottom: 5px;">// login.component.ts
+import {QuoteService} from '../../services/quote.service';
+import {Quote} from '../../domain/quote.model';
+...
+export class LoginComponent implements OnInit {
+  form: FormGroup;
+  quote: Quote = {
+    id: '1',
+    cn: '满足感在于不断的努力，而不是现有的成就。全心努力定会胜利满满。',
+    pic: 'http://img4.imgtn.bdimg.com/it/u=2880861195,1857877283&fm=200&gp=0.jpg',
+    en: 'Satisfaction lies in the effort，not in the attainment。Full effort is full victory。'
+  };
+  constructor(private fb: FormBuilder, private quoteService$: QuoteService) {
+    this.quoteService$.getQuote().subscribe(q => this.quote = q);
+  }
+  ...  </pre>
+    <pre>// login.component.html
+  &lt;md-card&gt;
+    &lt;md-card-header&gt;
+      &lt;md-card-subtitle&gt; {{quote.cn}} &lt;/md-card-subtitle&gt;
+    &lt;/md-card-header&gt;
+    &lt;img md-card-image [src]="quote.pic" alt=""&gt;
+    &lt;md-card-content&gt; {{quote.en}} &lt;/md-card-content&gt;
+  &lt;/md-card&gt;   </pre>
+    <h4>Observable的性质：</h4>
+    <p>三种状态：next，error，complete</p>
+    <p>特殊的：用不结束（比如计时器），Never（流里面无元素，但不结束，空的没有状态的。测试时会用到），Empty（一般也是测试时用。直接进入complete状态结束，但不发射。），Throw（直接进入error状态，流里也无东西）</p>
+    <pre>// like this example:
+const interval$ = Rx.Observable.interval(100).take(3);
+interval$.subscribe(
+  next => console.log(next),
+  err => console.log(err),
+  () => console.log('i am complete'),
+)   </pre>
+    <h5>实例：给Rxjs增加一个debug操作符</h5>
+    <p>在开发环境下用do操作符调试，而不影响生产环境。</p>
+    <pre style="height: 250px;">// app/utils/debug.util.ts
+import { Observable } from 'rxjs/Observable';
+import {environment} from '../../environments/environment';
+
+declare module 'rxjs/Observable' {
+  interface Observable&lt;T&gt;{
+    debug: (...any) => Observable&lt;T&gt;;
+  }
+}
+Observable.prototype.debug = function (message: string) {
+  return this.do(
+    (next) => {
+      if (!environment.production) {
+        console.log(message, next);
+      }
+    },
+    (err) => {
+      if (!environment.production) {
+        console.error('ERROR >>', message, err);
+      }
+    },
+    () => {
+      if (!environment.production) {
+        console.log('Completed --');
+      }
+    }
+  )
+}   </pre>
+    <p>使用前，需要在core.module.ts中去导入，然后其他模块就都可以使用了。</p>
+    <pre>// core.module.ts
+import '../utils/debug.util';  </pre>
+    <p>比如在quote.service.ts中使用：</p>
+    <pre>// quote.service.ts
+getQuote(): Observable&lt;Quote&gt; {
+    const uri = `${this.config.uri}/quotes/2`;
+    return this.http.get(uri)
+      .debug('quote:')
+      .map(res => res.json() as Quote); // 在angular中，很多返回的东西都是Observable，跟rxjs配合非常方便。
+}   </pre>
+    <p>当用ng serve -prod启动生产环境时，debug操作符中就没有调试内容输出了。</p>
+    <h3>2, 实战复杂表单控件: </h3>
+    <p>ng g c shared/age-input --spec=false构建一个获取出生年月日的年龄控件。</p>
+    <p>在具体设计这个控件之前，先看一下在register组件中想如何使用它。</p>
+    <pre style="margin-bottom: 5px;">// register.component.html
+...
+    &lt;app-age-input formControlName="dateOfBirth"&gt;&lt;/app-age-input&gt;
+    &lt;button md-raised-button color="primary" type="submit"&gt;注册&lt;/button&gt;
+...  </pre>
+    <pre style="height: 150px;">// register.component.ts
+  ngOnInit() {
+    ...
+    this.form = this.fb.group({
+      ...
+      dateOfBirth: ['1990-01-01']
+    })
+  }
+  onSubmit({value, valid}, ev: Event) {
+    ev.preventDefault();
+    if (!valid) { return; }
+    console.log(value);
+  }
+  ...</pre>
+    <p>先安装一个轻量级的日期库date-fns。构建age-input控件:</p>
+    <pre style="margin-bottom: 5px;height: 200px;">// shared/age-input/age-input.component.html
+&lt;div [formGroup]="form" class="age-input"&gt;
+  &lt;div&gt;
+    &lt;md-input-container&gt;
+      &lt;input mdInput type="text" [mdDatepicker]="birthPicker" formControlName="birthday" placeholder="出生日期"&gt;
+      &lt;button mdSuffix [mdDatepickerToggle]="birthPicker" type="button"&gt;&lt;/button&gt;
+      &lt;md-error&gt;日期不正确&lt;/md-error&gt;
+    &lt;/md-input-container&gt;
+    &lt;md-datepicker touchUi="true" #birthPicker&gt;&lt;/md-datepicker&gt;
+  &lt;/div&gt;
+  &lt;ng-container formGroupName="age"&gt;
+    &lt;div class="age-num"&gt;
+      &lt;md-input-container&gt;
+        &lt;input type="number" placeholder="年龄" mdInput formControlName="ageNum"&gt;
+      &lt;/md-input-container&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;md-button-toggle-group formControlName="ageUnit" [(ngModel)]="selectedUnit"&gt;
+        &lt;md-button-toggle *ngFor="let unit of ageUnits" [value]="unit.value"&gt;
+          {{unit.label}}
+        &lt;/md-button-toggle&gt;
+      &lt;/md-button-toggle-group&gt;
+    &lt;/div&gt;
+    &lt;md-error *ngIf="form.get('age').hasError('ageInvalid')"&gt;年龄或单位不正确&lt;/md-error&gt;
+  &lt;/ng-container&gt;
+&lt;/div&gt;   </pre>
+    <pre style="margin-bottom: 5px;height: 150px;">// age-input.component.scss
+.age-input{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: baseline;
+}
+.age-num{
+  width: 50px;
+}</pre>
+    <pre>// age-input.component.ts
+import {Component, forwardRef, Input, OnDestroy, OnInit} from '@angular/core';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormGroup, FormBuilder } from '@angular/forms';
+import {Observable} from 'rxjs/Observable';
+import {subDays,subMonths,subYears,differenceInDays,differenceInMonths,differenceInYears,
+  isBefore,parse,format} from 'date-fns';
+import { isValidDate } from '../../utils/date.util';
+import {Subscription} from 'rxjs/Subscription';
+
+export enum AgeUnit {
+  Year = 0,
+  Month,
+  Day
+}
+export interface Age {
+  age: number,
+  unit: AgeUnit
+}
+
+@Component({
+  selector: 'app-age-input',
+  templateUrl: './age-input.component.html',
+  styleUrls: ['./age-input.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => AgeInputComponent),
+      multi: true
+    }, {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => AgeInputComponent),
+      multi: true
+    }
+  ]
+})
+export class AgeInputComponent implements ControlValueAccessor, OnDestroy, OnInit {
+  @Input() daysTop = 90;
+  @Input() daysBottom = 0;
+  @Input() monthsTop = 90;
+  @Input() monthsBottom = 0;
+  @Input() yearsTop = 90;
+  @Input() yearsBottom = 0;
+  @Input() format = 'YYYY-MM-DD';
+  @Input() debounceTime = 300;
+  selectedUnit = AgeUnit.Year;
+  ageUnits = [
+    {value: AgeUnit.Year, label: '岁'},
+    {value: AgeUnit.Month, label: '月'},
+    {value: AgeUnit.Day, label: '天'},
+  ];
+  form: FormGroup;
+  sub: Subscription;
+  private propagateChange = (_: any) => {};
+  constructor(private fb: FormBuilder) { }
+  ngOnInit() {
+    this.form = this.fb.group({
+      birthday: ['', this.validateDate],
+      age: this.fb.group({
+        ageNum: [],
+        ageUnit: [AgeUnit.Year]
+      }, {validator: this.validateAge('ageNum', 'ageUnit')})
+    }); // 在一个表单中关联性非常强的项，可以放到独立的fb中处理会比较方便
+    const birthday = this.form.get('birthday');
+    const ageNum = this.form.get('age').get('ageNum');
+    const ageUnit = this.form.get('age').get('ageUnit');
+
+    const birthday$ = birthday.valueChanges
+      .map(d => ({date: d, from: 'birthday'}))
+      .debounceTime(this.debounceTime)
+      .distinctUntilChanged()
+      .filter(_ => birthday.valid);
+    const ageNum$ = ageNum.valueChanges
+      .startWith(ageNum.value)
+      .debounceTime(this.debounceTime)
+      .distinctUntilChanged();
+    const ageUnit$ = ageUnit.valueChanges
+      .startWith(ageUnit.value)
+      .debounceTime(this.debounceTime)
+      .distinctUntilChanged();
+    const age$ = Observable
+      .combineLatest(ageNum$, ageUnit$, (_n, _u) => {
+        return this.toDate({age: _n, unit: _u})
+      })
+      .map(d => ({date: d, from: 'age'}))
+      .filter(_ => this.form.get('age').valid);
+    const merged$ = Observable.merge(birthday$, age$)
+      .filter(_ => this.form.valid);
+    this.sub = merged$.subscribe(d => {
+      const age = this.toAge(d.date);
+      if (d.from === 'birthday') {
+        if (age.age !== ageNum.value) {
+          ageNum.patchValue(age.age, {emitEvent: false});
+        }
+        if (age.unit !== ageUnit.value) {
+          this.selectedUnit = age.unit;
+          ageUnit.patchValue(age.unit, {emitEvent: false});
+        }
+        this.propagateChange(d.date);
+      }else {
+        const ageToCompare = this.toAge(birthday.value);
+        if (age.age !== ageToCompare.age || age.unit !== ageToCompare.unit) {
+          birthday.patchValue(d.date, {emitEvent: false});
+          this.propagateChange(d.date);
+        }
+      }
+    })
+  }
+
+  ngOnDestroy() {
+    if (this.sub) {
+      this.sub.unsubscribe(); // 取消订阅
+    }
+  }
+
+  // writeValue:外界想要设置控件的时候，比如说初始值，得到初始值后设置到控件当中
+  writeValue(obj: any): void {
+    if (obj) {
+      const date = format(obj, this.format);
+      this.form.get('birthday').patchValue(date);
+      const age = this.toAge(date);
+      this.form.get('age').get('ageNum').patchValue(age.age);
+      this.form.get('age').get('ageUnit').patchValue(age.unit);
+    }
+  }
+  // 向外广播控件发生变化的值
+  // 当控件内this.propagateChange(某个值)时，可在控件外用change事件监听这个值的变化
+  // 变化会放到change事件的$event参数中
+  registerOnChange(fn: any): void {
+    this.propagateChange = fn;
+  }
+
+  registerOnTouched(fn: any): void { }
+
+  toAge(dateStr: string): Age {
+    const date = parse(dateStr);
+    const now = Date.now();
+    return isBefore(subDays(now, this.daysTop), date) ? {age: differenceInDays(now, date), unit: AgeUnit.Day} :
+      isBefore(subMonths(now, this.monthsTop), date) ? {age: differenceInMonths(now, date), unit: AgeUnit.Month} :
+      {age: differenceInYears(now, date), unit: AgeUnit.Year};
+  }
+
+  toDate(age: Age): string {
+    const now = Date.now();
+    switch (age.unit) {
+      case AgeUnit.Year :
+        return format(subYears(now, age.age), this.format);
+      case AgeUnit.Month:
+        return format(subMonths(now, age.age), this.format);
+      case AgeUnit.Day:
+        return format(subDays(now, age.age), this.format);
+      default:
+        return null;
+    }
+  }
+
+  validate(c: FormControl): {[key: string]: any} { // 作为这个自定义表单控件的整个验证器
+    const val = c.value; // 也需判断val是否是个合法的日期
+    if (!val) {
+      return null;
+    }
+    if (isValidDate(val)) {
+      return null;
+    }
+    return { dateOfBirthInvalid: true }
+  }
+  validateDate(c: FormControl): {[key: string]: any} { // 参数接收的是控件birthday
+    const val = c.value;
+    return isValidDate(val) ? null : {
+      birthdayInvalid: true
+    }
+  }
+  // 这里是组合验证，需要知道参与组合验证控件的名字，所以把控件名字传进去。
+  // 但本质上还是需要有一个以age这个formGroup为参数的验证器，所以需要返回一个函数，也就是说validateAge是一个工厂。
+  validateAge(ageNumKey: string, ageUnitKey: string) { // 需要return一个以FormGroup为参数的验证器
+    return (group: FormGroup): {[key: string]: any} => {
+      const ageNum = group.controls[ageNumKey];
+      const ageUnit = group.controls[ageUnitKey];
+      let result = false;
+      const ageNumVal = ageNum.value;
+      switch (ageUnit.value) {
+        case AgeUnit.Year :
+          result = ageNumVal >= this.yearsBottom && ageNumVal < this.yearsTop;
+          break;
+        case AgeUnit.Month:
+          result = ageNumVal >= this.monthsBottom && ageNumVal < this.monthsTop;
+          break;
+        case AgeUnit.Day:
+          result = ageNumVal >= this.daysBottom && ageNumVal < this.daysTop;
+          break;
+        default:
+          break;
+      }
+      return result ? null : {ageInvalid: true};
+    }
+  }
+}   </pre>
+    <p>在utils下新建一个工具类函数。date.util.ts :</p>
+    <pre>// date.util.ts
+import {differenceInYears, parse, isValid, isDate, isFuture} from 'date-fns';
+export const isValidDate = (val: string): boolean => {
+  const date = parse(val);
+  return isDate(date)
+      && isValid(date)
+      && !isFuture(date)
+      && differenceInYears(Date.now(), date) < 150 ;
+};  </pre>
+    <p>不要忘了在shared.module.ts中导入导出组件：</p>
+    <pre>// shared.module.ts
+...
+  exports: [
+    ...
+    MdButtonToggleModule,
+    AgeInputComponent,
+  ],
+  declarations: [ConfirmDialogComponent, ImageListSelectComponent, AgeInputComponent]
+  ...  </pre>
+    <p>还有不要忘记在core.module.ts中把用到的rxjs的操作符引入进来</p>
+    <pre style="height: 150px;">// core.module.ts
+import 'rxjs/add/observable/from';
+import 'rxjs/add/observable/concat';
+import 'rxjs/add/observable/zip';
+import 'rxjs/add/observable/range';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/merge';
+import 'rxjs/add/observable/combineLatest';
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mapTo';
+import 'rxjs/add/operator/pluck';
+import 'rxjs/add/operator/defaultIfEmpty';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/take';
+    ...</pre>
+
+
+
+    <br/>
+    <h5>参考文档:</h5>
+    <a href="http://rxmarbles.com/" target="_blank">RxJS Marbles </a>,<br>
+</div>
+
+</body>
+</html>
