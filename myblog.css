@@ -353,6 +353,14 @@
     margin-left: -330px;
     color: white;
 }
+.bannertext>.links{
+    position: absolute;
+    margin-left: -80%;
+    color:black;
+}
+.bannertext>.links a{
+    color: black;
+}
 .bannertext>p{
     font-size: 80px;
     text-align: center;
