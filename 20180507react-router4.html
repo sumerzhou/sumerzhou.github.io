@@ -51,6 +51,9 @@
             color:white;
             overflow-y: auto;
         }
+        .highlight{
+            background-color: rgb(255,243,212);
+        }
     </style>
 </head>
 <body>
@@ -513,7 +516,105 @@
     <p>TIPS:&lt;Route component&gt;的优先级要比&lt;Route render&gt;高，所以不要在同一个&lt;Route&gt;中同时使用这两个属性。</p>
     <h3>&lt;Link&gt;</h3>
     <p>Link标签可以理解为a标签，点击会改变浏览器Url的hash值，通过Route标签来捕获这个url并返回component属性中定义的组件。</p>
-
+    <h3>包含式路由与exact</h3>
+    <p>在之前的版本中，在 Route 中写入的 path，在路由匹配时是独一无二的，而 v4 版本则有了一个包含的关系：如匹配 path="/users" 的路由会匹配 path="/"的路由，在页面中这两个模块会同时进行渲染。因此，v4中多了 exact 关键词，表示只对当前的路由进行匹配。</p>
+    <pre>// 当匹配 /users 时，会同时渲染 UsersMenu 和 UsersPage
+const PrimaryLayout = () => (
+  &lt;div className="primary-layout"&gt;
+    &lt;header&gt;
+      Our React Router 4 App
+      &lt;Route path="/users" component={UsersMenu} /&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+      &lt;Route path="/" exact component={HomePage} /&gt;
+      &lt;Route path="/users" component={UsersPage} /&gt;
+    &lt;/main&gt;
+  &lt;/div&gt;
+)  </pre>
+    <h3>独立路由：Switch</h3>
+    <p>如果想要只匹配一个路由，除了 exact 属性之外，还可以使用 Swtich 组件。</p>
+    <pre>
+const PrimaryLayout = () => (
+  &lt;div className="primary-layout"&gt;
+    &lt;PrimaryHeader /&gt;
+    &lt;main&gt;
+      &lt;Switch&gt;
+        &lt;Route path="/" exact component={HomePage} /&gt;  // 必须加上 exact，要不然 /users 也会匹配到该路由
+        &lt;Route path="/users/add" component={UserAddPage} /&gt;
+        &lt;Route path="/users" component={UsersPage} /&gt;
+        &lt;Redirect to="/" /&gt;
+      &lt;/Switch&gt;
+    &lt;/main&gt;
+  &lt;/div&gt;
+)  </pre>
+    <p>采用 &lt;Switch&gt;，只有一个路由会被渲染，并且总是渲染第一个匹配到的组件。因此，在第一个路由中，还是需要使用 exact，否则，当我们渲染 '/users' 或 '/users/add' 时，只会显示匹配 '/' 的组件（PS：如果不使用 &lt;Switch&gt;，当我们不使用 exact 时，会渲染匹配的多个组件）。所以，将 '/user/add' 路由放在 '/users' 之前更好，因为后者包含了前者，当然，我们也可以同样使用 exact，这样就可以不用关注顺序了。</p>
+    <p>再来说一下 &lt;Redirect&gt; 组件，单独使用时，一旦当路由匹配到的时候，浏览器就会进行重定向跳转；而配合 &lt;Switch&gt; 使用时，只有当没有路由匹配的时候，才会进行重定向。例如，上面的例子，地址栏输入 '/test' 时，则会跳转到 '/'，渲染 HomePage 页面。</p>
+    <h3>"Index Routes" 和 "Not Found"</h3>
+    <p>在 v4 的版本中废弃了 &lt;IndexRoute&gt;，而改用 &lt;Route exact&gt; 的方式进行代替。如果没有匹配的路由，也可通过 &lt;Redirect&gt; 来进行重定向到默认页面或合理的路径。</p>
+    <h3>Match:</h3>
+    <h4>通过 match 等对路径进行优化，减少重复性的代码输入：</h4>
+    <pre>
+const UserSubLayout = ({match}) => (
+    &lt;div className="user-sub-layout"&gt;
+        &lt;aside&gt;
+            &lt;UserNav /&gt;
+        &lt;/aside&gt;
+        &lt;div className="primary-content"&gt;
+            &lt;Switch&gt;
+                &lt;Route path={match.path} exact component={BrowseUserTable} /&gt;
+                &lt;Route path={`${match.path}/:userId`} component={UserProfilePage} /&gt;
+            &lt;/Switch&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+)
+const UserProfilePage = ({match}) => &lt;UserProfile userId={match.params.userId} /&gt;    </pre>
+    <h4>match.path vs match.url:</h4>
+    <p>当没有参数的时候，match.path 和 match.url 是一样的，而当有参数的时候，两者就有区别了：</p>
+    <p>· match.path：是指写在 &lt;Route&gt; 中的 path 参数；</p>
+    <p>· match.url：是指在浏览器中显示的真实 URL。</p>
+    <p>强烈建议在写路由路径时使用 match.path，因为使用 match.url 最终会产生不可预料的场景，如下面这个例子：</p>
+    <pre>
+const UserComments = ({ match }) => {
+    console.log(match.params);  // output: {}
+    return  &lt;div&gt;UserId: {match.params.userId} &lt;/div&gt;
+}
+const UserSettings = ({ match }) => {
+    console.log(match.params);  // output: {userId: "5"}
+    return  &lt;div&gt;UserId: {match.params.userId} &lt;/div&gt;
+}
+const UserProfilePage = ({ match }) => (
+   &lt;div&gt;
+    User Profile:
+     &lt;Route path={`${match.url}/comments`} component={UserComments} /&gt;
+     &lt;Route path={`${match.path}/settings`} component={UserSettings} /&gt;
+   &lt;/div&gt;
+)
+    //当访问 '/users/5/comments' 时渲染 'UserId: undefined'；
+    //当访问 '/users/5/settings' 时渲染 'UserId: 5'。</pre>
+    <p>为什么会 match.path 能够正常渲染，而使用 match.url 则不能呢？造成这种区别的原因是由于 {${match.url}/comments} 相当于硬编码 {'/users/5/comments'}，在路径中并没有参数，只有一个写死的 5，这样，子模块便无法获取到 match.params 参数，因此，便不能正常渲染。</p>
+    <p class="highlight">match.path 可用于构造嵌套的 &lt;Route&gt;，而 match.url 可用于构造嵌套的 &lt;Link&gt;。</p>
+    <h4>如何避免 Match 的冲突？</h4>
+    <p>考虑这样一种情况：如果我们想要通过 '/users/add' 和 '/users/5/edit' 来对用户进行添加和编辑，但是在前面的例子中，我们知道 users/:userId 已经指向了 UserProfilePage，那按照之前的例子，是否意味着 users/:userId 需要指向一个可以同时实现编辑和预览功能的子页面模块？未必如此，因为 edit 和 profile 共享一个子页面，则可以通过以下方式进行实现：</p>
+    <pre>
+const UserSubLayout = ({ match }) => (
+  &lt;div className="user-sub-layout"&gt;
+    &lt;aside&gt;
+      &lt;UserNav /&gt;
+    &lt;/aside&gt;
+    &lt;div className="primary-content"&gt;
+      &lt;Switch&gt;
+        &lt;Route exact path={props.match.path} component={BrowseUsersPage} /&gt;
+        &lt;Route path={`${match.path}/add`} component={AddUserPage} /&gt;
+        &lt;Route path={`${match.path}/:userId/edit`} component={EditUserPage} /&gt;
+        &lt;Route path={`${match.path}/:userId`} component={UserProfilePage} /&gt;
+      &lt;/Switch&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+)  </pre>
+    <p>将 add 和 edit 页面放在 profile 之前，这样就可以实现按需匹配，如果将 profile 路径放在第一位的话，那么当访问 add 页面时，则会匹配 profile 页面，因为 add 匹配了 :userId。</p>
+    <p>还有一种替代方法，可以将 profile 放在第一位：采用正则（path-to-regexp）对路径进行约束，如${match.path}/:userId(\\d+)，这样 :userId 只能为 number 类型，则访问 /users/add 路径时便不会产生冲突。</p>
+    
+    
     <br/>
     <h5>参考文档:</h5>
     <a href="http://reacttraining.cn/" target="_blank">React Router V4 中文文档</a> ,<br>
@@ -523,7 +624,9 @@
     <a href="https://www.cnblogs.com/zero7room/p/6908752.html" target="_blank">react-router@4.0 使用和源码解析</a> ,<br>
     <a href="https://blog.csdn.net/sinat_17775997/article/details/69218382" target="_blank">初探 React Router 4.0</a> ,<br>
     <a href="http://www.ruanyifeng.com/blog/2016/05/react_router.html?utm_source=tool.lu" target="_blank">阮一峰React Router 2.x使用教程</a> ,<br>
-    <a href="https://www.cnblogs.com/wyaocn/p/5805777.html" target="_blank">深入理解 react-router2.x 路由系统</a>
+    <a href="https://www.cnblogs.com/wyaocn/p/5805777.html" target="_blank">深入理解 react-router2.x 路由系统</a>, <br>
+    <a href="https://css-tricks.com/react-router-4/" target="_blank"> All About React Router 4 </a>, <br>
+    <a href="https://www.jianshu.com/p/bf6b45ce5bcc" target="_blank">React Router 4：痛过之后的豁然开朗</a>
 </div>
 
 </body>
