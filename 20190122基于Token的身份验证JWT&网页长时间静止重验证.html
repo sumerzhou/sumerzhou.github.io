@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JWT和网页长时间静止重验证 |sumerzhou's blog</title>
+    <link href="myblog.css" rel="stylesheet" type="text/css">
+    <script src="myblog.js" type="text/javascript"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
+            line-height: 2em;
+        }
+        .textBox h2{
+            margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
+        }
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox h4{
+            text-shadow: 1px 1px 2px #4F68B0;
+        }
+        .textBox p{
+            text-indent: 2em;
+        }
+        .textBox li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .textBox pre{
+            display: block;
+            width: 850px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 4px 3px 2px black;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+            font-family: '仿宋';
+            background-color: rgb(40,44,52);
+            line-height: 1.5;
+            font-size: 15px;
+            color:white;
+            overflow-y: auto;
+        }
+        .highlight{
+            background-color: rgb(255,243,212);
+        }
+    </style>
+</head>
+<body>
+<!--header-->
+<div class="headerbox">
+    <div class="headertop">
+        <div class="hdtopbut">
+            <a href="http://blog.hungking.cc/" target="_blank"><img src="imgs/sns_blog_off.png"></a>
+            <a href="https://www.facebook.com/HoungkingHsi" target="_blank"><img src="imgs/sns_facebook_off.png"></a>
+            <a href="http://globalblog.hungking.cc/" target="_blank"><img src="imgs/sns_gBlog_off.png"></a>
+            <a href="http://www.linkedin.com/imisslovelove" target="_blank"><img src="imgs/sns_in_off.png"></a>
+            <a href="http://www.youtube.com/imisslovelove" target="_blank"><img src="imgs/sns_youTube_off.png"></a>
+            <a href="http://www.instagram.com/imisslovelove" target="_blank"><img src="imgs/sns_instagram_off.png"></a>
+            <a href="http://story.kakao.com/ch/imisslovelove" target="_blank" style="background: transparent none;"><img src="imgs/sns_kakao_off.png"></a>
+            <div class="hdtopbutR">
+                <a href="construction.html" style="background-position-x:85px ;">Contact Me</a>
+                <a href="construction.html">AboutSite</a>
+                <span onclick="ifshow(0)">Language<img src="imgs/btn_globalSite_open.gif"></span>
+                <ul id="lag">
+                    <li>KOREAN</li><li>CHINESE</li><li>JAPANESE</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="headerbotm">
+        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
+        <ul id="hdbotmUl">
+            <li>
+                <a href="company.html">WEB前端</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">HTML</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Corporate Overview</a></li>
+                                <li><a href="">Vision of houngking</a></li>
+                                <li><a href="">History of houngking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">CSS/CSS3</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Brand Story</a></li>
+                                <li><a>CI</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">JavaScript</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Greetings</a></li>
+                                <li><a>CEO's Message</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Ajax</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>hougking Affiliates</a></li>
+                                <li><a>Steel</a></li>
+                                <li><a>E&C</a></li>
+                                <li><a>Trade</a></li>
+                                <li><a>ICT</a></li>
+                                <li><a>Energy</a></li>
+                                <li><a>Material-Chemistry</a></li>
+                                <li><a>Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">jQuery</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Global</a></li>
+                                <li><a>Asia</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Business Ethics</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Major Activities</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Products/Technology</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Products of hounking</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Hot Rolled Steel</a></li>
+                                <li><a href="">Steel Plate</a></li>
+                                <li><a href="">Winter Day</a></li>
+                                <li><a href="">Gold Rolled Steel</a></li>
+                                <li><a href="">Galvanized Steel</a></li>
+                                <li><a href="">Electrical Galvanized</a></li>
+                                <li><a href="">Electrical Steel</a></li>
+                                <li><a href="">Automotive materials</a></li>
+                                <li><a href="">Stainless Steel</a></li>
+                                <li><a href="">Titanium Product</a></li>
+                                <li><a href="">Magnesium Product</a></li>
+                                <li><a href="">Aluminum-plated products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">houngking Technology</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">FINEX Technology</a></li>
+                                <li><a href="">Strip Casting</a></li>
+                                <li><a href="">Endless Hot Rolling Technology</a></li>
+                                <li><a href="">Operation Technology</a></li>
+                                <li><a href="">CEM Technology</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Production Process</a>
+                    </li>
+                    <li>
+                        <a href="">Sales information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">e-Sales</a></li>
+                                <li><a href="">e-Procurement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Investor Relations</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">IR Activeties</a>
+                    </li>
+                    <li>
+                        <a href="">Stock Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Stock Price</a></li>
+                                <li><a href="">Price Comparision</a></li>
+                                <li><a href="">ADR</a></li>
+                                <li><a href="">houngking Stock Exchange</a></li>
+                                <li><a href="">Economic Trend</a></li>
+                                <li><a href="">Shareholders Demographics</a></li>
+                                <li><a href="">Dividend</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Financial Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Income Statement</a></li>
+                                <li><a href="">Credit Rating</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">IR Archive</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Audit Report</a></li>
+                                <li><a href="">Form 20-F</a></li>
+                                <li><a href="">Annual Report</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Sustainability</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Sustainability Management System</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Management System</a></li>
+                                <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
+                                <li><a href="">Risk Management</a></li>
+                                <li><a href="">Stakeholder</a></li>
+                                <li><a href="">Relevant Institutes Activities</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Social Responsibility </a>
+                    </li>
+                    <li>
+                        <a href="">Environmental Management </a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Family's Environmental Management</a></li>
+                                <li><a href="">Environmental Management</a></li>
+                                <li><a href="">Climate change /Energy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Customer</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Marketing strategy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Employee</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Employee Health / Safety</a></li>
+                                <li><a href="">Organizational Culture</a></li>
+                                <li><a href="">HR system</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Report</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Report</a></li>
+                                <li><a href="">Carbon Report</a></li>
+                                <li><a href="">Conflict Minerals Disclosure</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">PR Room</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">News room</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">News letter</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">houngking SNS</a>
+                    </li>
+                    <li>
+                        <a href="">PR Archives</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
+                                <li><a href="">PR Movies</a></li>
+                                <li><a href="">Printed Advertisement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Download</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
+        <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
+        <div class="hdmenu" id="hdmenu">
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--text-->
+<div class="textBox">
+    <h2>基于Token的身份验证JWT&网页长时间静止重验证 </h2>
+    <h3>1, JWT</h3>
+    <h4>传统Session身份验证:</h4>
+    <p>需要在服务端存储为登录的用户生成的 Session ，这些 Session 可能会存储在内存，磁盘，或者数据库里。我们可能需要在服务端定期的去清理过期的 Session 。</p>
+    <h4>基于 Token 的身份验证方法:</h4>
+    <p>使用基于 Token 的身份验证方法，在服务端不需要存储用户的登录记录。大概的流程是这样的：</p>
+    <p>1,客户端使用用户名跟密码请求登录</p>
+    <p>2,服务端收到请求，去验证用户名与密码</p>
+    <p>3,验证成功后，服务端会签发一个 Token，再把这个 Token 发送给客户端</p>
+    <p>4,客户端收到 Token 以后可以把它存储起来，比如放在 Cookie 里或者 Local Storage 里</p>
+    <p>5,客户端每次向服务端请求资源的时候需要带着服务端签发的 Token</p>
+    <p>6,服务端收到请求，然后去验证客户端请求里面带着的 Token，如果验证成功，就向客户端返回请求的数据</p>
+    <h4>JWT:</h4>
+    <p>实施 Token 验证的方法挺多的，还有一些标准方法，比如 JWT，读作：jot ，表示：JSON Web Tokens 。JWT 标准的 Token 有三个部分：header（头部）,payload（数据）,signature（签名）。</p>
+    <p>中间用点分隔开，并且都会使用 Base64 编码，所以真正的 Token 看起来像这样：</p>
+    <pre>
+eyJhbGciOiJIUzI1NiJ9.
+        eyJpc3MiOiJuaW5naGFvLm5ldCIsImV4cCI6IjE0Mzg5NTU0NDUiLCJuYW1lIjoid2FuZ2hhbyIsImFkbWluIjp0cnVlfQ.
+        SwyHTEx_RQppr97g4J5lKXtabJecpejuef8AqKYMAJc   </pre>
+    <h5>Header:</h5>
+    <p>每个 JWT token 里面都有一个 header，也就是头部数据。里面包含了使用的算法，这个 JWT 是不是带签名的或者加密的。主要就是说明一下怎么处理这个 JWT token 。</p>
+    <p>头部里包含的东西可能会根据 JWT 的类型有所变化，比如一个加密的 JWT 里面要包含使用的加密的算法。唯一在头部里面要包含的是 alg 这个属性，如果是加密的 JWT，这个属性的值就是使用的签名或者解密用的算法。如果是未加密的 JWT，这个属性的值要设置成 none。</p>
+    <h5>Payload:</h5>
+    <p>Payload 里面是 Token 的具体内容，这些内容里面有一些是标准字段，你也可以添加其它需要的内容。下面是标准字段：</p>
+    <p>● iss：Issuer，发行者</p>
+    <p>● sub：Subject，主题</p>
+    <p>● aud：Audience，观众</p>
+    <p>● exp：Expiration time，过期时间</p>
+    <p>● nbf：Not before</p>
+    <p>● iat：Issued at，发行时间</p>
+    <p>● jti：JWT ID</p>
+    <h5>Signature:</h5>
+    <p>JWT 的最后一部分是 Signature ，这部分内容有三个部分，先是用 Base64 编码的 header.payload ，再用加密算法加密一下，加密的时候要放进去一个 Secret ，这个相当于是一个密码，这个密码秘密地存储在服务端。</p>
+    <pre>
+const encodedString = base64UrlEncode(header) + "." + base64UrlEncode(payload);
+HMACSHA256(encodedString, 'secret');  </pre>
+    <p>客户端收到这个 Token 以后把它存储下来，下回向服务端发送请求的时候就带着这个 Token 。服务端收到这个 Token ，然后进行验证，通过以后就会返回给客户端想要的资源。</p>
+    <h4>签发与验证 JWT:</h4>
+    <p>在应用里实施使用基于 JWT 这种 Token 的身份验证方法，你可以先去找一个签发与验证 JWT 的功能包。无论你的后端应用使用的是什么样的程序语言，系统，或者框架，你应该都可以找到提供类似功能的包。</p>
+    <h5>RS256 算法:</h5>
+    <p>默认签发还有验证 Token 的时候用的是 HS256 算法，这种算法需要一个密钥（密码）。我们还可以使用 RS256 算法签发与验证 JWT。这种方法可以让我们分离开签发与验证，签发时需要用一个密钥，验证时使用公钥，也就是有公钥的地方只能做验证，但不能签发 JWT。</p>
+    <h4>以下几点特性会让你在程序中使用基于Token的身份验证:</h4>
+    <p>1,无状态、可扩展</p>
+    <p>2,支持移动设备</p>
+    <p>3,跨程序调用</p>
+    <p>4,安全</p>
+    <p> token 的认证方式类似于临时的证书签名, 并且是一种服务端无状态的认证方式, 非常适合于 REST API 的场景. 所谓无状态就是服务端并不会保存身份认证相关的数据,token 只被保存在客户端 中的cookie 或 localstorage(数据库).</p>
+    <h5>缺点:</h5>
+    <p>因为 token 一般都是 hash/encrypt 的字符串, 所以会额外附加 加密/解密 的性能开销 ; 有些加密方式同样存在安全隐患</p>
+
+    <h3>2,深入了解Token认证的来龙去脉</h3>
+    <h4>Token 能解决哪些问题呢？有如下几点：</h4>
+    <p>1,Token 完全由应用管理，所以它可以避开同源策略。</p>
+    <p>2,Token 可以避免 CSRF 攻击(http://dwz.cn/7joLzx)。</p>
+    <p>3,Token 可以是无状态的，可以在多个服务间共享。</p>
+    <p>Token 是在服务端产生的，如果前端使用用户名/密码向服务端请求认证，服务端认证成功，那么在服务端会返回 Token 给前端。</p>
+    <p>前端可以在每次请求的时候带上 Token 证明自己的合法地位。如果这个 Token 在服务端持久化（比如存入数据库），那它就是一个永久的身份令牌。</p>
+    <h4>需要为 Token 设置有效期吗？</h4>
+    <p>对于这个问题，我们不妨先看两个例子：</p>
+    <p>a.登录密码，一般要求定期改变密码，以防止泄漏，所以密码是有有效期的。</p>
+    <p>b.安全证书，SSL 安全证书都有有效期，目的是为了解决吊销的问题，对于这个问题的详细情况，来看看知乎的回答(http://dwz.cn/7joMhq)。</p>
+    <p>所以无论是从安全的角度考虑，还是从吊销的角度考虑，Token 都需要设有效期。</p>
+    <p>那么有效期多长合适呢？只能说，根据系统的安全需要，尽可能的短，但也不能短得离谱。</p>
+    <p>然后新问题产生了，如果用户在正常操作的过程中，Token 过期失效了，要求用户重新登录……用户体验岂不是很糟糕？</p>
+    <h4>解决在操作过程不能让用户感到 Token 失效这个问题:</h4>
+    <p>有一种方案是在服务器端保存 Token 状态，用户每次操作都会自动刷新（推迟） Token 的过期时间——Session 就是采用这种策略来保持用户登录状态的。</p>
+    <p>然而仍然存在这样一个问题，在前后端分离、单页 App 这些情况下，每秒种可能发起很多次请求，每次都去刷新过期时间会产生非常大的代价。</p>
+    <p>如果 Token 的过期时间被持久化到数据库或文件，代价就更大了。所以通常为了提升效率，减少消耗，会把 Token 的过期时保存在缓存或者内存中。</p>
+    <p>还有另一种方案，使用 Refresh Token，它可以避免频繁的读写操作。这种方案中，服务端不需要刷新 Token 的过期时间，一旦 Token 过期，就反馈给前端，前端使用 Refresh Token 申请一个全新 Token 继续使用。</p>
+    <p>这种方案中，服务端只需要在客户端请求更新 Token 的时候对 Refresh Token 的有效性进行一次检查，大大减少了更新有效期的操作，也就避免了频繁读写。</p>
+    <p>当然 Refresh Token 也是有有效期的，但是这个有效期就可以长一点了，比如，以天为单位的时间。</p>
+    <p>使用 Token 和 Refresh Token 的时序图如下：</p>
+    <p>登录</p>
+    <img src="imgs/token1.JPEG" alt="" style="height: 250px;margin-left: 20px;">
+    <p>业务请求</p>
+    <img src="imgs/token2.JPEG" alt="" style="height: 250px;margin-left: 20px;">
+    <p>Token 过期，刷新 Token</p>
+    <img src="imgs/token3.JPEG" alt="" style="height: 500px;margin-left: 20px;">
+    <p>上面的时序图中并未提到 Refresh Token 过期怎么办。不过很显然，Refresh Token 既然已经过期，就该要求用户重新登录了。</p>
+    <p>当然还可以把这个机制设计得更复杂一些，比如，Refresh Token 每次使用的时候，都更新它的过期时间，直到与它的创建时间相比，已经超过了非常长的一段时间（比如三个月），这等于是在相当长一段时间内允许 Refresh Token 自动续期。</p>
+    <p>到目前为止，Token 都是有状态的，即在服务端需要保存并记录相关属性。那说好的无状态呢，怎么实现？</p>
+    <h4>无状态 Token:</h4>
+    <p>如果我们把所有状态信息都附加在 Token 上，服务器就可以不保存。但是服务端仍然需要认证 Token 有效。</p>
+    <p>不过只要服务端能确认是自己签发的 Token，而且其信息未被改动过，那就可以认为 Token 有效——“签名”可以作此保证。</p>
+    <p>平时常说的签名都存在一方签发，另一方验证的情况，所以要使用非对称加密算法。</p>
+    <p>但是在这里，签发和验证都是同一方，所以对称加密算法就能达到要求，而对称算法比非对称算法要快得多（可达数十倍差距）。</p>
+    <p>更进一步思考，对称加密算法除了加密，还带有还原加密内容的功能，而这一功能在对 Token 签名时并无必要——既然不需要解密，摘要（散列）算法就会更快。你可以指定密码的散列算法，自然是 HMAC。</p>
+    <p>上面说了这么多，还需要自己去实现吗？不用！JWT 已经定义了详细的规范，而且有各种语言的若干实现。</p>
+    <p>不过在使用无状态 Token 的时候在服务端会有一些变化，服务端虽然不保存有效的 Token 了，却需要保存未到期却已注销的 Token。</p>
+    <p>如果一个 Token 未到期就被用户主动注销，那么服务器需要保存这个被注销的 Token，以便下次收到使用这个仍在有效期内的 Token 时判其无效。有没有感到一点沮丧？</p>
+    <p>在前端可控的情况下（比如前端和服务端在同一个项目组内），可以协商：前端一旦注销成功，就丢掉本地保存（比如保存在内存、Local Storage 等）的 Token 和 Refresh Token。</p>
+    <p>基于这样的约定，服务器就可以假设收到的 Token 一定是没注销的（因为注销之后前端就不会再使用了）。</p>
+    <p>如果前端不可控的情况，仍然可以进行上面的假设，但是这种情况下，需要尽量缩短 Token 的有效期，而且必须在用户主动注销的情况下让 Refresh Token 无效。</p>
+    <p>这个操作存在一定的安全漏洞，因为用户会认为已经注销了，实际上在较短的一段时间内并没有注销。如果应用设计中，这点漏洞并不会造成什么损失，那采用这种策略就是可行的。</p>
+    <p>在使用无状态 Token 的时候，有两点需要注意：</p>
+    <p>Refresh Token 有效时间较长，所以它应该在服务器端有状态，以增强安全性，确保用户注销时可控。</p>
+    <p>应该考虑使用二次认证来增强敏感操作的安全性。</p>
+    <p>到此，关于 Token 的话题似乎差不多了——然而并没有，上面说的只是认证服务和业务服务集成在一起的情况，如果是分离的情况呢？</p>
+    <h4>分离认证服务:</h4>
+    <p>当 Token 无状态之后，单点登录就变得容易了。前端拿到一个有效的 Token，它就可以在任何同一体系的服务上认证通过，只要它们使用同样的密钥和算法来认证 Token 的有效性。就像这样，如下图：</p>
+    <img src="imgs/token4.JPEG" alt="" style="height: 250px;margin-left: 20px;">
+    <p>当然，如果 Token 过期了，前端仍然需要去认证服务更新 Token：</p>
+    <img src="imgs/token5.JPEG" alt="" style="height: 350px;margin-left: 20px;">
+    <p>可见，虽然认证和业务分离了，实际却并没产生多大的差异。当然，这是建立在认证服务器信任业务服务器的前提下，因为认证服务器产生 Token 的密钥和业务服务器认证 Token 的密钥和算法相同。</p>
+    <p>换句话说，业务服务器同样可以创建有效的 Token。如果业务服务器不能被信任，该怎么办？</p>
+    <h4>不受信的业务服务器:</h4>
+    <p>遇到不受信的业务服务器时，很容易想到的办法是使用不同的密钥。认证服务器使用密钥 1 签发，业务服务器使用密钥 2 验证——这是典型非对称加密签名的应用场景。</p>
+    <p>认证服务器自己使用私钥对 Token 签名，公开公钥。信任这个认证服务器的业务服务器保存公钥，用于验证签名。</p>
+    <p>幸好，JWT 不仅可以使用 HMAC 签名，也可以使用 RSA（一种非对称加密算法）签名。</p>
+    <p>不过，当业务服务器已经不受信任的时候，多个业务服务器之间使用相同的 Token 对用户来说是不安全的。</p>
+    <p>因为任何一个服务器拿到 Token 都可以仿冒用户去另一个服务器处理业务……悲剧随时可能发生。</p>
+    <p>为了防止这种情况发生，就需要在认证服务器产生 Token 的时候，把使用该 Token 的业务服务器的信息记录在 Token 中。</p>
+    <p>这样当另一个业务服务器拿到这个 Token 的时候，发现它并不是自己应该验证的 Token，就可以直接拒绝。</p>
+    <p>现在，认证服务器不信任业务服务器，业务服务器相互也不信任，但前端是信任这些服务器的——如果前端不信任，就不会拿 Token 去请求验证。</p>
+    <p>那么为什么会信任？可能是因为这些是同一家公司或者同一个项目中提供的若干服务构成的服务体系。</p>
+    <p>但是，前端信任不代表用户信任。如果 Token 不没有携带用户隐私（比如姓名），那么用户不会关心信任问题。</p>
+    <p>但如果 Token 含有用户隐私的时候，用户得关心信任问题了。这时候认证服务就不得不再啰嗦一些，当用户请求 Token 的时候，问上一句，你真的要授权给某某某业务服务吗？</p>
+    <p>而这个“某某某”，用户怎么知道它是不是真的“某某某”呢？用户当然不知道，甚至认证服务也不知道，因为公钥已经公开了，任何一个业务都可以声明自己是“某某某”。</p>
+    <p>为了得到用户的信任，认证服务就不得不帮助用户来甄别业务服务。所以，认证服器决定不公开公钥，而是要求业务服务先申请注册并通过审核。</p>
+    <p>只有通过审核的业务服务器才能得到认证服务为它创建的，仅供它使用的公钥。如果该业务服务泄漏公钥带来风险，由该业务服务自行承担。现在认证服务可以清楚的告诉用户，“某某某”服务是什么了。</p>
+    <p>如果用户还是不够信任，认证服务甚至可以问，某某某业务服务需要请求 A、B、C 三项个人数据，其中 A 是必须的，不然它不工作，是否允许授权？如果你授权，我就把你授权的几项数据加密放在 Token 中……</p>
+    <p>废话了这么多，有没有似曾相识……对了，这类似开放式 API 的认证过程。开发式 API 多采用 OAuth 认证，而关于 OAuth 的探讨资源非常丰富，这里就不深究了。</p>
+
+
+
+    <h3>3,网页长时间静止重验证</h3>
+    <h4>flex（替代session过期）用户长时间不操作要求重新登录的:</h4>
+    <p>它利用了FlexEvent.IDLE空闲事件，然后用mx_internal::idleCounter来获取空闲时间。具体代码如下：</p>
+    <pre>// Java
+需要import：
+import mx.managers.SystemManager;
+import mx.events.FlexEvent;
+import mx.core.mx_internal; </pre>
+    <p>由于要用到mx_internal命名空间里面的东西，所以需要</p>
+    <pre> use namespace mx_internal;</pre>
+    <p>然后在页面载入时添加:</p>
+    <pre>this.systemManager.addEventListener(FlexEvent.IDLE, userIdle);</pre>
+    <p>将空闲事件FlexEvent.IDLE交给自定义的处理函数userIdle. 最后定义userIdle函数：</p>
+    <pre>
+private function userIdle(e:FlexEvent):void {
+	if(e.currentTarget.mx_internal::idleCounter == 3000){
+		//进行登录超时处理!
+	}
+}  </pre>
+    <p>这里idleCounter的数值有点特别。只需要记住5分钟是3000（1分钟是600）就可以了。这样，如果要30分钟过期的话，就是18000；如果只是测试的话，可以设成30之类的：）</p>
+    <p>说几个常见的问题：</p>
+    <p>1.那么FlexEvent.IDLE到底有多灵敏呢？经过试验，只要鼠标发生移动flex就不认为是“闲置”的——也就是说，只用用户将电脑彻底放在那才会符合以上“用户不操作”的条件，正好符合我们的需要。</p>
+    <p>2.可不可以定时到服务器查询session呢？我觉得不可以。因为你到服务器查询HttpSession（或者BlazeDS的FlexSession）的时候也算一次交互：重新刷新Session的闲置时间。这样Session永远也不会过期。</p>
+    <p>3.可不可以在需要的时候到服务器查询Session呢？当然可以。不过我觉得这并不好。用户长时间不操作为防意外本来就需要重新登录。</p>
+
+
+    <br/>
+    <h5>参考文档:</h5>
+    <a href="https://ninghao.net/blog/2834" target="_blank">基于 Token 的身份验证：JSON Web Token（附：Node.js 项目）</a>,<br>
+    <a href="https://baijiahao.baidu.com/s?id=1593244938986076867&wfr=spider&for=pc" target="_blank">深入了解Token认证的来龙去脉</a>,<br>
+    <a href="http://inflagrantedelicto.memoryspiral.com/2008/12/using-flexeventidle-to-determine-inactivity/comment-page-1/#comment-3654" target="_blank">Using FlexEvent.IDLE to Determine Inactivity</a>,<br>
+    <a href="http://www.cnblogs.com/shanyou/p/5038794.html" target="_blank">保护ASP.NET 应用免受 CSRF 攻击</a>,<br>
+</div>
+
+</body>
+</html>
