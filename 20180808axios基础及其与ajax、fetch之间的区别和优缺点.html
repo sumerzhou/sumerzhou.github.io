@@ -466,11 +466,83 @@
     <p>6,取消请求</p>
     <p>7,自动转换JSON数据</p>
     <p>8,客户端支持防止CSRF/XSRF</p>
+    
+    <h3>3,axios使用中遇到的问题</h3>
+    <h4>>> axios发post请求后台接收不到参数</h4>
+    <p>在react项目中遇到使用axios发送post请求时(axios.post())前端传数据后端接收不到的情况。</p>
+    <p>1. 原因：</p>
+    <p>axios 的 headers的 content-type  默认是 “application/json ”，传给后台的格式是这样的：</p>
+    <img src="imgs/axios1.png" alt="">
+    <p>但是后台接收数据的格式一般是表单格式的，就是formdata的数据格式：</p>
+    <img src="imgs/axios2.png" alt="">
+    <p>所以这时就出现了一种情况，就是前端提交的数据请求接口没有报错，但是后台就是接收不到没有数据返回。</p>
+    <p>传参方式是request payload,参数格式是json，而并非用的是form传参，所以在后台用接收form数据的方式接收参数就接收不到了。</p>
+    <p>2, 解决方法：</p>
+    <p>a, 传数据之前先把参数转成formdata数据</p>
+    <pre>
+let data = new FormData()
+data.append('id',id)
+data.append('name',name)   //把一个一个字段名和值appen进去，有点麻烦    </pre>
+    <p>b,改变axios 的 headers的 content-type 的值</p>
+    <pre>
+1.application/x-www-form-urlencoded （这个是变成JSON字符串格式）
+2.multipart/form-data   （这个是formdata格式）
+//改变方法,第一种
+let ajax=axios.create({     //在新建axios时设置
+    baseURL:baseUrl,
+    headers:{
+        'Content-type': 'multipart/form-data'
+    },
+})
+//第二种
+import axios from 'axios';   //在import之后设置
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';</pre>
+    <p>multipart/form-data 也是一种比较常见的post数据格式，我们用表单上传文件时，必须使form表单的enctype属性或者ajax的contentType参数等于multipart/form-data。使用这种编码格式时发送到后台的数据长得像这样子 :</p>
+    <img src="imgs/axios4.jpg" alt="" style="height: 200px;">
+    <p>不同字段以--boundary开始，接着是内容描述信息，最后是字段具体内容。如果传输的是文件，还要包含文件名和文件类型信息</p>
+    <p>c, 三种方式将Request Payload 转为Form Data格式</p>
+    <p>1),使用qs（推荐）</p>
+    <p> qs 库将 json 对象转化为字符串 (如 {name:'dahuang',age: 11} 转化为 name=dahuang&age=11)。</p>
+    <p>首先在你的项目里npm install qs安装qs模块, 然后在需要使用的页面引入一下：</p>
+    <pre>import qs from 'qs'</pre>
+    <p>引入好了之后，把postData用qs转一下再发送给后台就可以了：</p>
+    <pre>
+let postData = qs.stringify({
+        certificationAccount: that.certificationAccount,
+        balance: that.balance
+}) </pre>
+    <p>这样发送给后台时就是Format Data格式了。</p>
+    <p>2),使用URLSearchParams</p>
+    <pre>
+let postData= new URLSearchParams()
+postData.append('certificationAccount',  that.certificationAccount)
+postData.append('balance',  that.balance)  //写起来麻烦</pre>
+    <p>3),直接使用字符串</p>
+    <pre>
+let postData = `certificationAccount = ${that.certificationAccount}&balance=${that.balance}`</pre>
+    <p>三种方法的原理是一样一样的，都是转化为字符串，但第三种方法当所传的值为null时会被转化为空字符串。</p>
+
+    <h5>3, 为何jQuery.ajax的post提交后台可以接受到数据</h5>
+    <p>jQuery的ajax方法和post方法分别发送请求，在后台Servlet进行处理时结果是不一样的</p>
+    <p>>> $.ajax方法发送请求时:</p>
+    <p>data参数是一个JSON.stringify()处理后的字符串，而不是一个JSON对象; servlet里可以这样使用Gson来解析：new Jsonparser().parse(request.getReader()),但此时是不可用request.getParam(key) 来取值的。</p>
+    <p>>> $.post方法来发送请求:</p>
+    <p>data参数是一个JSON对象,而不要再用JSON.stringify()处理为字符串了; servlet里结果恰恰相反。</p>
+    <p>>> 有什么区别呢？</p>
+    <p>在Chrome中调试发现，<span class="highlight">$.ajax发送的请求显示在request payload下面，而使用$.post方法发送的请求显示在form data下面</span>。</p>
+    <p>关键就是设置Content-type这个Header为application/x-www-form-urlencoded。</p>
+    <p>注意post请求的Content-Type为application/x-www-form-urlencoded，参数是在请求体中，即请求中的Form Data:</p>
+    <img src="imgs/axios3.png" alt="">
+    <p>ps :使用原生AJAX的POST请求如果不指定请求头RequestHeader，默认使用的Content-Type是text/plain;charset=UTF-8,请求表单参数在RequestPayload中。</p>
+
 
     <br/>
     <h5>参考文档:</h5>
     <a href="https://blog.csdn.net/twodogya/article/details/80223508" target="_blank">ajax、axios、fetch之间的详细区别以及优缺点</a>,<br>
-    <a href="https://www.kancloud.cn/yunye/axios/234845" target="_blank">Axios中文说明</a>,
+    <a href="https://www.kancloud.cn/yunye/axios/234845" target="_blank">Axios中文说明</a>,<br>
+    <a href="https://www.cnblogs.com/haqiao/p/10013792.html" target="_blank">axios post请求后台接收不到参数 和 一些配置问题</a>,<br>
+    <a href="https://www.cnblogs.com/btgyoyo/p/6141480.html" target="_blank">HTTP请求中的form data和request payload的区别</a>,<br>
+    <a href="https://www.cnblogs.com/xuzhudong/p/8487119.html" target="_blank">http协议的Request Payload 和 Form Data 的区别</a>,<br>
 </div>
 
 </body>
