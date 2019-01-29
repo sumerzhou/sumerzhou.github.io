@@ -504,7 +504,8 @@ import 'ztree/css/zTreeStyle/zTreeStyle.css';
  * levelMax         树的最大层级结构。根节点level为0;默认为3层结构，levelMax=2
  * onEdit           编辑节点的事件回调函数，需返回false/true，表示取消/确认编辑。
  * onDelete         删除节点的事件回调函数，需返回false/true，表示取消/确认删除.
- * onAddNew         新增默认节点的回调函数，需返回false/true,表示取消/确认新增,接收两参数:fn(newNode,parentNode)
+ * onAddNew         新增一个默认节点的回调函数，需返回false/(true,newNode),表示取消/确认新增;
+ *                  接收父节点数据和cb回调函数两个参数:fn(parentNode,cb);
  * onNodeCheck      勾选或取消勾选的事件回调函数,接收两个参数:fn(currentNode,checkedNodes)
  * onNodeClick      在单击节点时接收一个参数为该节点数据
  */
@@ -575,8 +576,10 @@ export default class ReactZtree extends React.Component{
         sObj.after(addStr);
         let btn = $("#addBtn_"+treeNode.tId);
         if (btn) btn.bind("click", function(){
-            _zTreeObj[treeId].props.onAddNew({id:null, pId:treeNode.id, name:"new"},treeNode) &&
-            $.fn.zTree.getZTreeObj(treeId).addNodes(treeNode, {id:null, pId:treeNode.id, name:"new"});
+            let cb = function (b, nodeData) {
+                b && $.fn.zTree.getZTreeObj(treeId).addNodes(treeNode, nodeData);
+            };
+            _zTreeObj[treeId].props.onAddNew(treeNode,cb) ;
             return false;
         });
     }
