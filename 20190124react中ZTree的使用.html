@@ -488,7 +488,7 @@ render() {
         &lt;/div&gt;
     );
 } </pre>
-    <p>4,封装好的react-zTree demo</p>
+    <h4>封装好的react-zTree demo :</h4>
     <pre>// tree.jsx
 import React from 'react';
 import $ from 'jquery';
@@ -502,9 +502,10 @@ import 'ztree/css/zTreeStyle/zTreeStyle.css';
  * checkbox         是否是checkbox
  * editableTree     是否是可编辑树
  * levelMax         树的最大层级结构。根节点level为0;默认为3层结构，levelMax=2
- * onEdit           编辑节点的事件回调函数，需返回false/true，表示取消/确认编辑。
- * onDelete         删除节点的事件回调函数，需返回false/true，表示取消/确认删除.
- * onAddNew         新增一个默认节点的回调函数，需返回false/(true,newNode),表示取消/确认新增;
+ * onEdit           编辑节点的事件回调函数，cb需返回false/true，表示取消/确认编辑。
+ * onDelete         删除节点的事件回调函数，cb需返回false/(true,node)，表示取消/确认删除;
+ *                  接收节点数据和cb回调函数两个参数:fn(node,cb);
+ * onAddNew         新增一个默认节点的回调函数，cb需返回false/(true,newNode),表示取消/确认新增;
  *                  接收父节点数据和cb回调函数两个参数:fn(parentNode,cb);
  * onNodeCheck      勾选或取消勾选的事件回调函数,接收两个参数:fn(currentNode,checkedNodes)
  * onNodeClick      在单击节点时接收一个参数为该节点数据
@@ -589,14 +590,24 @@ export default class ReactZtree extends React.Component{
     beforeRemove(treeId, treeNode) {
         $.fn.zTree.getZTreeObj(treeId).selectNode(treeNode);
         const confirm = window.confirm("确认删除节点" + treeNode.name + " 吗？");
-        return confirm ? _zTreeObj[treeId].props.onDelete(treeNode) : false;
+        // return confirm ? _zTreeObj[treeId].props.onDelete(treeNode) : false;
+        let cb = function (b, node) {
+            b && $.fn.zTree.getZTreeObj(treeId).removeNode(node);
+        };
+        confirm && _zTreeObj[treeId].props.onDelete(treeNode, cb);
+        return false;
     }
     beforeRename(treeId, treeNode, newName, isCancel) {
         console.log('rename treeNode:',treeNode, 'newName:',newName,'isCancel:',isCancel);
-        return isCancel ? true : _zTreeObj[treeId].props.onEdit({...treeNode, name:newName});
+        _zTreeObj[treeId].oldName = treeNode.name;
+        return true;
     }
     onRename(e, treeId, treeNode, isCancel) {
         console.log('on rename isCancel:',isCancel);
+	let cb = function (b) {
+            !b && $.fn.zTree.getZTreeObj(treeId).updateNode({...treeNode, name:_zTreeObj[treeId].oldName});
+        };
+        _zTreeObj[treeId].props.onEdit(treeNode, cb);
     }
     onCheck(e, treeId, treeNode) {
         let checkedNodes = $.fn.zTree.getZTreeObj(treeId).getCheckedNodes();
@@ -625,6 +636,51 @@ export default class ReactZtree extends React.Component{
         )
     }
 }</pre>
+    <p>在react中使用上面封装好的tree组件：</p>
+    <pre>
+export default class TreeDemo extends React.Component {
+    state = {
+        zNodes :[],
+    };
+    ...省略部分代码...
+    nodeEditHandler = (nodeData, cb) => {
+        const { customerId,id,name } = nodeData;
+        httpServer.updatePayItem({ customerId,id,name }).then(res => {
+            res.code ===200 ? cb(true) : cb(false);
+        });
+    };
+    nodeDeleteHandler = (nodeData, cb) => {
+        const { customerId,id } = nodeData;
+        httpServer.deletePayItem({customerId,id}).then(res => {
+            res.code === 200 && cb(true,nodeData);
+        });
+    };
+    nodeAddHandler = (pNode, cb) => {
+        const { pid, id, customerId } = pNode;
+        ...
+        httpServer[url](data).then(res => {
+            pid === 0 ? (res.code === 200 && cb(true,res.data)) : this.addItemChild(res);
+        }).catch(err => {});
+    };
+    nodeClickHandler = (nodeData) => {
+        console.log('click nodes:', nodeData);
+    };
+    render() {
+        const { zNodes } = this.state;
+        return (
+            &lt;Card bordered={false}&gt;
+                &lt;Tree id={'payItemTree'} zNodes={zNodes}
+                      onEdit={this.nodeEditHandler}
+                      onDelete={this.nodeDeleteHandler}
+                      onAddNew={this.nodeAddHandler}
+                      onNodeClick={this.nodeClickHandler}
+                      editableTree="true"
+                      levelMax={1}
+                /&gt;
+            &lt;/Card&gt;
+        )
+    }
+}  </pre>
 
 
 
