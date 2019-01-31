@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>react中css样式隔离方案 |sumerzhou's blog</title>
+    <link href="myblog.css" rel="stylesheet" type="text/css">
+    <script src="myblog.js" type="text/javascript"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
+            line-height: 2em;
+        }
+        .textBox h2{
+            margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
+        }
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox h4{
+            text-shadow: 1px 1px 2px #4F68B0;
+        }
+        .textBox p{
+            text-indent: 2em;
+        }
+        .textBox li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .textBox pre{
+            display: block;
+            width: 850px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 4px 3px 2px black;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+            font-family: '仿宋';
+            background-color: rgb(40,44,52);
+            line-height: 1.5;
+            font-size: 15px;
+            color:white;
+            overflow-y: auto;
+        }
+        .highlight{
+            background-color: rgb(255,243,212);
+        }
+    </style>
+</head>
+<body>
+<!--header-->
+<div class="headerbox">
+    <div class="headertop">
+        <div class="hdtopbut">
+            <a href="http://blog.hungking.cc/" target="_blank"><img src="imgs/sns_blog_off.png"></a>
+            <a href="https://www.facebook.com/HoungkingHsi" target="_blank"><img src="imgs/sns_facebook_off.png"></a>
+            <a href="http://globalblog.hungking.cc/" target="_blank"><img src="imgs/sns_gBlog_off.png"></a>
+            <a href="http://www.linkedin.com/imisslovelove" target="_blank"><img src="imgs/sns_in_off.png"></a>
+            <a href="http://www.youtube.com/imisslovelove" target="_blank"><img src="imgs/sns_youTube_off.png"></a>
+            <a href="http://www.instagram.com/imisslovelove" target="_blank"><img src="imgs/sns_instagram_off.png"></a>
+            <a href="http://story.kakao.com/ch/imisslovelove" target="_blank" style="background: transparent none;"><img src="imgs/sns_kakao_off.png"></a>
+            <div class="hdtopbutR">
+                <a href="construction.html" style="background-position-x:85px ;">Contact Me</a>
+                <a href="construction.html">AboutSite</a>
+                <span onclick="ifshow(0)">Language<img src="imgs/btn_globalSite_open.gif"></span>
+                <ul id="lag">
+                    <li>KOREAN</li><li>CHINESE</li><li>JAPANESE</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="headerbotm">
+        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
+        <ul id="hdbotmUl">
+            <li>
+                <a href="company.html">WEB前端</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">HTML</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Corporate Overview</a></li>
+                                <li><a href="">Vision of houngking</a></li>
+                                <li><a href="">History of houngking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">CSS/CSS3</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Brand Story</a></li>
+                                <li><a>CI</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">JavaScript</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Greetings</a></li>
+                                <li><a>CEO's Message</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Ajax</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>hougking Affiliates</a></li>
+                                <li><a>Steel</a></li>
+                                <li><a>E&C</a></li>
+                                <li><a>Trade</a></li>
+                                <li><a>ICT</a></li>
+                                <li><a>Energy</a></li>
+                                <li><a>Material-Chemistry</a></li>
+                                <li><a>Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">jQuery</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Global</a></li>
+                                <li><a>Asia</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Business Ethics</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Major Activities</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Products/Technology</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Products of hounking</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Hot Rolled Steel</a></li>
+                                <li><a href="">Steel Plate</a></li>
+                                <li><a href="">Winter Day</a></li>
+                                <li><a href="">Gold Rolled Steel</a></li>
+                                <li><a href="">Galvanized Steel</a></li>
+                                <li><a href="">Electrical Galvanized</a></li>
+                                <li><a href="">Electrical Steel</a></li>
+                                <li><a href="">Automotive materials</a></li>
+                                <li><a href="">Stainless Steel</a></li>
+                                <li><a href="">Titanium Product</a></li>
+                                <li><a href="">Magnesium Product</a></li>
+                                <li><a href="">Aluminum-plated products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">houngking Technology</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">FINEX Technology</a></li>
+                                <li><a href="">Strip Casting</a></li>
+                                <li><a href="">Endless Hot Rolling Technology</a></li>
+                                <li><a href="">Operation Technology</a></li>
+                                <li><a href="">CEM Technology</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Production Process</a>
+                    </li>
+                    <li>
+                        <a href="">Sales information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">e-Sales</a></li>
+                                <li><a href="">e-Procurement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Investor Relations</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">IR Activeties</a>
+                    </li>
+                    <li>
+                        <a href="">Stock Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Stock Price</a></li>
+                                <li><a href="">Price Comparision</a></li>
+                                <li><a href="">ADR</a></li>
+                                <li><a href="">houngking Stock Exchange</a></li>
+                                <li><a href="">Economic Trend</a></li>
+                                <li><a href="">Shareholders Demographics</a></li>
+                                <li><a href="">Dividend</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Financial Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Income Statement</a></li>
+                                <li><a href="">Credit Rating</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">IR Archive</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Audit Report</a></li>
+                                <li><a href="">Form 20-F</a></li>
+                                <li><a href="">Annual Report</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Sustainability</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Sustainability Management System</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Management System</a></li>
+                                <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
+                                <li><a href="">Risk Management</a></li>
+                                <li><a href="">Stakeholder</a></li>
+                                <li><a href="">Relevant Institutes Activities</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Social Responsibility </a>
+                    </li>
+                    <li>
+                        <a href="">Environmental Management </a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Family's Environmental Management</a></li>
+                                <li><a href="">Environmental Management</a></li>
+                                <li><a href="">Climate change /Energy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Customer</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Marketing strategy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Employee</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Employee Health / Safety</a></li>
+                                <li><a href="">Organizational Culture</a></li>
+                                <li><a href="">HR system</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Report</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Report</a></li>
+                                <li><a href="">Carbon Report</a></li>
+                                <li><a href="">Conflict Minerals Disclosure</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">PR Room</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">News room</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">News letter</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">houngking SNS</a>
+                    </li>
+                    <li>
+                        <a href="">PR Archives</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
+                                <li><a href="">PR Movies</a></li>
+                                <li><a href="">Printed Advertisement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Download</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
+        <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
+        <div class="hdmenu" id="hdmenu">
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--text-->
+<div class="textBox">
+    <h2>react中css样式隔离方案 </h2>
+    <h3>1,Method #1: Inline styling内联方式</h3>
+    <p>在 javaScript的世界里，我们并不推荐总是创建全局变量，但在React中，这不是什么大问题，因为文件模块是相互独立的，即使同一个命名，在不同的文件模块中并不会造成冲突。</p>
+    <h4>多组件共享style对象:</h4>
+    <p>style对象与组件不需要放在用个文件，我们可以为它们创建各自分离的js文件，将style对象所在的文件抽离成模块，再在需要它们的组件文件中引入并使用。由此可以提高代码的复用率和可维护性。</p>
+    <p>首先我们创建一个单独的js文件 style.js :</p>
+    <pre style="height: 300px;">// style.js
+const TodoComponent = {
+  width: "300px",
+  margin: "30px auto",
+  backgroundColor: "#44014C",
+  minHeight: "200px",
+  boxSizing: "border-box"
+}
+
+const Header = {
+  padding: "10px 20px",
+  textAlign: "center",
+  color: "white",
+  fontSize: "22px"
+}
+
+const ErrorMessage = {
+  color: "white",
+  fontSize: "13px"
+}
+
+const styles = {
+  TodoComponent: TodoComponent,
+  Header: Header,
+  ErrorMessage: ErrorMessage
+}   </pre>
+    <p>在上面的代码中，我们可以将所有style对象单独输出（export），如果这么做，也意味着你在使用的时候，也需要把每一个对象分别引入（import）进来，当style对象很多的时候，将会变得十分繁琐。</p>
+    <p>所以我们可以将整个style文件作为一个对象输出，这样导入会更加方便。</p>
+    <pre>
+import React, { Component } from "react";
+import {styles} from "./styles";
+class ToDoApp extends React.Component {
+  // ...
+  render() {
+    return (
+      &lt;div style={styles.TodoComponent}&gt;
+        &lt;h2 style={styles.Header}&gt;ToDo&lt;/h2&gt;
+        &lt;div&gt;
+          &lt;Input onChange={this.handleChange} /&gt;
+          &lt;p style = {styles.ErrorMessage}&gt;{this.state.error}&lt;/p&gt;
+          &lt;ToDoList value={this.state.display} /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    )
+  }
+}   </pre>
+    <p>import {styles} from "./styles"; 这一行我们导入了style并可以按需使用其中的样式对象，就像使用一般的javascript对象一样。而且它可以被导入其他组件进行复用。</p>
+    <p>inline style没有全局污染问题，但是:hover等伪类选择器无法使用</p>
+    <h3>2, Method #2: Styled components </h3>
+    <p>这是一种CSS in JS方案.</p>
+    <p>使用Styled components，你可以真正地在js文件中写css代码。这意味着你可以使用所有css的功能，比如媒体查询（media queries）、伪类选择器（pseudo-selector）, 组合选择器(nesting)等等。</p>
+    <p><a href="https://github.com/styled-components/styled-components" target="_blank">Styled-components </a>使用的是 ES6’s tagged template literals。使用Styled components，组件和样式之间的映射将被移除，这意味着当你在写样式代码的时候，你其实正在创建一个拥有这部分样式的组件。通过styled components, 我们可以创建一个可复用的具有样式的组件。</p>
+    <p>首先，我们需要安装Styled components，在项目根目录下，运行:</p>
+    <pre>npm install --save styled-components</pre>
+    <p>接下来让我们回到我们的 to-do 应用，并使用styled components 来实现它的样式。 首先我们需要导入styled-components包：</p>
+    <pre>import styled from 'styled-components';</pre>
+    <p>现在我们可以开始使用它了，我们先创建一个styled component，接着我们再来看我们应该如何使用它。</p>
+    <pre>
+const TodoComponent = styled.div`
+    background-color: #44014C;
+    width: 300px;
+    min-height: 200px;
+    margin: 30px auto;
+    box-sizing: border-box;
+`;   </pre>
+    <p>通过上面的代码我们创建了一个具有样式的组件，对于其他react组件，我们同样可以这么实现。不过，值得留意的是，我们是在JS文件中写真正的css代码。那么接下来我们将使用这个组件。</p>
+    <pre>
+class ToDoApp extends React.Component {
+  // ...
+  render() {
+    return (
+      &lt;TodoComponent&gt;
+        &lt;h2&gt;ToDo&lt;/h2&gt;
+        &lt;div&gt;
+          &lt;Input onChange={this.handleChange} /&gt;
+          &lt;p&gt;{this.state.error}&lt;/p&gt;
+          &lt;ToDoList value={this.state.display} /&gt;
+        &lt;/div&gt;
+      &lt;/TodoComponent&gt;
+    )
+  }
+}   </pre>
+    <p>在上面的代码中，&lt;TodoComponent&gt;便会使用我们创建的对应的styled component，这个标签的用法跟其他一般的HTML元素基本一样，唯一不同的是它已经具有自己的样式。</p>
+    <p>对于其他元素，我们也可以为它们编写样式：</p>
+    <pre style="height: 300px;">
+import styled from 'styled-components';
+
+const TagComponent = styled.div`
+  background-color: #44014C;
+  width: 300px;
+  min-height: 200px;
+  margin: 30px auto;
+  box-sizing: border-box;
+`;
+const Header = styled.h2`
+  padding: 10px 20px;
+  text-align: center;
+  color: white;
+  fontSize: 22px
+`;
+const ErrorMessage = styled.p`
+  color: white;
+  font-size: 13px;
+`;
+class ToDoApp extends React.Component {
+  // ...
+  render() {
+    return (
+      &lt;TagComponent&gt;
+        &lt;Header&gt;ToDo&lt;/Header&gt;
+        &lt;div&gt;
+          &lt;Input onChange={this.handleChange} /&gt;
+          &lt;ErrorMessage&gt;{this.state.error}&lt;/ErrorMessage&gt;
+          &lt;ToDoList value={this.state.display} /&gt;
+        &lt;/div&gt;
+      &lt;/TagComponent&gt;
+    )
+  }
+}   </pre>
+    <p>更多关于styled components的内容，可以阅读 <a href="https://www.styled-components.com/" target="_blank">Style components官方文档</a></p>
+    <h3>3, Method #3: CSS Modules CSS模块</h3>
+    <p>CSS Modules 不是将 CSS 改造成编程语言，而是功能很单纯，只加入了局部作用域和模块依赖。CSS Modules 很容易学，因为它的规则少，同时又非常有用，可以保证某个组件的样式，不会影响到其他组件。</p>
+    <p>CSS模块的CSS 类只会在用到它们的组件上起效。一个CSS模块实际上是一个编译过的.css文件。编译结束后我们将得到两个结果，其中一个是对类名加注版本号的CSS的文件，另一个则是一个将新类名与原始类名对应起咯爱的js对象。</p>
+    <p>在这里，一个CSS模块是指一个CSS文件，在CSS文件汇总，所有的类名和动画名称都会被限制在当前文件中。</p>
+    <p>让我们看一下它具体是怎么使用的。如果你想更多地了解这部分内容，你可以看 <a href="https://www.javascriptstuff.com/what-are-css-modules/" target="_blank">这篇文章</a>。现在就让我们来创建一个给错误信息组件加样式的CSS类。这个CSS文件我们命名为 style.css :</p>
+    <pre>
+.error-message {
+    color: red;
+    font-size: 16px;
+}  </pre>
+    <p>编译完之后，我们会产生类似以下的代码：</p>
+    <pre>
+.error-message_jhys {
+     color: red;
+     font-size: 16px;
+}   </pre>
+    <p>_jhys是我自己加的一个key，用于识别这个类。像之前所说的，这里将产生一个JS对象，我们可以在react文件中导入并使用它。</p>
+    <pre>
+{
+    error-message: error-message_jhys
+}   </pre>
+    <p>让我们看一下应该怎么使用它：</p>
+    <pre>
+import styles from './styles.css';
+class Message extends React.Component {
+     // ...
+    render() {
+        return (
+            &lt;p className = {styles.error-message}&gt;I am an error message&lt;/p&gt;
+        )
+    }
+}   </pre>
+    <p>我们使用CSS模块的目的是希望通过将CSS类与类之间相互隔离，防止造成命名冲突。</p>
+    <p>三种实现React组件样式的方法具体采用哪一种方案，取决于我们的项目规模。</p>
+    <h4>局部作用域:</h4>
+    <p>CSS的规则都是全局的，任何一个组件的样式规则，都对整个页面有效。</p>
+    <p>产生局部作用域的唯一方法，就是使用一个独一无二的class的名字，不会与其他选择器重名。这就是 CSS Modules 的做法。</p>
+    <p>下面是一个React组件App.js。</p>
+    <pre>
+import React from 'react';
+import style from './App.css';
+
+export default () => {
+  return (
+    &lt;h1 className={style.title}&gt;
+      Hello World
+    &lt;/h1&gt;
+  );
+};  </pre>
+    <p>上面代码中，我们将样式文件App.css输入到style对象，然后引用style.title代表一个class。</p>
+    <pre>
+.title {
+  color: red;
+}   </pre>
+    <p>构建工具会将类名style.title编译成一个哈希字符串。</p>
+    <pre>
+&lt;h1 class="_3zyde4l1yATCOkgn-DBWEL"&gt;
+  Hello World
+&lt;/h1&gt;  </pre>
+    <p>App.css也会同时被编译。</p>
+    <pre>
+._3zyde4l1yATCOkgn-DBWEL {
+  color: red;
+}   </pre>
+    <p>这样一来，这个类名就变成独一无二了，只对App组件有效。</p>
+    <p>CSS Modules 提供各种 <a href="https://github.com/css-modules/css-modules/blob/master/docs/get-started.md" target="_blank">插件</a>，支持不同的构建工具。本文使用的是 Webpack 的
+        <a href="https://github.com/webpack-contrib/css-loader#css-modules" target="_blank">css-loader</a>插件，因为它对 CSS Modules 的支持最好，而且很容易使用。</p>
+    <p>下面是这个示例的webpack.config.js。</p>
+    <pre style="height: 250px;">
+module.exports = {
+  entry: __dirname + '/index.js',
+  output: {
+    publicPath: '/',
+    filename: './bundle.js'
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'stage-0', 'react']
+        }
+      },
+      {
+        test: /\.css$/,
+        loader: "style-loader!css-loader?modules"
+      },
+    ]
+  }
+};  </pre>
+    <p>上面代码中，关键的一行是style-loader!css-loader?modules，它在css-loader后面加了一个查询参数modules，表示打开 CSS Modules 功能。</p>
+    <h4>全局作用域 :</h4>
+    <p>CSS Modules 允许使用:global(.className)的语法，声明一个全局规则。凡是这样声明的class，都不会被编译成哈希字符串。</p>
+    <p>App.css加入一个全局class。</p>
+    <pre>
+.title {
+  color: red;
+}
+
+:global(.title) {
+  color: green;
+}   </pre>
+    <p>App.js使用普通的class的写法，就会引用全局class。</p>
+    <pre>
+import React from 'react';
+import styles from './App.css';
+export default () => {
+  return (
+    &lt;h1 className="title"&gt;
+      Hello World
+    &lt;/h1&gt;
+  );
+};  </pre>
+    <p>CSS Modules 还提供一种显式的局部作用域语法:local(.className)，等同于.className，所以上面的App.css也可以写成下面这样。</p>
+    <pre>
+:local(.title) {
+  color: red;
+}
+
+:global(.title) {
+  color: green;
+}   </pre>
+    <h4>定制哈希类名</h4>
+    <p>css-loader默认的哈希算法是[hash:base64]，这会将.title编译成._3zyde4l1yATCOkgn-DBWEL这样的字符串。</p>
+    <p>webpack.config.js里面可以定制哈希字符串的格式。</p>
+    <pre>// 比如
+module: {
+  loaders: [
+    // ...
+    {
+      test: /\.css$/,
+      loader: "style-loader!css-loader?modules&localIdentName=[path][name]---[local]---[hash:base64:5]"
+    },
+  ]
+}   </pre>
+    <h4>Class 的组合:</h4>
+    <p>在 CSS Modules 中，一个选择器可以继承另一个选择器的规则，这称为"组合"（"composition"）。</p>
+    <pre>// 在App.css中，让.title继承.className 。
+.className {
+  background-color: blue;
+}
+.title {
+  composes: className;
+  color: red;
+}</pre>
+    <p>App.js不用修改。</p>
+    <pre>
+&lt;h1 className={style.title}&gt;
+  Hello World
+&lt;/h1&gt;  </pre>
+    <p>App.css编译成下面的代码。</p>
+    <pre>
+._2DHwuiHWMnKTOYG45T0x34 {
+  color: red;
+}
+._10B-buq6_BEOTOl9urIjf8 {
+  background-color: blue;
+}   </pre>
+    <p>相应地， h1的class也会编译成&lt;h1 class="_2DHwuiHWMnKTOYG45T0x34 _10B-buq6_BEOTOl9urIjf8"&gt;。</p>
+    <h4>输入其他模块:</h4>
+    <p>选择器也可以继承其他CSS文件里面的规则。</p>
+    <pre>// another.css
+.className {
+  background-color: blue;
+}   </pre>
+    <p>App.css可以继承another.css里面的规则。</p>
+    <pre>
+.title {
+  composes: className from './another.css';
+  color: red;
+}   </pre>
+    <h4>输入变量:</h4>
+    <p>CSS Modules 支持使用变量，不过需要安装 PostCSS 和 <a href="https://github.com/css-modules/postcss-modules-values" target="_blank">postcss-modules-values</a>。</p>
+    <pre>npm install --save postcss-loader postcss-modules-values</pre>
+    <p>把postcss-loader加入webpack.config.js。</p>
+    <pre style="height: 300px;">
+var values = require('postcss-modules-values');
+module.exports = {
+  entry: __dirname + '/index.js',
+  output: {
+    publicPath: '/',
+    filename: './bundle.js'
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'stage-0', 'react']
+        }
+      },
+      {
+        test: /\.css$/,
+        loader: "style-loader!css-loader?modules!postcss-loader"
+      },
+    ]
+  },
+  postcss: [
+    values
+  ]
+};   </pre>
+    <p class="highlight">webpack4版本下已经不需要安装postcss-loader postcss-modules-values这两个包，相应也不需要写相关配置，内置css-loader已经支持变量，和前几条用一个配置写法就好。</p>
+    <p>接着，在colors.css里面定义变量。</p>
+    <pre>
+@value blue: #0c77f8;
+@value red: #ff0000;
+@value green: #aaf200;  </pre>
+    <p>App.css可以引用这些变量。</p>
+    <pre>
+@value colors: "./colors.css";
+@value blue, red, green from colors;
+
+.title {
+  color: red;
+  background-color: blue;
+}  </pre>
+
+
+    <h3>4, react样式方案 分析</h3>
+    <p>在react中，BEM、ocss、smamacss这些（外置）css不是合适（理由待补充），其后出现的css modules也不是很完美的解决方案。</p>
+    <p>外置css文件来组织样式会有全局污染问题(相同选择器会全局覆盖)，css modules是为了解决样式模块化。</p>
+    <h4>关键词：模块化，CSS in JS</h4>
+    <p>1. Traditional CSS-file-based styling (including SASS, PostCSS etc)</p>
+    <p>2. CSS in Js styling</p>
+    <h5>CSS in JS techniques comparison( <a href="https://github.com/MicheleBertoli/css-in-js" target="_blank">git地址</a>):</h5>
+    <p>radium, styled-jsx, glamor,style-it, styled-components</p>
+    <p>tips:这些方案之间有的有inspired by甚至依赖关系</p>
+    <p>● radium支持inline styling，radium支持伪类选择器，radium通过装饰器模式使用</p>
+    <p>● styled-jsx需要配置babel（好像也支持行内使用）</p>
+    <br>
+    <p>https://byjoeybaker.com/react-inline-styles</p>
+    <p>https://learnnextjs.com/basics/styling-components</p>
+    <p>https://medium.com/@jviereck/modularise-css-the-react-way-1e817b317b04</p>
+    <p>对比:</p>
+    <p>https://github.com/MicheleBertoli/css-in-js</p>
+    <p>其实，就用css外部文件来使用媒体查询、伪类选择器等都没有问题，但是css in js会更加方便</p>
+
+    <h3>5, 认识PostCSS</h3>
+    <p>为了让 CSS 也能适用软件工程方法，程序员想了各种办法，让它变得像一门编程语言。从最早的Less、SASS，到后来的 <a href="https://www.postcss.com.cn/" target="_blank">PostCSS</a>，再到 CSS in JS，都是为了解决这个问题。</p>
+    <p>PostCSS 的主要功能只有两个：第一个就是把 CSS 解析成 JavaScript 可以操作的 抽象语法树结构（Abstract Syntax Tree，AST），第二个就是调用插件来处理 AST 并得到结果。</p>
+    <p>PostCSS 一般不单独使用，而是与已有的构建工具进行集成。PostCSS 与主流的构建工具，如 Webpack、Grunt 和 Gulp 都可以进行集成。完成集成之后，选择满足功能需求的 PostCSS 插件并进行配置。</p>
+    <p>Webpack 中使用 PostCSS 插件示例：</p>
+    <pre>
+var path = require('path');
+module.exports = {
+ context: path.join(__dirname, 'app'),
+ entry: './app',
+ output: {
+   path: path.join(__dirname, 'dist'),
+   filename: 'bundle.js'
+ },
+ module: {
+   loaders: [
+     {
+       test:   /\.css$/,
+       loader: "style-loader!css-loader!postcss-loader"
+     }
+   ]
+ },
+ postcss: function () {
+   return [require('autoprefixer')];
+ }
+}   </pre>
+    <p>postcss-loader 用来对.css 文件进行处理，并添加在 style-loader 和 css-loader 之后。通过一个额外的 postcss 方法来返回所需要使用的 PostCSS 插件。require('autoprefixer') 的作用是加载 Autoprefixer 插件。</p>
+    <p>通过 PostCSS 强大的插件体系，可以对 CSS 进行各种不同的转换和处理，从而尽可能的把繁琐复杂的工作交由程序去处理，而把开发人员解放出来。</p>
+
+
+    <br/>
+    <h5>参考文档:</h5>
+    <a href="https://www.jianshu.com/p/850031db7ac5" target="_blank">可能是你见过的最好的React样式实现方式指北...之一</a>,<br>
+    <a href="http://www.ruanyifeng.com/blog/2016/06/css_modules.html" target="_blank">CSS Modules 用法教程(阮一峰)</a>,<br>
+    <a href="https://www.ibm.com/developerworks/cn/web/1604-postcss-css/" target="_blank">使用 PostCSS 进行 CSS 处理</a>,<br>
+</div>
+
+</body>
+</html>
