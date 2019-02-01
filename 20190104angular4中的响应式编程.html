@@ -1,0 +1,1054 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular4中的响应式编程 |sumerzhou's blog</title>
+    <link href="myblog.css" rel="stylesheet" type="text/css">
+    <script src="myblog.js" type="text/javascript"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
+            line-height: 2em;
+        }
+        .textBox h2{
+            margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
+        }
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox h4{
+            text-shadow: 1px 1px 2px #4F68B0;
+        }
+        .textBox p{
+            text-indent: 2em;
+        }
+        .textBox li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .textBox pre{
+            display: block;
+            width: 850px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 4px 3px 2px black;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+            font-family: '仿宋';
+            background-color: rgb(40,44,52);
+            line-height: 1.5;
+            font-size: 15px;
+            color:white;
+            overflow-y: auto;
+        }
+        .highlight{
+            background-color: rgb(255,243,212);
+        }
+    </style>
+</head>
+<body>
+<!--header-->
+<div class="headerbox">
+    <div class="headertop">
+        <div class="hdtopbut">
+            <a href="http://blog.hungking.cc/" target="_blank"><img src="imgs/sns_blog_off.png"></a>
+            <a href="https://www.facebook.com/HoungkingHsi" target="_blank"><img src="imgs/sns_facebook_off.png"></a>
+            <a href="http://globalblog.hungking.cc/" target="_blank"><img src="imgs/sns_gBlog_off.png"></a>
+            <a href="http://www.linkedin.com/imisslovelove" target="_blank"><img src="imgs/sns_in_off.png"></a>
+            <a href="http://www.youtube.com/imisslovelove" target="_blank"><img src="imgs/sns_youTube_off.png"></a>
+            <a href="http://www.instagram.com/imisslovelove" target="_blank"><img src="imgs/sns_instagram_off.png"></a>
+            <a href="http://story.kakao.com/ch/imisslovelove" target="_blank" style="background: transparent none;"><img src="imgs/sns_kakao_off.png"></a>
+            <div class="hdtopbutR">
+                <a href="construction.html" style="background-position-x:85px ;">Contact Me</a>
+                <a href="construction.html">AboutSite</a>
+                <span onclick="ifshow(0)">Language<img src="imgs/btn_globalSite_open.gif"></span>
+                <ul id="lag">
+                    <li>KOREAN</li><li>CHINESE</li><li>JAPANESE</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="headerbotm">
+        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
+        <ul id="hdbotmUl">
+            <li>
+                <a href="company.html">WEB前端</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">HTML</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Corporate Overview</a></li>
+                                <li><a href="">Vision of houngking</a></li>
+                                <li><a href="">History of houngking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">CSS/CSS3</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Brand Story</a></li>
+                                <li><a>CI</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">JavaScript</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Greetings</a></li>
+                                <li><a>CEO's Message</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Ajax</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>hougking Affiliates</a></li>
+                                <li><a>Steel</a></li>
+                                <li><a>E&C</a></li>
+                                <li><a>Trade</a></li>
+                                <li><a>ICT</a></li>
+                                <li><a>Energy</a></li>
+                                <li><a>Material-Chemistry</a></li>
+                                <li><a>Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">jQuery</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Global</a></li>
+                                <li><a>Asia</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Business Ethics</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Major Activities</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Products/Technology</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Products of hounking</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Hot Rolled Steel</a></li>
+                                <li><a href="">Steel Plate</a></li>
+                                <li><a href="">Winter Day</a></li>
+                                <li><a href="">Gold Rolled Steel</a></li>
+                                <li><a href="">Galvanized Steel</a></li>
+                                <li><a href="">Electrical Galvanized</a></li>
+                                <li><a href="">Electrical Steel</a></li>
+                                <li><a href="">Automotive materials</a></li>
+                                <li><a href="">Stainless Steel</a></li>
+                                <li><a href="">Titanium Product</a></li>
+                                <li><a href="">Magnesium Product</a></li>
+                                <li><a href="">Aluminum-plated products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">houngking Technology</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">FINEX Technology</a></li>
+                                <li><a href="">Strip Casting</a></li>
+                                <li><a href="">Endless Hot Rolling Technology</a></li>
+                                <li><a href="">Operation Technology</a></li>
+                                <li><a href="">CEM Technology</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Production Process</a>
+                    </li>
+                    <li>
+                        <a href="">Sales information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">e-Sales</a></li>
+                                <li><a href="">e-Procurement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Investor Relations</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">IR Activeties</a>
+                    </li>
+                    <li>
+                        <a href="">Stock Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Stock Price</a></li>
+                                <li><a href="">Price Comparision</a></li>
+                                <li><a href="">ADR</a></li>
+                                <li><a href="">houngking Stock Exchange</a></li>
+                                <li><a href="">Economic Trend</a></li>
+                                <li><a href="">Shareholders Demographics</a></li>
+                                <li><a href="">Dividend</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Financial Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Income Statement</a></li>
+                                <li><a href="">Credit Rating</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">IR Archive</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Audit Report</a></li>
+                                <li><a href="">Form 20-F</a></li>
+                                <li><a href="">Annual Report</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Sustainability</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Sustainability Management System</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Management System</a></li>
+                                <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
+                                <li><a href="">Risk Management</a></li>
+                                <li><a href="">Stakeholder</a></li>
+                                <li><a href="">Relevant Institutes Activities</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Social Responsibility </a>
+                    </li>
+                    <li>
+                        <a href="">Environmental Management </a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Family's Environmental Management</a></li>
+                                <li><a href="">Environmental Management</a></li>
+                                <li><a href="">Climate change /Energy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Customer</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Marketing strategy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Employee</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Employee Health / Safety</a></li>
+                                <li><a href="">Organizational Culture</a></li>
+                                <li><a href="">HR system</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Report</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Report</a></li>
+                                <li><a href="">Carbon Report</a></li>
+                                <li><a href="">Conflict Minerals Disclosure</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">PR Room</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">News room</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">News letter</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">houngking SNS</a>
+                    </li>
+                    <li>
+                        <a href="">PR Archives</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
+                                <li><a href="">PR Movies</a></li>
+                                <li><a href="">Printed Advertisement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Download</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
+        <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
+        <div class="hdmenu" id="hdmenu">
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--text-->
+<div class="textBox">
+    <h2>Angular 4 中的响应式编程 </h2>
+    <h3>1,RxJS高阶操作符</h3>
+    <p>事件流中的一个元素本身又是一个流，高阶操作符主要就是来处理这种情况的。</p>
+    <p>常见的一类高阶操作符比如flatMap，都是起到一个“拍扁”的作用。把关于数据流的数据流“拍扁”，成为一个纯的数据流。</p>
+    <p>flatMap在rxjs中是mergeMap的别名，这两操作符是相等的。它们会保留所有的订阅，保证外层元素所对应子流的订阅。</p>
+    <p>switchMap，一旦有新的外层元素进来，就会抛弃掉之前的外层元素所关联的子元素。</p>
+    <h4>项目实例：做一个project的service:</h4>
+    <p>在我们这个项目里，project的service用来和http service也就是后端的rest API去交互，完成project的增删改查。</p>
+    <p>在写逻辑之前，先定义几个类型的对象。在domain文件夹下新建project.model.ts文件：</p>
+    <pre>// domain/project.model.ts
+export interface Project {
+  id?: string;
+  name: string;
+  desc?: string;
+  coverImg: string;
+  taskLists?: string[]; // 列表id
+  members?: string[]; // 成员id
+}   </pre>
+    <p>同样的，构建task-list.model.ts: </p>
+    <pre>// domain/task-list.model.ts
+export interface TaskList {
+  id?: string;
+  name: string;
+  order: number;
+  taskIds: string[];
+  projectId: string;
+}   </pre>
+    <p>构建task.model.ts:</p>
+    <pre style="height: 150px;">// domain/task.model.ts
+export interface Task {
+  id?: string;
+  desc: string;
+  completed: boolean;
+  priority: number;
+  dueDate?: Date;
+  reminder?: Date;
+  remark?: string;
+  createDate: Date;
+  ownerId?: string;
+  participantIds: string[];
+  taskListId: string;
+}   </pre>
+    <p>补充一下user.model.ts:</p>
+    <pre>// domain/user.model.ts
+export interface User {
+  id?: string;
+  email: string;
+  password: string;
+  name: string;
+  avatar: string;
+  projectIds: string[];
+}  </pre>
+    <p>在domain目录下另增一个index.ts文件。这个文件是属于文件结构上的最佳实践，在任何一个目录里有个index文件，指向目录时会默认找这个index文件，引用时就可以少引用一层。</p>
+    <pre>// domain/index.ts
+export * from './project.model';
+export * from './quote.model';
+export * from './task-list.model';
+export * from './task.model';
+export * from './user.model';  </pre>
+    <p>接着到services目录中新建一个project.service.ts文件：</p>
+    <pre style="height: 300px;">// services/project.service.ts
+import { Injectable, Inject } from '@angular/core';
+import {Http} from '@angular/http';
+import {Project} from '../domain';
+import {Observable} from 'rxjs/Observable';
+
+@Injectable()
+export class ProjectService {
+  private readonly domain = 'projects';
+  private headers = new Headers({
+    'Content-Type': 'application/json'
+  });
+  constructor(private http: Http, @Inject('BASE_CONFIG') private config) {}
+
+  add(project: Project): Observable&lt;Project&gt; {
+    project.id = null;
+    const uri = `${this.config.uri}/${this.domain}`;
+    return this.http.post(uri, project, this.headers)
+      .map(res => res.json())
+  }
+
+  update(project: Project): Observable&lt;Project&gt; {
+    const uri = `${this.config.uri}/${this.domain}/${project.id}`;
+    const toUpdate = {
+      name: project.name,
+      desc: project.desc,
+      coverImg: project.coverImg
+    };
+    return this.http.patch(uri, toUpdate, this.headers )
+      .map(res => res.json())
+  }
+
+  del(project: Project): Observable&lt;Project&gt; {
+    // 先删除list，list会级联删除它底下的task，全删除后得到结果并去统计一个数。
+    // 完事后去进行project的删除。
+    const delTasks$ = Observable.from(project.taskLists ? project.taskLists : [])
+      .mergeMap(listId => this.http.delete(`${this.config.uri}/taskLists/${listId}`))
+      .count();
+    return delTasks$.switchMap(_ => this.http.delete(`${this.config.uri}/${this.domain}/${project.id}`))
+      .map(_ => project); // 上面删除完所有task之后，删除project。返回一个project的映射。
+    // switchMap:delTasks$执行完后发射过来一个数据，就不关心外层了，只关注project的删除。
+  }
+
+  get(userId: string): Observable&lt;Project[]&gt; {
+    const uri = `${this.config.uri}/${this.domain}`;
+    // 我们希望给url加encoding，因为有些字符不符合，通过params这种形式它会帮助做encoding。
+    // 而直接在url后面加“？=***”这种形式，就得自己encoding了。
+    return this.http.get(uri, {params: {'members_like': userId} })
+      .map(res => res.json() as Project[])
+  }
+}    </pre>
+    <p class="highlight">在此项目实际操作中，angular的http模块post和patch提交数据时，数据body部分不需要JSON.stringfy。
+        下面代码中部分service还是用了JSON.stringfy的写法来包裹上传数据，代码运行时可能报错。需根据运行版本环境选择正确的方法提交。</p>
+    <p>给mock API的数据文件data.json添加数据：</p>
+    <pre style="height: 150px;">// mock/data.json
+{
+    "projects": [
+    {
+      "id": "1",
+      "name": "企业协作平台",
+      "desc": "这是一个企业内部项目",
+      "coverImg": "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4103562629,1178676710&fm=26&gp=0.jpg",
+      "members": ["1", "2"]
+    }, {
+      "id": 2,
+      "name": "企业协作平台22222",
+      "desc": "这是一个企业内部项目",
+      "coverImg": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=553177394,1062800270&fm=26&gp=0.jpg",
+      "members": ["1"]
+    }
+  ],
+    ...
+}    </pre>
+    <p>在mock目录下新建一个rest.http文件，在VScode中可用于API测试。启动json-server ./mock/data.json --watch,可以监听data.json文件的变化。</p>
+    <pre>// rest.http
+GET http://localhost:3000/projects?members_like=2  </pre>
+    <p>project的service写好后，在services.module.ts中providers添加进去。在project组件中去使用project的service： </p>
+    <pre>// project-list.component.ts
+...
+export class ProjectListComponent implements OnInit {
+  constructor(private dialog: MdDialog, private cd: ChangeDetectorRef, private service$: ProjectService) { }
+  ngOnInit() {
+    this.service$.get('1').subscribe(projects => this.projects = projects);
+  }
+  ...  </pre>
+    <h3>2, 实战服务逻辑</h3>
+    <p>新增两个service：task-list.service.ts和task.service.ts。</p>
+    <pre style="height: 250px;margin-bottom: 5px;">// services/task-list.service.ts
+import { Injectable, Inject } from '@angular/core';
+import {Http} from '@angular/http';
+import {TaskList} from '../domain';
+import {Observable} from 'rxjs/Observable';
+@Injectable()
+export class TaskListService {
+  private readonly domain = 'taskLists';
+  private headers = new Headers({
+    'Content-Type': 'application/json'
+  });
+  constructor(private http: Http, @Inject('BASE_CONFIG') private config) {}
+  add(taskList: TaskList): Observable&lt;TaskList&gt; {
+    taskList.id = null;
+    const uri = `${this.config.uri}/${this.domain}`;
+    return this.http.post(uri, JSON.stringify(taskList), this.headers)
+      .map(res => res.json())
+  }
+
+  update(taskList: TaskList): Observable&lt;TaskList&gt; {
+    const uri = `${this.config.uri}/${this.domain}/${taskList.id}`;
+    const toUpdate = {
+      name: taskList.name,
+    };
+    return this.http.patch(uri, JSON.stringify(toUpdate), this.headers )
+      .map(res => res.json())
+  }
+
+  del(taskList: TaskList): Observable&lt;TaskList&gt; {
+    const uri = `${this.config.uri}/taskLists/${taskList.id}`;
+    return this.http.delete(uri).mapTo(taskList);
+  }
+
+  get(projectId: string): Observable&lt;TaskList[]&gt; {
+    const uri = `${this.config.uri}/${this.domain}`;
+    return this.http.get(uri, {params: {'projectId': projectId} })
+      .map(res => res.json() as TaskList[])
+  }
+
+  swapOrder(src: TaskList, target: TaskList): Observable&lt;TaskList[]&gt; {
+    const dragUri = `${this.config.uri}/${this.domain}/${src.id}`;
+    const dropUri = `${this.config.rui}/${this.domain}/${target.id}`;
+    const drag$ = this.http
+      .patch(dragUri, JSON.stringify({order: target.order}), this.headers)
+      .map(res => res.json());
+    const drop$ = this.http
+      .patch(dropUri, JSON.stringify({order: src.order}), this.headers)
+      .map(res => res.json());
+    return Observable.concat(drag$, drop$).reduce((arrs, list) => [...arrs, list], [])
+  }
+}   </pre>
+    <pre style="height: 250px;">// services/task.service.ts
+import { Injectable, Inject } from '@angular/core';
+import {Http} from '@angular/http';
+import {Task, TaskList} from '../domain';
+import {Observable} from 'rxjs/Observable';
+@Injectable()
+export class TaskService {
+  private readonly domain = 'tasks';
+  private headers = new Headers({
+    'Content-Type': 'application/json'
+  });
+  constructor(private http: Http, @Inject('BASE_CONFIG') private config) {}
+  add(task: Task): Observable&lt;Task&gt; {
+    task.id = null;
+    const uri = `${this.config.uri}/${this.domain}`;
+    return this.http.post(uri, JSON.stringify(task), this.headers)
+      .map(res => res.json())
+  }
+
+  update(task: Task): Observable&lt;Task&gt; {
+    const uri = `${this.config.uri}/${this.domain}/${task.id}`;
+    const toUpdate = {
+      desc: task.desc,
+      priority: task.priority,
+      dueDate: task.dueDate,
+      reminder: task.reminder,
+      ownerId: task.ownerId,
+      participantIds: task.participantIds,
+      remark: task.remark
+    };
+    return this.http.patch(uri, JSON.stringify(toUpdate), this.headers )
+      .map(res => res.json())
+  }
+
+  del(task: Task): Observable&lt;Task&gt; {
+    const uri = `${this.config.uri}/taskLists/${task.id}`;
+    return this.http.delete(uri).mapTo(task);
+  }
+
+  get(taskListId: string): Observable&lt;Task[]&gt; {
+    const uri = `${this.config.uri}/${this.domain}`;
+    return this.http.get(uri, {params: {'taskListId': taskListId} })
+      .map(res => res.json() as Task[])
+  }
+
+  getByLists(lists: TaskList[]): Observable&lt;Task[]&gt; {
+    return Observable.from(lists).mergeMap(list => this.get(list.id))
+      .reduce((tasks, t) => [...tasks, t], [])
+  }
+
+  complete(task: Task): Observable&lt;Task&gt; {
+    const uri = `${this.config.uri}/${this.domain}/${task.id}`;
+    return this.http
+      .patch(uri, JSON.stringify({completed: !task.completed}), this.headers)
+      .map(res => res.json());
+  }
+
+  move(taskId: string, taskListId: string): Observable&lt;Task&gt; {
+    const uri = `${this.config.uri}/${this.domain}/${taskId}`;
+    return this.http
+      .patch(uri, JSON.stringify({taskListId: taskListId}), this.headers)
+      .map(res => res.json());
+  }
+
+  moveAll(srcListId: string, targetListId: string): Observable&lt;Task[]&gt; {
+    return this.get(srcListId).mergeMap(tasks => Observable.from(tasks))
+      .mergeMap(task => this.move(task.id, targetListId))
+      .reduce((arr, x) => [...arr, x], []);
+  }
+}   </pre>
+    <p>然后在services.module.ts里把TaskListService和TaskService添加到providers中去。再到project-list组件中，把service给用上：</p>
+    <h4>完善project-list组件 :</h4>
+    <pre>
+npm i -S lodash
+npm i -D @types/lodash  </pre>
+    <p>安装一个工具类lodash,专门用于处理数组和对象。</p>
+    <pre style="margin-bottom: 5px;height: 600px;">// project-list.component.ts
+import {Component, OnInit, OnDestroy, HostBinding, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import { MdDialog } from '@angular/material'; /*MdDialog service是在angular material中提供的*/
+import { NewProjectComponent } from '../new-project/new-project.component';
+import { InviteComponent } from '../invite/invite.component';
+import {ConfirmDialogComponent} from '../../shared/confirm-dialog/confirm-dialog.component';
+import { slideToRight } from '../../anims/router.anim';
+import { listAnimation } from '../../anims/list.anim';
+import {ProjectService} from '../../services/project.service';
+import * as _ from 'lodash';
+import {Project} from '../../domain';
+import {Subscription} from 'rxjs/Subscription';
+
+@Component ({
+  selector: 'app-project-list',
+  templateUrl: './project-list.component.html',
+  styleUrls: ['./project-list.component.scss'],
+  animations: [slideToRight, listAnimation],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ProjectListComponent implements OnInit, OnDestroy {
+  @HostBinding('@routeAnim') state;
+  projects;
+  sub: Subscription;
+  constructor(private dialog: MdDialog, private cd: ChangeDetectorRef, private service$: ProjectService) { }
+
+  ngOnInit() {
+    this.sub = this.service$.get('1').subscribe(projects => {
+      this.projects = projects;
+      this.cd.markForCheck();
+    });
+  }
+  ngOnDestroy() {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
+  }
+  openNewProjectDialog() {
+    const selectedImg = `/assets/img/covers/${Math.floor(Math.random() * 40)}_tn.jpg`;
+    const dialogRef = this.dialog.open(NewProjectComponent,
+      {data: {dark: false, thumbnails: this.getThumbnails(), img: selectedImg}}); /*第一个是必选参数，模板或者组件的类型。*/
+    /*open的结果是返回了一个dialogRef。afterClosed方法是一个observable的观察对象。*/
+    dialogRef.afterClosed()
+      .take(1) // 只取一个值后就complete了，不需要一直订阅。就不用想办法去unsubscribe这个流了。
+      .filter(n => n) // 直接关闭对话框时是没有回传值的，需要过滤这种情况
+      .map(val => ({...val, coverImg: this.buildImgSrc(val.coverImg)}))
+      .switchMap(v => this.service$.add(v))
+      .subscribe(project => {
+        this.projects = [...this.projects, project];
+        this.cd.markForCheck();
+      }); // 服务里面如果返回的是一个流的话，直接像传统编程那样去调用是无效的。流的话一定要订阅，所以需要和另一个流合并再去订阅。
+  }
+  launchInviteDialog() {
+    const dialogRef = this.dialog.open(InviteComponent);
+  }
+  launchUpdateDialog(project: Project) {
+    const dialogRef = this.dialog.open(NewProjectComponent,
+      {data: {title: '编辑项目', thumbnails: this.getThumbnails(), project: project}});
+    dialogRef.afterClosed()
+      .take(1)
+      .filter(n => n)
+      .map(val => ({...val, id: project.id, coverImg: this.buildImgSrc(val.coverImg)}))
+      .switchMap(v => this.service$.update(v))
+      .subscribe(pro => {
+        const index = this.projects.map(p => p.id).indexOf(project.id);
+        this.projects = [... this.projects.slice(0, index), pro, ...this.projects.slice(index + 1)];
+        this.cd.markForCheck();
+      });
+  }
+  launchConfirmDialog(project) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {data: {title: '删除项目', content: '您确认删除该项目吗？'}});
+    dialogRef.afterClosed()
+      .take(1)
+      .filter(n => n)
+      .switchMap(_ => this.service$.del(project))
+      .subscribe(prj => {
+        this.projects = this.projects.filter(p => p.id !== prj.id);
+        this.cd.markForCheck();
+      });
+  }
+
+  private getThumbnails() {
+    return _.range(0, 40).map(i => `/assets/img/covers/${i}_tn.jpg`)
+  }
+  private buildImgSrc(img: string): string {
+    return img.indexOf('_') > -1 ? img.split('_')[0] + '.jpg' : img;
+  }
+}   </pre>
+    <pre>// project-list.component.html
+&lt;div class="container" [@listAnim]="projects?.length"&gt;
+  &lt;app-project-item *ngFor="let project of projects"
+                    [item]="project" class="card"
+                    (onInvite)="launchInviteDialog()"
+                    (onEdit)="launchUpdateDialog(project)"
+                    (onDel)="launchConfirmDialog(project)"&gt;
+  &lt;/app-project-item&gt;
+&lt;/div&gt;
+    ...</pre>
+    <p>对于NewProjectComponent组件，需要做些补充：</p>
+    <pre style="margin-bottom: 5px;height: 150px;">// new-project.component.html
+&lt;form [formGroup]="form" (ngSubmit)="onSubmit(form, $event)"&gt;
+  &lt;h3 md-dialog-title&gt;{{title}}&lt;/h3&gt;
+  &lt;div md-dialog-content&gt;
+    &lt;md-input-container class="full-width"&gt;
+      &lt;input mdInput type="text" placeholder="项目名称" formControlName="name"&gt;
+    &lt;/md-input-container&gt;
+    &lt;md-input-container class="full-width"&gt;
+      &lt;input mdInput type="text" placeholder="项目描述" formControlName="desc"&gt;
+    &lt;/md-input-container&gt;
+    &lt;app-image-list-select
+            [useSvgIcon]="false"
+            [cols]="6"
+            [title]="'选择封面:'"
+            [items]="coverImages"
+            formControlName="coverImg"&gt;
+    &lt;/app-image-list-select&gt;
+  &lt;/div&gt;
+  &lt;div md-dialog-actions&gt;
+    &lt;button type="submit" md-raised-button color="primary" [disabled]="!form.valid"&gt;保存&lt;/button&gt;
+    &lt;button type="button" md-button md-dialog-close&gt; 关闭&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;  </pre>
+    <pre style="height: 200px;">// new-project.component.ts
+import { Component, OnInit, Inject } from '@angular/core';
+import { MD_DIALOG_DATA, MdDialogRef, OverlayContainer } from '@angular/material';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms'; /* MdDialogRef是一个泛型，用于回传数据给调用的组件。*/
+@Component({
+  selector: 'app-new-project',
+  templateUrl: './new-project.component.html',
+  styleUrls: ['./new-project.component.scss']
+})
+export class NewProjectComponent implements OnInit {
+  title = '';
+  coverImages = [];
+  form: FormGroup;
+  constructor(
+    @Inject(MD_DIALOG_DATA) private data,
+    private dialogRef: MdDialogRef&lt;NewProjectComponent&gt;,
+    private oc: OverlayContainer,
+    private fb: FormBuilder) { }
+  ngOnInit() {
+    this.coverImages = this.data.thumbnails;
+    if (this.data.project) {
+      this.form = this.fb.group({
+        name: [this.data.project.name, Validators.required],
+        desc: [this.data.project.desc],
+        coverImg: [this.data.project.coverImg]
+      });
+      this.title = this.data.title;
+    }else {
+      this.form = this.fb.group({
+        name: ['', Validators.required],
+        desc: [],
+        coverImg: [this.data.img]
+      });
+      this.title = '新建项目' ;
+    }
+    this.oc.themeClass = this.data.dark ? 'myapp-dark-theme' : null;
+  }
+  onSubmit({value, valid}, ev: Event) {
+    ev.preventDefault();
+    if (! valid) { return; }
+    this.dialogRef.close(value)
+  }
+}  </pre>
+    <p>给image-list-select.component.ts增加一句代码，把选择变化后的图片通知回表单:</p>
+    <pre>// image-list-select.component.ts
+onChange(i) {
+    this.selected = this.items[i];
+ +  this.propagateChange(this.items[i]);
+}  </pre>
+    <h4> user/auth service:</h4>
+    <p>user.service.ts用来提供查询用户（智能提供搜索结果）、处理user和project的关系以及增删关联等操作。</p>
+    <pre style="height: 500px;">// services/user.service.ts
+import { Injectable, Inject } from '@angular/core';
+import {Http} from '@angular/http';
+import {User} from '../domain';
+import {Observable} from 'rxjs/Observable';
+import {Project} from '../domain/project.model';
+@Injectable()
+export class UserService {
+  private readonly domain = 'users';
+  private headers = new Headers({
+    'Content-Type': 'application/json'
+  });
+  constructor(private http: Http, @Inject('BASE_CONFIG') private config) {}
+
+  searchUsers(filter: string): Observable&lt;User[]&gt;{
+    const uri = `${this.config.uri}/${this.domain}`;
+    return this.http.get(uri, {params: {'email_like': filter}})
+      .map(res => res.json() as User[])
+  }
+
+  getUsersByProject(projectId: string): Observable&lt;User[]&gt; {
+    const uri = `${this.config.uri}/${this.domain}`;
+    // 这里面用到了一个json-server的小技巧：想要看User接口数据projectIds里是否含有某个值，
+    // 我们在params参数里把对应的projectIds的s去掉，它会很聪明的去projectIds数组里查询是否有符合项。
+    return this.http.get(uri, {params: {'projectId': projectId}})
+      .map(res => res.json() as User[])
+  }
+
+  addProjectRef(user: User, projectId: string): Observable&lt;User&gt; {
+    const uri = `${this.config.uri}/${this.domain}/${user.id}`;
+    const projectIds = user.projectIds ? user.projectIds : [];
+    if (projectIds.indexOf(projectId) > -1) {
+      return Observable.of(user);
+    }
+    return this.http.patch(uri, {projectIds: [...projectIds, projectId]}, this.headers)
+      .map(res => res.json() as User)
+  }
+
+  removeProjectRef(user: User, projectId: string): Observable&lt;User&gt; {
+    const uri = `${this.config.uri}/${this.domain}/${user.id}`;
+    const projectIds = user.projectIds ? user.projectIds : [];
+    const index = projectIds.indexOf(projectId);
+    if (index === -1) {
+      return Observable.of(user);
+    }
+    const toUpdate = [...projectIds.slice(0, index), ...projectIds.slice(index + 1)];
+    return this.http.patch(uri, {projectIds: toUpdate}, this.headers)
+      .map(res => res.json() as User)
+  }
+
+  batchUpdateProjectRef(project: Project): Observable&lt;User[]&gt; {
+    const projectId = project.id;
+    const memberIds = project.members ? project.members : [];
+    return Observable.from(memberIds)
+      .switchMap(id => {
+        const uri = `${this.config}/${this.domain}/${id}`;
+        return this.http.get(uri).map(res => res.json() as User)
+      })
+      .filter(user => user.projectIds.indexOf(projectId) === -1)
+      .switchMap(u => this.addProjectRef(u, projectId))
+      .reduce((arr, curr) => [...arr, curr], [])
+  }
+}   </pre>
+    <p>在domain里再增加一个auth.model.ts:</p>
+    <pre>// domain/auth.model.ts
+import { User } from './user.model';
+import { Err } from './err.model';
+export interface Auth {
+  user?: User;
+  userId?: string;
+  token?: string;
+  err?: Err;
+}   </pre>
+    <p>如果愿意的话，还可以给Auth类型一个记录出错信息的Err类型：</p>
+    <pre>// domain/err.model.ts
+export interface Err {
+  timestamp?: Date;
+  status?: string;
+  error?: string;
+  exception?: string;
+  message?: string;
+  path?: string
+}   </pre>
+    <p>Err这个类型本项目中不会用到，因为这里用的是一个mock server。在真正的项目上，服务器端很可能有这样类似结构的一个用户信息规定。</p>
+    <p>为啥要有认证这么一个类型或者对象呢？因为现在的主流认证机制分成两种，一种是session based，用户名密码登录之后服务端返回一个session ； 另一种叫token based，令牌的方式，登录之后服务端会下发一个令牌，这样服务器端不用维护session，且以后每次的API访问都会携带这个令牌，这样就变成一个无状态的请求。</p>
+    <p>session的维护其实是很麻烦的一件事。现在大部分新起的项目都采用token based。</p>
+    <p>token based，我们需要认证的行为包括：当前用户（用户id）和用户id认证之后给到的token。</p>
+    <p>auth.service.ts用来进行用户注册和登录:</p>
+    <pre style="height: 400px;">// services/auth.service.ts
+import { Injectable, Inject } from '@angular/core';
+import {Http} from '@angular/http';
+import {User} from '../domain';
+import {Auth} from '../domain/auth.model';
+import {Observable} from 'rxjs/Observable';
+
+@Injectable()
+export class AuthService {
+  private readonly domain = 'users';
+  private headers = new Headers({
+    'Content-Type': 'application/json'
+  });
+  private token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9' +
+    '.eyJVc2VySWQiOjEyMywiVXNlck5hbWUiOiJhZG1pbiJ9' +
+    '.Qjw1epD5P6p4Yy2yju3-fkq28PddznqRj3ESfALQy_U';
+  constructor(private http: Http, @Inject('BASE_CONFIG') private config) {}
+
+  register(user: User): Observable&lt;Auth&gt; {
+    user.id = null;
+    const uri = `${this.config.uri}/${this.domain}`;
+    return this.http
+      .get(uri, {params: {'email': user.email}})
+      .switchMap(res => {
+        if (res.json().length > 0) {
+          throw 'user existed';
+        }
+        return this.http.post(uri, user, this.headers)
+          .map(r => ({token: this.token, user: r.json()}))
+      })
+  }
+
+  login(username: string, password: string): Observable&lt;Auth&gt; {
+    const uri = `${this.config.uri}/${this.domain}`;
+    return this.http.get(uri, {params: {'email': username, 'password': password}})
+      .map(res => {
+        if (res.json().length === 0) {
+          throw 'username or password not match';
+        }
+        return {
+          token: this.token,
+          user: res.json()[0]
+        }
+      })
+  }
+}   </pre>
+    <p>把UserService和AuthService添加到services.module.ts的providers当中,接下来，还可以做一个路由守卫auth-guard.service.ts:</p>
+    <pre style="height: 200px;">// services/auth-guard.service.ts
+import {Injectable} from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
+import { Observable} from 'rxjs/Observable';
+@Injectable()
+export class AuthGuardService implements CanActivate {
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable&lt;boolean&gt; {
+    return Observable.of(true);
+  }
+}    </pre>
+    <p>路由守卫完成后，把它也放入 services.module.ts 中。</p>
+    <h4>实战自动建议表单控件:</h4>
+    <p>现在，利用UserService做一个表单控件chips-list。它在邀请成员、新建任务时都会用到。ng g c shared/chips-list --spec false:</p>
+    <pre style="margin-bottom: 5px;height: 300px;">// shared/chips-list.component.html
+
+    </pre>
+    <pre style="height: 500px;">// shared/chips-list.component.ts
+
+    </pre>
+    <p>在invite.component中去使用表单控件chips-list ：</p>
+    <pre style="margin-bottom: 5px;height: 250px;">// invite.component.html
+
+    </pre>
+    <pre style="height: 250px;">// invite.component.ts
+
+    </pre>
+
+
+    <br/>
+    <h5>参考文档:</h5>
+    <a href="https://wl001.github.io/2017/11/05/angular4.x_http/" target="_blank">angular4.x http get post以及 jsonp数据请求(ps:HttpClient能力在angular 4.3版本开始引入在@angular/common/http中,基本使用方法与原Http服务类似)</a>,<br>
+    <a href="https://blog.csdn.net/It_rod/article/details/79811009" target="_blank">Angular4 - http(了解原理)</a>,<br>
+    <a href="https://www.cnblogs.com/jerrysion/p/5522673.html" target="_blank">为什么要进行URL编码</a>,<br>
+    <a href="http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html" target="_blank">Redux 入门教程（一）：基本用法 (阮一峰)</a>,<br>
+    <a href="http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html" target="_blank">JSON Web Token 入门教程(阮一峰)</a>,<br>
+</div>
+
+</body>
+</html>

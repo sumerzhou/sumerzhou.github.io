@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css技巧经验&外部字体使用 |sumerzhou's blog</title>
+    <link href="myblog.css" rel="stylesheet" type="text/css">
+    <script src="myblog.js" type="text/javascript"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        .textBox{
+            width: 980px;
+            border-radius: 20px;
+            position: relative;
+            padding: 10px;
+            top: 105px;
+            line-height: 2em;
+        }
+        .textBox h2{
+            margin-top: 10px;
+            text-indent: 2em;
+            text-shadow: 2px 2px 1px dodgerblue;
+        }
+        .textBox h3{
+            margin-top: 10px;
+            border-bottom:1px solid lightblue;
+            box-shadow: 2px 2px 1px black;
+        }
+        .textBox h4{
+            text-shadow: 1px 1px 2px #4F68B0;
+        }
+        .textBox p{
+            text-indent: 2em;
+        }
+        .textBox li{
+            text-indent: 2em;
+            list-style: none;
+        }
+        .textBox pre{
+            display: block;
+            width: 850px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            box-shadow: 4px 3px 2px black;
+            padding-left: 30px;
+            position: relative;
+            left: -30px;
+            font-family: '仿宋';
+            background-color: rgb(40,44,52);
+            line-height: 1.5;
+            font-size: 15px;
+            color:white;
+            overflow-y: auto;
+        }
+        .highlight{
+            background-color: rgb(255,243,212);
+        }
+    </style>
+</head>
+<body>
+<!--header-->
+<div class="headerbox">
+    <div class="headertop">
+        <div class="hdtopbut">
+            <a href="http://blog.hungking.cc/" target="_blank"><img src="imgs/sns_blog_off.png"></a>
+            <a href="https://www.facebook.com/HoungkingHsi" target="_blank"><img src="imgs/sns_facebook_off.png"></a>
+            <a href="http://globalblog.hungking.cc/" target="_blank"><img src="imgs/sns_gBlog_off.png"></a>
+            <a href="http://www.linkedin.com/imisslovelove" target="_blank"><img src="imgs/sns_in_off.png"></a>
+            <a href="http://www.youtube.com/imisslovelove" target="_blank"><img src="imgs/sns_youTube_off.png"></a>
+            <a href="http://www.instagram.com/imisslovelove" target="_blank"><img src="imgs/sns_instagram_off.png"></a>
+            <a href="http://story.kakao.com/ch/imisslovelove" target="_blank" style="background: transparent none;"><img src="imgs/sns_kakao_off.png"></a>
+            <div class="hdtopbutR">
+                <a href="construction.html" style="background-position-x:85px ;">Contact Me</a>
+                <a href="construction.html">AboutSite</a>
+                <span onclick="ifshow(0)">Language<img src="imgs/btn_globalSite_open.gif"></span>
+                <ul id="lag">
+                    <li>KOREAN</li><li>CHINESE</li><li>JAPANESE</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="headerbotm">
+        <a class="logohome" href="http://www.hungking.cc/company"><img src="imgs/blog.png"></a>
+        <ul id="hdbotmUl">
+            <li>
+                <a href="company.html">WEB前端</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">HTML</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Corporate Overview</a></li>
+                                <li><a href="">Vision of houngking</a></li>
+                                <li><a href="">History of houngking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">CSS/CSS3</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Brand Story</a></li>
+                                <li><a>CI</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">JavaScript</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Greetings</a></li>
+                                <li><a>CEO's Message</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Ajax</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>hougking Affiliates</a></li>
+                                <li><a>Steel</a></li>
+                                <li><a>E&C</a></li>
+                                <li><a>Trade</a></li>
+                                <li><a>ICT</a></li>
+                                <li><a>Energy</a></li>
+                                <li><a>Material-Chemistry</a></li>
+                                <li><a>Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">jQuery</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a>Global</a></li>
+                                <li><a>Asia</a></li>
+                                <li><a>America</a></li>
+                                <li><a>Europe&Africa</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Business Ethics</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Code of Ethics</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">CEO Message</a></li>
+                                <li><a href="">Ethics Charter</a></li>
+                                <li><a href="">Practice Guidelines</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Major Activities</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Operation of the Ethical Management System</a></li>
+                                <li><a href="">Education on Corporate Ethics</a></li>
+                                <li><a href="">Unethical Act Prevention System</a></li>
+                                <li><a href="">External Activities and Results</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Products/Technology</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Products of hounking</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Hot Rolled Steel</a></li>
+                                <li><a href="">Steel Plate</a></li>
+                                <li><a href="">Winter Day</a></li>
+                                <li><a href="">Gold Rolled Steel</a></li>
+                                <li><a href="">Galvanized Steel</a></li>
+                                <li><a href="">Electrical Galvanized</a></li>
+                                <li><a href="">Electrical Steel</a></li>
+                                <li><a href="">Automotive materials</a></li>
+                                <li><a href="">Stainless Steel</a></li>
+                                <li><a href="">Titanium Product</a></li>
+                                <li><a href="">Magnesium Product</a></li>
+                                <li><a href="">Aluminum-plated products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">houngking Technology</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">FINEX Technology</a></li>
+                                <li><a href="">Strip Casting</a></li>
+                                <li><a href="">Endless Hot Rolling Technology</a></li>
+                                <li><a href="">Operation Technology</a></li>
+                                <li><a href="">CEM Technology</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Production Process</a>
+                    </li>
+                    <li>
+                        <a href="">Sales information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">e-Sales</a></li>
+                                <li><a href="">e-Procurement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Investor Relations</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">IR Activeties</a>
+                    </li>
+                    <li>
+                        <a href="">Stock Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Stock Price</a></li>
+                                <li><a href="">Price Comparision</a></li>
+                                <li><a href="">ADR</a></li>
+                                <li><a href="">houngking Stock Exchange</a></li>
+                                <li><a href="">Economic Trend</a></li>
+                                <li><a href="">Shareholders Demographics</a></li>
+                                <li><a href="">Dividend</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Financial Information</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Income Statement</a></li>
+                                <li><a href="">Credit Rating</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">IR Archive</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Audit Report</a></li>
+                                <li><a href="">Form 20-F</a></li>
+                                <li><a href="">Annual Report</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">Sustainability</a>
+                <ul class="ultext1">
+                    <li>
+                        <a href="">Sustainability Management System</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Management System</a></li>
+                                <li><a href="">houngking Subsidiaries CSR Assessment</a></li>
+                                <li><a href="">Risk Management</a></li>
+                                <li><a href="">Stakeholder</a></li>
+                                <li><a href="">Relevant Institutes Activities</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">Social Responsibility </a>
+                    </li>
+                    <li>
+                        <a href="">Environmental Management </a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Family's Environmental Management</a></li>
+                                <li><a href="">Environmental Management</a></li>
+                                <li><a href="">Climate change /Energy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Customer</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Marketing strategy</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Employee</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Employee Health / Safety</a></li>
+                                <li><a href="">Organizational Culture</a></li>
+                                <li><a href="">HR system</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Report</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Sustainability Report</a></li>
+                                <li><a href="">Carbon Report</a></li>
+                                <li><a href="">Conflict Minerals Disclosure</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="company.html">PR Room</a>
+                <ul class="ultext1">
+                    <li style="background-image: none;">
+                        <a href="">News room</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">News letter</a>
+                    </li>
+                    <li style="background-image: none;">
+                        <a href="">houngking SNS</a>
+                    </li>
+                    <li>
+                        <a href="">PR Archives</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Digital Brochure</a></li>
+                                <li><a href="">TV Cormmercials</a></li>
+                                <li><a href="">Screen Saver</a></li>
+                                <li><a href="">PR Movies</a></li>
+                                <li><a href="">Printed Advertisement</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">Download</a>
+                        <div class="ultext2">
+                            <ul>
+                                <li><a href="">Company</a></li>
+                                <li><a href="">Products/Technology</a></li>
+                                <li><a href="">Investor Relations</a></li>
+                                <li><a href="">Sustainability</a></li>
+                                <li><a href="">PR Room</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <img src="imgs/btn_gnb.png" class="imgbtn" id="imgbtn" onclick="ifshow(1)">
+        <img src="imgs/btn_search.png" class="imgbtn2" onclick="ifshow(2)">
+        <div class="hdmenu" id="hdmenu">
+            <a href="">Open submenu</a>
+            <ul class="menutxt1">
+                <li>
+                    <a href="">Company</a>
+                    <ul>
+                        <li><a href="">Corporate Overview</a></li>
+                        <li><a href="">Brand</a></li>
+                        <li><a href="">CEO</a></li>
+                        <li><a href="">hounking Affiliates</a></li>
+                        <li><a href="">hounking Overseas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Business Ethics</a>
+                    <ul>
+                        <li><a href="">Code of Ethics</a></li>
+                        <li><a href="">Major Activities</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Products/Technology</a>
+                    <ul>
+                        <li><a href="">Products of houngking</a></li>
+                        <li><a href="">hounking Technology</a></li>
+                        <li><a href="">Production Process</a></li>
+                        <li><a href="">Sales informtion</a></li>
+                    </ul>
+                </li>
+                <li style="padding: 0px;">
+                    <a href="">Investor Relations</a>
+                    <ul>
+                        <li><a href="">IR Activities</a></li>
+                        <li><a href="">Stock Information</a></li>
+                        <li><a href="">Financial Information</a></li>
+                        <li><a href="">IR Archive</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Sustainability</a>
+                    <ul>
+                        <li><a href="">Suatainability Management System</a></li>
+                        <li><a href="">Social Redponsibility</a></li>
+                        <li><a href="">Environmental Management</a></li>
+                        <li><a href="">Customer</a></li>
+                        <li><a href="">Employee</a></li>
+                        <li><a href="">Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">PR Room</a>
+                    <ul>
+                        <li><a href="">Newsroom</a></li>
+                        <li><a href="">Newsletter</a></li>
+                        <li><a href="">houngking SNS</a></li>
+                        <li><a href="">PR Archives</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                    <ul>
+                        <li><a href="">Q&A</a></li>
+                        <li><a href="">Search</a></li>
+                        <li><a href="">Location</a></li>
+                        <li><a href="">Sitemap</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--text-->
+<div class="textBox">
+    <h2>css技巧经验&外部字体使用 </h2>
+    <h3>1,外部字体使用</h3>
+    <h4>@font-face:</h4>
+    <p>@font-face 不仅可以放在在CSS的最顶层, 也可以放在 @规则 的 条件规则组 中。</p>
+    <p>src: 远程字体文件位置的URL或者用户计算机上的字体名称， 可以使用local语法通过名称指定用户的本地计算机上的字体( i.e. src: local('Arial'); )。 如果找不到该字体，将会尝试其他来源，直到找到它。</p>
+    <h5>示例:</h5>
+    <p>a, 例子中，用到了用户本地字体"Helvetica Neue Bold"的备份；如果当前用户(浏览器)未安装该字体(两种可能的字体名都已经试过)，就会用下载的字体"MgOpenModernaBold.ttf"来代替：</p>
+    <pre>
+@font-face {
+  font-family: MyHelvetica;
+  src: local("Helvetica Neue Bold"),
+  local("HelveticaNeue-Bold"),
+  url(MgOpenModernaBold.ttf);
+  font-weight: bold;
+}  </pre>
+    <p>b, 这个例子新定义了一个字体，正常粗细的字采用字体Times New Roman，粗体字采用Consolas。</p>
+    <pre>
+@font-face {
+    font-family: myFirstFont;
+    src: local("Times New Roman");
+    font-weight:normal;
+}
+
+@font-face {
+    font-family: myFirstFont;
+    src: local(Consolas);
+    font-weight:bold;
+}   </pre>
+    <h5>注意:</h5>
+    <p>● 这里使用的Web fonts 仍然受到同域限制  (字体文件必须和调用它的网页同一域), 但可以使用 HTTP access controls 解除这一限制。</p>
+    <p>● 因为这里没有为 TrueType(ttf), OpenType(otf) 和 Web Open File Format(WOFF) 字体定义MIME，因此不能为这些字体类型设置特定的MIME（实际上WOFF的MIME将会是application/font-woff，但浏览器对此MIME的识别还不统一，其它字体情况也类似，可暂时使用application/octet-stream）。</p>
+    <h4>在小程序中使用阿里iconfont图标的项目实例：</h4>
+    <p>项目没有下载字体包到本地，用的远程字体文件位置的URL。</p>
+    <pre>// icon.wxss
+@font-face {font-family: "iconfont";
+  src: url('//at.alicdn.com/t/font_298500_e4ss7o55qvie8kt9.eot?t=1507537070956'); /* IE9*/
+  src: url('//at.alicdn.com/t/font_298500_e4ss7o55qvie8kt9.eot?t=1507537070956#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff;charset=utf-8;base64,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') format('woff'),
+  url('//at.alicdn.com/t/font_298500_e4ss7o55qvie8kt9.ttf?t=1507537070956') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_298500_e4ss7o55qvie8kt9.svg?t=1507537070956#iconfont') format('svg'); /* iOS 4.1- */
+}
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-saomiaolishi:before { content: "\e63d"; }
+.icon-shouye:before { content: "\e640"; }
+.icon-wode:before { content: "\e641"; }
+.icon-shoushu:before { content: "\e642"; }
+   ... </pre>
+    <p>使用：</p>
+    <pre>
+&lt;view class="iconfont icon-ruku"&gt;&lt;/view&gt;
+&lt;text&gt;扫描入库&lt;/text&gt;   </pre>
+
+    <h3>2,css技巧经验</h3>
+    <h4>１，如何清除图片下方出现几像素的空白间隙？</h4>
+    <p>方法1：img{display:block;}</p>
+    <p>方法2：img{vertical-align:top;} 。除了top值，还可以设置为text-top | middle | bottom | text-bottom，甚至特定的length和percentage值都可以</p>
+    <p>方法3：#test{font-size:0;line-height:0;}。#test为img的父元素</p>
+    <h4>２，如何让文本垂直对齐文本输入框？</h4>
+    <p>input{vertical-align:middle;}</p>
+    <h4>3, @import</h4>
+    <p>@import url;是一个表示要引入资源位置的 string 或者 url(url) 。 这个 URL 可以是绝对路径或者相对路径。 要注意的是这个 URL 不需要指明一个文件； 可以只指明包名，然后合适的文件会被自动选择</p>
+    <p>@import url list-of-media-queries;是一个逗号分隔的 媒体查询 条件列表，决定通过URL引入的 CSS 规则 在什么条件下应用。如果浏览器不支持列表中的任何一条媒体查询条件，就不会引入URL指明的CSS文件。</p>
+    <p>该规则必须在样式表头部最先声明。并且其后的分号是必需的，如果省略了此分号，外部样式表将无法正确导入，并会生成错误信息。</p>
+    <h4>４，linear-gradient（）</h4>
+    <h4>5，表情包使用 </h4>
+
+    <br/>
+    <h5>参考文档:</h5>
+    <a href="http://www.css88.com/book/css/experience/skill.htm" target="_blank">ＣＳＳ手册(新地址https://www.html.cn/book/css/experience/skill.htm)</a>
+    <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/@import" target="_blank">@import (MDN)</a>,<br>
+    <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/@font-face" target="_blank">@font-face (MDN)</a>,<br>
+</div>
+
+</body>
+</html>
