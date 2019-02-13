@@ -418,16 +418,26 @@
 <div class="textBox">
     <h2>HTML5新增window.history扩展--onpopstate事件,history.pushState(),history.replaceState()</h2>
     <h3>1,回顾location.hash</h3>
+    <p>使用location.hash存在下面几个问题：</p>
+    <p>1.使用location.hash会导致地址栏的url发生变化，用户体验不够友好。</p>
+    <p>2.location.hash产生的历史记录无法修改，每次hash改变都会导致产生一个新的历史记录。</p>
+    <p>3.location.hash只是1个字符串，不能存储很多状态相关的信息。</p>
+    <p>为了解决这些问题，HTML5中引入了history.pushState()、history.replaceState()、popstate事件来处理浏览器历史记录的问题。</p>
     <p>参考文章: <a href="http://blog.csdn.net/aitangyong/article/details/46455627" target="_blank">利用window.location.hash实现ajax操作时浏览器的前进/后退功能</a>,
         <a href="http://www.cnblogs.com/yeer/archive/2013/01/21/2869827.html" target="_blank">location.hash详解</a>,
         <a href="http://blog.httpwatch.com/2011/03/01/6-things-you-should-know-about-fragment-urls/" target="_blank">6 Things You Should Know About Fragment URLs</a>
     </p>
     <h3>2,简介</h3>
     <p>HTML5的新API扩展了window.history，使历史记录点更加开放了。可以存储当前历史记录点、替换当前历史记录点、监听历史记录点。</p>
+    <h4>onpopstate:</h4>
+    <p>通过 window.onpopstate 来监听url的变化，并且可以获取存储在该历史记录点的状态对象。 监听历史记录点，直观的可认为是监听URL的变化，但会忽略URL的hash部分，监听URL的hash部分，HTML5有新的API为 onhashchange 。</p>
+    <p>调用history.pushState()或者history.replaceState()不会触发popstate事件. popstate事件只会在浏览器某些行为下触发, 比如点击后退、前进按钮(或者在JavaScript中调用history.back()、history.forward()、history.go()方法).</p>
+    <p>当网页加载时,各浏览器对popstate事件是否触发有不同的表现,Chrome 和 Safari会触发popstate事件, 而Firefox不会.</p>
+    
     <br/>
     <h5>参考文章:</h5>
-    <a href="http://www.mamicode.com/info-detail-856993.html" target="_blank">history.pushState()和popstate事件实现AJAX的前进\后退功能</a>,<br/>
-    <a href="http://www.tuicool.com/articles/uAniau" target="_blank">HTML5之pushstate、popstate操作history，无刷新改变当前url</a>,<br/>
+    <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/History_API" target="_blank">Manipulating the browser history(MDN)</a>,<br/>
+    <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/onpopstate" target="_blank">window.onpopstate (MDN)</a>,<br>
     <a href="https://www.w3cplus.com/html5/html5-history-api.html" target="_blank">HTML5 History API </a>,
     
 </div>
