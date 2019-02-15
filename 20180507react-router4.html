@@ -614,6 +614,66 @@ const UserSubLayout = ({ match }) => (
     <p>将 add 和 edit 页面放在 profile 之前，这样就可以实现按需匹配，如果将 profile 路径放在第一位的话，那么当访问 add 页面时，则会匹配 profile 页面，因为 add 匹配了 :userId。</p>
     <p>还有一种替代方法，可以将 profile 放在第一位：采用正则（path-to-regexp）对路径进行约束，如${match.path}/:userId(\\d+)，这样 :userId 只能为 number 类型，则访问 /users/add 路径时便不会产生冲突。</p>
     
+    <h3>React Router4 使用中遇到的问题：</h3>
+    <h4>1,页面刷新时，route的component组件重复渲染</h4>
+    <p>简要项目代码结构：</p>
+    <pre style="margin-bottom: 5px;height: 300px;">// App.js
+import Routes from './routes';
+...
+class App extends Component {
+    ...
+     getClientWidth = () => {
+        const clientWidth = document.body.clientWidth;
+        this.props.isMobileView({isMobile: clientWidth <= 992},'responsive');
+    };
+    render() {
+        const { responsive, location } = this.props;
+        ...
+        &lt;Layout &gt;
+            &lt;HeaderCustom /&gt;
+            &lt;Content&gt;
+                &lt;LocaleProvider locale={zh_CN}&gt;
+                  &lt;Routes location={location} /&gt;
+                &lt;/LocaleProvider&gt;
+            &lt;/Content&gt;
+        &lt;/Layout&gt;   </pre>
+    <pre style="height: 350px;">// routes/index.js
+import { menus } from './menus';
+import AllComponents from './config';
+...
+export default class CRouter extends Component {
+    shouldComponentUpdate(nextProps) {
+        //
+        return nextProps.location !== this.props.location;
+    }
+    ...
+    render() {
+        return (
+            &lt;Switch&gt;
+                {
+                    menus.map(rt => {
+                        const route = r => {
+                            const Component = AllComponents[r.component];
+                            return (
+                                &lt;Route
+                                        key={r.key}
+                                        path={ r.key}
+                                        component={(props) => this.requirePermission(&lt;Component {...props} /&gt;, r.key)}
+                                /&gt;
+                            )
+                        };
+                        return rt.component ? route(rt) : rt.sub.map(r => route(r));
+                    })
+                }
+                &lt;Route render={() => &lt;Redirect to="/404" /&gt;} /&gt;
+            &lt;/Switch&gt;
+        )
+    }
+}  </pre>
+    <p>项目中在任何页面刷新，都会出现routes/index.js中Route的component渲染两遍的问题。原因是因为在App.js中设置和获取浏览器宽度是的render重渲染引起的。</p>
+    <p>解决方法是，在routes/index.js的shouldComponentUpdate中判断location属性有没有发生变化，如没有（表示处于同一页面），那么就不重渲染该路由组件。</p>
+    <p>参考文档：</p>
+    <p><a href="https://blog.csdn.net/xuchaobei123/article/details/78580884" target="_blank">由React Router引起的组件重复渲染谈Route的使用姿势</a></p>
     
     <br/>
     <h5>参考文档:</h5>
