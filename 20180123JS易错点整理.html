@@ -40,11 +40,16 @@
             width: 850px;
             border-left: 1px solid black;
             border-right: 1px solid black;
-            box-shadow: 2px 2px 1px black;
+            box-shadow: 4px 3px 2px black;
             padding-left: 30px;
             position: relative;
             left: -30px;
             font-family: '仿宋';
+            background-color: rgb(40,44,52);
+            line-height: 1.5;
+            font-size: 15px;
+            color:white;
+            overflow-y: auto;
         }
     </style>
 </head>
@@ -604,6 +609,97 @@
       return targetObj;
     }</pre>
     <p>JavaScript 中数组和对象自带的拷贝方法,数组的两个方法 concat 和 slice ,ES6 中Object.assgn 方法和 ... 展开运算符,是“首层浅拷贝”。（参考：<a href="https://www.cnblogs.com/dabingqi/p/8502932.html" target="_blank">对象的深拷贝和浅拷贝</a>）</p>
+    <h4>深入 js 深拷贝对象:</h4>
+    <h5>>> lodash中的深拷贝实现:</h5>
+    <p>著名的 lodash 中的 cloneDeep 方法同样是使用迭代递归法实现的，只不过它支持的对象种类更多，具体的实现过程读者可以参考 <a href="https://github.com/lodash/lodash/blob/master/.internal/baseClone.js" target="_blank">lodash 的 baseClone 方法</a>。</p>
+    <p>我们发现，arr、obj、date、reg深拷贝成功了，但 func 和 err 内存引用仍然不变。可以提示下，这跟 lodash 中的 cloneableTags 有关。</p>
+    <h5>>> 对象成环怎么办？</h5>
+    <p>我们给 test 加一个 loopObj 键，值指向自身：</p>
+    <pre>test.loopObj = test</pre>
+    <p>这时使用 for..in 实现和 Reflect 实现都会栈溢出,使用JSON.parse(JSON.stringify(obj))也会报错, 但 lodash 却可以得到正确结果,为什么呢？去 lodash 源码看看：</p>
+    <img src="imgs/lodash.png" alt="">
+    <p>因为 lodash 使用的是栈把对象存储起来了，如果有环对象，就会从栈里检测到，从而直接返回结果，悬崖勒马。这种算法思想来源于 HTML5 规范定义的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/API/DOM/The_structured_clone_algorithm#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5" target="_blank">结构化克隆算法</a>，
+        它同时也解释了为什么 lodash 不对 Error 和 Function 类型进行拷贝。</p>
+    <p>当然，设置一个哈希表存储已拷贝过的对象同样可以达到同样的目的：</p>
+    <pre style="height: 200px;">
+function deepClone(obj, hash = new WeakMap()) {
+    if (!isObject(obj)) {
+        return obj
+    }
+    // 查表
+    if (hash.has(obj)) return hash.get(obj)
+    let isArray = Array.isArray(obj)
+    let cloneObj = isArray ? [] : {}
+    // 哈希表设值
+    hash.set(obj, cloneObj)
+    let result = Object.keys(obj).map(key => {
+        return {
+            [key]: deepClone(obj[key], hash)
+        }
+    })
+    return Object.assign(cloneObj, ...result)
+}   </pre>
+    <p>这里我们使用 WeakMap 作为哈希表，因为它的键是弱引用的，而我们这个场景里键恰好是对象，需要弱引用。</p>
+    <h5>>> 键值不是字符串而是 Symbol</h5>
+    <p>运行 for...in 实现的深拷贝我们会发现拷贝失败了，为什么？因为 Symbol 是一种特殊的数据类型，它最大的特点便是独一无二，所以它的深拷贝就是浅拷贝。</p>
+    <p>但这时我们使用 Reflect 实现成功了，因为 for...in 无法获得 Symbol 类型的键，而 Reflect 是可以获取的。</p>
+    <p>当然，我们改造一下 for...in 实现也可以：</p>
+    <pre style="height: 200px;">
+function deepClone(obj) {
+    if (!isObject(obj)) {
+        throw new Error('obj 不是一个对象！')
+    }
+    let isArray = Array.isArray(obj)
+    let cloneObj = isArray ? [] : {}
+    let symKeys = Object.getOwnPropertySymbols(obj)
+    // console.log(symKey)
+    if (symKeys.length > 0) {
+        symKeys.forEach(symKey => {
+            cloneObj[symKey] =  isObject(obj[symKey]) ? deepClone(obj[symKey]) : obj[symKey]
+        })
+    }
+    for (let key in obj) {
+        cloneObj[key] = isObject(obj[key]) ? deepClone(obj[key]) : obj[key]
+    }
+    return cloneObj
+}   </pre>
+    <h5>>> 结语:</h5>
+    <p>尽量不要把简单的事情复杂化，深拷贝能不用就不用，它面对的问题往往可以用更优雅的方式解决。</p>
+    <p>面试时遇见面试官搞事情，写一个能拷贝自身可枚举、自身不可枚举、自身 Symbol 类型键、原型上可枚举、原型上不可枚举、原型上的 Symol 类型键，循环引用也可以拷的深拷贝函数：</p>
+    <pre style="height: 500px;">
+function cloneDeep(obj) {
+    let family = {}
+    let parent = Object.getPrototypeOf(obj)
+
+    while (parent != null) {
+        family = completeAssign(deepClone(family), parent)
+        parent = Object.getPrototypeOf(parent)
+    }
+
+    // 下面这个函数会拷贝所有自有属性的属性描述符,来自于 MDN
+    // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+    function completeAssign(target, ...sources) {
+        sources.forEach(source => {
+            let descriptors = Object.keys(source).reduce((descriptors, key) => {
+                descriptors[key] = Object.getOwnPropertyDescriptor(source, key)
+                return descriptors
+            }, {})
+
+            // Object.assign 默认也会拷贝可枚举的Symbols
+            Object.getOwnPropertySymbols(source).forEach(sym => {
+                let descriptor = Object.getOwnPropertyDescriptor(source, sym)
+                if (descriptor.enumerable) {
+                    descriptors[sym] = descriptor
+                }
+            })
+            Object.defineProperties(target, descriptors)
+        })
+        return target
+    }
+
+    return completeAssign(deepClone(obj), family)
+}   </pre>
+    <p>参考 : <a href="https://www.jianshu.com/p/b08bc61714c7" target="_blank">深入 js 深拷贝对象</a></p>
     <h3>7,函数本身的作用域</h3>
     <p>作用域（scope）指的是变量存在的范围。Javascript只有两种作用域：一种是全局作用域，变量在整个程序中一直存在，所有地方都可以读取，在全局作用域中声明的变量称为全局变量；另一种是局部作用域，变量只在函数内部存在，此时的变量被称为局部变量。</p>
     <p>函数本身也是一个值，也有自己的作用域。它的作用域与变量一样，就是其声明时所在的作用域，与其运行时所在的作用域无关。</p>
