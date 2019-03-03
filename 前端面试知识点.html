@@ -616,13 +616,14 @@
     <h4>20,javascript的同源策略</h4>
     <p>一段脚本只能读取来自于同一来源的窗口和文档的属性，这里的同一来源指的是主机名、协议和端口号的组合</p>
     <h4>21,编写一个数组去重的方法</h4>
-    <pre>方法一：
+    <p>在真实的项目中碰到的数组去重，一般都是后台去处理，很少让前端处理数组去重。虽然日常项目用到的概率比较低，但还是需要了解一下（<a href="https://segmentfault.com/a/1190000016418021" target="_blank">参考</a>）:</p>
+    <pre>方法一：//此处this表示某个数组
     var n = [];
     for (var i = 0; i < this.length; i++){
         if (n.indexOf(this[i]) == -1) n.push(this[i]);
     }
     return n;
-方法二：
+方法二：//此处this表示某个数组
     var n = [this[0]]; //结果数组
     //从第二项开始遍历
     for(var i = 1; i < this.length; i++){
@@ -630,7 +631,33 @@
     //那么表示第i项是重复的，忽略掉。否则存入结果数组
         if (this.indexOf(this[i]) == i) n.push(this[i]);
     }
-    return n;</pre>
+    return n;
+方法三： //Set结构去重
+    //不考虑兼容性，这种去重的方法代码最少。这种方法还无法去掉“{}”空对象
+    function dedupe(array) {
+      return Array.from(new Set(array));
+    }
+    dedupe([1, 1, 2, 3]) // [1, 2, 3]
+    //或者：
+    [...new Set(array)]
+方法四： //利用includes
+    function unique(arr) {
+        if (!Array.isArray(arr)) {
+            console.log('type error!')
+            return
+        }
+        var array =[];
+        for(var i = 0; i < arr.length; i++) {
+                if( !array.includes( arr[i]) ) {//includes 检测数组是否有某个值
+                        array.push(arr[i]);
+                  }
+        }
+        return array
+    }
+方法五： //利用reduce+includes
+    function unique(arr){
+        return arr.reduce((prev,cur) => prev.includes(cur) ? prev : [...prev,cur],[]);
+    }</pre>
     <h4>22,this</h4>
     <h4>23,null与undefind区别</h4>
     <p>null指没有这个对象，undefind声明了没有定义</p>
