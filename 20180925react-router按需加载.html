@@ -505,7 +505,7 @@ export default class Bundle extends Component {
     <h5>3.router路由配置</h5>
     <pre style="margin-bottom: 10px;">
 import Bundle from './components/Bundle';
-import aContainer from 'bundle-loader?lazy!./containers/A'
+import aContainer from 'bundle-loader?lazy!./containers/A'  //lazy!后面跟的是组件的路径
 const A = (props) => (
   &lt;Bundle load={aContainer}&gt;
       //这里只是给this.props.child传一个方法，最后在Bundle的render里面调用
