@@ -425,7 +425,421 @@
     <h3>1,概念</h3>
     <p>WebGL（全写Web Graphics Library）是一种3D绘图协议，这种绘图技术标准允许把JavaScript和OpenGL ES 2.0结合在一起，通过增加OpenGL ES 2.0的一个JavaScript绑定，WebGL可以为HTML5 Canvas提供硬件3D加速渲染，这样Web开发人员就可以借助系统显卡来在浏览器里更流畅地展示3D场景和模型了，还能创建复杂的导航和数据视觉化。显然，WebGL技术标准免去了开发网页专用渲染插件的麻烦，可被用于创建具有复杂3D结构的网站页面，甚至可以用来设计3D网页游戏等等。</p>
     <p>Three.js 是一个 3D 类库，它能让 WebGL 变得更加简单。由于 GSL 语法的复杂性，对于许多开发人员来说 WebGL 是一个未知的领域。但是有了 Three.js，在浏览器中 3D 的实现变得简单。</p>
-    
+    <h3>2, 基础原理和概念</h3>
+    <h4>关于camera的参数up的一些见解:</h4>
+    <p>● camera.postion：相机所在的位置，默认为（0，0，0）</p>
+    <p>● camera.up：坐标轴向上方向，默认（0，1，0）,这时是正视物体。camera.up.set(1,0,0),此时X轴向上,躺视物体。Z轴向上camera.up.set(0,0,1),俯视物体。PS：要设置在camera.lookAt前才有效</p>
+    <p>● camera.lookAt：相机焦点方向，默认为Z轴负半轴方向</p>
+    <h3>3, three.js 性能优化</h3>
+    <h4>a, 尽量重用Material和Geometry</h4>
+    <h4>b, 谨慎的在render()中操作</h4>
+    <p>一般FPS为60也就意味着一秒会执行60次如果render()中有有实例化或是赋值操作很容易会崩溃。</p>
+    <h4>c, 选择合适的对象</h4>
+    <p>● THREE.ParticleSystem(粒子系统)代替THREE.Particle(粒子)</p>
+    <p>● 要操作一组对象时使用 THREE.Object3D</p>
+    <p>● 网格合并 THREE.GeometryUtils.merge / THREE.GeometryUtils.merge() change to geometry.merge()</p>
+    <h4>d, 使用Web Workers</h4>
+    <p>web worker 是运行在后台的 JavaScript，它独立于其他脚本，不会影响页面的性能 我们会发现Physijs物理库就是使用这种方式来保证页面的性能。</p>
+    <p>使用之前你可能需要是否支持web worker</p>
+    <pre>if(typeof(Worker)!=="undefined"){}else { }</pre>
+    <p>我们将web worker运行脚本放在一个js文件中。</p>
+    <pre>// three_workers.js：
+        // 添加监听事件，从主线程接收数据
+    self.addEventListener('message', function(event) {
+        // 向主线程发送数据
+        self.postMessage({
+            some_data: '',
+            more_data: ''
+        })
+    }) </pre>
+    <p>主线程.js：</p>
+    <pre>
+    //新建一个 `Web Workers`
+    var worker = new Worker('three_workers.js');
+    // 添加监听事件，获取`Web Workers`传回数据
+    worker.addEventListener('message', function (event) {
+      var data = event.data;
+    });
+    // 向`Web Workers`发送数据
+    worker.postMessage({
+      some_data: '',
+      more_data: ''
+    }); </pre>
+    <h4>e, 分时加载</h4>
+    <p>可以参照：<a href="https://www.nczonline.net/blog/2009/08/11/timed-array-processing-in-javascript/" target="_blank">https://www.nczonline.net/blog/2009/08/11/timed-array-processing-in-javascript/</a></p>
+    <p>调查显示100ms内的响应能让用户感觉非常流畅。50ms是 Nicholas 针对 JavaScript 得出的最佳经验值。</p>
+    <p>setTimeout 延时25ms，25ms 保证主流浏览器都顺畅。</p>
+    <p>可以使用类似的方法来优化three.js程序。</p>
+    <pre>
+//Copyright 2009 Nicholas C. Zakas. All rights reserved.
+//MIT Licensed
+function timedChunk(items, process, context, callback){
+    var todo = items.concat();
+    setTimeout(function(){
+        var start = +new Date();
+        do {
+             process.call(context, todo.shift());
+        } while (todo.length > 0 && (+new Date() - start < 50));
+
+        if (todo.length > 0){
+            setTimeout(arguments.callee, 25);
+        } else {
+            callback(items);
+        }
+    }, 25);
+};</pre>
+    <h4>f, 从内存删除模型数据，释放内存</h4>
+    <p>当需要动态更新显示不同的模型，从 scene 中 remove 的模型还会在内存中，如果多次进行更新操作就会大量占用内存资源，甚至使浏览器崩溃，以下代码功能为从内存中清除模型数据。</p>
+    <p>使用remove()将模型从场景内删除掉，大家会发现内存基本上没有怎么降低。因为几何体和材质还保存在内存当中，我们需要手动调用dispose()方法将其从内存中删除。</p>
+    <pre style="height: 300px;">
+function clearScene(){
+	// 从scene中删除模型并释放内存
+	if(myObjects.length > 0){
+		for(var i = 0; i< myObjects.length; i++){
+			var currObj = myObjects[i];
+			// 判断类型
+			if(currObj instanceof THREE.Scene){
+				var children = currObj.children;
+				for(var i = 0; i< children.length; i++){
+					deleteGroup(children[i]);
+				}
+			}else{
+				deleteGroup(currObj);
+			}
+			scene.remove(currObj);
+		}
+	}
+}
+// 删除group，释放内存
+function deleteGroup(group) {
+	//console.log(group);
+    if (!group) return;
+    // 删除掉所有的模型组内的mesh
+    group.traverse(function (item) {
+        if (item instanceof THREE.Mesh) {
+            item.geometry.dispose(); // 删除几何体
+            item.material.dispose(); // 删除材质
+        }
+    });
+}   </pre>
+    <p>或者:</p>
+    <pre>
+function deleteGroup(name) {
+    let group = scene.getObjectByName(name);
+    if (!group) return;
+    //删除掉所有的模型组内的mesh
+    group.traverse(function (item) {
+        if (item instanceof THREE.Mesh) {
+            item.geometry.dispose(); //删除几何体
+            item.material.dispose(); //删除材质
+        }
+    });
+    scene.remove(group);
+}  </pre>
+    <h4>g, 使用merge方法合并不需要单独操作的模型</h4>
+    <p>这个方法新版本整合在了几何体上面，主要应用场景为大量几何体相同材质的模型。我们可以通过将多个几何体拼接成一个单个整体的几何体来节约性能，缺点就是将缺少对单个模型的控制。</p>
+    <p>如果在不选中combined的时候，选择redraw20000个模型的话，一般只有十几帧的帧率。但是如果选中combined，会发现渲染的帧率能够达到满帧（60帧），性能巨大提升。</p>
+    <pre>// merge使用方法：
+//合并模型，则使用merge方法合并
+var geometry = new THREE.Geometry();
+//merge方法将两个几何体对象或者Object3D里面的几何体对象合并,(使用对象的变换)将几何体的顶点,面,UV分别合并.
+//THREE.GeometryUtils: .merge() has been moved to Geometry. Use geometry.merge( geometry2, matrix, materialIndexOffset ) instead. 如果新版本用老版本的会报这个错
+for(var i=0; i<20000; i++){
+    var cube = addCube(); //创建了一个随机位置的几何体模型
+    cube.updateMatrix(); //手动更新模型的矩阵
+    geometry.merge(cube.geometry, cube.matrix); //将几何体合并
+}
+scene.add(new THREE.Mesh(geometry, cubeMaterial));</pre>
+    <h4>h, 在循环渲染中避免使用更新</h4>
+    <p>这里的更新指的是当前的几何体、材质、纹理等发生了修改，需要Three.js重新更新显存的数据，具体包括：</p>
+    <pre style="margin-bottom: 5px;">// 几何体：
+geometry.verticesNeedUpdate = true; //顶点发生了修改
+geometry.elementsNeedUpdate = true; //面发生了修改
+geometry.morphTargetsNeedUpdate = true; //变形目标发生了修改
+geometry.uvsNeedUpdate = true; //uv映射发生了修改
+geometry.normalsNeedUpdate = true; //法向发生了修改
+geometry.colorsNeedUpdate = true; //顶点颜色发生的修改 </pre>
+    <pre style="margin-bottom: 5px;">// 材质
+material.needsUpdate = true </pre>
+    <pre>// 纹理
+texture.needsUpdate = true;  </pre>
+    <p>如果它们发生更新，则将其设置为true，Three.js会通过判断，将数据重新传输到显存当中，并将配置项重新修改为false。这是一个很耗运行效率的过程，所以我们尽量只在需要的时候修改，不要放到render()方法当中循环设置。</p>
+    <h4>i, 只在需要的时候渲染</h4>
+    <p>如果在没有操作的时候，让循环一直渲染属于浪费资源.</p>
+    <p>● 首先在循环渲染中加入一个判断，如果判断值为true时，才可以循环渲染：</p>
+    <pre>
+var renderEnabled;
+function animate() {
+    if (renderEnabled) {
+        renderer.render(scene, camera);
+    }
+    requestAnimationFrame(animate);
+}
+animate(); </pre>
+    <p>● 然后设置一个延迟器函数，每次调用后，可以将renderEnabled设置为true，并延迟三秒将其设置为false，这个延迟时间大家可以根据需求来修改：</p>
+    <pre>
+//调用一次可以渲染三秒
+let timeOut = null;
+function timeRender() {
+    renderEnabled = true; //设置为可渲染状态
+    if (timeOut) {
+        clearTimeout(timeOut); //清除上次的延迟器
+    }
+    timeOut = setTimeout(function () {
+        renderEnabled = false;
+    }, 3000);
+}  </pre>
+    <p>● 接下来，我们在需要的时候调用这个timeRender()方法即可，比如在相机控制器更新后的回调中：</p>
+    <pre>
+controls.addEventListener('change', function(){
+    timeRender();
+});  </pre>
+    <p>如果相机位置发生变化，就会触发回调，开启循环渲染，更新页面显示。</p>
+    <p>● 如果我们添加了一个模型到场景中，直接调用一下重新渲染即可：</p>
+    <pre>
+scene.add(mesh);
+timeRender();  </pre>
+    <p>● 最后，一个重点问题，就是材质的纹理由于是异步的，我们需要在图片添加完成后，触发回调。好在Three.js已经考虑到了这一点，Three.js的静态对象THREE.DefaultLoadingManager的onLoad回调会在每一个纹理图片加载完成后触发回调，依靠它，我们可以在Three.js的每一个内容发生变更后触发重新渲染，并且在闲置状态会停止渲染。</p>
+    <pre>// 每次材质和纹理更新，触发重新渲染
+THREE.DefaultLoadingManager.onLoad = function () {
+	timeRender();
+};  </pre>
+    <h3>4, 第一个three项目实例：</h3>
+    <p>内存泄漏问题有做优化但未完全修复...先上代码：</p>
+    <pre style="margin-bottom: 5px;height: 500px;">// drawLsMap.js
+var scene, camera, height, width, renderer, dragObj = {cameraX:0, cameraY:0} ;
+var loader = new THREE.FontLoader(), fontLoader = undefined;
+function drawLsMap() {
+    if(fontLoader ) {
+        initCamera();
+        initScene();
+        initMarker(fontLoader);
+        initObject();
+        render();
+        return;
+    }
+    loader.load('./fonts/helvetiker_regular.typeface.json', function(font) {
+        initThree();
+        initCamera();
+        initScene();
+        initLight();
+        initMarker(font);
+        initObject();
+        render();
+        fontLoader = font;
+    });
+}
+
+function initThree() {
+    var container=$('#drawArea');
+    height = 800;
+    width = $('.show_area_title').width();
+    renderer = new THREE.WebGLRenderer({
+        antialias: true
+    });
+    renderer.setSize(width, height);
+    container.html(renderer.domElement);
+    renderer.setClearColor(0xC9C9C9, 1.0);
+}
+
+var fov = 45, near=1, far=200;
+function initCamera() {
+    camera = new THREE.PerspectiveCamera(fov, width / height, 1, 200);
+    camera.position.set(dragObj.cameraX,dragObj.cameraY,20);
+    camera.up.x = 0;
+    camera.up.y = 1;
+    camera.up.z = 0;
+    camera.lookAt(dragObj.cameraX,dragObj.cameraY,0);
+}
+
+function initScene() {
+    scene = new THREE.Scene();
+}
+
+function initLight() {
+    var light = new THREE.DirectionalLight(0xFF0000, 1.0, 0);
+    light.position.set(0, 100,100);
+    scene.add(light);
+}
+
+function initObject() {
+    var geometry = new THREE.Geometry();
+    geometry.vertices.push(new THREE.Vector3(-40, 0, 0));
+    geometry.vertices.push(new THREE.Vector3(40, 0, 0));
+    for (var i = 0; i <= 80; i++) {
+        var line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0xFFFFFF, opacity: 0.2 }));
+        line.position.y = i - 40;
+        scene.add(line);
+        var _line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0xFFFFFF, opacity: 0.2 }));
+        _line.position.x = i - 40;
+        _line.rotation.z = Math.PI /2;
+        scene.add(_line);
+    }
+    var geometry2 = new THREE.Geometry();
+    geometry2.vertices.push(new THREE.Vector3(-52, 0, 0));
+    geometry2.vertices.push(new THREE.Vector3(52, 0, 0));
+    var line2 = new THREE.Line(geometry2, new THREE.LineBasicMaterial({ color: 0xF08080, opacity: 0.2 }));
+    var _line2 = new THREE.Line(geometry2, new THREE.LineBasicMaterial({ color: 0xF08080, opacity: 0.2 }));
+    scene.add(line2);
+    _line2.rotation.z = Math.PI / 2;
+    scene.add(_line2);
+    initBanmaLine();
+}
+
+var materialtext , materialArrowTxt, dir, origin, arrowHelper, arrowTxt, meshtextArrX=[], meshtextArrY=[];
+function initMarker(font) {
+    if(!fontLoader){
+        materialtext = new THREE.MeshBasicMaterial({color: 0xF08080});
+        materialArrowTxt = new THREE.MeshBasicMaterial({ color: 0xF08080 });
+        dir = new THREE.Vector3( 1, 0, 0.01);
+        dir.normalize();
+        origin = new THREE.Vector3( 5, -1, 0.01 );
+        arrowHelper = new THREE.ArrowHelper( dir, origin, 3, 0xF08080, 0.5, 0.2 );
+        arrowTxt = new THREE.Mesh(new THREE.TextGeometry('x', {
+            font: font,
+            size: 0.3,
+            height: 0.1
+        }), materialArrowTxt);
+        arrowTxt.position.set(8.1,-1.1,0.01);
+        for(var x=-8; x<=8; x++){
+            var axle = x*5;
+            var textGeometry = new THREE.TextGeometry(axle.toString(), {
+                font: font,
+                size: 0.25,
+                height: 0.1
+            });
+            var meshtextx = new THREE.Mesh(textGeometry, materialtext);
+            meshtextx.position.set(axle,-0.25,0);
+            meshtextArrX.push(meshtextx);
+            if(axle){
+                var _meshtextx = new THREE.Mesh(textGeometry, materialtext);
+                _meshtextx.position.set(-0.25, axle ,0);
+                meshtextArrY.push(_meshtextx);
+                scene.add(_meshtextx);
+            }
+            scene.add(meshtextx);
+        }
+    }else {
+        meshtextArrX.map(function (x) {
+            scene.add(x);
+        });
+        meshtextArrY.map(function (y) {
+            scene.add(y);
+        })
+    }
+    scene.add( arrowHelper );
+    scene.add(arrowTxt);
+}
+
+function initBanmaLine() {
+    var bmData = paramsData.group_1.detect_area, laserInfo = JSON.parse(realTimeLsData.laserInfo);
+    var width = bmData[1]-bmData[0], height = bmData[3]-bmData[2];
+    var geometry = new THREE.Geometry();
+    geometry.vertices.push(new THREE.Vector3(-width/2, height/2, 0.01));
+    geometry.vertices.push(new THREE.Vector3(width/2, height/2, 0.01));
+    geometry.vertices.push(new THREE.Vector3(width/2, -height/2, 0.01));
+    geometry.vertices.push(new THREE.Vector3(-width/2, -height/2, 0.01));
+    geometry.vertices.push(new THREE.Vector3(-width/2, height/2, 0.01));
+    var line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0x1A1A1A, opacity: 0.2 }));
+    line.position.set(bmData[0]+width/2,bmData[2]+height/2,0);
+    scene.add(line);
+    initLaser(0,0);
+    initLaserPoints(0,0,laserInfo);
+    initExtraPoint(0,0);
+}
+
+var lsColor = [0x27408B,0xEE9A00,0xA0522D,0x548B54];
+function initLaser(initX,initY) {
+    //一般把斑马线左下角(initX,initY)坐标位置设为（0,0）坐标激光的位置
+    var laserArr = paramsData.static_tf.laser_tf;
+    var num = laserArr ? Math.floor(laserArr.length/3) : 0;
+    for(var i=1; i<=num; i++){
+        var geometry = new THREE.ConeGeometry( 0.15, 0.35, 8 ),
+            material = new THREE.MeshBasicMaterial( {color: lsColor[(i-1)%4] } );
+        var cone = new THREE.Mesh( geometry, material );
+        //计算激光的坐标
+        var x = laserArr[3*i-3]+initX, y = laserArr[3*i-2]+initY;
+        cone.position.set(x,y,0.1);
+        cone.rotation.z = (laserArr[3*i-1]-90)*Math.PI/180;
+        scene.add( cone );
+    }
+}
+
+function initLaserPoints(initX,initY,laserInfo) {
+    var resolution = laserInfo.resolution,
+        len = laserInfo.len,
+        gridPoint = realTimeLsData.gridPoint.concat([]),
+        groupArr,
+        geometry = new THREE.CircleGeometry(0.03);
+    len.forEach(function (num,index) {
+        groupArr = gridPoint.splice(0,num);
+        for(var n = 0; n < num; n++){
+            var material = new THREE.MeshBasicMaterial( { color: lsColor[index%4] } );
+            var circle = new THREE.Mesh( geometry, material );
+            var x = groupArr[n].x*resolution + initX, y = groupArr[n].y*resolution+initY;
+            circle.position.set(x,y,0.1);
+            scene.add( circle );
+        }
+    })
+}
+
+function initExtraPoint(initX,initY) {
+    var extraPointList  = paramsData.group_1.extra_point_list;
+    var gNum = extraPointList ? Math.floor(extraPointList.length/3) : 0;
+    for(var n=1;n<=gNum;n++){
+        var x = extraPointList[3*n -3],
+            y = extraPointList[3*n -2],
+            r = extraPointList[3*n -1];
+        var geometry = new THREE.CircleGeometry(r,32);
+        var material = new THREE.MeshBasicMaterial( { color: 0xFF4040, wireframe:true } );
+        var circle = new THREE.Mesh( geometry, material );
+        circle.position.set(x+initX, y+initY,0.1);
+        scene.add( circle );
+    }
+}
+
+function render() {
+    renderer.clear();
+    renderer.render(scene, camera);
+}
+
+function mousewheel(e) {
+    e.preventDefault();
+    var wheel = e.originalEvent.wheelDelta || -e.originalEvent.detail;
+    var delta = Math.max(-1, Math.min(1, wheel) );
+    if(delta<0){//向下滚动
+        fov += (fov < far ? 1 : 0);
+    }else{//向上滚动
+        fov -= (near < fov ? 1 : 0);
+    }
+    camera.fov = fov;
+    camera.updateProjectionMatrix();
+    renderer.render(scene, camera);
+}
+/****实现拖动效果****/
+function initMouseDrag(e) {
+    dragObj.offsetX = e.offsetX;
+    dragObj.offsetY = e.offsetY;
+    $(this).mousemove(function (ev) {
+        var movedX = ev.offsetX - dragObj.offsetX,
+            movedY = dragObj.offsetY - ev.offsetY;
+        setCamera(movedX,movedY);
+    });
+}
+function stopDrag() {
+    $('#drawArea').off('mousemove');
+}
+
+function setCamera(mX,mY) {
+    dragObj.cameraX += -mX/50;
+    dragObj.cameraY += -mY/50;
+    drawLsMap();
+}  </pre>
+    <p>动态操作画面：</p>
+    <pre>
+$('#drawArea').on('mousewheel DOMMouseScroll',mousewheel);
+$('#drawArea').on('mousedown',initMouseDrag);
+$('#drawArea').on('mouseup',stopDrag);  </pre>
 
     
 
@@ -439,6 +853,7 @@
     <a href="http://www.cnblogs.com/pursues/p/5226807.html" target="_blank">首个threejs项目-前端填坑指南</a>,<br>
     <a href="http://www.hewebgl.com/article/articledir/1" target="_blank">Three.js教程(WebGL中文网)</a>,<br>
     <a href="https://www.cnblogs.com/silent-stranger/p/6027266.html" target="_blank">三维空间旋转和Three.JS中的实现</a>,<br>
+    <a href="https://blog.csdn.net/qq_30100043/article/details/81513026" target="_blank">Three.js 性能优化</a>,<br>
     <a href="https://www.cnblogs.com/catherinezyr/p/7047465.html" target="_blank">WebGL和ThreeJs学习5--ThreeJS基本功能控件</a>
     <h5>demo:</h5>
     <a href="http://www.jq22.com/demo/3D_show201710090942/" target="_blank">3D签到墙Threejs(同时应用了Tween.js)</a>,<br>
