@@ -432,6 +432,27 @@
     <h3>1,使用 Fetch</h3>
     <p>fetch规范与jQuery.ajax()主要有两种方式的不同，牢记：</p>
     <p>· 当接收到一个代表错误的 HTTP 状态码时，从 fetch()返回的 Promise 不会被标记为 reject， 即使该 HTTP 响应的状态码是 404 或 500。相反，它会将 Promise 状态标记为 resolve （但是会将 resolve 的返回值的 ok 属性设置为 false ），仅当网络故障时或请求被阻止时，才会标记为 reject。</p>
+    <p>所以一般会对fetch请求做一层封装，例如下面代码所示：</p>
+    <pre style="height: 200px;">
+function checkStatus(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  }
+  const error = new Error(response.statusText);
+  error.response = response;
+  throw error;
+}
+function parseJSON(response) {
+  return response.json();
+}
+export default function request(url, options) {
+  let opt = options||{};
+  return fetch(url, {credentials: 'include', ...opt})
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((data) => ( data ))
+    .catch((err) => ( err ));
+}   </pre>
     <p>· 默认情况下，fetch 不会从服务端发送或接收任何 cookies, 如果站点依赖于用户 session，则会导致未经认证的请求（要发送 cookies，必须设置 credentials 选项）。</p>
     <h4>进行 fetch 请求 :</h4>
     <p>一个基本的 fetch请求设置起来很简单。fetch() 接受第二个可选参数，一个可以控制不同配置的 init 对象:</p>
@@ -542,10 +563,87 @@ fetch("/login", {
     <h3>4,Fetch API</h3>
     <p>Fetch API 提供了一个获取资源的接口（包括跨域）。它提供了一个全局 fetch()方法，该方法提供了一种简单，合理的方式来跨网络异步获取资源。</p>
     <p>你也可以通过 Request() 和 Response() 的构造函数直接创建请求和响应，但是我们不建议这么做。他们应该被用于创建其他 API 的结果（比如，service workers 中的 FetchEvent.respondWith）。</p>
+    <h3>5,fetch使用的常见问题及解决办法</h3>
+    <p>fetch所带来的优点:</p>
+    <p>· 语法简单，更加语义化</p>
+    <p>· 基于标准的Promise实现，支持async/await</p>
+    <p>· 使用isomorphic-fetch可以方便同构</p>
+    <h4>fetch兼容性:</h4>
+    <p>大多数情况下，实现fetch的polyfill需要涉及到的：</p>
+    <p>· promise的polyfill，例如es6-promise、babel-polyfill提供的promise实现。</p>
+    <p>· fetch的polyfill实现，例如isomorphic-fetch和whatwg-fetch</p>
+    <p>上面说了在大多数情况下是这样，但是IE8/9则比较特殊：IE8它使用的是ES3，而IE9则对ES5部分支持。这种情况下还需要ES5的polyfill es5-shim支持了。</p>
+    <p>上述有关promise的polyfill实现，需要说明的是：</p>
+    <p class="highlight">babel-runtime是不能作为Promise的polyfill的实现的，否则在IE8/9下使用fetch会报Promise未定义。为什么？我想大家猜到了，因为babel-runtime实现的polyfill是局部实现而不是全局实现，fetch底层实现用到Promise就是从全局中去取的，拿不到这报上述错误。</p>
+    <p>另外，顺便补充一下fetch的polyfill实现思路是：</p>
+    <p class="highlight">首先判断浏览器是否原生支持fetch，否则结合Promise使用XMLHttpRequest的方式来实现；这正是whatwg-fetch的实现思路，而同构应用中使用的isomorphic-fetch，其客户端fetch的实现是直接require whatwg-fetch来实现的。</p>
+    <h4>fetch不支持超时timeout处理:</h4>
+    <p>用过fetch的都知道，fetch不像大多数ajax库那样对请求设置超时timeout，它没有有关请求超时的feature，这一点比较蛋疼。所以在fetch标准添加超时feature之前，都需要polyfill该特性。</p>
+    <p>实际上，我们真正需要的是abort()， timeout可以通过timeout+abort方式来实现，起到真正超时丢弃当前的请求。</p>
+    <p>而在目前的fetch指导规范中，fetch并不是一个具体实例，而只是一个方法；其返回的promise实例根据Promise指导规范标准是不能abort的，也不能手动改变promise实例的状态，只能由内部来根据请求结果来改变promise的状态。</p>
+    <p>既然不能手动控制fetch方法执行后返回的promise实例状态，那么是不是可以创建一个可以手动控制状态的新Promise实例呢。所以：</p>
+    <p class="highlight">实现fetch的timeout功能，其思想就是新创建一个可以手动控制promise状态的实例，根据不同情况来对新promise实例进行resolve或者reject，从而达到实现timeout的功能；</p>
+    <p>根据github上timeout handling上的讨论，目前可以有两种不同的解决方法：</p>
+    <h5>方法一：单纯setTimeout方式</h5>
+    <pre>
+var oldFetchfn = fetch; //拦截原始的fetch方法
+window.fetch = function(input, opts){//定义新的fetch方法，封装原有的fetch方法
+    return new Promise(function(resolve, reject){
+        var timeoutId = setTimeout(function(){
+            reject(new Error("fetch timeout"))
+        }, opts.timeout);
+        oldFetchfn(input, opts).then(
+            res=>{
+                clearTimeout(timeoutId);
+                resolve(res)
+            },
+            err=>{
+                clearTimeout(timeoutId);
+                reject(err)
+            }
+        )
+    })
+}</pre>
+    <p>当然在上面基础上可以模拟类似XHR的abort功能：</p>
+    <pre>
+var oldFetchfn = fetch;
+window.fetch = function(input, opts){
+    return new Promise(function(resolve, reject){
+        var abort_promise = function(){
+            reject(new Error("fetch abort"))
+        };
+        var p = oldFetchfn(input, opts).then(resolve, reject);
+        p.abort = abort_promise;
+        return p;
+    })
+}   </pre>
+    <h5>方法二：利用Promise.race方法</h5>
+    <pre>
+var oldFetchfn = fetch; //拦截原始的fetch方法
+window.fetch = function(input, opts){//定义新的fetch方法，封装原有的fetch方法
+    var fetchPromise = oldFetchfn(input, opts);
+    var timeoutPromise = new Promise(function(resolve, reject){
+        setTimeout(()=>{
+             reject(new Error("fetch timeout"))
+        }, opts.timeout)
+    });
+    retrun Promise.race([fetchPromise, timeoutPromise])
+}  </pre>
+    <p>最后，对fetch的timeout的上述实现方式补充几点：</p>
+    <p class="highlight">timeout不是请求连接超时的含义，它表示请求的response时间，包括请求的连接、服务器处理及服务器响应回来的时间；
+        fetch的timeout即使超时发生了，本次请求也不会被abort丢弃掉，它在后台仍然会发送到服务器端，只是本次请求的响应内容被丢弃而已；</p>
+    <h4>fetch不支持JSONP:</h4>
+
+
+    <h4>fetch不支持progress事件:</h4>
+
+
+    <h4>fetch跨域问题:</h4>
 
     <br/>
     <h5>参考文档:</h5>
     <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch" target="_blank">使用 Fetch(MDN)</a>,<br>
+    <a href="https://www.cnblogs.com/wonyun/p/fetch_polyfill_timeout_jsonp_cookie_progress.html" target="_blank">fetch使用的常见问题及解决办法</a>,<br>
 </div>
 
 </body>
